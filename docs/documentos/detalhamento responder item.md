@@ -12,7 +12,7 @@
 | 1 - Selecionar uma questão.   |          |  
 |                                          | 2 - Mostrar o texto base da questão (se existir).| |
 |                                          | 3 - Mostrar o enunciado da questão.|  
-|                                          | 4 - Mostrar a imagem da questão (se existir). Se a questão for objetiva, segue *Fluxo Alternativo I. Senão, segue **Fluxo Alternativo II*).|  
+|                                          | 4 - Mostrar a imagem da questão (se existir). Se a questão for objetiva, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**).|  
 
 <br>
 
