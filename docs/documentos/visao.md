@@ -81,24 +81,24 @@ O sistema web IFSolve tem como objetivo atuar como banco de questões voltado pa
 
 | Código              |  Nome               |          Descrição  |  Prioridade         |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-|  F01                |  Realizar cadastro (aluno) |  Auto cadastro no sistema via identificador e senha ou e-mail Google, aplicando-se a alunos. |  5⭐ |
-|  F02                |  Realizar cadastro (elaborador) | Auto cadastro no sistema via identificador e senha ou e-mail Google, aplicando-se a elaboradores que passarão por uma análise de comprovação de sua qualificação. | 5⭐|
-|  F03                |  Iniciar sessão | Autentica o usuário através da validação do identificador e senha ou login com o Google, permitindo acesso ao sistema. | 5⭐ |
-|  F04                |  Finalizar sessão | Desconecta o usuário do sistema, impedindo qualquer outra ação dentro da plataforma. | 5⭐ |
-|  F05                |  Cadastrar questão (Elaborador) | Um elaborador submete uma questão para o sistema. | 5⭐ |
-|  F06                |  Excluir questão (administrador) | Um administrador pode excluir uma questão do sistema, decidindo entre manter ou remover essa questão das provas existentes que a utilizam. | 1⭐ |
-|  F07                |  Atualizar questão (elaborador autor) | Os dados de uma questão podem ser alterados por seu elaborador autor. | 1⭐|
-|  F08                |  Listar questões (elaborador autor) | Lista todas as questões submetidas por um determinado elaborador. | 1⭐|
-|  F09                |  Cadastrar avaliação (elaborador) | Um elaborador seleciona um conjunto de questões da plataforma e cadastra uma nova avaliação no sistema, configurando seu nível de acesso inicial. | 5⭐|
-|  F10                |  Excluir avaliação (elaborador autor) | Um elaborador apaga de forma definitiva uma avaliação do sistema. | 1⭐ |
-|  F11                |  Atualizar avaliação (elaborador autor) | Os dados de uma avaliação podem ser alterados por seu elaborador autor. | 1⭐ |
-|  F12                |  Listar avaliações (elaborador autor) | Lista todas as avaliações que um determinado elaborador já cadastrou. | 1⭐ |
-|  F13                |  Vincular usuário <-> avaliação | Um elaborador pode vincular quais alunos podem realizar uma determinada avaliação. | 4⭐ |
-|  F14                |  Realizar avaliação | Um aluno inicia uma avaliação disponível (dentro do prazo) e que está vinculada a ele. <br> Avaliações do tipo simulado não possuem prazo e não requerem que alunos estejam vinculados a ela, visto que são públicas. | 3⭐ |
-|  F15                |  Listar resultados de uma avaliação (elaborador autor) | Lista todas as respostas de cada aluno em uma avaliação. | 1⭐ |
-|  F16                |  Cadastrar resultado em avaliação (elaborador autor) | Um elaborador pode gerar um retorno (nota, mensagem etc.) sobre a avaliação de um usuário. | 1⭐ |
-|  F17                |  Cadastrar resultado em questão (elaborador autor) | Um elaborador pode gerar um retorno para cada questão de uma avaliação pertencente a um aluno. | 1⭐ |
-|  F18                |  Listar resultado (aluno) | Um aluno pode verificar o(s) resultados(s) dado(s) por um elaborador em uma prova ou questão específica que esse discente realizou. | 1⭐ |
+|  F01                |  Realização do auto cadastro (aluno) |  Auto cadastro no sistema via identificador e senha ou e-mail Google, aplicando-se à alunos. |  5⭐ |
+|  F02                |  Realização do auto cadastro (elaborador) | Auto cadastro no sistema via identificador e senha ou e-mail Google, aplicando-se a elaboradores que passarão por uma análise de comprovação de sua qualificação. | 5⭐|
+|  F03                |  Inicialização da sessão | Autentica o usuário através da validação do identificador e senha ou login com o Google, permitindo acesso ao sistema. | 5⭐ |
+|  F04                |  Finalização da sessão | Desconecta o usuário do sistema, impedindo qualquer outra ação dentro da plataforma. | 5⭐ |
+|  F05                |  Cadastramento dos itens (Elaborador) | Um elaborador submete um item para o sistema. | 5⭐ |
+|  F06                |  Exclusão do item (administrador) | Um administrador pode excluir um item do sistema, decidindo entre manter ou remover esse item das avaliações existentes que a utilizam. | 1⭐ |
+|  F07                |  Atualização do item (elaborador autor) | Os dados de um item podem ser alterados por seu elaborador autor. | 1⭐|
+|  F08                |  Listagem dos itens (elaborador autor) | Lista todas os itens submetidos por um determinado elaborador. | 1⭐|
+|  F09                |  Cadastramento da avaliação (elaborador) | Um elaborador seleciona um conjunto de itens da plataforma e cadastra uma nova avaliação no sistema, configurando seu nível de acesso inicial. | 5⭐|
+|  F10                |  Exclusão da avaliação (elaborador autor) | Um elaborador apaga de forma definitiva uma avaliação do sistema. | 1⭐ |
+|  F11                |  Atualização da avaliação (elaborador autor) | Os dados de uma avaliação podem ser alterados por seu elaborador autor. | 1⭐ |
+|  F12                |  Listagem das avaliações (elaborador autor) | Lista todas as avaliações que um determinado elaborador já cadastrou. | 1⭐ |
+|  F13                |  Vinculação usuário <-> avaliação | Um elaborador pode vincular quais alunos podem realizar uma determinada avaliação. | 4⭐ |
+|  F14                |  Realização da avaliação | Um aluno inicia uma avaliação disponível (dentro do prazo) e que está vinculada a ele. <br> Avaliações do tipo simulado não possuem prazo e não requerem que alunos estejam vinculados a ela, visto que são públicas. | 3⭐ |
+|  F15                |  Listagem dos resultados de uma avaliação (elaborador autor) | Lista todas as respostas de cada aluno em uma avaliação. | 1⭐ |
+|  F16                |  Cadastramento do resultado em uma avaliação (elaborador autor) | Um elaborador pode gerar um retorno (nota, mensagem etc.) sobre a avaliação de um usuário. | 1⭐ |
+|  F17                |  Cadastramento do resultado em um item (elaborador autor) | Um elaborador pode gerar um retorno para cada item de uma avaliação pertencente a um aluno. | 1⭐ |
+|  F18                |  Listagem do resultado (aluno) | Um aluno pode verificar o(s) resultados(s) dado(s) por um elaborador em uma avaliação ou item específicos que esse discente realizou. | 1⭐ |
 
 ## 9. Requisitos não-funcionais
 
