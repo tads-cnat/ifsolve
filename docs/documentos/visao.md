@@ -33,13 +33,13 @@ O projeto IFSolve tem como objetivo ser uma plataforma web para contribuir no â
 | **Problema**            | Ausência de um sistema próprio do IFRN, para auxiliar os professores na elaboração e aplicação de avaliações, e estudantes no processo de aprendizagem com a resolução de itens de diferentes áreas de ensino. |
 | **Afeta**               | - Os professores na falta de uma plataforma de fácil uso para aplicação de avaliações em sala de aula. <br> - Os estudantes na falta de uma plataforma para auxiliar no estudo, na fixação e revisão de conteúdos escolares. |  
 | **Impacta**             | - Um maior consumo de tempo por parte dos professores, fazendo com que seja necessário um maior esforço na elaboração e correção de avaliações. <br> - Um aprendizado mais demorado por parte dos alunos, visto que é necessário estudar um determinado conteúdo em diferentes plataformas, a fim de aprender e fixar as informações do conteúdo em questão. |
-| **Solução**             | Desenvolver um sistema web que permita conectar elaboradores para a construção de um banco de itens e aplicação de avaliações a partir de uma seleção de itens cadastrados. Além disso, possibilita aos estudantes a revisão de conteúdos com a resolução de itens específicos e de simulados previamente elaborados. | 
+| **Solução**             | Desenvolver um sistema web que permita conectar elaboradores para a construção de um banco de itens e aplicação de avaliações a partir de uma seleção de itens dos. Além disso, possibilita aos estudantes a revisão de conteúdos com a resolução de itens específicos e de simulados previamente elaborados. | 
 
 ## 3. Descrição dos usuários 
 
 | Nome                |  Descrição          |   Responsabilidade  |
 | -----------------   | -----------------   | -----------------   |
-| **Elaborador** | Usuário interessado em utilizar o banco de itens do sistema, cadastrando itens e avaliações. | - Gerenciar os próprios itens. <br> - Gerenciar as próprias avaliações. |
+| **Elaborador** | Usuário interessado em utilizar o banco de itens do sistema, elaborando itens e avaliações. | - Gerenciar os próprios itens. <br> - Gerenciar as próprias avaliações. |
 |  **Aluno**         | Usuário interessado em utilizar o banco de itens para realizar avaliações e simulados. Além disso, é permitido gerar os próprios simulados (com itens selecionados aleatoriamente pelo sistema). | - Responder avaliações, simulados e itens. <br> - Gerenciar os próprios simulados. |
 |  **Administrador**         |  Profissional que atua nas configurações do sistema e no gerenciamento  de usuários. |  - Gerenciar usuários. <br> - Validar e invalidar inscrições de elaboradores na plataforma. |
 
@@ -66,7 +66,7 @@ Os públicos-alvos dessa plataforma, que são professores e alunos, necessitam d
 Essas funcionalidades citadas não são tão comuns ou inexistem em algumas outras plataformas, como por exemplo a de criação de itens.
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Com isso, para resolver o problema em pauta, é necessário que o sistema a ser desenvolvido possibilite aos usuários cadastrar itens, avaliações e simulados a partir do banco de itens existente, além da possibilidade de responder os elementos citados. 
+Com isso, para resolver o problema em pauta, é necessário que o sistema a ser desenvolvido possibilite aos usuários Elaborar itens, avaliações e simulados a partir do banco de itens existente, além da possibilidade de responder os elementos citados. 
 <br>
 
 ## 6. Alternativas concorrentes
@@ -108,26 +108,26 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 ## 9. Casos de uso por ordem de prioridade
 
-| Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    |
-| :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-| Cadastrar item      |           x         |                     |                     |
-| Visualizar item     |           x         |                     |                     |
-| Responder item      |           x         |                     |                     |
-| Visualizar respostas de um item |    x    |                     |                     |
-| Realizar login      |           x         |                     |                     |
-| Realizar logout     |           x         |                     |                     |
-| Cadastrar avaliação   |                   |           x         |                     |
-| Visualizar avaliação  |                   |           x         |                     |
-| Aplicar avaliação     |                   |           x         |                     |
-| Realizar autocadastro |                   |           x         |                     |
-| Responder avaliação   |                   |                     |          x          |
-| Visualizar resposta em avaliação |        |                     |          x          |
-| Avaliar resposta em avaliação    |        |                     |          x          |
-| Visualizar simulado              |        |                     |          x          |
-| Realizar simulado                |        |                     |          x          |
-| Editar item           |                   |                     |          x          |
-| Editar avaliação      |                   |                     |          x          |
-| Validar elaborador    |                   |                     |          x          |
+| Código              | Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    |
+| :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
+|         CP01        | Elaborar item      |           x         |                     |                     |
+|         CP02        | Visualizar item     |           x         |                     |                     |
+|         CP03        | Responder item      |           x         |                     |                     |
+|         CP04        | Visualizar respostas de um item |    x    |                     |                     |
+|         CP05        | Realizar login      |           x         |                     |                     |
+|         CP06        | Realizar logout     |           x         |                     |                     |
+|         CP07        | Elaborar avaliação   |                   |           x         |                     |
+|         CP08        | Visualizar avaliação  |                   |           x         |                     |
+|         CP09        | Aplicar avaliação     |                   |           x         |                     |
+|         CP10        | Realizar autocadastro |                   |           x         |                     |
+|         CP11        | Responder avaliação   |                   |                     |          x          |
+|         CP12        | Visualizar resposta em avaliação |        |                     |          x          |
+|         CP13        | Avaliar resposta em avaliação    |        |                     |          x          |
+|         CP14        | Visualizar simulado              |        |                     |          x          |
+|         CP15        | Realizar simulado                |        |                     |          x          |
+|         CP16        | Editar item           |                   |                     |          x          |
+|         CP17        | Editar avaliação      |                   |                     |          x          |
+|         CP18        | Validar elaborador    |                   |                     |          x          |
 
 ## 10. Requisitos funcionais
 
@@ -137,11 +137,11 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 |  F02                |  Realização do auto cadastro (elaborador) | Auto cadastro no sistema via e-mail e senha ou via Google, aplicando-se a elaboradores que passarão por uma análise de comprovação de sua qualificação. |
 |  F03                |  Inicialização da sessão | Autentica o usuário através da validação do e-mail e senha ou do login via Google, permitindo acesso ao sistema. |
 |  F04                |  Finalização da sessão | Desconecta o usuário do sistema, impedindo qualquer outra ação dentro da plataforma. |
-|  F05                |  Cadastro de item (Elaborador) | Um elaborador submete um item para o sistema. |
+|  F05                |  Elaboração de item (Elaborador) | Um elaborador submete um item para o sistema. |
 |  F06                |  Exclusão de item (administrador) | Um administrador pode excluir um item do sistema que ainda não foi inserido em uma avaliação. |
 |  F07                |  Atualização de item (elaborador autor) | Os dados de um item podem ser alterados por seu elaborador autor. |
 |  F08                |  Listagem de item (elaborador autor) | Lista todos os itens submetidos por um determinado elaborador. |
-|  F09                |  Cadastro de avaliação (elaborador) | Um elaborador seleciona um conjunto de itens da plataforma e cadastra uma nova avaliação no sistema, configurando seu nível de acesso inicial. |
+|  F09                |  Elaboração de avaliação (elaborador) | Um elaborador seleciona um conjunto de itens da plataforma e  uma nova avaliação no sistema, configurando seu nível de acesso inicial. |
 |  F10                |  Exclusão de avaliação (elaborador autor) | Um elaborador apaga de forma definitiva uma avaliação do sistema. |
 |  F11                |  Atualização de avaliação (elaborador autor) | Os dados de uma avaliação podem ser alterados por seu elaborador autor, desde que a avaliação não tenha sido aplicada. |
 |  F12                |  Listagem de avaliação (elaborador autor) | Lista todas as avaliações que um determinado elaborador já cadastrou. |
@@ -168,12 +168,10 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 | Código              |          Descrição  |  
 | :-----------------: | :-----------------: | 
-|        RN01         | Somente usuários cadastrados podem utilizar a plataforma. |
+|        RN01         | Somente usuários dos podem utilizar a plataforma. |
 |        RN02         | Um item ou avaliação só podem ser criados pelo usuário com perfil de elaborador. |
 |        RN03         | Ao criar um item de múltipla escolha, deve-se incluir no mínimo duas alternativas contendo apenas uma correta. |
 |        RN04         | O texto e as alternativas de um item só podem ser editados caso o item ainda não tenha sido utilizado em uma avaliação. |
 |        RN05         | Ao criar uma avaliação é necessário incluir no mínimo um item. |
 |        RN06         | Um item, avaliação ou simulado só podem ser respondidos pelo usuário com perfil de aluno. |
 |        RN07         | Não é possível adicionar ou remover itens de uma avaliação que já foi aplicada. |
-
-
