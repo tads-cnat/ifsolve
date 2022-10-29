@@ -8,4 +8,4 @@ __Item__: Pergunta que deve ser cadastrada no sistema pelo _Elaborador_, podendo
 
 __Avaliação__: Conjunto de _Itens_ selecionados pelo _Elaborador_ que devem ser respondidos por um _Aluno_ dentro de um determinado prazo estabelecido pelo próprio _Elaborador_ durante a criação da mesma.
 
-__Simulado__: Criado pelo _Aluno_, é um conjunto de _Itens_ selecionados pelo sistema de acordo com as preferências de _ _Itens_ definidas pelo _Aluno_ que devem ser respondidas pelo próprio.
+__Simulado__: Criado pelo _Aluno_, é um conjunto de _Itens_ selecionados pelo sistema de acordo com as preferências (_Assuntos_ e _Tags_) dos _Itens_, definidas pelo _Aluno_, que devem ser respondidas pelo próprio.
