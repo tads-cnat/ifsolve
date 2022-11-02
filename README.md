@@ -20,6 +20,9 @@ Este é um projeto desenvolvido durante o curso de TADS (Tecnologia em Análise 
 As seguintes ferramentas foram usadas na construção do projeto front-end:
 - [React](https://pt-br.reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
+- [Tailwind](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
+- [React Router Dom V6](https://reactrouter.com/en/v6.3.0/getting-started/overview)
 > Veja o arquivo [package.json](./frontend/package.json)
 
 ## Back-end
