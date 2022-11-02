@@ -33,7 +33,7 @@ O projeto IFSolve tem como objetivo ser uma plataforma web para contribuir no â
 | **Problema**            | Ausência de um sistema próprio do IFRN, para auxiliar os professores na elaboração e aplicação de avaliações, e estudantes no processo de aprendizagem com a resolução de itens de diferentes áreas de ensino. |
 | **Afeta**               | - Os professores na falta de uma plataforma de fácil uso para aplicação de avaliações em sala de aula. <br> - Os estudantes na falta de uma plataforma para auxiliar no estudo, na fixação e revisão de conteúdos escolares. |  
 | **Impacta**             | - Um maior consumo de tempo por parte dos professores, fazendo com que seja necessário um maior esforço na elaboração e correção de avaliações. <br> - Um aprendizado mais demorado por parte dos alunos, visto que é necessário estudar um determinado conteúdo em diferentes plataformas, a fim de aprender e fixar as informações do conteúdo em questão. |
-| **Solução**             | Desenvolver um sistema web que permita conectar elaboradores para a construção de um banco de itens e aplicação de avaliações a partir de uma seleção de itens dos. Além disso, possibilita aos estudantes a revisão de conteúdos com a resolução de itens específicos e de simulados previamente elaborados. | 
+| **Solução**             | Desenvolver um sistema web que permita conectar elaboradores para a construção de um banco de itens e aplicação de avaliações a partir de uma seleção de itens criados. Além disso, possibilita aos estudantes a revisão de conteúdos com a resolução de itens específicos e de simulados previamente elaborados. | 
 
 ## 3. Descrição dos usuários 
 
@@ -110,13 +110,13 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 | Código              | Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-|         CP01        | Elaborar item      |           x         |                     |                     |
+|         CP01        | Elaborar item       |           x         |                     |                     |
 |         CP02        | Visualizar item     |           x         |                     |                     |
 |         CP03        | Responder item      |           x         |                     |                     |
 |         CP04        | Visualizar respostas de um item |    x    |                     |                     |
 |         CP05        | Realizar login      |           x         |                     |                     |
 |         CP06        | Realizar logout     |           x         |                     |                     |
-|         CP07        | Elaborar avaliação   |                   |           x         |                     |
+|         CP07        | Elaborar avaliação    |                   |           x         |                     |
 |         CP08        | Visualizar avaliação  |                   |           x         |                     |
 |         CP09        | Aplicar avaliação     |                   |           x         |                     |
 |         CP10        | Realizar autocadastro |                   |           x         |                     |
@@ -168,7 +168,7 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 | Código              |          Descrição  |  
 | :-----------------: | :-----------------: | 
-|        RN01         | Somente usuários dos podem utilizar a plataforma. |
+|        RN01         | Somente usuários cadastrados podem utilizar a plataforma. |
 |        RN02         | Um item ou avaliação só podem ser criados pelo usuário com perfil de elaborador. |
 |        RN03         | Ao criar um item de múltipla escolha, deve-se incluir no mínimo duas alternativas contendo apenas uma correta. |
 |        RN04         | O texto e as alternativas de um item só podem ser editados caso o item ainda não tenha sido utilizado em uma avaliação. |
