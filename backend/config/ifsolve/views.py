@@ -8,8 +8,7 @@ from rest_framework import status
 from rest_framework import permissions
 from .permissions import IsElaborador, IsAluno
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
-from .serializers import (ItemSerializer, AlternativaSerializer, AvaliacaoSerializer, ItemAvaliacaoSerializer, RespostaSerializer, 
-TagSerializer, AreaSerializer, UsuarioSerializer, ElaboradorSerializer, AlunoSerializer)
+from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer)
 
 class ElaborarItemView(APIView):
     """
