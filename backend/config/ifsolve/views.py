@@ -10,29 +10,38 @@ from .permissions import IsElaborador, IsAluno
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer)
 
-class ElaborarItemView(APIView):
-    """
-    View para elaboração de itens, que só pode ser acessada por elaboradores.
-    """
-    permission_classes = [permissions.IsAuthenticated, IsElaborador]
+class ItemViewSet(viewsets.ModelViewSet):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
 
-    def post(self, request):
-        serializer = ItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class RespostaItemViewSet(viewsets.ModelViewSet):
+    queryset = Resposta.objects.all()
+    serializer_class = RespostaSerializer
 
-class VisualizarItemView(APIView):
-    """
-    View para visualização de itens, que pode ser acessada por alunos e elaboradores.
-    """
-    permission_classes = [permissions.IsAuthenticated, IsElaborador | IsAluno]
+
+# class ElaborarItemView(APIView):
+#     """
+#     View para elaboração de itens, que só pode ser acessada por elaboradores.
+#     """
+#     permission_classes = [permissions.IsAuthenticated, IsElaborador]
+
+#     def post(self, request):
+#         serializer = ItemSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class VisualizarItemView(APIView):
+#     """
+#     View para visualização de itens, que pode ser acessada por alunos e elaboradores.
+#     """
+#     permission_classes = [permissions.IsAuthenticated, IsElaborador | IsAluno]
     
-    def get(self, request, id_item):
-        item = get_object_or_404(Item, pk=id_item)
-        serializer = ItemSerializer(item)
-        return Response(serializer.data)
+#     def get(self, request, id_item):
+#         item = get_object_or_404(Item, pk=id_item)
+#         serializer = ItemSerializer(item)
+#         return Response(serializer.data)
 
 # class ResponderItemView(APIView):
 #     """

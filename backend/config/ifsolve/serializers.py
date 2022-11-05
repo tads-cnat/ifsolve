@@ -94,7 +94,21 @@ class ItemAvaliacaoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class RespostaSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        
+        resposta = Resposta.objects.create(
+            aluno = Aluno.objects.get(id = RespostaSerializer.__getitem__(self, "aluno").value),            
+            item = Item.objects.get(id = RespostaSerializer.__getitem__(self, "item").value),
+            item_avaliacao = RespostaSerializer.__getitem__(self, "item_avaliacao").value,
+            resposta = RespostaSerializer.__getitem__(self, "resposta").value,
+            nota_obtida = RespostaSerializer.__getitem__(self, "nota_obtida").value,
+            data_hora = RespostaSerializer.__getitem__(self, "data_hora").value
+        )
+        
+        resposta.save()
+        return Response(RespostaSerializer.data)
+    
     class Meta:
         model = Resposta
         fields = "__all__"
-    
