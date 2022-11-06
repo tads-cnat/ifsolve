@@ -175,3 +175,4 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 |        RN05         | Ao criar uma avaliação é necessário incluir no mínimo um item. |
 |        RN06         | Um item, avaliação ou simulado só podem ser respondidos pelo usuário com perfil de aluno. |
 |        RN07         | Não é possível adicionar ou remover itens de uma avaliação que já foi aplicada. |
+|        RN08         | Para visão do aluno, por padrão os itens serão ordenados pela data de publicação do item mais recente para o mais antigo, mas o usuário poderá alterar para `assunto`, `tag` ou `área`, através de um filtro. As avaliações serão ordenadas pelo prazo de entrega mais próximo ao mais distante. Já para o elaborador, os itens e avaliações serão ordenados pela data de publicação do mais recente para o mais antigo. |
