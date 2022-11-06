@@ -1,31 +1,31 @@
-## 2. Responder Questão
-*Nome do caso de uso:* Responder Questão. <br>
+## Responder Item
+*Nome do caso de uso:* Responder Item. <br>
 *Ator principal:* Aluno. <br>
 *Atores secundários:*	<br>	 
-*Resumo:* Descreve as etapas percorridas por um aluno durante a atividade de responder uma questão. <br>
+*Resumo:* Descreve as etapas percorridas por um aluno durante a atividade de responder um item. <br>
 *Pré-condição:* Estar logado no sistema como aluno. <br>
 *Pós-Condição:* <br> <br>
 
 > ### Fluxo Principal
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-| 1 - Selecionar uma questão.   |          |  
-|                                          | 2 - Mostrar o texto base da questão (se existir).| |
-|                                          | 3 - Mostrar o enunciado da questão.|  
-|                                          | 4 - Mostrar a imagem da questão (se existir). Se a questão for objetiva, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**).|  
+| 1 - Selecionar uma item.   |             |  
+|                                          | 2 - Mostrar o texto base do item (se existir).| |
+|                                          | 3 - Mostrar o enunciado do item.|  
+|                                          | 4 - Mostrar a imagem do item (se existir). Se o item for objetivo, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**).|  
 
 <br>
 
-> ### Fluxo Alternativo I - Questão Objetiva
+> ### Fluxo Alternativo I - Item Objetivo
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
 |                                          | 4.1 - Mostrar as alternativas disponíveis.| |
 | 4.2 - Selecionar a alternativa desejada. |                       |  
-| 4.3 - Submeter resposta.  
+| 4.3 - Submeter uma resposta.  
 
 <br>
 
-> ### Fluxo Alternativo II - Questão Discursiva
+> ### Fluxo Alternativo II - Item Discursivo
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
 |                                          | 4.1 - Exibir campo de preenchimento da resposta.   | |
