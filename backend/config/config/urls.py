@@ -19,16 +19,12 @@ schema_view = swagger_get_schema_view(
 router = routers.DefaultRouter()
 router.register(r'item', views.ItemViewSet)
 router.register(r'resposta', views.RespostaItemViewSet)
+# router.register(r'respostas', views.RespostaItemViewSet.reverse_action('get_respostas', args=[r'pk']))
+
 
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-
-    # path('elaborar-item/', views.ElaborarItemView.as_view()),
-    # path('visualizar-item/<int:id_item>', views.VisualizarItemView.as_view()),
-    # path('responder-item/<int:id_item>', views.ResponderItemView.as_view()),
 ]
-
-# urlpatterns += router.urls

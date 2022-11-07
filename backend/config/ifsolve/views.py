@@ -2,8 +2,8 @@ from django.http import request
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework import status
 from rest_framework import permissions
 from .permissions import IsElaborador, IsAluno
@@ -15,8 +15,17 @@ class ItemViewSet(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
 class RespostaItemViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAluno]
     queryset = Resposta.objects.all()
     serializer_class = RespostaSerializer
+
+    @action(detail=True, methods=['get'], permission_classes=[IsAluno])
+    def get_respostas(self, request, pk=None):
+        item = get_object_or_404(Item, pk=pk)
+        respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno)
+        serializer = RespostaSerializer(respostas, many=True)
+        return Response(serializer.data)
+
 
 
 # class ElaborarItemView(APIView):
