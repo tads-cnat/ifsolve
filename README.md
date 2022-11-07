@@ -104,12 +104,12 @@ cd ./ifsolve/frontend
 
 ###### Baixe as dependências
 ```bash
-yarn install ou npm install
+yarn install
 ```
 
 ###### Inicie a aplicação
 ```bash
-yarn start ou npm start
+yarn start
 ```
 
 # Documentação
