@@ -1,0 +1,160 @@
+from rest_framework import serializers
+from django.contrib.auth.models import User
+from rest_framework.response import Response
+from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
+
+class AlunoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aluno
+        fields = "__all__"
+
+class ElaboradorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Elaborador
+        fields = "__all__"
+
+class UsuarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario
+        fields = "__all__"
+
+class AreaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Area
+        fields = "__all__"
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = "__all__"
+
+class AlternativaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Alternativa
+        fields =  "__all__"
+
+class ItemSerializer(serializers.ModelSerializer):
+    alternativa_a = AlternativaSerializer()
+    alternativa_b = AlternativaSerializer()
+    alternativa_c = AlternativaSerializer()
+    alternativa_d = AlternativaSerializer()
+    alternativa_e = AlternativaSerializer()
+
+    def create(self, validated_data):
+        obj_a = ItemSerializer.__getitem__(self, "alternativa_a")
+        obj_b = ItemSerializer.__getitem__(self, "alternativa_b")
+        obj_c = ItemSerializer.__getitem__(self, "alternativa_c")
+        obj_d = ItemSerializer.__getitem__(self, "alternativa_d")
+        obj_e = ItemSerializer.__getitem__(self, "alternativa_e")
+
+        alt_a = Alternativa.objects.create(texto = obj_a.__getitem__("texto").value, justificativa = obj_a.__getitem__("justificativa").value)
+        alt_b = Alternativa.objects.create(texto = obj_b.__getitem__("texto").value, justificativa = obj_b.__getitem__("justificativa").value)
+        alt_c = Alternativa.objects.create(texto = obj_c.__getitem__("texto").value, justificativa = obj_c.__getitem__("justificativa").value)
+        alt_d = Alternativa.objects.create(texto = obj_d.__getitem__("texto").value, justificativa = obj_d.__getitem__("justificativa").value)
+        alt_e = Alternativa.objects.create(texto = obj_e.__getitem__("texto").value, justificativa = obj_e.__getitem__("justificativa").value)
+
+        item = Item.objects.create(
+            tipo = ItemSerializer.__getitem__(self, "tipo").value,
+            visibilidade = ItemSerializer.__getitem__(self, "visibilidade").value,
+            area = Area.objects.get(id = ItemSerializer.__getitem__(self, "area").value),
+            assunto = ItemSerializer.__getitem__(self, "assunto").value,
+            titulo = ItemSerializer.__getitem__(self, "titulo").value,
+            data_publicacao = ItemSerializer.__getitem__(self, "data_publicacao").value,
+            texto_base = ItemSerializer.__getitem__(self, "texto_base").value,
+            enunciado = ItemSerializer.__getitem__(self, "enunciado").value,
+            expectativa_resposta = ItemSerializer.__getitem__(self, "expectativa_resposta").value,
+            alternativa_a = alt_a,
+            alternativa_b = alt_b,
+            alternativa_c = alt_c,
+            alternativa_d = alt_d,
+            alternativa_e = alt_e,
+            alternativa_correta = ItemSerializer.__getitem__(self, "alternativa_correta").value,
+        )
+
+        elaboradores = ItemSerializer.__getitem__(self, "elaborador").value
+        tags = ItemSerializer.__getitem__(self, "tags").value
+        
+        item.elaborador.add(*elaboradores)
+        item.tags.add(*tags)
+        item.save()
+        return Response(ItemSerializer.data)
+    
+    def update(self, instance, validated_data):
+        obj_a = ItemSerializer.__getitem__(self, "alternativa_a")
+        obj_b = ItemSerializer.__getitem__(self, "alternativa_b")
+        obj_c = ItemSerializer.__getitem__(self, "alternativa_c")
+        obj_d = ItemSerializer.__getitem__(self, "alternativa_d")
+        obj_e = ItemSerializer.__getitem__(self, "alternativa_e")
+
+        alt_a = Alternativa.objects.get(id = obj_a.__getitem__("id").value)
+        alt_b = Alternativa.objects.get(id = obj_b.__getitem__("id").value)
+        alt_c = Alternativa.objects.get(id = obj_c.__getitem__("id").value)
+        alt_d = Alternativa.objects.get(id = obj_d.__getitem__("id").value)
+        alt_e = Alternativa.objects.get(id = obj_e.__getitem__("id").value)
+
+        alt_a.texto = obj_a.__getitem__("texto").value
+        alt_a.justificativa = obj_a.__getitem__("justificativa").value
+        alt_b.texto = obj_b.__getitem__("texto").value
+        alt_b.justificativa = obj_b.__getitem__("justificativa").value
+        alt_c.texto = obj_c.__getitem__("texto").value
+        alt_c.justificativa = obj_c.__getitem__("justificativa").value
+        alt_d.texto = obj_d.__getitem__("texto").value
+        alt_d.justificativa = obj_d.__getitem__("justificativa").value
+        alt_e.texto = obj_e.__getitem__("texto").value
+        alt_e.justificativa = obj_e.__getitem__("justificativa").value
+
+        alt_a.save()
+        alt_b.save()
+        alt_c.save()
+        alt_d.save()
+        alt_e.save()
+
+        instance.tipo = ItemSerializer.__getitem__(self, "tipo").value
+        instance.visibilidade = ItemSerializer.__getitem__(self, "visibilidade").value
+        instance.area = Area.objects.get(id = ItemSerializer.__getitem__(self, "area").value)
+        instance.assunto = ItemSerializer.__getitem__(self, "assunto").value
+        instance.titulo = ItemSerializer.__getitem__(self, "titulo").value
+        instance.data_publicacao = ItemSerializer.__getitem__(self, "data_publicacao").value
+        instance.texto_base = ItemSerializer.__getitem__(self, "texto_base").value
+        instance.enunciado = ItemSerializer.__getitem__(self, "enunciado").value
+        instance.expectativa_resposta = ItemSerializer.__getitem__(self, "expectativa_resposta").value
+        instance.alternativa_a = alt_a
+        instance.alternativa_b = alt_b
+        instance.alternativa_c = alt_c
+        instance.alternativa_d = alt_d
+        instance.alternativa_e = alt_e
+        instance.alternativa_correta = ItemSerializer.__getitem__(self, "alternativa_correta").value
+
+    class Meta:
+        model = Item
+        fields = "__all__"
+
+class AvaliacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Avaliacao
+        fields = "__all__"
+
+class ItemAvaliacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ItemAvaliacao
+        fields = "__all__"
+
+class RespostaSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        
+        resposta = Resposta.objects.create(
+            aluno = Aluno.objects.get(id = RespostaSerializer.__getitem__(self, "aluno").value),            
+            item = Item.objects.get(id = RespostaSerializer.__getitem__(self, "item").value),
+            item_avaliacao = RespostaSerializer.__getitem__(self, "item_avaliacao").value,
+            resposta = RespostaSerializer.__getitem__(self, "resposta").value,
+            nota_obtida = RespostaSerializer.__getitem__(self, "nota_obtida").value,
+            data_hora = RespostaSerializer.__getitem__(self, "data_hora").value
+        )
+        
+        resposta.save()
+        return Response(RespostaSerializer.data)
+    
+    class Meta:
+        model = Resposta
+        fields = "__all__"
