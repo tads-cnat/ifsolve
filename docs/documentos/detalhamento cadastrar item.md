@@ -24,17 +24,17 @@
 
 <br>
 
-> ### Fluxo Alternativo I - Questão Objetiva
+> ### Fluxo Alternativo I - Item Múltipla Escolha
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
 | 16.1 - Inserir alternativas via texto ou imagem e informar as justificativas das alternativas concluídas. |               |   
-|                                          | 16.3 - Verificar se a questão possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
-| 16.4 - Selecionar a alternativa correta (gabarito).|             |  
-|                                          | 16.5 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
+|                                          | 16.2 - Verificar se o item possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
+| 16.3 - Selecionar a alternativa correta (gabarito).|             |  
+|                                          | 16.4 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
 
 <br>
 
-> ### Fluxo Alternativo II - Questão Discursiva
+> ### Fluxo Alternativo II - Item Discursivo
 | Ações do ator                          | Ações do sistema      |
 | :-----------------:                    | :-----------------:   | 
 | 16.1 - Inserir um texto ou imagem como expectativa de resposta.   |      |  
