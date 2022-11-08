@@ -8,42 +8,37 @@
 
 > ### Fluxo Principal
 | Ações do ator                            | Ações do sistema      |
-| :-----------------:                      | :-----------------:   | 
-| 1 - Solicitar criação do item.        |                       |  
-| 2 - Informar o título do item. |             |  
-|                                          | 3 - Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.         |  
-| 4 - Informar o assunto específico no qual o item pertence   |  
-|                                          | 5- Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.          |
-| 6 - Informar o texto base, o qual contém uma contextualização antes do enunciado do item, de forma opcional ao elaborador.            |      
-| 7 - Inserir  o enunciado do item, seu comando.|                    | 
-|                                          | 8 - Verificar se o campo de enunciado está vazio. Se for o caso, pede para o usuário preenchê-lo. |
-| 9 - Informar se o item é discursivo ou de múltipla escolha.                              |                                                                           |  
-|                                          | 10 - Retorna um formulário de criação de itens de acordo com a escolha do tipo do item. |
-| 11 - Inserir, de forma opcional, imagens para o item | 
-| 12 - Definir tags para o item. |                               | 
-|                                          | 13 - Verificar se há no mínimo uma tag selecionada para o item. Caso não haja, pede para o usuário inserir. |  
-| 14 - Selecionar entre nível de acesso público ou privado para a questão. |                                                                   | 
-| 15 - Informar a área do conhecimento a qual o item pertence.          |
-| 16- Caso o item seja de múltipla escolha, segue para o Fluxo Alternativo I, se for discursiva segue para o Fluxo Alternativo II.
-| 17 - Finalizar o cadastro do item ao clicar no botão salvar.    |                                                                                                   | 
-|                                          | 18 - Dar feedback quanto a submissão do item.                                                  |  
+| :-----------------:                      | :-----------------:   |  
+| 1 - Informar o título do item. |             |  
+|                                          | 2 - Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.         |  
+| 3 - Informar o assunto específico no qual o item pertence   |  
+|                                          | 4- Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.          |
+| 5 - Informar o texto base, o qual contém uma contextualização antes do enunciado do item, de forma opcional ao elaborador. Em seguida inserir o enunciado, comando do item, de forma obrigatória.           |      
+|                                          | 6 - Verificar se o campo de enunciado está vazio. Se for o caso, pede para o usuário preenchê-lo. |
+| 7 - Informar se o item é discursivo ou de múltipla escolha.                              |                                                                           |  
+|                                          | 8 - Retorna um formulário de criação de itens de acordo com a escolha do tipo do item. |
+| 9 - Inserir imagens para o item e logo após, definir tags, ambas as ações de forma opcional ao elaborador. |                               |   
+| 10 - Selecionar o item entre nível de acesso público ou privado, informar sua área de conhecimento e, após isso, caso o item seja de múltipla escolha, segue para o Fluxo Alternativo I, se for discursiva segue para o Fluxo Alternativo II. |                                                                   | 
+| 11 - Finalizar o cadastro do item ao clicar no botão salvar.    |                                                                                                   | 
+|                                          | 12 - Dar feedback quanto a submissão do item.                                                  |  
 
 <br>
 
 > ### Fluxo Alternativo I - Questão Objetiva
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-| 16.1 - Inserir alternativas via texto ou imagem. |               |  
-| 16.2 - Informar as justificativas das alternativas incluídas. |  |  
+| 16.1 - Inserir alternativas via texto ou imagem e informar as justificativas das alternativas concluídas. |               |   
 |                                          | 16.3 - Verificar se a questão possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
 | 16.4 - Selecionar a alternativa correta (gabarito).|             |  
+|                                          | 16.5 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
 
 <br>
 
 > ### Fluxo Alternativo II - Questão Discursiva
 | Ações do ator                          | Ações do sistema      |
 | :-----------------:                    | :-----------------:   | 
-| 16.1 - Inserir um texto ou imagem como expectativa de resposta.   |      |    
+| 16.1 - Inserir um texto ou imagem como expectativa de resposta.   |      |  
+|                                        | 16.2 - Verificar se foi determinada uma expectativa de resposta. Caso não, pede ao usuário que determine uma. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
 
 <hr>
 
