@@ -11,16 +11,34 @@ from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, Item
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer)
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.none()
     serializer_class = ItemSerializer
 
+    # @action(detail=True, methods=['get'], permission_classes=[IsAluno])
+    @action(detail=True, methods=['get'], url_path='aluno/item')
+    def alunoitem(self, request, pk = None):
+        item = Item.objects.filter(visibilidade = 'PU')
+        serializer = ItemSerializer(item, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['get'], url_path='elaborador/item')
+    def elaboradoritem(self, request, pk = None):
+        item = Item.objects.filter(elaborador=request.user.usuario.elaborador)
+        serializer = ItemSerializer(item, many=True)
+        return Response(serializer.data)
+
+    # criar método de item para uma avaliação. 
+
+
+
 class RespostaItemViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAluno]
-    queryset = Resposta.objects.all()
+    # permission_classes = [IsAluno]
+    queryset = Resposta.objects.none()
     serializer_class = RespostaSerializer
 
-    @action(detail=True, methods=['get'], permission_classes=[IsAluno])
-    def get_respostas(self, request, pk=None):
+    # @action(detail=True, methods=['get'], permission_classes=[IsAluno])
+    @action(detail=True, methods=['get'])
+    def resposta(self, request, pk=None):
         item = get_object_or_404(Item, pk=pk)
         respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno)
         serializer = RespostaSerializer(respostas, many=True)
