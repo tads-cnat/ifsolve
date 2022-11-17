@@ -17,10 +17,8 @@
 |                                          | 6 - Verificar se o campo de enunciado está vazio. Se for o caso, pede para o usuário preenchê-lo. |
 | 7 - Informar se o item é discursivo ou de múltipla escolha.                              |                                                                           |  
 |                                          | 8 - Retorna um formulário de criação de itens de acordo com a escolha do tipo do item. |
-| 9 - Inserir imagens para o item e logo após, definir tags, ambas as ações de forma opcional ao elaborador.
-Como também selecionar o item entre nível de acesso público ou privado, informar sua área de conhecimento e, após isso, caso o item seja de múltipla escolha, segue para o Fluxo Alternativo I, se for discursiva segue para o Fluxo Alternativo II. |                               |   
-| 10 - Finalizar o cadastro do item ao clicar no botão salvar.    |                                                                                                   | 
-|                                          | 11 - Dar feedback quanto a submissão do item.                                                  |  
+| 9 - Inserir imagens para o item e logo após, definir tags, ambas as ações de forma opcional ao elaborador. Como também selecionar o item entre nível de acesso público ou privado, informar sua área de conhecimento e, após isso, caso o item seja de múltipla escolha, segue para o Fluxo Alternativo I, se for discursiva segue para o Fluxo Alternativo II. Feito isso, finalizar o cadastro do item ao clicar no botão salvar. |                                      
+|                                          | 10 - Dar feedback quanto a submissão do item.                                                  |  
 
 <br>
 
