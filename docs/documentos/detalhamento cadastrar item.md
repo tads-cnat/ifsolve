@@ -28,7 +28,7 @@
 | 9.1 - Inserir alternativas via texto ou imagem e informar as justificativas das alternativas concluídas. |               |   
 |                                          | 9.2 - Verificar se o item possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
 | 9.3 - Selecionar a alternativa correta (gabarito).|             |  
-|                                          | 9.4 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
+|                                          | 9.4 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o passo 10 do fluxo principal para finalizar o cadastro do item. |
 
 <br>
 
@@ -36,7 +36,7 @@
 | Ações do ator                          | Ações do sistema      |
 | :-----------------:                    | :-----------------:   | 
 | 9.1 - Inserir um texto ou imagem como expectativa de resposta.   |      |  
-|                                        | 9.2 - Verificar se foi determinada uma expectativa de resposta. Caso não, pede ao usuário que determine uma. Em seguida, retorna-se para o fluxo principal para finalizar o cadastro do item. |
+|                                        | 9.2 - Verificar se foi determinada uma expectativa de resposta. Caso não, pede ao usuário que determine uma. Em seguida, retorna-se para o passo 10 do fluxo principal para finalizar o cadastro do item. |
 
 <hr>
 
