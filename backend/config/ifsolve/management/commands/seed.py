@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('seeding data...')
 
-        '''
+        
         logging.basicConfig(encoding='utf-8', level=logging.DEBUG)
         verbosity = options['verbosity']
         print(verbosity, type(verbosity))
@@ -38,7 +38,8 @@ class Command(BaseCommand):
             logging.basicConfig(encoding='utf-8', level=logging.INFO)
         elif verbosity == 3:
             logging.basicConfig(encoding='utf-8', level=logging.DEBUG)
-        '''
+        
+        
         run_seed(self, options['mode'])
         self.stdout.write('done.')
 
@@ -73,7 +74,7 @@ def clear_data():
 
     logging.warning("Delete itens instances")
     for item in Item.objects.all():
-        item.elaborador.clear()
+        item.co_elaboradores.clear()
         item.tags.clear()
     Item.objects.all().delete()
 
@@ -190,6 +191,7 @@ def create_item(st_number):
 
     item = Item()
     lista_elaboradores = Elaborador.objects.all()
+    qtd_co_elaboradores = random.randint(0, len(lista_elaboradores) - 1)
     lista_areas = Area.objects.all()
     lista_tags = Tag.objects.all()
     lista_alternativas = Alternativa.objects.all()
@@ -340,7 +342,21 @@ def create_item(st_number):
         item.alternativa_e = alternativa_e
         item.alternativa_correta = random.choice(['a', 'b', 'c', 'd', 'e'])
 
-    item.elaborador.add(random.choice(lista_elaboradores))
+
+    elaborador_item = random.choice(lista_elaboradores)
+    while (hasattr(elaborador_item, "item")):
+        elaborador_item = random.choice(lista_elaboradores)
+
+    item.elaborador = elaborador_item
+    co_elaboradores_adicionados = []
+    co_elaboradores_adicionados.append(elaborador_item)
+
+    for i in range(qtd_co_elaboradores):
+        co_elaborador = random.choice(lista_elaboradores)
+        if (co_elaborador not in co_elaboradores_adicionados):
+            co_elaboradores_adicionados.append(co_elaborador)
+            item.co_elaboradores.add(co_elaborador)
+
     item.save()
     logging.info(f"{item} item created.")
     return item
@@ -392,8 +408,8 @@ def run_seed(self, mode):
     for i in range(students_qtd):
         create_student(i+1)
 
-    # Creating 2 setters
-    setter_qtd = 2
+    # Creating 20 setters
+    setter_qtd = 20
     logging.warning(f'Creating {setter_qtd:d} setters')
     for i in range(setter_qtd):
         create_setter(i+1)
