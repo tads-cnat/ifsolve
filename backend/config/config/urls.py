@@ -19,8 +19,6 @@ schema_view = swagger_get_schema_view(
 router = routers.DefaultRouter()
 router.register(r'item', views.ItemViewSet)
 router.register(r'resposta', views.RespostaItemViewSet)
-# router.register(r'respostas', views.RespostaItemViewSet.reverse_action('get_respostas', args=[r'pk']))
-
 
 urlpatterns = [
     path('', include(router.urls)),

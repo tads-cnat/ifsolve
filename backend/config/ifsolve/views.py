@@ -1,11 +1,9 @@
 from django.http import request
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets
+from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from rest_framework import status
-from rest_framework import permissions
 from .permissions import IsElaborador, IsAluno
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer)
@@ -48,7 +46,6 @@ class ItemViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class RespostaItemViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAluno]
     queryset = Resposta.objects.none()
@@ -61,7 +58,6 @@ class RespostaItemViewSet(viewsets.ModelViewSet):
         respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno)
         serializer = RespostaSerializer(respostas, many=True)
         return Response(serializer.data)
-
 
 
 # class ElaborarItemView(APIView):
