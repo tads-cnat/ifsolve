@@ -94,7 +94,7 @@ def create_student(st_number):
 
     username = f'aluno{st_number:05d}'
     email = f'{username}@email.com'
-    password = f'P{username}@'
+    password = f'{username}@'
     birth_date = datetime.date(
         random.randint(2000, 2020),
         random.randint(1, 12),
@@ -121,7 +121,7 @@ def create_setter(st_number):
 
     username = f'elaborador{st_number:05d}'
     email = f'{username}@email.com'
-    password = f'P{username}@'
+    password = f'{username}@'
     birth_date = datetime.date(
         random.randint(1980, 2000),
         random.randint(1, 12),
