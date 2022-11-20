@@ -68,7 +68,8 @@ class Item(models.Model):
         ('IN', 'Inativo')
     ]
 
-    elaborador = models.ManyToManyField(Elaborador)
+    elaborador = models.OneToOneField(Elaborador, on_delete = models.SET_NULL, null = True)
+    co_elaboradores = models.ManyToManyField(Elaborador, related_name = "co_elaboradores")
     tipo = models.CharField(max_length=2, choices=tipo_opcao)
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
     area = models.ForeignKey(Area, related_name='tracks', on_delete=models.SET_NULL, null=True)
