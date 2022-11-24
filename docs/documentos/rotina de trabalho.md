@@ -15,5 +15,8 @@ Além de criar issues, através da plataforma do GitHub, no primeiro dia da sema
 ### _• Prática:_ <h3>
 Ao decorrer da semana realizamos as issues que cada desenvolvedor ficou proposto a realizar, seja na parte de documentação  ou no próprio código e utilizamos como canal de comunicação do cotidiano, para tirarmos dúvidas e nos sincronizarmos, o aplicativo Whatsapp e, para reuniões gerais a fim de decidir algum ponto específico, o Google Meet.
 
+### _• Pápeis:_ <h3>
+Nossa equipe está dividida em back-end e front-end e há dois gerentes, um em cada categoria. Na equipe do back-end temos Alcides, Israel e Raphael(gerente). Já na equipe do front-end temos como integrantes Erick, Lívia e Diogo(gerente).
+
 ### _• Entrega e análise:_  <h3>
 Passada a semana, nos reunimos, novamente, e mostramos o nosso progresso em relação ao acordado, anteriormente, e analisando se foi suprido o objetivo definido. Feito isso e, obtendo sucesso nas tarefas, temos a build criada e então voltamos a etapa de planejamento.
