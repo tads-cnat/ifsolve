@@ -58,7 +58,7 @@ class Area(models.Model):
 
 class Item(models.Model):
     tipo_opcao = [
-        ('OB', 'Objetiva'),
+        ('ME', 'MultiplaEscolha'),
         ('DI', 'Discursiva')
     ]
 
@@ -68,8 +68,8 @@ class Item(models.Model):
         ('IN', 'Inativo')
     ]
 
-    elaborador = models.OneToOneField(Elaborador, on_delete = models.SET_NULL, null = True)
-    co_elaboradores = models.ManyToManyField(Elaborador, related_name = "co_elaboradores")
+    elaborador = models.ForeignKey(Elaborador, on_delete = models.SET_NULL, null = True)
+    co_elaboradores = models.ManyToManyField(Elaborador, related_name = "co_elaboradores", blank = True)
     tipo = models.CharField(max_length=2, choices=tipo_opcao)
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
     area = models.ForeignKey(Area, related_name='tracks', on_delete=models.SET_NULL, null=True)
