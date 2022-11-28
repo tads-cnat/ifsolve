@@ -43,6 +43,13 @@ class ItemViewSet(viewsets.ModelViewSet):
         serializer = ItemSerializer(item)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'], url_path='(?P<pk>[^/.]+)/aluno', permission_classes=[IsAluno])
+    def visualizarItem(self, request, pk=None):
+        queryset = Item.objects.all()
+        item = get_object_or_404(queryset, pk=pk)
+        serializer = ItemSerializer(item)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['get'], url_path='aluno', permission_classes=[IsAluno])
     def alunoItens(self, request, pk = None):
         #View para o aluno ver todos os itens públicos
