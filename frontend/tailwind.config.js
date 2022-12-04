@@ -1,12 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
     colors:{
       transparent: 'transparent',
+      white: '#FFFFFF',
+      slate: colors.slate,
       'primary-100':'#26D189',
       'primary-80':'#51DAA1',
       'primary-60':'#7DE3B8',
