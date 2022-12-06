@@ -4,6 +4,7 @@ from rest_framework import routers
 from ifsolve import views
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view as swagger_get_schema_view
+from ifsolve.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenVerifyView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -19,6 +20,7 @@ schema_view = swagger_get_schema_view(
         description = "API para o projeto IFSolve",
     ),
     public = True,
+    permission_classes = (AllowAny,),   
 )
 
 router = routers.DefaultRouter()
