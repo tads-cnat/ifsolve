@@ -1,6 +1,9 @@
 import { FiHome, FiList } from "react-icons/fi";
 
 import { Sidebar, SidebarItem } from "./components";
+
+import {Itens} from "./pages";
+
 function App() {
   return (
     <div className="App">
@@ -9,8 +12,8 @@ function App() {
           <SidebarItem icon={<FiHome></FiHome>} title="Provas"></SidebarItem>
           <SidebarItem icon={<FiList></FiList>} title="Questões"></SidebarItem>
         </Sidebar>
-        <div className="w-auto">
-          <h1>App</h1>
+        <div className="w-full">
+          <Itens></Itens>
         </div>
       </div>
     </div>
