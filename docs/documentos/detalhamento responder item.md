@@ -9,27 +9,25 @@
 > ### Fluxo Principal
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-| 1 - Selecionar uma item.   |             |  
-|                                          | 2 - Mostrar o texto base do item (se existir).| |
-|                                          | 3 - Mostrar o enunciado do item.|  
-|                                          | 4 - Mostrar a imagem do item (se existir). Se o item for objetivo, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**).|  
+| 1 - Selecionar um item.   |             |  
+|                                          | 2 - Mostrar o texto base e a imagem do item caso existam, além do enunciado. Se o item for de múltipla escolha, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**. | |
+| 3 - Submeter a resposta. |                       |  
+|                                          | 4 - Realizar feedback quanto ao envio da resposta do aluno para o item. Em caso de item de múltipla escolha, informar se a resposta fornecida está certa ou errada, além de listar o histórico de respostas dadas pelo aluno para o mesmo item respondido. Por outro lado, em caso de item discursivo, apenas expor o histórico de respostas fornecidas pelo aluno para o mesmo item respondido. | |
 
 <br>
 
-> ### Fluxo Alternativo I - Item Objetivo
+> ### Fluxo Alternativo I - Item de Múltipla Escolha
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-|                                          | 4.1 - Mostrar as alternativas disponíveis.| |
-| 4.2 - Selecionar a alternativa desejada. |                       |  
-| 4.3 - Submeter uma resposta.  
+|                                          | 2.1 - Mostrar as alternativas disponíveis. | |
+| 2.2 - Selecionar a alternativa desejada. |                       |  
+|                                          | 2.3 - Verificar se alguma alternativa foi selecionada. Em seguida, retorna-se para o passo 3 do fluxo principal para o envio da resposta ser realizado. | |
 
 <br>
 
 > ### Fluxo Alternativo II - Item Discursivo
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-|                                          | 4.1 - Exibir campo de preenchimento da resposta.   | |
-|                                          | 4.2 - Exibir opção de anexar imagem como resposta. | |
-| 4.3 - Inserir texto ou uma imagem como resposta. |               |  
-|                                          | 4.3 - Verificar se o campo de texto está vazio e se nenhuma imagem foi anexada. Se for o caso de ambos estarem inválidos, solicita ao usuário que informe a resposta de algum dos dois modos.| |
-| 4.4 - Submeter resposta.                 |                       |
+|                                          | 2.1 - Exibir campo de texto para preenchimento da resposta, além da opção de anexar imagem como resposta.   | |
+| 2.2 - Inserir texto ou um imagem como resposta. |               |  
+|                                          | 2.3 - Verificar se o campo de texto está vazio e se nenhuma imagem foi anexada. Se for o caso de ambos estarem inválidos, solicita ao usuário que informe a resposta de algum dos dois modos. Em caso de preenchimento válido, retorna-se para o passo 3 do fluxo principal para o envio da resposta ser realizado. | |
