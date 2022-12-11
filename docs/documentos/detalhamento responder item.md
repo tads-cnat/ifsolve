@@ -12,7 +12,7 @@
 | 1 - Selecionar um item.   |             |  
 |                                          | 2 - Mostrar o texto base e a imagem do item caso existam, além do enunciado. Se o item for de múltipla escolha, segue **Fluxo Alternativo I**. Senão, segue **Fluxo Alternativo II**. | |
 | 3 - Submeter a resposta. |                       |  
-|                                          | 4 - Realizar feedback quanto ao envio da resposta do aluno para o item. Em caso de item de múltipla escolha, informar se a resposta fornecida está certa ou errada, além de listar o histórico de respostas dadas pelo aluno para o mesmo item respondido. Por outro lado, em caso de item discursivo, apenas expor o histórico de respostas fornecidas pelo aluno para o mesmo item respondido. | |
+|                                          | 4 - Realizar feedback quanto ao envio da resposta do aluno para o item. Em caso de item de múltipla escolha, informar o gabarito, além de listar o histórico de respostas dadas pelo aluno para o mesmo item respondido. Por outro lado, em caso de item discursivo, expor a expectativa de resposta e o histórico de respostas fornecidas pelo aluno para o mesmo item respondido. | |
 
 <br>
 
