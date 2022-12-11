@@ -1,12 +1,20 @@
 import { useState, createContext } from "react"
 
-const GlobalContext = createContext([])
+export const GlobalContext = createContext([])
 
 function GlobalProvider(props) {
     const [getItens, setItens] = useState([]);
+    const [getAccess, setAccess] = useState(null);
+
 
     return (
-        <GlobalContext.Provider value={{ getItens, setItens }}>
+        <GlobalContext.Provider
+            value={{
+                getItens,
+                setItens,
+                getAccess,
+                setAccess
+            }}>
             {props.children}
         </GlobalContext.Provider>
     )
