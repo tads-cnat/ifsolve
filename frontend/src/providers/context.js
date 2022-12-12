@@ -4,6 +4,7 @@ export const GlobalContext = createContext([])
 
 function GlobalProvider(props) {
     const [getItens, setItens] = useState([]);
+    const [getListItens, setListItens] = useState([]);
     const [getAccess, setAccess] = useState(null);
 
 
@@ -12,6 +13,8 @@ function GlobalProvider(props) {
             value={{
                 getItens,
                 setItens,
+                getListItens,
+                setListItens,
                 getAccess,
                 setAccess
             }}>

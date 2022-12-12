@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FiX, FiSearch } from "react-icons/fi";
+import { api } from "../../api/config";
 
 export default function Itens() {
     const [itens, setItens] = useState([]);
@@ -15,7 +16,7 @@ export default function Itens() {
     const [getExpectativaResposta, setExpectativaResposta] = useState("");
 
     useEffect(() => {
-        axios.post("http://127.0.0.1:8000/login/", {
+        api.post("login/", {
             "username": "diogo",
             "password": "19111911dio"
         }).then((res) => {
@@ -24,7 +25,6 @@ export default function Itens() {
     }, [])
 
     function getItems() {
-        console.log("Get Items");
         axios.get("http://127.0.0.1:8000/item/elaborador/",
             {
                 headers: {
@@ -111,6 +111,7 @@ export default function Itens() {
         <div id="itens" className="p-5 w-full flex flex-col">
             <div className="flex gap-4 mb-5">
                 <h1 className="text-3xl font-bold">Questões</h1>
+                {process.env.baseURL}
                 <button onClick={(e) => setHandleForm(true)} className="bg-primary-80 rounded-lg hover:bg-primary-100 w-8 h-8">+</button>
             </div>
 
