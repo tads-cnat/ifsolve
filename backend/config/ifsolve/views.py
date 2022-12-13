@@ -4,9 +4,37 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.authtoken.models import Token
 from .permissions import IsElaborador, IsAluno, AllowAny
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
-from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer)
+from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
+                        ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, LoginSerializer)
+
+class AuthViewSet(viewsets.GenericViewSet):
+    permission_classes = []
+    serializer_class = None
+
+    @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[AllowAny])
+    def login(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = User.objects.filter(username=username)
+
+        if not user.exists():
+            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user = user.first()
+        if not user.check_password(password):
+            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key}, status=status.HTTP_200_OK)
+
+    
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def logout(self, request):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
 class CadastroAlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()

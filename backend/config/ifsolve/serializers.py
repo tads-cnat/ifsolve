@@ -4,6 +4,10 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+
 class AlunoSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
 
