@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SidebarLayout } from "../../components";
+import { SidebarLayout, TagInput } from "../../components";
 import { FiCheckSquare, FiAlignLeft } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 
@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 export default function CriarItem() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    function formSubmit(data) {
+    function formSubmit(e, data) {
         console.log(data);
     }
 
@@ -28,6 +28,7 @@ export default function CriarItem() {
                 <h2 className="text-3xl">Nova questão</h2>
                 <form onSubmit={handleSubmit(formSubmit)}>
 
+                    {/* Tipo */}
                     <div className="mb-5">
                         <label>Tipo</label>
                         <select name="tipo" {...register("tipo")}>
@@ -36,6 +37,7 @@ export default function CriarItem() {
                         </select>
                     </div>
 
+                    {/* Visibilidade */}
                     <div className="mb-5">
                         <label>Visibilidade</label>
                         <select name="visibilidade" {...register("visibilidade")}>
@@ -44,23 +46,55 @@ export default function CriarItem() {
                         </select>
                     </div>
 
+                    {/* Assunto */}
+                    <div className="mb-5">
+                        <label>Assunto</label>
+                        <input type="text" name="assunto" {...register("assunto")} />
+                    </div>
+
+                    {/* Titulo */}
                     <div className="mb-5">
                         <label>Titulo</label>
                         <input type="text" name="titulo" {...register("titulo")} />
                     </div>
 
-                    <button type="submit">Cadastrar</button>
-                    {/* Tipo */}
-                    {/* Visibilidade */}
-                    {/* Assunto */}
-                    {/* Titulo */}
                     {/* Texto base */}
+                    <div className="mb-5">
+                        <label>Texto base</label>
+                        <textarea name="texto-base" {...register("texto-base")}></textarea>
+                    </div>
+
                     {/* Enunciado */}
+                    <div className="mb-5">
+                        <label>Enunciado</label>
+                        <textarea name="enunciado" {...register("enunciado")}></textarea>
+                    </div>
+
                     {/* Expectativa resposta */}
+                    <div className="mb-5">
+                        <label>Expectativa de resposta</label>
+                        <textarea name="expectativa-resposta" {...register("expectativa-resposta")}></textarea>
+                    </div>
+
                     {/* Alternativa correta */}
+
                     {/* Alternativas */}
+
                     {/* Area */}
+                    <div className="mb-5">
+                        <label>Area</label>
+                        <input type="text" name="area" {...register("area")} />
+                    </div>
+
                     {/* Tags */}
+
+                    <TagInput></TagInput>
+                    <div className="mb-5">
+                        <label>Tags</label>
+                        <input type="text" name="tags" {...register("tags")} />
+                    </div>
+
+                    <button type="submit" className="px-5 py-2 bg-primary-80 hover:bg-primary-100">Cadastrar</button>
                 </form>
             </div>
 
