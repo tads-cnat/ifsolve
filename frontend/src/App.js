@@ -8,11 +8,11 @@ export default function App() {
   const { setAccess, getAccess } = useContext(GlobalContext)
 
   useEffect(() => {
-    api.post("login/", {
+    api.post("auth/login/", {
       "username": "diogo",
       "password": "19111911dio"
     }).then((res) => {
-      setAccess(res.data.access)
+      setAccess(res.data.token)
     })
   }, [])
 

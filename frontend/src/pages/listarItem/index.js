@@ -7,16 +7,18 @@ export default function ListarItem() {
     const { getAccess, getItens, setItens, getListItens, setListItens } = useContext(GlobalContext);
 
     function getItems() {
-        api.get("item/elaborador/",
-            {
-                headers: {
-                    "Authorization": "Bearer " + getAccess,
-                }
-            },
-        ).then((res) => {
-            setItens([...res.data].reverse());
-            setListItens([...res.data].reverse());
-        })
+        if (getAccess != null) {
+            api.get("item/elaborador/",
+                {
+                    headers: {
+                        "Authorization": "Token " + getAccess,
+                    }
+                },
+            ).then((res) => {
+                setItens([...res.data].reverse());
+                setListItens([...res.data].reverse());
+            })
+        }
     }
 
     useEffect(() => {
