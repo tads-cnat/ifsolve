@@ -120,3 +120,8 @@ class RespostaItemViewSet(viewsets.ModelViewSet):
             serializer.save(item=item, aluno=request.user.usuario.aluno)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TagViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsElaborador]
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
