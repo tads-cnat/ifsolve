@@ -123,5 +123,23 @@ class RespostaItemViewSet(viewsets.ModelViewSet):
 
 class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [IsElaborador]
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.none()
     serializer_class = TagSerializer
+
+    @action(detail=False, methods=['get','post'], url_path='item/(?P<item_id>[^/.]+)')
+    def tag(self, request, pk=None, item_id=None):
+        if request.method == 'GET':
+            # Visualizar as tags de um item
+            item = get_object_or_404(Item, pk=item_id)
+            tags = Tag.objects.filter(item=item)
+            serializer = TagSerializer(tags, many=True)
+            return Response(serializer.data)
+        else:
+            # Criar tags para um item
+            item = get_object_or_404(Item, pk=item_id)
+            serializer = TagSerializer(data=request.data, many=True)
+            if serializer.is_valid():
+                serializer.save(item=item)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
