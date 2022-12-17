@@ -125,10 +125,10 @@ class ItemSerializer(serializers.ModelSerializer):
             item.expectativa_resposta = ItemSerializer.__getitem__(self, "expectativa_resposta").value
 
         id_coelaboradores = ItemSerializer.__getitem__(self, "co_elaboradores").value
-        lista_tags = ItemSerializer.__getitem__(self, "tags")
+        lista_tags = ItemSerializer.__getitem__(self, "tags").value
         texto_base = ItemSerializer.__getitem__(self, "texto_base").value
         
-        for tag in lista_tags.value:
+        for tag in lista_tags:
             obj_tag = Tag.objects.create(nome = tag)
             item.tags.add(obj_tag)
 
