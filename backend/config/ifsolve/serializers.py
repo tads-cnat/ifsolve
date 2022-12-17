@@ -85,6 +85,7 @@ class ItemSerializer(serializers.ModelSerializer):
     alternativa_d = AlternativaSerializer(required = False)
     alternativa_e = AlternativaSerializer(required = False)
     data_publicacao = serializers.DateTimeField(required = False)
+    tags = serializers.ListField(required = False)
 
     def create(self, validated_data):
         item = Item.objects.create(
@@ -124,11 +125,12 @@ class ItemSerializer(serializers.ModelSerializer):
             item.expectativa_resposta = ItemSerializer.__getitem__(self, "expectativa_resposta").value
 
         id_coelaboradores = ItemSerializer.__getitem__(self, "co_elaboradores").value
-        tags = ItemSerializer.__getitem__(self, "tags").value
+        lista_tags = ItemSerializer.__getitem__(self, "tags")
         texto_base = ItemSerializer.__getitem__(self, "texto_base").value
         
-        if (tags != None):
-            item.tags.add(*tags)
+        for tag in lista_tags.value:
+            obj_tag = Tag.objects.create(nome = tag)
+            item.tags.add(obj_tag)
 
         if (id_coelaboradores != None):
             item.co_elaboradores.add(*id_coelaboradores)
