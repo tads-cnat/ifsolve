@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
+from datetime import datetime    
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -78,6 +79,13 @@ class AlternativaSerializer(serializers.ModelSerializer):
         fields =  "__all__"
 
 class ItemSerializer(serializers.ModelSerializer):
+    alternativa_a = AlternativaSerializer(required = False)
+    alternativa_b = AlternativaSerializer(required = False)
+    alternativa_c = AlternativaSerializer(required = False)
+    alternativa_d = AlternativaSerializer(required = False)
+    alternativa_e = AlternativaSerializer(required = False)
+    data_publicacao = serializers.DateTimeField(required = False)
+    tags = serializers.ListField(required = False)
 
     def create(self, validated_data):
         item = Item.objects.create(
@@ -86,7 +94,7 @@ class ItemSerializer(serializers.ModelSerializer):
             area = Area.objects.get(id = ItemSerializer.__getitem__(self, "area").value),
             assunto = ItemSerializer.__getitem__(self, "assunto").value,
             titulo = ItemSerializer.__getitem__(self, "titulo").value,
-            data_publicacao = ItemSerializer.__getitem__(self, "data_publicacao").value,
+            data_publicacao = datetime.now(),
             enunciado = ItemSerializer.__getitem__(self, "enunciado").value,
         )
 
@@ -111,17 +119,18 @@ class ItemSerializer(serializers.ModelSerializer):
             item.alternativa_c = alt_c
             item.alternativa_d = alt_d
             item.alternativa_e = alt_e
+            item.alternativa_correta = ItemSerializer.__getitem__(self, "alternativa_correta").value
 
         elif (tipo == "DI"):
             item.expectativa_resposta = ItemSerializer.__getitem__(self, "expectativa_resposta").value
-            item.alternativa_correta = ItemSerializer.__getitem__(self, "alternativa_correta").value
 
         id_coelaboradores = ItemSerializer.__getitem__(self, "co_elaboradores").value
-        tags = ItemSerializer.__getitem__(self, "tags").value
+        lista_tags = ItemSerializer.__getitem__(self, "tags").value
         texto_base = ItemSerializer.__getitem__(self, "texto_base").value
         
-        if (tags != None):
-            item.tags.add(*tags)
+        for tag in lista_tags:
+            obj_tag = Tag.objects.create(nome = tag)
+            item.tags.add(obj_tag)
 
         if (id_coelaboradores != None):
             item.co_elaboradores.add(*id_coelaboradores)
