@@ -35,15 +35,15 @@ class Alternativa(models.Model):
 
 
 class Tag(models.Model):
-    nome = models.CharField(max_length=30)
+    nome = models.CharField(max_length=100)
 
     def __str__(self):
         return self.nome
 
 
 class Area(models.Model):
-    codigo = models.CharField("Código", max_length=15)
-    nome = models.CharField(max_length=50)
+    codigo = models.CharField("Código", max_length=50)
+    nome = models.CharField(max_length=200)
     descricao = models.TextField("Descrição")
     subarea_de = models.ForeignKey(
         'Area',
@@ -73,8 +73,8 @@ class Item(models.Model):
     tipo = models.CharField(max_length=2, choices=tipo_opcao)
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
     area = models.ForeignKey(Area, related_name='tracks', on_delete=models.SET_NULL, null=True)
-    assunto = models.CharField(max_length=50)
-    titulo = models.CharField("Título", max_length=50)
+    assunto = models.CharField(max_length=200)
+    titulo = models.CharField("Título", max_length=200)
     data_publicacao = models.DateTimeField("Data de publicação")
     texto_base = models.TextField(null=True, blank=True)
     enunciado = models.TextField()
@@ -131,7 +131,7 @@ class Avaliacao(models.Model):
         ('PU', 'Publico'),
         ('PR', 'Privado')
     ]
-    titulo = models.CharField("Título", max_length=100)
+    titulo = models.CharField("Título", max_length=200)
     descricao = models.TextField("Descrição")
     data_inicio = models.DateTimeField(blank=True, null=True)
     data_fim = models.DateTimeField(blank=True, null=True)
