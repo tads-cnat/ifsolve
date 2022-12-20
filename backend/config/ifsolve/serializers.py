@@ -129,7 +129,10 @@ class ItemSerializer(serializers.ModelSerializer):
         texto_base = ItemSerializer.__getitem__(self, "texto_base").value
         
         for tag in lista_tags:
-            obj_tag = Tag.objects.create(nome = tag["nome"])
+            if(Tag.objects.filter(nome = tag["nome"]).exists()):
+                obj_tag = Tag.objects.get(nome = tag["nome"])
+            else:
+                obj_tag = Tag.objects.create(nome = tag["nome"])
             item.tags.add(obj_tag)
 
         if (id_coelaboradores != None):
