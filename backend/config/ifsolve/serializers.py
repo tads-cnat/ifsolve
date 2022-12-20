@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
-from datetime import datetime    
+from datetime import datetime
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -85,7 +85,7 @@ class ItemSerializer(serializers.ModelSerializer):
     alternativa_d = AlternativaSerializer(required = False)
     alternativa_e = AlternativaSerializer(required = False)
     data_publicacao = serializers.DateTimeField(required = False)
-    tags = serializers.ListField(required = False)
+    tags = TagSerializer(required = False, many = True)
 
     def create(self, validated_data):
         item = Item.objects.create(
@@ -129,7 +129,7 @@ class ItemSerializer(serializers.ModelSerializer):
         texto_base = ItemSerializer.__getitem__(self, "texto_base").value
         
         for tag in lista_tags:
-            obj_tag = Tag.objects.create(nome = tag)
+            obj_tag = Tag.objects.create(nome = tag["nome"])
             item.tags.add(obj_tag)
 
         if (id_coelaboradores != None):
