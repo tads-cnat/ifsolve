@@ -38,9 +38,7 @@ Para executar o projeto você vai precisar ter instalado em sua máquina as segu
 - [Git](https://git-scm.com)
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/) 
-- [Python](https://www.python.org/) 
-  - Versão usada no desenvolvimento: 3.10
-- [Pip](https://pypi.org/project/pip/)
+- [Docker](https://docs.docker.com/get-docker/)
 - Editor de código sugerido: [VSCode](https://code.visualstudio.com/)
 
 ### Clonando o repositório via HTTPS
@@ -54,46 +52,20 @@ $ git clone git@github.com:tads-cnat/ifsolve.git
 ```
 
 ### Executando o projeto back-end
-###### Acesse o diretório do back-end
-```bash
-cd ./ifsolve/backend
-```
+O projeto web e o banco de dados foram constrídos em containers Docker.
+É necessário estar com o Docker Desktop rodando na máquina.
 
-###### Crie um ambiente virtual
-```bash
-python -m venv venv
-```
-- Caso os comandos utilizando `python` não funcione, tente utilizar `python3`
+Dentro do diretório */backend* (onde o arquivo docker-compose.yml foi criado), rodar os comandos:
 
-###### Ative o ambiente virtual criado
-```sh
-source venv/bin/activate
-```
+    docker-compose build
+    docker-compose up
 
-###### Instale os pacotes de desenvolvimento
-```bash
-pip install -r requirements.txt
-```
+Para rodar comandos dentro do container, enquanto o projeto estiver rodando, usar o comando
+`docker exec -it backend_web_1 sh` para abrir o terminal.
 
-###### Acesse o diretório config
-```bash
-cd ./config
-```
+O banco de dados local ficará disponível para acesso na porta *5433*, mas se caso a porta já estiver ocupada na sua máquina, pode mudar no arquivo *docker-compose.yml*, na linha 13, e rodar o comando `docker-compose up`. 
 
-###### Realize as migrações
-```bash
-python manage.py makemigrations
-```
-
-```bash
-python manage.py migrate
-```
-
-##### Execute em modo desenvolvimento
-```sh
-python manage.py runserver
-```
-Para acessar, coloque no navegador a url `http://127.0.0.1:8000/`
+O projeto estará disponível na rota `http://127.0.0.1:8000/`
 
 ### Executando o projeto front-end
 
