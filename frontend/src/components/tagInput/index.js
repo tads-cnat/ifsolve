@@ -1,7 +1,7 @@
 import { useState } from "react"
+import { FiX } from "react-icons/fi";
 
-export default function TagInput() {
-    const [getTags, setTags] = useState([])
+export default function TagInput({ get, set }) {
     const [getInput, setInput] = useState("");
 
     function handleChange(e) {
@@ -9,25 +9,25 @@ export default function TagInput() {
     }
     function handleKeyDown(e) {
         const trimInput = getInput.trim();
-        if ((e.key === ",") && trimInput.length > 0 && !getTags.includes(trimInput)) {
+        if ((e.key === ",") && trimInput.length > 0 && !get.includes(trimInput)) {
             console.log(e.key);
-            setTags(getTags => [...getTags, trimInput]);
+            set(get => [...get, { 'nome': trimInput }]);
             setInput("");
         }
     }
     function removeTag(e, tag) {
-        e.preventDefault();
-        setTags(getTags.filter((item) => item != tag));
+        e.preventDefault(); 
+        set(get.filter((item) => item.nome != tag));
     }
 
     return (
         <div className="tag-input mb-3">
-            <input type="text" value={getInput} placeholder="Enter a tag" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e.target.value)} className="w-full px-4 py-2 mt-2 rounded-md border-2 border-dark-10 text-primary-50 focus:border-primary-100 focus:outline-primary-100 active:border-primary-100 mb-3" />
             <div className="flex gap-2 w-100 flex-wrap">
-                {getTags.map((tag, i) =>
-                    <div key={i} className="bg-white px-2 py-1 rounded-md"><small>{tag}</small> <i onClick={(e) => removeTag(e, tag)}>x</i></div>
+                {get.map((tag, i) =>
+                    <div key={i} className="flex gap-2 bg-dark-5 px-2 py-1 rounded-md"><small className="text-xs font-medium text-dark-100">{tag.nome}</small> <i onClick={(e) => removeTag(e, tag.nome)}><FiX></FiX></i></div>
                 )}
             </div>
+            <input type="text" value={getInput} placeholder="Enter a tag" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e.target.value)} className="w-full px-4 py-2 mt-2 rounded-md border-2 border-dark-10 text-primary-50 focus:border-primary-100 focus:outline-primary-100 active:border-primary-100 mb-3" />
         </div>
     )
 }

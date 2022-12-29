@@ -1,9 +1,9 @@
 import Sidebar from "../sidebar"
 export default function SidebarLayout(props) {
     return (
-        <div className="w-full bg-dark-5 flex flex-row">
+        <div className="w-full bg-white flex flex-row">
             <Sidebar></Sidebar>
-            <div className="w-full px-5">
+            <div className="w-full h-screen px-5 overflow-y-scroll">
                 {props.children}
             </div>
         </div>

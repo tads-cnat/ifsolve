@@ -1,7 +1,9 @@
 import { useContext, useEffect } from "react"
+import { Link } from "react-router-dom";
 import { CardItem, SidebarLayout } from "../../components/"
 import { GlobalContext } from "../../providers/context"
 import { api } from "../../api/config";
+import { FiPlus } from "react-icons/fi";
 
 export default function ListarItem() {
     const { getAccess, getItens, setItens, getListItens, setListItens } = useContext(GlobalContext);
@@ -27,22 +29,27 @@ export default function ListarItem() {
 
     return (
         <SidebarLayout>
-            <h1 className="text-2xl font-bold mb-5">Questões</h1>
+            <div className="my-5">
+                <div className="flex justify-between">
+                    <h1 className="text-2xl font-bold">Questões</h1>
+                    <Link to="/criar/item" className="bg-primary-100 flex px-4 py-2 items-center gap-2 rounded-lg"><FiPlus /> Questão</Link>
+                </div>
 
-            <div className="flex justify-between mb-5">
-                <span className="basis-6/12">Encontramos <b> {getListItens.length} questões! </b>🙌</span>
-                <select id="order" className="basis-2/12 p-3 rounded-lg">
-                    <option value="volvo">Mais recentes</option>
-                    <option value="saab">Mais antigos</option>
-                </select>
-            </div>
+                <div className="flex justify-between mb-5">
+                    <span className="basis-6/12">Encontramos <b> {getListItens.length} questões! </b>🙌</span>
+                    <select id="order" className="basis-2/12 p-3 rounded-lg">
+                        <option value="volvo">Mais recentes</option>
+                        <option value="saab">Mais antigos</option>
+                    </select>
+                </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                {getListItens.length > 0 ?
-                    getListItens.map((item) =>
-                        <CardItem key={item.id} content={item}></CardItem>
-                    )
-                    : "Carregando itens"}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    {getListItens.length > 0 ?
+                        getListItens.map((item) =>
+                            <CardItem key={item.id} content={item}></CardItem>
+                        )
+                        : "Carregando itens"}
+                </div>
             </div>
         </SidebarLayout>
     )
