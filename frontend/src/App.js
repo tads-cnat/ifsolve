@@ -1,20 +1,27 @@
-import { FiHome, FiList } from "react-icons/fi";
+import { useContext, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CriarItem, ListarItem } from "./pages";
+import { api } from "./api/config";
+import { GlobalContext } from "./providers/context";
 
-import { Sidebar, SidebarItem } from "./components";
-function App() {
+export default function App() {
+  const { setAccess, getAccess } = useContext(GlobalContext)
+
+  useEffect(() => {
+    api.post("auth/login/", {
+      "username": "diogo",
+      "password": "19111911dio"
+    }).then((res) => {
+      setAccess(res.data.token)
+    })
+  }, [])
+
   return (
-    <div className="App">
-      <div className="w-full bg-dark-5 flex flex-row">
-        <Sidebar>
-          <SidebarItem icon={<FiHome></FiHome>} title="Provas"></SidebarItem>
-          <SidebarItem icon={<FiList></FiList>} title="Questões"></SidebarItem>
-        </Sidebar>
-        <div className="w-auto">
-          <h1>App</h1>
-        </div>
-      </div>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ListarItem></ListarItem>}></Route>
+        <Route path="/criar/item" element={<CriarItem></CriarItem>}></Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App;
