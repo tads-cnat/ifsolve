@@ -1,5 +1,5 @@
 export default function FormLabel(props) {
     return (
-        <label className="text-md font-medium text-dark-80" htmlFor={props.label}>{props.label}</label>
+        <label className="text-sm font-medium text-dark-100" htmlFor={props.label}>{props.label}</label>
     )
 }

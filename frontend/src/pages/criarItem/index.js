@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../providers/context";
 import { SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput } from "../../components";
 import { useForm } from "react-hook-form";
-import { criarItemApi } from "../../api/config";
+import { CriarItemApi } from "../../api/config";
 import { Formik, Field, Form, FieldArray } from "formik";
 
 // React Quill
@@ -17,7 +17,7 @@ export default function CriarItem() {
     const [getTags, setTags] = useState([]);
     const [getTipo, setTipo] = useState("ME");
     const [quillValue, setQuillValue] = useState('')
-    const { setAccess, getAccess } = useContext(GlobalContext)
+    const { getAccess, getUser } = useContext(GlobalContext)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const initialValues = {
@@ -43,7 +43,7 @@ export default function CriarItem() {
         data.tags = getTags;
         data.texto_base = quillValue;
         data.tipo = getTipo;
-        criarItemApi(data, getAccess);
+        CriarItemApi(data);
     }
 
     return (
