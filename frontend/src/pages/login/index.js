@@ -1,20 +1,20 @@
-import { useContext } from "react";
 import { loginApi } from "../../api/config";
-import { GlobalContext } from "../../providers/context";
 import { FormLabel, FormControl } from "../../components";
 import { Formik, Field, Form } from "formik";
 import LoginBackground from "../../images/login-background.png"
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 export default function Login() {
-    const { getAccess, setAccess, setUser } = useContext(GlobalContext)
+    const navigate = useNavigate();
+
     const initialValues = {
         login: "",
         password: "",
     }
 
-    function formSubmit(data) {
-        loginApi(data, setAccess, setUser);
+    async function formSubmit(data) {
+        await loginApi(data);
+        await navigate("/item");
     }
 
     return (
@@ -40,7 +40,7 @@ export default function Login() {
                     }
                 </Formik>
                 <span>Não tem uma conta? <Link to="/registro">Cadastre-se</Link></span>
-                {localStorage.getItem("ifsolve_token") ? <Navigate to="/item" replace={true}></Navigate> : null}
+                {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace={true}></Navigate> : null}
 
             </div>
         </div>

@@ -8,7 +8,7 @@ function GlobalProvider(props) {
     const [getAccess, setAccess] = useState(null);
     const [currentPage, setCurrentPage] = useState();
     const [darkMode, setDarkMode] = useState(false);
-    const [getUser, setUser] = useState()
+    const [getUser, setUser] = useState();
 
     return (
         <GlobalContext.Provider

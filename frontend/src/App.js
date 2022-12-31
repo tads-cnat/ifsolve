@@ -1,21 +1,33 @@
-import { useContext, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register } from "./pages";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CriarItem, ListarItem, Login, Register, Settings } from "./pages";
 import { ProtectedRoute } from "./components";
-import { api } from "./api/config";
-import { GlobalContext } from "./providers/context";
 
 export default function App() {
-  const { getAccess, setAccess } = useContext(GlobalContext)
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login></Login>}></Route>
-        <Route path="/registro" element={<Register></Register>}></Route>
-        <Route path="/item" element={<ProtectedRoute><ListarItem></ListarItem></ProtectedRoute>}></Route>
-        <Route path="/criar/item" element={<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>}></Route>
-      </Routes>
-    </BrowserRouter>
-  )
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (<Login></Login>)
+    },
+    {
+      path: "/registro",
+      element: (<Register></Register>)
+    },
+    {
+      path: "/item",
+      element: (<ProtectedRoute><ListarItem></ListarItem></ProtectedRoute>)
+    },
+    {
+      path: "/criar/item",
+      element: (<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>)
+    },
+    {
+      path: "/settings",
+      element: (<ProtectedRoute><Settings></Settings></ProtectedRoute>)
+    }
+  ])
+
+return (
+  <RouterProvider router={router}></RouterProvider>
+)
 }

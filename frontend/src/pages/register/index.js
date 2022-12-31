@@ -22,7 +22,7 @@ export default function Register() {
             ElaboradorRegister(data);
         }
         else{
-            AlunoRegister(data)
+            AlunoRegister(data);
         }
     }
 

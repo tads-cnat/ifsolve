@@ -2,30 +2,15 @@ import { useContext, useEffect } from "react"
 import { Link } from "react-router-dom";
 import { CardItem, SidebarLayout } from "../../components/"
 import { GlobalContext } from "../../providers/context"
-import { api } from "../../api/config";
+import { GetItems } from "../../api/config";
 import { FiPlus } from "react-icons/fi";
 
 export default function ListarItem() {
-    const { getAccess, getItens, setItens, getListItens, setListItens } = useContext(GlobalContext);
-
-    function getItems() {
-        if (getAccess != null) {
-            api.get("item/elaborador/",
-                {
-                    headers: {
-                        "Authorization": "Token " + getAccess,
-                    }
-                },
-            ).then((res) => {
-                setItens([...res.data].reverse());
-                setListItens([...res.data].reverse());
-            })
-        }
-    }
+    const { getListItens, setListItens, setItens } = useContext(GlobalContext);
 
     useEffect(() => {
-        getItems();
-    }, [getAccess]);
+        GetItems(setItens, setListItens);
+    }, []);
 
     return (
         <SidebarLayout>
