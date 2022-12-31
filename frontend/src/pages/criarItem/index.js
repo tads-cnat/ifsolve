@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../../providers/context";
-import { SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput } from "../../components";
-import { useForm } from "react-hook-form";
+import { TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput } from "../../components";
 import { CriarItemApi } from "../../api/config";
 import { Formik, Field, Form, FieldArray } from "formik";
 
@@ -13,12 +11,9 @@ import { FiArrowLeft, FiX } from "react-icons/fi";
 
 export default function CriarItem() {
     const navigate = useNavigate();
-    const [getForm, setForm] = useState([]);
     const [getTags, setTags] = useState([]);
     const [getTipo, setTipo] = useState("ME");
     const [quillValue, setQuillValue] = useState('')
-    const { getAccess, getUser } = useContext(GlobalContext)
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const initialValues = {
         titulo: "",
@@ -43,7 +38,7 @@ export default function CriarItem() {
         data.tags = getTags;
         data.texto_base = quillValue;
         data.tipo = getTipo;
-        CriarItemApi(data);
+        CriarItemApi(data).then(navigate("/item"));
     }
 
     return (
@@ -74,7 +69,7 @@ export default function CriarItem() {
                             <SelectInput data={[{ "value": "ME", "title": "Multipla escolha" }, { "value": "DI", "title": "Discursiva" }]} onChange={(e) => { setTipo(e.target.value) }}></SelectInput>
                         </div>
 
-                        {getTipo == "ME" ?
+                        {getTipo === "ME" ?
                             <FieldArray name="alternativas">
                                 {({ insert, remove, push }) => (
                                     <div className="mb-3">
@@ -134,48 +129,6 @@ export default function CriarItem() {
                 }
 
             </Formik>
-
-            {/* <form onSubmit={handleSubmit(formSubmit)}>
-                <InputGroup label="1. Informações gerais">
-                    <div className="mb-3">
-                        <FormLabel label="Título"></FormLabel>
-                        <FormControl control={{ ...register("titulo") }} />
-                    </div>
-                    <div className="mb-3">
-                        <FormLabel label="Texto base"></FormLabel>
-                        <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}></ReactQuill>
-                    </div>
-
-                    <div className="mb-3">
-                        <FormLabel label="Tipo de questão"></FormLabel>
-                        <SelectInput data={[{ "value": "ME", "title": "Multipla escolha" }, { "value": "DI", "title": "Discursiva" }]} onChange={(e) => { setTipo(e.target.value) }}></SelectInput>
-                    </div>
-                </InputGroup>
-
-                {getTipo == "ME" ?
-                    <InputGroup label="2. Alternativas">
-                        <AlternativaForm></AlternativaForm>
-                    </InputGroup>
-                    :
-                    <InputGroup label="2. Respostas">
-                    </InputGroup>
-                }
-
-                <InputGroup label="3. Informações adicionais">
-                    <FormLabel label="Tags"></FormLabel>
-                    <TagInput get={getTags} set={setTags}></TagInput>
-                </InputGroup>
-                <PrimaryButton type={"submit"}>Cadastrar</PrimaryButton>
-            </form> */}
         </div>
-    )
-}
-
-function AlternativaForm() {
-    return (
-        <>
-            <FormLabel label="Tipo de questão"></FormLabel>
-
-        </>
     )
 }

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import SidebarItem from "../sidebarItem";
-import { FiHome, FiList, FiSettings } from "react-icons/fi"
-
+import { FiHome, FiList, FiSettings } from "react-icons/fi";
 import IFSolvelogo from "../../images/IFSolve-logo.svg";
 
 export default function Sidebar(props) {

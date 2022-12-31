@@ -1,13 +1,10 @@
-import { useContext } from "react";
 import { AlunoRegister, ElaboradorRegister } from "../../api/config";
-import { GlobalContext } from "../../providers/context";
 import { FormLabel, FormControl } from "../../components";
 import { Formik, Field, Form } from "formik";
 import LoginBackground from "../../images/login-background.png"
 import { Link } from "react-router-dom";
 
 export default function Register() {
-    const { getAccess, setAccess } = useContext(GlobalContext)
     const initialValues = {
         username: "",
         password: "",
@@ -18,7 +15,7 @@ export default function Register() {
     }
 
     function formSubmit(data) {
-        if(data.tipo == "elaborador"){
+        if(data.tipo === "elaborador"){
             ElaboradorRegister(data);
         }
         else{
