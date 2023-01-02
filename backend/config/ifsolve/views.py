@@ -8,7 +8,8 @@ from rest_framework.authtoken.models import Token
 from .permissions import IsElaborador, IsAluno, AllowAny
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
-                        ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, LoginSerializer)
+                        ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, 
+                        LoginSerializer, UserSerializer)
 
 class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
@@ -30,11 +31,14 @@ class AuthViewSet(viewsets.GenericViewSet):
         token, created = Token.objects.get_or_create(user=user)
         return Response({'token': token.key}, status=status.HTTP_200_OK)
 
-    
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def logout(self, request):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def user(self, request):
+        return Response(UserSerializer(request.user).data)
 
 class CadastroAlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()
