@@ -23,3 +23,11 @@ class AllowAny(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return True
+
+class IsNotAuthenticated(permissions.BasePermission):
+    """
+    Permissão para qualquer usuário não autenticado.
+    """
+
+    def has_permission(self, request, view):
+        return not request.user.is_authenticated
