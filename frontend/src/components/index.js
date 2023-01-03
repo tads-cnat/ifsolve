@@ -8,5 +8,7 @@ import InputGroup from "./inputGroup";
 import PrimaryButton from "./primaryButton";
 import FormLabel from "./formLabel";
 import SelectInput from "./selectInput";
+import ProtectedRoute from "./protectedRoute";
+import Navbar from "./navbar";
 
-export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput };
+export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput, ProtectedRoute, Navbar };
