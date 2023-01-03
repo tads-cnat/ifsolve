@@ -55,7 +55,7 @@ export default function Register() {
 
                             <div className="mb-3">
                                 <FormLabel label="Tipo de conta"></FormLabel>
-                                <label>
+                                <label className="w-full">
                                     <Field type="radio" name="tipo" value="elaborador" />
                                     Elaborador
                                 </label>

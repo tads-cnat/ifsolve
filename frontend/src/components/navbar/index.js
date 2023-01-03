@@ -23,7 +23,7 @@ export default function Navbar() {
             <input type="text" className="my-auto" placeholder="Busque por questões, provas... " />
 
 
-            <div className="flex relative items-center gap-2 hover:bg-dark-5 px-4 py-2 rounded-lg" onClick={(e) => setOverlay(true)}>
+            <div className="flex relative items-center gap-2 hover:bg-dark-5 px-4 py-2 rounded-lg cursor-pointer" onClick={(e) => setOverlay(true)}>
                 <div className="flex items-center justify-center h-10 w-10 bg-primary-10 rounded-full border-4 border-primary-100">
                     <FaUserAlt className="text-primary-60 text-sm"></FaUserAlt>
                 </div>
