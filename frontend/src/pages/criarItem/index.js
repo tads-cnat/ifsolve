@@ -87,7 +87,7 @@ export default function CriarItem() {
                                             )}
                                         </div>
                                         {values.alternativas.length < 5 ?
-                                            <button onClick={() => push({ texto: '', justificativa: '' })}> Adicionar alternativa</button>
+                                            <a onClick={() => push({ texto: '', justificativa: '' })}> Adicionar alternativa</a>
                                             : null
                                         }
 

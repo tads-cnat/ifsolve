@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',
+    baseURL: 'http://localhost:8000/',
 });
 
 export function loginApi(data) {
@@ -10,7 +10,7 @@ export function loginApi(data) {
         "password": data.password,
     }).then((res) => {
         localStorage.setItem('ifsolve_token', res.data.token)
-        localStorage.setItem('ifsolve_user', JSON.stringify(res.data.user))
+        localStorage.setItem('ifsolve_user', JSON.stringify(res.data))
     })
 }
 
@@ -18,6 +18,8 @@ export function ElaboradorRegister(data) {
     api.post("elaborador/cadastro/", {
         "username": data.username,
         "password": data.password,
+        "first_name": "string",
+        "last_name": "string",
         "email": data.email,
         "data_nascimento": data.data_nascimento,
         "verificado": true
@@ -32,6 +34,8 @@ export function AlunoRegister(data) {
     api.post("aluno/cadastro/", {
         "username": data.username,
         "password": data.password,
+        "first_name": "string",
+        "last_name": "string",
         "email": data.email,
         "data_nascimento": data.data_nascimento,
     }).then((res) => {

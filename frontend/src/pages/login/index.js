@@ -41,9 +41,9 @@ export default function Login() {
                                 <div className="relative">
                                     <FormControl name="password" className="pr-32" type={getPassword ? "password" : "text"} placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
                                     {values.password.trim().length > 0 ?
-                                        <button className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg" onClick={e => setPassword(!getPassword)}>
+                                        <i className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg cursor-pointer" onClick={e => setPassword(!getPassword)}>
                                             {getPassword ? <FiEye></FiEye> : <FiEyeOff></FiEyeOff>}
-                                        </button>
+                                        </i>
                                         :
                                         null}
                                 </div>
