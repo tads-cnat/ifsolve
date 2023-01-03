@@ -14,6 +14,7 @@ class LoginSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     extra_data = serializers.SerializerMethodField()
+    id = serializers.SerializerMethodField()
 
     class Meta:
         model = User
@@ -30,6 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
             'tipo_usuario': tipo_usuario,
         }
 
+    def get_id(self, obj):
+        return obj.usuario.elaborador.id if hasattr(obj.usuario, 'elaborador') else obj.usuario.aluno.id
 
 class AlunoSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()

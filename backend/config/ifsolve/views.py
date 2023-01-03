@@ -5,7 +5,7 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from .permissions import IsElaborador, IsAluno, AllowAny
+from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
                         ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, 
@@ -15,7 +15,7 @@ class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
     serializer_class = None
 
-    @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[AllowAny])
+    @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[IsNotAuthenticated])
     def login(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -29,7 +29,9 @@ class AuthViewSet(viewsets.GenericViewSet):
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
         
         token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key}, status=status.HTTP_200_OK)
+        user_data = UserSerializer(user).data
+        user_data['token'] = token.key
+        return Response(user_data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def logout(self, request):
@@ -44,7 +46,7 @@ class CadastroAlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()
     serializer_class = AlunoSerializer
     
-    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [AllowAny])
+    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
     def post(self, request):
         serializer = AlunoSerializer(data = request.data)
         if serializer.is_valid():
