@@ -132,6 +132,7 @@ class Avaliacao(models.Model):
         ('PR', 'Privado')
     ]
     titulo = models.CharField("Título", max_length=200)
+    co_elaboradores = models.ManyToManyField(Elaborador, related_name = "co_elaboradores", blank = True)
     descricao = models.TextField("Descrição")
     data_inicio = models.DateTimeField(blank=True, null=True)
     data_fim = models.DateTimeField(blank=True, null=True)

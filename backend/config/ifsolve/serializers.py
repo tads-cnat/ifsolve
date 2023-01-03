@@ -133,12 +133,9 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         item = Item.objects.create(
-            elaborador=get_object_or_404(
-                Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
-            visibilidade=ItemSerializer.__getitem__(
-                self, "visibilidade").value,
-            area=Area.objects.get(
-                id=ItemSerializer.__getitem__(self, "area").value),
+            elaborador=get_object_or_404(Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
+            visibilidade=ItemSerializer.__getitem__(self, "visibilidade").value,
+            area=Area.objects.get(id=ItemSerializer.__getitem__(self, "area").value),
             assunto=ItemSerializer.__getitem__(self, "assunto").value,
             titulo=ItemSerializer.__getitem__(self, "titulo").value,
             data_publicacao=datetime.now(),
@@ -203,16 +200,51 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
 
-
-class AvaliacaoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Avaliacao
-        fields = "__all__"
-
-
 class ItemAvaliacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemAvaliacao
+        fields = "__all__"
+
+class AvaliacaoSerializer(serializers.ModelSerializer):
+
+    # itens = ItemAvaliacaoSerializer(required=True, many=True)
+    # [ITENS, ITENS, ITENS]
+
+    def create(self):
+        avaliacao = Avaliacao.objects.create(
+            titulo = AvaliacaoSerializer.__getitem__(self, "titulo").value,
+            descricao = AvaliacaoSerializer.__getitem__(self, "descricao").value,
+            nota = AvaliacaoSerializer.__getitem__(self, "nota").value,
+            visibilidade = AvaliacaoSerializer.__getitem__(self, "visibilidade").value,
+            elaborador = get_object_or_404(Elaborador, id = AvaliacaoSerializer.__getitem__(self, "elaborador").value),
+        )
+
+        id_coelaboradores = AvaliacaoSerializer.__getitem__(self, "co_elaboradores").value
+        if(id_coelaboradores != None):
+            avaliacao.co_elaboradores.add(*id_coelaboradores)
+        
+        data_inicio = AvaliacaoSerializer.__getitem__(self, "data_inicio").value
+        if(data_inicio != None):
+            avaliacao.data_inicio = data_inicio
+        
+        data_fim = AvaliacaoSerializer.__getitem__(self, "data_fim").value
+        if(data_fim != None):
+            avaliacao.data_fim = data_fim
+        
+        id_alunos = AvaliacaoSerializer.__getitem__(self, "alunos").value
+        if(id_alunos != None):
+            avaliacao.alunos.add(*id_alunos)
+        
+        # lista_itens = AvaliacaoSerializer.__getitem__(self, "itens").value
+        # for item in lista_itens:
+
+
+
+
+            
+        
+    class Meta:
+        model = Avaliacao
         fields = "__all__"
 
 

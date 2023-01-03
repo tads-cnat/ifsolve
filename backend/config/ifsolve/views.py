@@ -90,6 +90,9 @@ class ItemViewSet(viewsets.ModelViewSet):
         item = Item.objects.filter(visibilidade = 'PU') 
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
+    
+    #criar método que liste todos os itens públicos para aluno e elaborador ou adaptar o método acima. 
+    #Essa alteração é necessário para listar todos os itens PU para criar avaliacão. 
 
     @action(detail=False, methods=['get'], url_path='elaborador', permission_classes=[IsElaborador])
     def elaboradorItens(self, request, pk = None):
@@ -106,6 +109,20 @@ class ItemViewSet(viewsets.ModelViewSet):
             serializer.save(elaborador=request.user.usuario.elaborador)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacao.objects.none()
+    serializer_class =  AvaliacaoSerializer
+
+    @action(detail=False, methods=['post'], url_path='elaborador/avaliacao', permission_classes=[IsElaborador])
+    def criarAvaliacao(self, request):
+        serializer = AvaliacaoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(elaborador=request.user.usuario.elaborador)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()
