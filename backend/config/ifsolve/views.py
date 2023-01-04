@@ -112,9 +112,9 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.none()
-    serializer_class =  AvaliacaoSerializer
+    serializer_class = AvaliacaoSerializer
 
-    @action(detail=False, methods=['post'], url_path='elaborador/avaliacao', permission_classes=[IsElaborador])
+    @action(detail=False, methods=['post'], url_path='elaborador', permission_classes=[IsElaborador])
     def criarAvaliacao(self, request):
         serializer = AvaliacaoSerializer(data=request.data)
         if serializer.is_valid():
@@ -122,7 +122,16 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class ItemAvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = ItemAvaliacao.objects.none()
+    serializer_class = ItemAvaliacaoSerializer
 
+    @action(detail=False, methods=['get'], url_path='avaliacao/(?P<avaliacao_id>[^/.]+)', permission_classes=[IsElaborador])
+    def ListarItemAvaliacao(self, request, avaliacao_id=None):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
+        serializer = ItemAvaliacaoSerializer(itens_avaliacao, many=True)
+        return Response(serializer.data)
 
 class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()

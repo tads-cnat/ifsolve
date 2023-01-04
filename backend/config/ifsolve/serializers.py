@@ -207,10 +207,9 @@ class ItemAvaliacaoSerializer(serializers.ModelSerializer):
 
 class AvaliacaoSerializer(serializers.ModelSerializer):
 
-    # itens = ItemAvaliacaoSerializer(required=True, many=True)
-    # [ITENS, ITENS, ITENS]
+    itens = ItemAvaliacaoSerializer(required=True, many=True)
 
-    def create(self):
+    def create(self, validated_data):
         avaliacao = Avaliacao.objects.create(
             titulo = AvaliacaoSerializer.__getitem__(self, "titulo").value,
             descricao = AvaliacaoSerializer.__getitem__(self, "descricao").value,
@@ -234,15 +233,22 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
         id_alunos = AvaliacaoSerializer.__getitem__(self, "alunos").value
         if(id_alunos != None):
             avaliacao.alunos.add(*id_alunos)
-        
-        # lista_itens = AvaliacaoSerializer.__getitem__(self, "itens").value
-        # for item in lista_itens:
 
+        lista_itens = AvaliacaoSerializer.__getitem__(self, "itens").value
 
+        for item in lista_itens:
+            id_item = item["item"]
+            obj_item = get_object_or_404(Item, id = id_item)
+            item_avaliacao = ItemAvaliacao.objects.create(
+                item = obj_item,
+                avaliacao = avaliacao,
+                numero_item = item["numero_item"],
+                nota_item = item["nota_item"]
+            )
+            item_avaliacao.save()
+        avaliacao.save()
+        return Response(AvaliacaoSerializer.data)
 
-
-            
-        
     class Meta:
         model = Avaliacao
         fields = "__all__"

@@ -132,14 +132,14 @@ class Avaliacao(models.Model):
         ('PR', 'Privado')
     ]
     titulo = models.CharField("Título", max_length=200)
-    co_elaboradores = models.ManyToManyField(Elaborador, related_name = "co_elaboradores", blank = True)
+    co_elaboradores = models.ManyToManyField(Elaborador, blank = True)
     descricao = models.TextField("Descrição")
     data_inicio = models.DateTimeField(blank=True, null=True)
     data_fim = models.DateTimeField(blank=True, null=True)
     nota = models.IntegerField()
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
     elaborador = models.ForeignKey(
-        Elaborador, on_delete=models.CASCADE)
+        Elaborador, related_name = "elaborador", on_delete=models.CASCADE)
     alunos = models.ManyToManyField(Aluno, blank=True)
 
     class Meta:
@@ -151,8 +151,7 @@ class Avaliacao(models.Model):
 
 class ItemAvaliacao(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    avaliacao = models.ForeignKey(
-        Avaliacao, on_delete=models.CASCADE)
+    avaliacao = models.ForeignKey(Avaliacao, on_delete=models.CASCADE, null=True, blank=True)
     numero_item = models.IntegerField()
     nota_item = models.IntegerField()
 
