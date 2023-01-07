@@ -5,7 +5,7 @@ from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
-from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated
+from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated, IsAlunoOrElaborador
 from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
                         ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, 
@@ -42,10 +42,16 @@ class AuthViewSet(viewsets.GenericViewSet):
     def user(self, request):
         return Response(UserSerializer(request.user).data)
 
-class CadastroAlunoViewSet(viewsets.ModelViewSet):
+class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()
     serializer_class = AlunoSerializer
     
+    @action(detail=False, methods=['get'], url_path = "listar", permission_classes = [IsElaborador])
+    def listarAlunos(self, request):
+        lista_alunos = Aluno.objects.all()
+        serializer = AlunoSerializer(lista_alunos, many=True)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
     def post(self, request):
         serializer = AlunoSerializer(data = request.data)
@@ -54,7 +60,7 @@ class CadastroAlunoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CadastroElaboradorViewSet(viewsets.ModelViewSet):
+class ElaboradorViewSet(viewsets.ModelViewSet):
     queryset = Elaborador.objects.none()
     serializer_class = ElaboradorSerializer
     
@@ -70,29 +76,19 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.none()
     serializer_class = ItemSerializer
 
-    def retrieve(self, request, pk=None):
-        #Reescrevendo método de recuperação de um item
+    @action(detail=False, methods=['get'], url_path='(?P<item_id>[^/.]+)', permission_classes=[IsAlunoOrElaborador])
+    def visualizarItem(self, request, item_id=None):
         queryset = Item.objects.all()
-        item = get_object_or_404(queryset, pk=pk)
+        item = get_object_or_404(queryset, pk=item_id)
         serializer = ItemSerializer(item)
         return Response(serializer.data)
 
-    @action(detail=False, methods=['get'], url_path='(?P<pk>[^/.]+)/aluno', permission_classes=[IsAluno])
-    def visualizarItem(self, request, pk=None):
-        queryset = Item.objects.all()
-        item = get_object_or_404(queryset, pk=pk)
-        serializer = ItemSerializer(item)
-        return Response(serializer.data)
-
-    @action(detail=False, methods=['get'], url_path='aluno', permission_classes=[IsAluno])
-    def alunoItens(self, request, pk = None):
-        #View para o aluno ver todos os itens públicos
+    @action(detail=False, methods=['get'], url_path='publico', permission_classes=[IsAlunoOrElaborador])
+    def ItensPublicos(self, request, pk = None):
+        #View para o aluno ou elaborador ver todos os itens públicos
         item = Item.objects.filter(visibilidade = 'PU') 
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
-    
-    #criar método que liste todos os itens públicos para aluno e elaborador ou adaptar o método acima. 
-    #Essa alteração é necessário para listar todos os itens PU para criar avaliacão. 
 
     @action(detail=False, methods=['get'], url_path='elaborador', permission_classes=[IsElaborador])
     def elaboradorItens(self, request, pk = None):
@@ -114,24 +110,31 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.none()
     serializer_class = AvaliacaoSerializer
 
-    @action(detail=False, methods=['post'], url_path='elaborador', permission_classes=[IsElaborador])
+    @action(detail=False, methods=['post'], url_path='elaborador/criar', permission_classes=[IsElaborador])
     def criarAvaliacao(self, request):
         serializer = AvaliacaoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(elaborador=request.user.usuario.elaborador)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['get'], url_path='elaborador/todas', permission_classes=[IsElaborador])
+    def listarAvaliacoes(self, request, pk = None):
+        avaliacao = Avaliacao.objects.filter(elaborador=request.user.usuario.elaborador)
+        serializer = AvaliacaoSerializer(avaliacao, many=True)
+        return Response(serializer.data)
 
-class ItemAvaliacaoViewSet(viewsets.ModelViewSet):
-    queryset = ItemAvaliacao.objects.none()
-    serializer_class = ItemAvaliacaoSerializer
-
-    @action(detail=False, methods=['get'], url_path='avaliacao/(?P<avaliacao_id>[^/.]+)', permission_classes=[IsElaborador])
-    def ListarItemAvaliacao(self, request, avaliacao_id=None):
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)', permission_classes=[IsElaborador])
+    def ListarAvaliacao(self, request, avaliacao_id = None):
         avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
         itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
+
+        serializer_avaliacao = AvaliacaoSerializer(avaliacao)
         serializer = ItemAvaliacaoSerializer(itens_avaliacao, many=True)
-        return Response(serializer.data)
+        contexto = {
+            'avaliacao': serializer_avaliacao.data, 'itens' : serializer.data
+        }
+        return Response(contexto)
 
 class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()

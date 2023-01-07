@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import (Alternativa, Aluno, Area, Avaliacao,
@@ -10,7 +11,6 @@ from datetime import datetime
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
-
 
 class UserSerializer(serializers.ModelSerializer):
     extra_data = serializers.SerializerMethodField()
@@ -38,11 +38,6 @@ class UserSerializer(serializers.ModelSerializer):
 class AlunoSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
 
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username',
-                  'password', 'email', 'data_nascimento']
-
     def create(self, validated_data):
         first_name = UsuarioSerializer.__getitem__(self, "first_name").value
         last_name = UsuarioSerializer.__getitem__(self, "last_name").value
@@ -51,6 +46,7 @@ class AlunoSerializer(serializers.ModelSerializer):
         email = UsuarioSerializer.__getitem__(self, "email").value
         nascimento = UsuarioSerializer.__getitem__(
             self, "data_nascimento").value
+        
         user = User.objects.create_user(
             first_name=first_name,
             last_name=last_name,
@@ -64,15 +60,13 @@ class AlunoSerializer(serializers.ModelSerializer):
         aluno.save()
         return Response(UsuarioSerializer.data)
 
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'data_nascimento']
 
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
     verificado = serializers.BooleanField()
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'username', 'password', 'email',
-                  'data_nascimento', 'verificado']
 
     def create(self, validated_data):
         first_name = UsuarioSerializer.__getitem__(self, "first_name").value
@@ -97,6 +91,10 @@ class ElaboradorSerializer(serializers.ModelSerializer):
         elaborador.save()
         return Response(UsuarioSerializer.data)
 
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'password', 'email',
+                  'data_nascimento', 'verificado']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -152,22 +150,23 @@ class ItemSerializer(serializers.ModelSerializer):
             obj_d = ItemSerializer.__getitem__(self, "alternativa_d")
             obj_e = ItemSerializer.__getitem__(self, "alternativa_e")
 
-            alt_a = Alternativa.objects.create(texto=obj_a.__getitem__(
-                "texto").value, justificativa=obj_a.__getitem__("justificativa").value)
-            alt_b = Alternativa.objects.create(texto=obj_b.__getitem__(
-                "texto").value, justificativa=obj_b.__getitem__("justificativa").value)
-            alt_c = Alternativa.objects.create(texto=obj_c.__getitem__(
-                "texto").value, justificativa=obj_c.__getitem__("justificativa").value)
-            alt_d = Alternativa.objects.create(texto=obj_d.__getitem__(
-                "texto").value, justificativa=obj_d.__getitem__("justificativa").value)
-            alt_e = Alternativa.objects.create(texto=obj_e.__getitem__(
-                "texto").value, justificativa=obj_e.__getitem__("justificativa").value)
-
+            alt_a = Alternativa.objects.create(texto=obj_a.__getitem__("texto").value, justificativa=obj_a.__getitem__("justificativa").value)
+            alt_b = Alternativa.objects.create(texto=obj_b.__getitem__("texto").value, justificativa=obj_b.__getitem__("justificativa").value)
             item.alternativa_a = alt_a
             item.alternativa_b = alt_b
-            item.alternativa_c = alt_c
-            item.alternativa_d = alt_d
-            item.alternativa_e = alt_e
+
+            if(obj_c):
+                alt_c = Alternativa.objects.create(texto=obj_c.__getitem__("texto").value, justificativa=obj_c.__getitem__("justificativa").value)
+                item.alternativa_c = alt_c
+            
+            if(obj_d):
+                alt_d = Alternativa.objects.create(texto=obj_d.__getitem__("texto").value, justificativa=obj_d.__getitem__("justificativa").value)
+                item.alternativa_d = alt_d
+            
+            if(obj_e):
+                alt_e = Alternativa.objects.create(texto=obj_e.__getitem__("texto").value, justificativa=obj_e.__getitem__("justificativa").value)
+                item.alternativa_e = alt_e
+
             item.alternativa_correta = ItemSerializer.__getitem__(
                 self, "alternativa_correta").value
 
@@ -207,7 +206,7 @@ class ItemAvaliacaoSerializer(serializers.ModelSerializer):
 
 class AvaliacaoSerializer(serializers.ModelSerializer):
 
-    itens = ItemAvaliacaoSerializer(required=True, many=True)
+    itens = ItemAvaliacaoSerializer(required=False, many=True)
 
     def create(self, validated_data):
         avaliacao = Avaliacao.objects.create(
@@ -248,7 +247,7 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
             item_avaliacao.save()
         avaliacao.save()
         return Response(AvaliacaoSerializer.data)
-
+        
     class Meta:
         model = Avaliacao
         fields = "__all__"

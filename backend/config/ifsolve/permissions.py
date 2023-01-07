@@ -16,6 +16,14 @@ class IsAluno(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and hasattr(request.user.usuario, 'aluno')
 
+class IsAlunoOrElaborador(permissions.BasePermission):
+    """
+    Permissão para alunos ou elaboradores.
+    """
+
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and (IsAluno or IsElaborador)
+    
 class AllowAny(permissions.BasePermission):
     """
     Permissão para qualquer usuário.
