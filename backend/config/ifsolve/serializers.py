@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import (Alternativa, Aluno, Area, Avaliacao,
@@ -62,7 +61,7 @@ class AlunoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'email', 'data_nascimento']
+        fields = ['first_name', 'last_name', 'password', 'username', 'email', 'data_nascimento']
 
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
