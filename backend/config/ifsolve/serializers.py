@@ -17,8 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email',
-                  'first_name', 'last_name', 'extra_data']
+        fields = ['id', 'username', 'email', 'extra_data']
 
     def get_extra_data(self, obj):
         tipo_usuario = ''
@@ -38,8 +37,6 @@ class AlunoSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
 
     def create(self, validated_data):
-        first_name = UsuarioSerializer.__getitem__(self, "first_name").value
-        last_name = UsuarioSerializer.__getitem__(self, "last_name").value
         username = UsuarioSerializer.__getitem__(self, "username").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
@@ -47,8 +44,6 @@ class AlunoSerializer(serializers.ModelSerializer):
             self, "data_nascimento").value
         
         user = User.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
             username=username,
             password=senha,
             email=email,
@@ -61,15 +56,13 @@ class AlunoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'password', 'username', 'email', 'data_nascimento']
+        fields = ['username', 'password', 'email', 'data_nascimento']
 
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
     verificado = serializers.BooleanField()
 
     def create(self, validated_data):
-        first_name = UsuarioSerializer.__getitem__(self, "first_name").value
-        last_name = UsuarioSerializer.__getitem__(self, "last_name").value
         username = UsuarioSerializer.__getitem__(self, "username").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
@@ -77,8 +70,6 @@ class ElaboradorSerializer(serializers.ModelSerializer):
             self, "data_nascimento").value
         verificado = UsuarioSerializer.__getitem__(self, "verificado").value
         user = User.objects.create_user(
-            first_name=first_name,
-            last_name=last_name,
             username=username,
             password=senha,
             email=email,
@@ -92,7 +83,7 @@ class ElaboradorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'password', 'email',
+        fields = ['username', 'password', 'email',
                   'data_nascimento', 'verificado']
 
 class UsuarioSerializer(serializers.ModelSerializer):

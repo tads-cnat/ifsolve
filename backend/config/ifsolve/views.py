@@ -18,8 +18,12 @@ class AuthViewSet(viewsets.GenericViewSet):
     @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[IsNotAuthenticated])
     def login(self, request):
         username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
-        user = User.objects.filter(username=username)
+        user = User.objects.filter(email=email)
+
+        if not user.exists():
+            user = User.objects.filter(username=username)
 
         if not user.exists():
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
