@@ -35,9 +35,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 class AlunoSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
+    nome_completo = serializers.CharField(max_length=100)
 
     def create(self, validated_data):
         username = UsuarioSerializer.__getitem__(self, "username").value
+        nome_completo = UsuarioSerializer.__getitem__(self, "nome_completo").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
         nascimento = UsuarioSerializer.__getitem__(
@@ -51,19 +53,22 @@ class AlunoSerializer(serializers.ModelSerializer):
         aluno = Aluno()
         aluno.user = user
         aluno.data_nascimento = nascimento
+        aluno.nome_completo = nome_completo
         aluno.save()
         return Response(UsuarioSerializer.data)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'data_nascimento']
+        fields = ['username', 'password', 'email', 'data_nascimento', 'nome_completo']
 
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
     verificado = serializers.BooleanField()
+    nome_completo = serializers.CharField(max_length=100)
 
     def create(self, validated_data):
         username = UsuarioSerializer.__getitem__(self, "username").value
+        nome_completo = UsuarioSerializer.__getitem__(self, "nome_completo").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
         nascimento = UsuarioSerializer.__getitem__(
@@ -78,13 +83,13 @@ class ElaboradorSerializer(serializers.ModelSerializer):
         elaborador.verificado = verificado
         elaborador.user = user
         elaborador.data_nascimento = nascimento
+        elaborador.nome_completo = nome_completo
         elaborador.save()
         return Response(UsuarioSerializer.data)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email',
-                  'data_nascimento', 'verificado']
+        fields = ['username', 'password', 'email', 'data_nascimento', 'verificado', 'nome_completo']
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,6 +4,7 @@ from django.db import models
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nome_completo = models.CharField(max_length=100)
     data_nascimento = models.DateField("Data de nascimento")
 
     def __str__(self):
