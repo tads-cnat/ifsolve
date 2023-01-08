@@ -4,6 +4,7 @@ from django.db import models
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nome_completo = models.CharField(max_length=100)
     data_nascimento = models.DateField("Data de nascimento")
 
     def __str__(self):
@@ -27,13 +28,18 @@ class Aluno(Usuario):
 
 
 class Alternativa(models.Model):
-    texto = models.TextField()
-    justificativa = models.TextField()
+    texto = models.TextField(blank=True, null=True)
+    justificativa = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.texto
+        if (self.texto):
+            retorno = self.texto
+        
+        else:
+            retorno = '---'
 
-
+        return retorno
+ 
 class Tag(models.Model):
     nome = models.CharField(max_length=100)
 
@@ -132,13 +138,14 @@ class Avaliacao(models.Model):
         ('PR', 'Privado')
     ]
     titulo = models.CharField("Título", max_length=200)
+    co_elaboradores = models.ManyToManyField(Elaborador, blank = True)
     descricao = models.TextField("Descrição")
     data_inicio = models.DateTimeField(blank=True, null=True)
     data_fim = models.DateTimeField(blank=True, null=True)
     nota = models.IntegerField()
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
     elaborador = models.ForeignKey(
-        Elaborador, on_delete=models.CASCADE)
+        Elaborador, related_name = "elaborador", on_delete=models.CASCADE)
     alunos = models.ManyToManyField(Aluno, blank=True)
 
     class Meta:
@@ -150,8 +157,7 @@ class Avaliacao(models.Model):
 
 class ItemAvaliacao(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    avaliacao = models.ForeignKey(
-        Avaliacao, on_delete=models.CASCADE)
+    avaliacao = models.ForeignKey(Avaliacao, on_delete=models.CASCADE, null=True, blank=True)
     numero_item = models.IntegerField()
     nota_item = models.IntegerField()
 
