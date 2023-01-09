@@ -16,6 +16,7 @@ export function loginApi(data) {
 
 export function ElaboradorRegister(data) {
     api.post("elaborador/cadastro/", {
+        "nome_completo": data.nome_completo,
         "username": data.username,
         "password": data.password,
         "first_name": "string",
@@ -32,6 +33,7 @@ export function ElaboradorRegister(data) {
 
 export function AlunoRegister(data) {
     api.post("aluno/cadastro/", {
+        "nome_completo": data.nome_completo,
         "username": data.username,
         "password": data.password,
         "first_name": "string",
