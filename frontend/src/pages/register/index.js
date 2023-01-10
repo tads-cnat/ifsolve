@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function Register() {
     const initialValues = {
+        nome_completo: "",
         username: "",
         password: "",
         email: "",
@@ -32,6 +33,11 @@ export default function Register() {
                     {({ values }) =>
                         <Form >
                             <h1>Criar conta</h1>
+                            <div className="mb-3">
+                                <FormLabel label="Nome completo"></FormLabel>
+                                <FormControl name="nome_completo" placeholder="Digite seu nome completo" />
+                            </div>
+
                             <div className="mb-3">
                                 <FormLabel label="Nome de usuário"></FormLabel>
                                 <FormControl name="username" placeholder="Digite seu nome de usuário" />
@@ -65,7 +71,7 @@ export default function Register() {
                                 </label>
                             </div>
 
-                            <button type="submit" className="w-full bg-primary-100 px-4 py-2 rounded-lg text-md font-medium text-dark-100">Entrar</button>
+                            <button type="submit" className="w-full bg-primary-100 px-4 py-2 rounded-lg text-md font-medium text-dark-100">Cadastrar</button>
                         </Form>
                     }
                 </Formik>
