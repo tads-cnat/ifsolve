@@ -8,9 +8,6 @@ export function loginApi(data) {
     return api.post("auth/login/", {
         "username": data.login,
         "password": data.password,
-    }).then((res) => {
-        localStorage.setItem('ifsolve_token', res.data.token)
-        localStorage.setItem('ifsolve_user', JSON.stringify(res.data))
     })
 }
 
