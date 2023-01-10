@@ -9,15 +9,15 @@ export default function TagInput({ get, set }) {
     }
     function handleKeyDown(e) {
         const trimInput = getInput.trim();
-        if ((e.key === ",") && trimInput.length > 0 && !get.includes(trimInput)) {
-            console.log(e.key);
+        if ((e.key === "," || e.key === "Enter") && trimInput.length > 0 && !get.includes(trimInput)) {
+            e.preventDefault();
             set(get => [...get, { 'nome': trimInput }]);
             setInput("");
         }
     }
     function removeTag(e, tag) {
-        e.preventDefault(); 
-        set(get.filter((item) => item.nome != tag));
+        e.preventDefault();
+        set(get.filter((item) => item.nome !== tag));
     }
 
     return (
