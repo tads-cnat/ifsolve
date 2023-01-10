@@ -10,5 +10,7 @@ import FormLabel from "./formLabel";
 import SelectInput from "./selectInput";
 import ProtectedRoute from "./protectedRoute";
 import Navbar from "./navbar";
+import RegisterForm from "./registerForm";
+import PassowordInput from "./passwordInput";
 
-export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput, ProtectedRoute, Navbar };
+export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput, ProtectedRoute, Navbar, RegisterForm, PassowordInput };

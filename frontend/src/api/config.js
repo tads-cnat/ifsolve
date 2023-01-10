@@ -12,7 +12,7 @@ export function loginApi(data) {
 }
 
 export function ElaboradorRegister(data) {
-    api.post("elaborador/cadastro/", {
+    return api.post("elaborador/cadastro/", {
         "nome_completo": data.nome_completo,
         "username": data.username,
         "password": data.password,
@@ -21,15 +21,11 @@ export function ElaboradorRegister(data) {
         "email": data.email,
         "data_nascimento": data.data_nascimento,
         "verificado": true
-    }).then((res) => {
-        return true;
-    }).catch((error) => {
-        console.log(error);
     })
 }
 
 export function AlunoRegister(data) {
-    api.post("aluno/cadastro/", {
+    return api.post("aluno/cadastro/", {
         "nome_completo": data.nome_completo,
         "username": data.username,
         "password": data.password,
@@ -37,10 +33,6 @@ export function AlunoRegister(data) {
         "last_name": "string",
         "email": data.email,
         "data_nascimento": data.data_nascimento,
-    }).then((res) => {
-        return true;
-    }).catch((error) => {
-        console.log(error);
     })
 }
 
