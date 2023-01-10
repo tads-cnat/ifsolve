@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput } from "../../components";
-import { CriarItemApi } from "../../api/config";
+import { PostItemDI, PostItemME, GetAreas } from "../../api/config";
 import { Formik, Field, Form, FieldArray } from "formik";
 
 // React Quill
@@ -13,12 +13,15 @@ export default function CriarItem() {
     const navigate = useNavigate();
     const [getTags, setTags] = useState([]);
     const [getTipo, setTipo] = useState("ME");
-    const [quillValue, setQuillValue] = useState('')
+    const [quillValue, setQuillValue] = useState('');
+    const [getAreas, setAreas] = useState();
+    const [getSelectedArea, setSelectedArea] = useState(1);
 
     const initialValues = {
         titulo: "",
-        texto_base: "",
+        enunciado: "",
         assunto: "",
+        area: "",
         expectativa_resposta: "",
         alternativa_correta: "",
         alternativas: [
@@ -33,12 +36,23 @@ export default function CriarItem() {
         ],
     };
 
+    useEffect(() => {
+        GetAreas().then((res) => {
+            setAreas(res.data)
+        })
+    }, [])
 
     function formSubmit(data) {
         data.tags = getTags;
-        data.texto_base = quillValue;
+        data.enunciado = quillValue;
         data.tipo = getTipo;
-        CriarItemApi(data).then(navigate("/item"));
+        data.area = getSelectedArea;
+        if (data.tipo === "ME") {
+            PostItemME(data).then(navigate("/item"));
+        }
+        else {
+            PostItemDI(data).then(navigate("/item"));
+        }
     }
 
     return (
@@ -60,8 +74,19 @@ export default function CriarItem() {
                         </div>
 
                         <div className="mb-3">
-                            <FormLabel label="Texto base"></FormLabel>
+                            <FormLabel label="Enunciado"></FormLabel>
                             <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue}></ReactQuill>
+                        </div>
+
+                        <div className="mb-3">
+                            <FormLabel label="Áreas"></FormLabel>
+                            <select onChange={(e) => { setSelectedArea(e.target.value) }} className="w-full rounded-lg px-4 py-2 border border-dark-10 focus:outline-5 focus:outline-primary-100 text-sm font-medium text-dark-60">
+                                {getAreas !== undefined ?
+                                    getAreas.map((item, i) =>
+                                        <option key={i} value={item.id}>{item.nome}</option>
+                                    )
+                                    : null}
+                            </select>
                         </div>
 
                         <div className="mb-3">
@@ -87,7 +112,7 @@ export default function CriarItem() {
                                             )}
                                         </div>
                                         {values.alternativas.length < 5 ?
-                                            <a onClick={() => push({ texto: '', justificativa: '' })}> Adicionar alternativa</a>
+                                            <button type="button" onClick={() => push({ texto: '', justificativa: '' })}> Adicionar alternativa</button>
                                             : null
                                         }
 

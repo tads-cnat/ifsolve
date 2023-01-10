@@ -47,22 +47,48 @@ export function AlunoRegister(data) {
     })
 }
 
-
-export function CriarItemApi(data) {
+export function PostItemDI(data) {
+    console.log(data);
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
     return api.post("item/elaborador/criar/",
         {
             "titulo": data.titulo,
-            "texto_base": data.texto_base,
+            "texto_base": "",
             "tipo": data.tipo,
             "assunto": data.assunto,
             "tags": data.tags,
-            "expectativa_resposta": "",
+            "expectativa_resposta": data.expectativa_resposta,
+            "elaborador": user.id,
+            "enunciado": data.enunciado,
+            "area": data.area,
+            "visibilidade": "PU",
+            "data_publicacao": new Date().toJSON(),
+        },
+        {
+            headers: {
+                "Authorization": "Token " + localStorage.getItem("ifsolve_token"),
+            }
+        }
+    ).then((res) => {
+        console.log(res)
+    })
+}
+
+export function PostItemME(data) {
+    const user = JSON.parse(localStorage.getItem("ifsolve_user"));
+
+    return api.post("item/elaborador/criar/",
+        {
+            "titulo": data.titulo,
+            "texto_base": "",
+            "tipo": data.tipo,
+            "assunto": data.assunto,
+            "tags": data.tags,
             "alternativa_correta": data.alternativa_correta,
             "elaborador": user.id,
-            "enunciado": "string",
-            "area": 1,
+            "enunciado": data.enunciado,
+            "area": data.area,
             "visibilidade": "PU",
             "data_publicacao": new Date().toJSON(),
             "alternativa_a": {
@@ -92,6 +118,7 @@ export function CriarItemApi(data) {
     })
 }
 
+
 export function GetItems(setItens, setListItens) {
     const token = localStorage.getItem("ifsolve_token");
     api.get("item/elaborador/",
@@ -119,4 +146,17 @@ export function Logout() {
         localStorage.removeItem("ifsolve_token");
         localStorage.removeItem("ifsolve_user");
     })
+
+}
+
+export function GetAreas() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("area/",
+        {
+            headers: {
+                "Authorization": "Token " + token,
+            }
+        }
+    )
 }
