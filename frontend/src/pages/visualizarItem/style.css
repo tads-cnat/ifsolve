@@ -1,0 +1,6 @@
+.ql-editor img {
+    width: 100%;
+    aspect-ratio: 21/9;
+    object-fit: contain;
+    background-color: #E9E9E9;
+}

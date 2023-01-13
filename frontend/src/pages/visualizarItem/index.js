@@ -1,0 +1,83 @@
+import { useEffect, useState } from "react"
+import { Container } from "../../components";
+import ReactQuill from "react-quill";
+import { useParams, useNavigate } from "react-router-dom";
+import { GetItemByID } from "../../api/config";
+import { FiArrowLeft, FiInfo, FiX } from "react-icons/fi";
+import "./style.css";
+
+export default function VisualizarItem() {
+    const [getItem, setItem] = useState();
+    const [getEnunciado, setEnunciado] = useState('');
+    const [getInfo, setInfo] = useState(false);
+    const navigate = useNavigate();
+
+    let { id } = useParams();
+
+    useEffect(() => {
+        GetItemByID(id).then(res => {
+            console.log(res.data);
+            setItem(res.data);
+            setEnunciado(res.data.enunciado);
+        })
+    }, [id]);
+
+    const modules = {
+        toolbar: false
+    }
+
+    return (
+        <div className="">
+            {getItem ?
+                <div className="min-h-screen bg-dark-5">
+                    <Container className="py-8 bg-white">
+                        <div className="flex justify-between items-center mb-4">
+                            <button className="w-8 h-8 flex items-center justify-center bg-dark-5 rounded-full" onClick={() => navigate(-1)}>
+                                <FiArrowLeft></FiArrowLeft>
+                            </button>
+                            <button type="button" className="w-8 h-8 flex items-center justify-center bg-dark-5 rounded-full" onClick={() => setInfo(!getInfo)}>
+                                {getInfo ? <FiX></FiX> : <FiInfo></FiInfo>}
+                            </button>
+                        </div>
+                        {getInfo ?
+                            <div className="flex flex-col">
+                                <div className="flex bg-dark-5 p-8 items-center justify-evenly gap-10 rounded-lg flex-col md:flex-row mb-4">
+                                    <span>
+                                        {getItem.tipo}
+                                    </span>
+                                    <span>
+                                        {getItem.assunto}
+                                    </span>
+                                    <span>
+                                        {getItem.data_publicacao}
+                                    </span>
+                                </div>
+
+                                <div className="flex flex-row items-center justify-center gap-4">
+                                    {getItem.tags.length > 0 ?
+                                        getItem.tags.map((tag, i) =>
+                                            <span className="bg-primary-10 text-primary-100 rounded-lg px-4 py-2" key={i}>{tag.nome}</span>
+                                        )
+                                        : null}
+                                </div>
+                            </div>
+                            : null}
+                    </Container>
+
+                    <Container className="bg-dark-5 min-h-full py-8">
+                        <h2 className="text-3xl font-bold mb-4">{getItem.titulo}</h2>
+                        <ReactQuill className="border-0 mb-4" modules={modules} value={getEnunciado} readOnly={true}></ReactQuill>
+                        {getItem.tipo === "DI" ?
+                            <>
+                                <h4 className="text-lg font-medium mb-4">Expectativa de resposta</h4>
+                                <p className="p-8 bg-white rounded-lg">{getItem.expectativa_resposta}</p>
+                            </>
+                            : null}
+                    </Container>
+                </div>
+
+                :
+                null}
+        </div>
+    )
+}

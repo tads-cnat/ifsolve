@@ -149,3 +149,13 @@ export function GetAreas() {
         }
     )
 }
+
+export function GetItemByID(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`item/${id}/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
