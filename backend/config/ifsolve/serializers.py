@@ -126,7 +126,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         item = Item.objects.create(
-            elaborador=get_object_or_404(Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
+            # elaborador=get_object_or_404(Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
             visibilidade=ItemSerializer.__getitem__(self, "visibilidade").value,
             area=Area.objects.get(id=ItemSerializer.__getitem__(self, "area").value),
             assunto=ItemSerializer.__getitem__(self, "assunto").value,
