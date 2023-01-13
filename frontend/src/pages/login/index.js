@@ -1,5 +1,5 @@
 import { loginApi } from "../../api/config";
-import { FormLabel, FormControl } from "../../components";
+import { FormLabel, FormControl, GlobalAlert } from "../../components";
 import { Formik, Form } from "formik";
 import LoginBackground from "../../images/login-background.png"
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -19,7 +19,6 @@ export default function Login() {
     })
 
     const initialValues = {
-
         login: "",
         password: "",
     }
@@ -49,12 +48,12 @@ export default function Login() {
                         <Form >
                             <h1 className="text-xl font-bold text-dark-100 mb-5">Entrar no IFSolve</h1>
 
-                            <div className="mb-3">
+                            <div className="mb-5">
                                 <FormLabel label="Email ou usuário"></FormLabel>
                                 <FormControl name="login" placeholder="Digite seu email ou nome de usuário" />
                                 {errors.login && touched.login ? <div className="">{errors.login}</div> : null}
                             </div>
-                            <div className="mb-3">
+                            <div className="mb-5">
                                 <FormLabel label="Senha"></FormLabel>
                                 <div className="relative">
                                     <FormControl name="password" className="pr-32" type={getPassword ? "password" : "text"} placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
@@ -77,6 +76,7 @@ export default function Login() {
                 {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace={true}></Navigate> : null}
 
             </div>
+            <GlobalAlert></GlobalAlert>
         </div>
     )
 }
