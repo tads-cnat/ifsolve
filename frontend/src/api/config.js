@@ -114,7 +114,7 @@ export function PostItemME(data) {
 
 export function GetItems(setItens, setListItens) {
     const token = localStorage.getItem("ifsolve_token");
-    api.get("item/elaborador/",
+    return api.get("item/elaborador/",
         {
             headers: {
                 "Authorization": "Token " + token,

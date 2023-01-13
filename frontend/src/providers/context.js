@@ -6,7 +6,7 @@ function GlobalProvider(props) {
     const [getItens, setItens] = useState([]);
     const [getListItens, setListItens] = useState([]);
     const [getAccess, setAccess] = useState(null);
-    const [currentPage, setCurrentPage] = useState();
+    const [getCurrentPage, setCurrentPage] = useState("none");
     const [darkMode, setDarkMode] = useState(false);
     const [getUser, setUser] = useState();
 
@@ -19,7 +19,7 @@ function GlobalProvider(props) {
                 setListItens,
                 getAccess,
                 setAccess,
-                currentPage,
+                getCurrentPage,
                 setCurrentPage,
                 darkMode,
                 setDarkMode,

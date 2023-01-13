@@ -6,10 +6,13 @@ import { GetItems } from "../../api/config";
 import { FiPlus } from "react-icons/fi";
 
 export default function ListarItem() {
-    const { getListItens, setListItens, setItens } = useContext(GlobalContext);
+    const { getListItens, setListItens, setItens, setCurrentPage } = useContext(GlobalContext);
 
     useEffect(() => {
-        GetItems(setItens, setListItens);
+        setCurrentPage("questoes")
+        GetItems(setItens, setListItens).catch((error) => {
+            console.log(error);
+        });
     }, []);
 
     return (

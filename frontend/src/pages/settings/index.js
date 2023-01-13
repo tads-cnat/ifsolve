@@ -1,10 +1,15 @@
 import { SidebarLayout } from "../../components";
 import { Logout } from "../../api/config";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalContext } from "../../providers/context";
 
 
 export default function Settings() {
     const navigate = useNavigate();
+    const {setCurrentPage} = useContext(GlobalContext);
+
+    setCurrentPage("settings")
 
     function HandleLogout(e) {
         e.preventDefault();

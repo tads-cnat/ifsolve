@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { Logout } from "../../api/config";
 import { useNavigate } from "react-router-dom";
-import { FiChevronDown, FiLogOut } from "react-icons/fi";
+import { FiChevronDown, FiLogOut, FiSearch } from "react-icons/fi";
 
 export default function Navbar() {
     const [getOverlay, setOverlay] = useState(false);
@@ -19,8 +19,11 @@ export default function Navbar() {
     }
 
     return (
-        <div className="w-full flex flex-row justify-between px-8 py-2 border-b-2 border-dark-5">
-            <input type="text" className="my-auto" placeholder="Busque por questões, provas... " />
+        <div className="w-full flex flex-row justify-between px-8 py-2 border-b border-dark-20">
+            <div className="flex flex-row items-center relative">
+                <FiSearch className="absolute left-2"></FiSearch>
+                <input type="text" className="my-auto px-4 py-2 pl-8 bg-transparent focus:outline-0" placeholder="Busque por questões, provas... " />
+            </div>
 
 
             <div className="flex relative items-center gap-2 hover:bg-dark-5 px-4 py-2 rounded-lg cursor-pointer" onClick={(e) => setOverlay(true)}>
