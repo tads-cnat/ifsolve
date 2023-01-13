@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FiAlertCircle } from "react-icons/fi";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -30,27 +31,25 @@ export default function Register() {
             if (data.tipo === "elaborador") {
                 ElaboradorRegister(data)
                     .then((res) => {
-                        console.log(res);
                         navigate("/", { replace: true });
+                        localStorage.setItem('ifsolve_success_alert', "Sua conta foi criada com sucesso.");
                     })
                     .catch(error => {
                         console.log(error);
+                        toast.error("Não foi possivel criar sua conta.")
                     })
             }
             else {
-                AlunoRegister(data);
+                AlunoRegister(data).then((res) => {
+                    navigate("/", { replace: true })
+                    localStorage.setItem("ifsolve_success_alert", "Sua conta foi criada com sucesso.");
+                }).catch(error => {
+                    console.log(error);
+                    toast.error("Não foi possivel criar sua conta.")
+                });
             }
         },
     })
-
-    function formSubmit(data) {
-        if (data.tipo === "elaborador") {
-            ElaboradorRegister(data);
-        }
-        else {
-            AlunoRegister(data);
-        }
-    }
 
     return (
         <div className="sm:container mx-auto grid grid-cols-1 lg:grid-cols-2">
@@ -148,6 +147,7 @@ export default function Register() {
                     <span>Tem uma conta? <Link to="/" className="text-primary-100 font-medium">Conecte-se</Link></span>
                 </form>
             </div>
+            <Toaster></Toaster>
         </div>
     )
 }

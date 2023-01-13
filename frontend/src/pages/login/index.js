@@ -1,5 +1,5 @@
 import { loginApi } from "../../api/config";
-import { FormLabel, FormControl } from "../../components";
+import { FormLabel, FormControl, GlobalAlert } from "../../components";
 import { Formik, Form } from "formik";
 import LoginBackground from "../../images/login-background.png"
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -76,6 +76,7 @@ export default function Login() {
                 {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace={true}></Navigate> : null}
 
             </div>
+            <GlobalAlert></GlobalAlert>
         </div>
     )
 }
