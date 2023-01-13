@@ -28,17 +28,11 @@ class Aluno(Usuario):
 
 
 class Alternativa(models.Model):
-    texto = models.TextField(blank=True, null=True)
-    justificativa = models.TextField(blank=True, null=True)
+    texto = models.TextField()
+    justificativa = models.TextField()
 
     def __str__(self):
-        if (self.texto):
-            retorno = self.texto
-        
-        else:
-            retorno = '---'
-
-        return retorno
+        return (self.texto if self.texto else '----')
  
 class Tag(models.Model):
     nome = models.CharField(max_length=100)
