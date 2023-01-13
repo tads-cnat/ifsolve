@@ -66,18 +66,44 @@ export default function VisualizarItem() {
 
                     <Container className="bg-dark-5 min-h-full py-8">
                         <h2 className="text-3xl font-bold mb-4">{getItem.titulo}</h2>
-                        <ReactQuill className="border-0 mb-4" modules={modules} value={getEnunciado} readOnly={true}></ReactQuill>
+                        <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getEnunciado} readOnly={true}></ReactQuill>
                         {getItem.tipo === "DI" ?
                             <>
                                 <h4 className="text-lg font-medium mb-4">Expectativa de resposta</h4>
                                 <p className="p-8 bg-white rounded-lg">{getItem.expectativa_resposta}</p>
                             </>
-                            : null}
+                            :
+                            <div className="">
+                                <h4 className="text-lg font-medium mb-4">Alternativas</h4>
+
+                                {getItem.alternativa_a ? <CardAlternativa key="a" correct={getItem.alternativa_correta === "a" ? true : false} item={getItem.alternativa_a}></CardAlternativa> : null}
+                                {getItem.alternativa_b ? <CardAlternativa key="b" correct={getItem.alternativa_correta === "b" ? true : false} item={getItem.alternativa_b}></CardAlternativa> : null}
+                                {getItem.alternativa_c ? <CardAlternativa key="c" correct={getItem.alternativa_correta === "c" ? true : false} item={getItem.alternativa_c}></CardAlternativa> : null}
+                                {getItem.alternativa_d ? <CardAlternativa key="d" correct={getItem.alternativa_correta === "d" ? true : false} item={getItem.alternativa_d}></CardAlternativa> : null}
+                                {getItem.alternativa_e ? <CardAlternativa key="e" correct={getItem.alternativa_correta === "e" ? true : false} item={getItem.alternativa_e}></CardAlternativa> : null}
+                            </div>
+                        }
                     </Container>
                 </div>
 
                 :
                 null}
+        </div>
+    )
+}
+
+function CardAlternativa(props) {
+    return (
+        <div className={"flex bg-white mb-4 px-4 py-2 rounded-lg gap-4 " + (props.correct ? "outline outline-4 outline-primary-60" : "")}>
+            {props.correct ?
+                <input type="radio" checked />
+                :
+                <input type="radio" disabled />
+            }
+            <div className="flex flex-col">
+                <h5 className="text-lg font-medium">{props.item.texto}</h5>
+                <p className="">{props.item.justificativa}</p>
+            </div>
         </div>
     )
 }

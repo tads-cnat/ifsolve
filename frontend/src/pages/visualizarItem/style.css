@@ -1,6 +1,33 @@
+.ql-container{
+    border: none !important;
+    font-size: unset;
+    font-weight: unset;
+    background-color: #F4F4F4;
+    padding: 8px 16px;
+    border-radius: 0 0 1rem 1rem;
+}
+.ql-editor{
+    border: none;
+    padding: 0;
+    font-size: unset;
+    font-weight: unset;
+}
 .ql-editor img {
     width: 100%;
-    aspect-ratio: 21/9;
+    aspect-ratio: 31/9;
     object-fit: contain;
     background-color: #E9E9E9;
+    border-radius: 1rem;
+}
+
+@media (max-width: 640px) {
+    .ql-editor img {
+        aspect-ratio: 16/9;
+    }
+}
+
+@media (max-width: 640px) {
+    .ql-editor img {
+        aspect-ratio: 16/9;
+    }
 }

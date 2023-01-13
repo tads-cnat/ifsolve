@@ -95,6 +95,10 @@ export function PostItemME(data) {
             "alternativa_d": {
                 "texto": data.alternativas[3] === undefined ? " " : data.alternativas[3].texto,
                 "justificativa": data.alternativas[3] === undefined ? " " : data.alternativas[3].justificativa,
+            },
+            "alternativa_e": {
+                "texto": data.alternativas[4] === undefined ? " " : data.alternativas[4].texto,
+                "justificativa": data.alternativas[4] === undefined ? " " : data.alternativas[4].justificativa,
             }
         },
         {
