@@ -150,15 +150,15 @@ class ItemSerializer(serializers.ModelSerializer):
             item.alternativa_a = alt_a
             item.alternativa_b = alt_b
 
-            if(obj_c):
+            if(obj_c.value != {}):
                 alt_c = Alternativa.objects.create(texto=obj_c.__getitem__("texto").value, justificativa=obj_c.__getitem__("justificativa").value)
                 item.alternativa_c = alt_c
             
-            if(obj_d):
+            if(obj_d.value != {}):
                 alt_d = Alternativa.objects.create(texto=obj_d.__getitem__("texto").value, justificativa=obj_d.__getitem__("justificativa").value)
                 item.alternativa_d = alt_d
             
-            if(obj_e):
+            if(obj_e.value != {}):
                 alt_e = Alternativa.objects.create(texto=obj_e.__getitem__("texto").value, justificativa=obj_e.__getitem__("justificativa").value)
                 item.alternativa_e = alt_e
 
