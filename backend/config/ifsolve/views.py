@@ -110,6 +110,11 @@ class ItemViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class AreaViewSet(viewsets.ModelViewSet):
+    queryset = Area.objects.all()
+    serializer_class = AreaSerializer
+    permissions_classes = [IsElaborador | IsAluno]
+
 class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.none()
     serializer_class = AvaliacaoSerializer
