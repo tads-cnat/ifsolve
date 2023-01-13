@@ -27,6 +27,7 @@ router.register(r'resposta', views.RespostaItemViewSet, basename='resposta')
 router.register(r'aluno', views.AlunoViewSet, basename='aluno')
 router.register(r'elaborador', views.ElaboradorViewSet, basename='elaborador')
 router.register(r'tag', views.TagViewSet, basename='tag')
+router.register(r'area', views.AreaViewSet, basename='area')
 
 
 urlpatterns = [
