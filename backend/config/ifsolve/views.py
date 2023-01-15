@@ -84,7 +84,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     def itensElaborador(self, request, elaborador_id):
         # View para o elaborador ver os itens que ele criou
         elaborador = get_object_or_404(Elaborador, pk=elaborador_id)
-        item = Item.objects.filter(elaborador=elaborador)
+        item = Item.objects.filter(elaborador=elaborador).order_by("data_publicacao")
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
 
@@ -103,10 +103,9 @@ class ItemViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='publico', permission_classes=[IsAlunoOrElaborador])
     def itensPublicos(self, request, pk = None):
         #View para o aluno ou elaborador ver todos os itens públicos
-        item = Item.objects.filter(visibilidade = 'PU') # Ordenar também pela data crescente
+        item = Item.objects.filter(visibilidade = 'PU').order_by("data_publicacao") # Ordenar também pela data crescente
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
-
     
     @action(detail=False, methods=['post'], url_path='criar', permission_classes=[IsElaborador])
     def itemCriar(self, request):
@@ -170,7 +169,7 @@ class RespostaItemViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='item/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
     def resposta(self, request, pk=None, item_id=None):
         item = get_object_or_404(Item, pk=item_id)
-        respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno)
+        respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno).order_by("data_hora")
         serializer = RespostaSerializer(respostas, many=True)
         return Response(serializer.data)
 
