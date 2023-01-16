@@ -95,6 +95,10 @@ export function PostItemME(data) {
             "alternativa_d": {
                 "texto": data.alternativas[3] === undefined ? " " : data.alternativas[3].texto,
                 "justificativa": data.alternativas[3] === undefined ? " " : data.alternativas[3].justificativa,
+            },
+            "alternativa_e": {
+                "texto": data.alternativas[4] === undefined ? " " : data.alternativas[4].texto,
+                "justificativa": data.alternativas[4] === undefined ? " " : data.alternativas[4].justificativa,
             }
         },
         {
@@ -110,7 +114,7 @@ export function PostItemME(data) {
 
 export function GetItems(setItens, setListItens) {
     const token = localStorage.getItem("ifsolve_token");
-    api.get("item/elaborador/",
+    return api.get("item/elaborador/",
         {
             headers: {
                 "Authorization": "Token " + token,
@@ -148,4 +152,14 @@ export function GetAreas() {
             }
         }
     )
+}
+
+export function GetItemByID(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`item/${id}/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
 }
