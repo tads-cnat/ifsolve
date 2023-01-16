@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, Settings, VisualizarItem } from "./pages";
+import { CriarItem, ListarItem, Login, Register, Settings, VisualizarItem, RespostasItem } from "./pages";
 import { ProtectedRoute } from "./components";
 
 export default function App() {
@@ -24,6 +24,10 @@ export default function App() {
     {
       path: "/criar/item",
       element: (<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>)
+    },
+    {
+      path: "/item/:id/resposta",
+      element: (<ProtectedRoute><RespostasItem></RespostasItem></ProtectedRoute>)
     },
     {
       path: "/settings",
