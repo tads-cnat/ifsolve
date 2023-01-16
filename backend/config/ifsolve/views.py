@@ -80,33 +80,49 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.none()
     serializer_class = ItemSerializer
 
+    @action(detail=False, methods=['get'], url_path='elaborador/(?P<elaborador_id>[^/.]+)', permission_classes=[IsElaborador])
+    def itensElaborador(self, request, elaborador_id):
+        # View para o elaborador ver os itens que ele criou
+        elaborador = get_object_or_404(Elaborador, pk=elaborador_id)
+        item = Item.objects.filter(elaborador=elaborador).order_by("data_publicacao")
+        serializer = ItemSerializer(item, many=True)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['get'], url_path='(?P<item_id>[^/.]+)', permission_classes=[IsAlunoOrElaborador])
-    def visualizarItem(self, request, item_id=None):
-        queryset = Item.objects.all()
+    def visualizarItem(self, request, item_id):
+        if(hasattr(request.user.usuario, 'aluno')):
+            queryset = Item.objects.filter(visibilidade = 'PU')
+
+        elif(hasattr(request.user.usuario, 'elaborador')):
+            queryset = Item.objects.filter(elaborador=request.user.usuario.elaborador) | Item.objects.filter(visibilidade = 'PU')
+       
         item = get_object_or_404(queryset, pk=item_id)
         serializer = ItemSerializer(item)
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'], url_path='publico', permission_classes=[IsAlunoOrElaborador])
-    def ItensPublicos(self, request, pk = None):
+    def itensPublicos(self, request, pk = None):
         #View para o aluno ou elaborador ver todos os itens públicos
-        item = Item.objects.filter(visibilidade = 'PU') 
-        serializer = ItemSerializer(item, many=True)
-        return Response(serializer.data)
-
-    @action(detail=False, methods=['get'], url_path='elaborador', permission_classes=[IsElaborador])
-    def elaboradorItens(self, request, pk = None):
-        # View para o elaborador ver os itens que ele criou
-        item = Item.objects.filter(elaborador=request.user.usuario.elaborador)
+        item = Item.objects.filter(visibilidade = 'PU').order_by("data_publicacao") # Ordenar também pela data crescente
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
     
-    @action(detail=False, methods=['post'], url_path='elaborador/criar', permission_classes=[IsElaborador])
-    def criarItem(self, request, pk = None):
+    @action(detail=False, methods=['post'], url_path='criar', permission_classes=[IsElaborador])
+    def itemCriar(self, request):
         # View para o elaborador criar um item
+        elaborador = get_object_or_404(Elaborador, id=request.user.usuario.elaborador.id)
         serializer = ItemSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(elaborador=request.user.usuario.elaborador)
+            serializer.save(elaborador=elaborador)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['post'], url_path='(?P<item_id>[^/.]+)/responder', permission_classes=[IsAluno])
+    def responder(self, request, pk=None, item_id=None):
+        item = get_object_or_404(Item, pk=item_id)
+        serializer = RespostaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(item=item, aluno=request.user.usuario.aluno)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -120,10 +136,11 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
     serializer_class = AvaliacaoSerializer
 
     @action(detail=False, methods=['post'], url_path='elaborador/criar', permission_classes=[IsElaborador])
-    def criarAvaliacao(self, request):
+    def avaliacaoCriar(self, request):
         serializer = AvaliacaoSerializer(data=request.data)
+        elaborador = get_object_or_404(Elaborador, id=request.user.usuario.elaborador.id)
         if serializer.is_valid():
-            serializer.save(elaborador=request.user.usuario.elaborador)
+            serializer.save(elaborador=elaborador)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -149,21 +166,12 @@ class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()
     serializer_class = RespostaSerializer
 
-    @action(detail=False, methods=['get'], url_path='aluno/item/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
+    @action(detail=False, methods=['get'], url_path='item/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
     def resposta(self, request, pk=None, item_id=None):
         item = get_object_or_404(Item, pk=item_id)
-        respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno)
+        respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno).order_by("data_hora")
         serializer = RespostaSerializer(respostas, many=True)
         return Response(serializer.data)
-
-    @action(detail=False, methods=['post'], url_path='aluno/responder/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
-    def responder(self, request, pk=None, item_id=None):
-        item = get_object_or_404(Item, pk=item_id)
-        serializer = RespostaSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(item=item, aluno=request.user.usuario.aluno)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [IsElaborador]
