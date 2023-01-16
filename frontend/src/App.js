@@ -1,8 +1,22 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, Settings, VisualizarItem } from "./pages";
+import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem } from "./pages";
 import { ProtectedRoute } from "./components";
+import { useContext, useEffect } from "react";
+import { GetUser } from "./api/config";
+import { GlobalContext } from "./providers/context";
 
 export default function App() {
+  const {setUser} = useContext(GlobalContext);
+  
+
+  useEffect(()=>{
+    GetUser().then(res =>{
+      console.log(res.data);
+      setUser(res.data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[])
 
   const router = createBrowserRouter([
     {
@@ -20,6 +34,10 @@ export default function App() {
     {
       path: "/item/:id",
       element: (<ProtectedRoute><VisualizarItem></VisualizarItem></ProtectedRoute>)
+    },
+    {
+      path: "/item/:id/responder",
+      element: (<ProtectedRoute><ResponderItem></ResponderItem></ProtectedRoute>)
     },
     {
       path: "/criar/item",

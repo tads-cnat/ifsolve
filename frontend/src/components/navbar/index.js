@@ -13,7 +13,6 @@ export default function Navbar() {
     function HandleLogout(e) {
         e.preventDefault();
         Logout().then((res) => {
-            console.log(res);
             navigate("/");
         });
     }
