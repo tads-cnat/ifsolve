@@ -1,46 +1,42 @@
-## 1. Cadastrar Questão 
-*Nome do caso de uso:* Cadastrar Questão. <br>
+## Cadastrar Item 
+*Nome do caso de uso:* Cadastrar Item. <br>
 *Ator principal:* Elaborador. <br>
 *Atores secundários:*	<br>	 
-*Resumo:* Descreve as etapas percorridas por um elaborador durante o cadastro de uma questão. <br>
+*Resumo:* Descreve as etapas percorridas por um elaborador durante o cadastro de um item. <br>
 *Pré-condição:* Estar logado no sistema como elaborador. <br>
 *Pós-Condição:* <br> <br>
 
 > ### Fluxo Principal
 | Ações do ator                            | Ações do sistema      |
-| :-----------------:                      | :-----------------:   | 
-| 1 - Solicitar criação de questão.        |                       |  
-|                                          | 2 - Pedir ao usuário que informe se a questão é subjetiva ou objetiva.                            | 
-| 3 - Informar se a questão é subjetiva ou objetiva. |             |  
-|                                          | 4 - Ajustar formulário de criação de questões de acordo com a escolha do tipo da questão.         |  
-| 5 - Informar a área do conhecimento a qual a questão pertence.   |     
-| 6 - Informar o assunto específico tratado na questão.            |      
-| 7 - Inserir ou não o texto base da questão. |                    | 
-| 8 - Inserir o enunciado da questão.                              |                                                                           |  
-|                                          | 9 - Verificar se o campo de enunciado está vazio. Se for o caso, pede para o usuário preenchê-lo. |
-| 10 - Inserir ou não imagens para a questão (se a questão for objetiva, segue *Fluxo Alternativo I. Senão, segue **Fluxo Alternativo II*).| 
-| 11 - Definir tags para a questão. |                               | 
-|                                          | 12 - Verificar se há no mínimo uma tag selecionada para a questão. Caso não haja, pede para o usuário inserir. |  
-| 13 - Selecionar entre nível de acesso público ou privado para a questão. |                                                                   | 
-| 14 - Finalizar o cadastro da questão.    |                                                                                                   | 
-|                                          | 15 - Dar feedback quanto a submissão da questão.                                                  |  
+| :-----------------:                      | :-----------------:   |  
+| 1 - Informar o título do item. |             |  
+|                                          | 2 - Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.         |  
+| 3 - Informar o assunto específico no qual o item pertence   |  
+|                                          | 4- Verificar se o campo foi preenchido, caso não, solicita ao usuário que preencha.          |
+| 5 - Informar o texto base, o qual contém uma contextualização antes do enunciado do item, de forma opcional ao elaborador. Em seguida inserir o enunciado, comando do item, de forma obrigatória.           |      
+|                                          | 6 - Verificar se o campo de enunciado está vazio. Se for o caso, pede para o usuário preenchê-lo. |
+| 7 - Informar se o item é discursivo ou de múltipla escolha.                              |                                                                           |  
+|                                          | 8 - Retorna um formulário de criação de itens de acordo com a escolha do tipo do item. |
+| 9 - Inserir imagens para o item e logo após, definir tags, ambas as ações de forma opcional ao elaborador. Como também selecionar o item entre nível de acesso público ou privado, informar sua área de conhecimento e, após isso, caso o item seja de múltipla escolha, segue para o Fluxo Alternativo I, se for discursiva segue para o Fluxo Alternativo II. Feito isso, finalizar o cadastro do item ao clicar no botão salvar. |                                      
+|                                          | 10 - Dar feedback quanto a submissão do item.                                                  |  
 
 <br>
 
-> ### Fluxo Alternativo I - Questão Objetiva
+> ### Fluxo Alternativo I - Item Múltipla Escolha
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-| 10.1 - Inserir alternativas via texto ou imagem. |               |  
-| 10.2 - Informar as justificativas das alternativas incluídas. |  |  
-|                                          | 10.3 - Verificar se a questão possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
-| 10.4 - Selecionar a alternativa correta (gabarito).|             |  
+| 9.1 - Inserir alternativas via texto ou imagem e informar as justificativas das alternativas concluídas. |               |   
+|                                          | 9.2 - Verificar se o item possui no mínimo duas alternativas. Se não houver, pede para o elaborador inserir mais alternativas. | 
+| 9.3 - Selecionar a alternativa correta (gabarito).|             |  
+|                                          | 9.4 -  Verificar se o gabarito foi informado. Caso não foi, pede ao usuário para selecionar a alternativa que julga correta. Em seguida, retorna-se para o passo 10 do fluxo principal para finalizar o cadastro do item. |
 
 <br>
 
-> ### Fluxo Alternativo II - Questão Discursiva
+> ### Fluxo Alternativo II - Item Discursivo
 | Ações do ator                          | Ações do sistema      |
 | :-----------------:                    | :-----------------:   | 
-| 10.1 - Inserir ou não um texto como expectativa de resposta.   |      |  
-| 10.2 - Inserir ou não uma imagem como expectativa de resposta. |      |  
+| 9.1 - Inserir um texto ou imagem como expectativa de resposta.   |      |  
+|                                        | 9.2 - Verificar se foi determinada uma expectativa de resposta. Caso não, pede ao usuário que determine uma. Em seguida, retorna-se para o passo 10 do fluxo principal para finalizar o cadastro do item. |
 
 <hr>
+

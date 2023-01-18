@@ -1,0 +1,19 @@
+.ql-editor img {
+    width: 100%;
+    aspect-ratio: 31/9;
+    object-fit: contain;
+    background-color: unset;
+    border-radius: 1rem;
+}
+
+@media (max-width: 640px) {
+    .ql-editor img {
+        aspect-ratio: 16/9;
+    }
+}
+
+@media (max-width: 640px) {
+    .ql-editor img {
+        aspect-ratio: 16/9;
+    }
+}
