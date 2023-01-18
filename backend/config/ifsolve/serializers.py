@@ -247,23 +247,22 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
         model = Avaliacao
         fields = "__all__"
 
-
-class RespostaSerializer(serializers.ModelSerializer):
+class RespostaItemSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
         resposta = Resposta.objects.create(
             aluno=Aluno.objects.get(
-                id=RespostaSerializer.__getitem__(self, "aluno").value),
-            resposta=RespostaSerializer.__getitem__(self, "resposta").value,
-            data_hora=RespostaSerializer.__getitem__(self, "data_hora").value
+                id=RespostaItemSerializer.__getitem__(self, "aluno").value),
+            resposta=RespostaItemSerializer.__getitem__(self, "resposta").value,
+            data_hora=RespostaItemSerializer.__getitem__(self, "data_hora").value
         )
 
         item = Item.objects.get(
-            id=RespostaSerializer.__getitem__(self, "item").value)
-        item_avaliacao = RespostaSerializer.__getitem__(
+            id=RespostaItemSerializer.__getitem__(self, "item").value)
+        item_avaliacao = RespostaItemSerializer.__getitem__(
             self, "item_avaliacao").value
-        nota_obtida = RespostaSerializer.__getitem__(self, "nota_obtida").value
+        nota_obtida = RespostaItemSerializer.__getitem__(self, "nota_obtida").value
 
         if (item != None):
             resposta.item = item
@@ -275,7 +274,29 @@ class RespostaSerializer(serializers.ModelSerializer):
             resposta.nota_obtida = nota_obtida
 
         resposta.save()
-        return Response(RespostaSerializer.data)
+        return Response(RespostaItemSerializer.data)
+
+    class Meta:
+        model = Resposta
+        fields = "__all__"
+
+class RespostaAvaliacaoSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        res = Resposta.objects.create(
+            aluno = validated_data.get("aluno"),
+            resposta = validated_data.get("resposta"),
+            data_hora = validated_data.get("data_hora"),
+            nota_obtida = 0,
+        )
+
+        item_avaliacao = validated_data.get('item_avaliacao')
+        res.item_avaliacao = item_avaliacao
+
+        if (item_avaliacao.item.alternativa_correta.upper() == res.resposta.upper()):
+            res.nota_obtida = item_avaliacao.nota_item
+        res.save()
+        return Response(RespostaAvaliacaoSerializer.data)
 
     class Meta:
         model = Resposta
