@@ -61,6 +61,42 @@ class AlunoSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password', 'email', 'data_nascimento', 'nome_completo']
 
+class AlunoMostrarSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    nome_completo = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+
+    def get_nome_completo(self, obj):
+        usuario = Usuario.objects.get(aluno = obj)
+        return usuario.nome_completo
+    
+    def get_username(self, obj):
+        user = User.objects.get(usuario__aluno = obj)
+        return user.username
+    
+    def get_email(self, obj):
+        user = User.objects.get(usuario__aluno = obj)
+        return user.email
+    
+class ElaboradorMostrarSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    nome_completo = serializers.SerializerMethodField()
+    username = serializers.SerializerMethodField()
+    email = serializers.SerializerMethodField()
+
+    def get_nome_completo(self, obj):
+        usuario = Usuario.objects.get(elaborador = obj)
+        return usuario.nome_completo
+    
+    def get_username(self, obj):
+        user = User.objects.get(usuario__elaborador = obj)
+        return user.username
+    
+    def get_email(self, obj):
+        user = User.objects.get(usuario__elaborador = obj)
+        return user.email
+    
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
     verificado = serializers.BooleanField()
