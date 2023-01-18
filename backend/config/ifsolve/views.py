@@ -166,6 +166,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             for resposta in serializer.validated_data:
                 resposta['aluno'] = request.user.usuario.aluno
+                resposta['data_hora'] = datetime.now()
                 Resposta.objects.create(**resposta)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
