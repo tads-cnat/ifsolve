@@ -292,6 +292,7 @@ class RespostaAvaliacaoSerializer(serializers.ModelSerializer):
 
         item_avaliacao = validated_data.get('item_avaliacao')
         res.item_avaliacao = item_avaliacao
+        res.item = item_avaliacao.item
 
         if (item_avaliacao.item.alternativa_correta.upper() == res.resposta.upper()):
             res.nota_obtida = item_avaliacao.nota_item
