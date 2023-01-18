@@ -11,6 +11,7 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
+
 class UserSerializer(serializers.ModelSerializer):
     extra_data = serializers.SerializerMethodField()
     id = serializers.SerializerMethodField()
@@ -39,12 +40,13 @@ class AlunoSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         username = UsuarioSerializer.__getitem__(self, "username").value
-        nome_completo = UsuarioSerializer.__getitem__(self, "nome_completo").value
+        nome_completo = UsuarioSerializer.__getitem__(
+            self, "nome_completo").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
         nascimento = UsuarioSerializer.__getitem__(
             self, "data_nascimento").value
-        
+
         user = User.objects.create_user(
             username=username,
             password=senha,
@@ -59,7 +61,9 @@ class AlunoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'data_nascimento', 'nome_completo']
+        fields = ['username', 'password', 'email',
+                  'data_nascimento', 'nome_completo']
+
 
 class ElaboradorSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField()
@@ -68,7 +72,8 @@ class ElaboradorSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         username = UsuarioSerializer.__getitem__(self, "username").value
-        nome_completo = UsuarioSerializer.__getitem__(self, "nome_completo").value
+        nome_completo = UsuarioSerializer.__getitem__(
+            self, "nome_completo").value
         senha = UsuarioSerializer.__getitem__(self, "password").value
         email = UsuarioSerializer.__getitem__(self, "email").value
         nascimento = UsuarioSerializer.__getitem__(
@@ -89,7 +94,9 @@ class ElaboradorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'data_nascimento', 'verificado', 'nome_completo']
+        fields = ['username', 'password', 'email',
+                  'data_nascimento', 'verificado', 'nome_completo']
+
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -126,9 +133,12 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         item = Item.objects.create(
-            elaborador=get_object_or_404(Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
-            visibilidade=ItemSerializer.__getitem__(self, "visibilidade").value,
-            area=Area.objects.get(id=ItemSerializer.__getitem__(self, "area").value),
+            elaborador=get_object_or_404(
+                Elaborador, id=ItemSerializer.__getitem__(self, "elaborador").value),
+            visibilidade=ItemSerializer.__getitem__(
+                self, "visibilidade").value,
+            area=Area.objects.get(
+                id=ItemSerializer.__getitem__(self, "area").value),
             assunto=ItemSerializer.__getitem__(self, "assunto").value,
             titulo=ItemSerializer.__getitem__(self, "titulo").value,
             data_publicacao=datetime.now(),
@@ -145,21 +155,26 @@ class ItemSerializer(serializers.ModelSerializer):
             obj_d = ItemSerializer.__getitem__(self, "alternativa_d")
             obj_e = ItemSerializer.__getitem__(self, "alternativa_e")
 
-            alt_a = Alternativa.objects.create(texto=obj_a.__getitem__("texto").value, justificativa=obj_a.__getitem__("justificativa").value)
-            alt_b = Alternativa.objects.create(texto=obj_b.__getitem__("texto").value, justificativa=obj_b.__getitem__("justificativa").value)
+            alt_a = Alternativa.objects.create(texto=obj_a.__getitem__(
+                "texto").value, justificativa=obj_a.__getitem__("justificativa").value)
+            alt_b = Alternativa.objects.create(texto=obj_b.__getitem__(
+                "texto").value, justificativa=obj_b.__getitem__("justificativa").value)
             item.alternativa_a = alt_a
             item.alternativa_b = alt_b
 
-            if(obj_c.value != {}):
-                alt_c = Alternativa.objects.create(texto=obj_c.__getitem__("texto").value, justificativa=obj_c.__getitem__("justificativa").value)
+            if (obj_c.value != {}):
+                alt_c = Alternativa.objects.create(texto=obj_c.__getitem__(
+                    "texto").value, justificativa=obj_c.__getitem__("justificativa").value)
                 item.alternativa_c = alt_c
-            
-            if(obj_d.value != {}):
-                alt_d = Alternativa.objects.create(texto=obj_d.__getitem__("texto").value, justificativa=obj_d.__getitem__("justificativa").value)
+
+            if (obj_d.value != {}):
+                alt_d = Alternativa.objects.create(texto=obj_d.__getitem__(
+                    "texto").value, justificativa=obj_d.__getitem__("justificativa").value)
                 item.alternativa_d = alt_d
-            
-            if(obj_e.value != {}):
-                alt_e = Alternativa.objects.create(texto=obj_e.__getitem__("texto").value, justificativa=obj_e.__getitem__("justificativa").value)
+
+            if (obj_e.value != {}):
+                alt_e = Alternativa.objects.create(texto=obj_e.__getitem__(
+                    "texto").value, justificativa=obj_e.__getitem__("justificativa").value)
                 item.alternativa_e = alt_e
 
             item.alternativa_correta = ItemSerializer.__getitem__(
@@ -194,10 +209,12 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = "__all__"
 
+
 class ItemAvaliacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemAvaliacao
         fields = "__all__"
+
 
 class AvaliacaoSerializer(serializers.ModelSerializer):
 
@@ -205,47 +222,52 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         avaliacao = Avaliacao.objects.create(
-            titulo = AvaliacaoSerializer.__getitem__(self, "titulo").value,
-            descricao = AvaliacaoSerializer.__getitem__(self, "descricao").value,
-            nota = AvaliacaoSerializer.__getitem__(self, "nota").value,
-            visibilidade = AvaliacaoSerializer.__getitem__(self, "visibilidade").value,
-            elaborador = get_object_or_404(Elaborador, id = AvaliacaoSerializer.__getitem__(self, "elaborador").value),
+            titulo=AvaliacaoSerializer.__getitem__(self, "titulo").value,
+            descricao=AvaliacaoSerializer.__getitem__(self, "descricao").value,
+            nota=AvaliacaoSerializer.__getitem__(self, "nota").value,
+            visibilidade=AvaliacaoSerializer.__getitem__(
+                self, "visibilidade").value,
+            elaborador=get_object_or_404(
+                Elaborador, id=AvaliacaoSerializer.__getitem__(self, "elaborador").value),
         )
 
-        id_coelaboradores = AvaliacaoSerializer.__getitem__(self, "co_elaboradores").value
-        if(id_coelaboradores != None):
+        id_coelaboradores = AvaliacaoSerializer.__getitem__(
+            self, "co_elaboradores").value
+        if (id_coelaboradores != None):
             avaliacao.co_elaboradores.add(*id_coelaboradores)
-        
-        data_inicio = AvaliacaoSerializer.__getitem__(self, "data_inicio").value
-        if(data_inicio != None):
+
+        data_inicio = AvaliacaoSerializer.__getitem__(
+            self, "data_inicio").value
+        if (data_inicio != None):
             avaliacao.data_inicio = data_inicio
-        
+
         data_fim = AvaliacaoSerializer.__getitem__(self, "data_fim").value
-        if(data_fim != None):
+        if (data_fim != None):
             avaliacao.data_fim = data_fim
-        
+
         id_alunos = AvaliacaoSerializer.__getitem__(self, "alunos").value
-        if(id_alunos != None):
+        if (id_alunos != None):
             avaliacao.alunos.add(*id_alunos)
 
         lista_itens = AvaliacaoSerializer.__getitem__(self, "itens").value
 
         for item in lista_itens:
             id_item = item["item"]
-            obj_item = get_object_or_404(Item, id = id_item)
+            obj_item = get_object_or_404(Item, id=id_item)
             item_avaliacao = ItemAvaliacao.objects.create(
-                item = obj_item,
-                avaliacao = avaliacao,
-                numero_item = item["numero_item"],
-                nota_item = item["nota_item"]
+                item=obj_item,
+                avaliacao=avaliacao,
+                numero_item=item["numero_item"],
+                nota_item=item["nota_item"]
             )
             item_avaliacao.save()
         avaliacao.save()
         return Response(AvaliacaoSerializer.data)
-        
+
     class Meta:
         model = Avaliacao
         fields = "__all__"
+
 
 class RespostaItemSerializer(serializers.ModelSerializer):
 
@@ -254,15 +276,18 @@ class RespostaItemSerializer(serializers.ModelSerializer):
         resposta = Resposta.objects.create(
             aluno=Aluno.objects.get(
                 id=RespostaItemSerializer.__getitem__(self, "aluno").value),
-            resposta=RespostaItemSerializer.__getitem__(self, "resposta").value,
-            data_hora=RespostaItemSerializer.__getitem__(self, "data_hora").value
+            resposta=RespostaItemSerializer.__getitem__(
+                self, "resposta").value,
+            data_hora=RespostaItemSerializer.__getitem__(
+                self, "data_hora").value
         )
 
         item = Item.objects.get(
             id=RespostaItemSerializer.__getitem__(self, "item").value)
         item_avaliacao = RespostaItemSerializer.__getitem__(
             self, "item_avaliacao").value
-        nota_obtida = RespostaItemSerializer.__getitem__(self, "nota_obtida").value
+        nota_obtida = RespostaItemSerializer.__getitem__(
+            self, "nota_obtida").value
 
         if (item != None):
             resposta.item = item
@@ -280,25 +305,20 @@ class RespostaItemSerializer(serializers.ModelSerializer):
         model = Resposta
         fields = "__all__"
 
+
 class RespostaAvaliacaoSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
-        res = Resposta.objects.create(
-            aluno = validated_data.get("aluno"),
-            resposta = validated_data.get("resposta"),
-            data_hora = validated_data.get("data_hora"),
-            nota_obtida = 0,
+        resposta = Resposta.objects.create(
+            item_avaliacao=ItemAvaliacao.objects.get(
+                id=RespostaAvaliacaoSerializer.__getitem__(self, "item_avaliacao").value),
+            resposta=RespostaAvaliacaoSerializer.__getitem__(
+                self, "resposta").value,
+            nota_obtida=RespostaAvaliacaoSerializer.__getitem__(
+                self, "nota_obtida").value,
         )
-
-        item_avaliacao = validated_data.get('item_avaliacao')
-        res.item_avaliacao = item_avaliacao
-
-        if (item_avaliacao.item.tipo == "ME"):
-            if (item_avaliacao.item.alternativa_correta.upper() == res.resposta.upper()):
-                res.nota_obtida = item_avaliacao.nota_item
-        res.save()
         return Response(RespostaAvaliacaoSerializer.data)
-
+        
     class Meta:
         model = Resposta
         fields = "__all__"
