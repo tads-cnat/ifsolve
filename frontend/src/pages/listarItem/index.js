@@ -1,44 +1,22 @@
-import { useContext, useEffect } from "react"
-import { Link } from "react-router-dom";
-import { CardItem, SidebarLayout } from "../../components/"
+import { useContext } from "react"
 import { GlobalContext } from "../../providers/context"
-import { GetItems } from "../../api/config";
-import { FiPlus } from "react-icons/fi";
+import AlunoListarItem from "../alunoListarItem";
+import ElaboradorListarItem from "../elaboradorListarItem";
 
 export default function ListarItem() {
-    const { getListItens, setListItens, setItens, setCurrentPage } = useContext(GlobalContext);
+    const { getUser } = useContext(GlobalContext);
 
-    useEffect(() => {
-        setCurrentPage("questoes")
-        GetItems(setItens, setListItens).catch((error) => {
-            console.log(error);
-        });
-    }, []);
+    function Page() {
+        if (getUser !== undefined) {
+            switch (getUser.extra_data.tipo_usuario) {
+                default:
+                    return (<AlunoListarItem></AlunoListarItem>)
 
-    return (
-        <SidebarLayout>
-            <div className="my-5">
-                <div className="flex justify-between">
-                    <h1 className="text-2xl font-bold">Questões</h1>
-                    <Link to="/criar/item" className="bg-primary-100 flex px-4 py-2 items-center gap-2 rounded-lg"><FiPlus /> Questão</Link>
-                </div>
+                case "elaborador":
+                    return (<ElaboradorListarItem></ElaboradorListarItem>)
+            }
+        }
+    }
 
-                <div className="flex justify-between mb-5">
-                    <span className="basis-6/12">Encontramos <b> {getListItens.length} questões! </b>🙌</span>
-                    <select id="order" className="basis-2/12 p-3 rounded-lg">
-                        <option value="volvo">Mais recentes</option>
-                        <option value="saab">Mais antigos</option>
-                    </select>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-                    {getListItens.length > 0 ?
-                        getListItens.map((item) =>
-                            <CardItem key={item.id} content={item}></CardItem>
-                        )
-                        : "Carregando itens"}
-                </div>
-            </div>
-        </SidebarLayout>
-    )
+    return (<>{Page()}</>)
 }

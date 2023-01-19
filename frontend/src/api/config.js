@@ -11,6 +11,33 @@ export function loginApi(data) {
     })
 }
 
+export function Logout() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("auth/logout/",
+        {
+            headers: {
+                "Authorization": "Token " + token,
+            }
+        }
+    ).then((res) => {
+        localStorage.removeItem("ifsolve_token");
+        localStorage.removeItem("ifsolve_user");
+    })
+
+}
+
+export function GetUser() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("auth/user/", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+
 export function ElaboradorRegister(data) {
     return api.post("elaborador/cadastro/", {
         "nome_completo": data.nome_completo,
@@ -37,10 +64,9 @@ export function AlunoRegister(data) {
 }
 
 export function PostItemDI(data) {
-    console.log(data);
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
-    return api.post("item/elaborador/criar/",
+    return api.post("item/criar/",
         {
             "titulo": data.titulo,
             "texto_base": "",
@@ -67,7 +93,7 @@ export function PostItemDI(data) {
 export function PostItemME(data) {
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
-    return api.post("item/elaborador/criar/",
+    return api.post("item/criar/",
         {
             "titulo": data.titulo,
             "texto_base": "",
@@ -112,9 +138,9 @@ export function PostItemME(data) {
 }
 
 
-export function GetItems(setItens, setListItens) {
+export function GetItemsPU(setItens, setListItens) {
     const token = localStorage.getItem("ifsolve_token");
-    return api.get("item/elaborador/",
+    return api.get("item/publico/",
         {
             headers: {
                 "Authorization": "Token " + token,
@@ -126,20 +152,15 @@ export function GetItems(setItens, setListItens) {
     })
 }
 
-export function Logout() {
+export function GetItems() {
     const token = localStorage.getItem("ifsolve_token");
-
-    return api.get("auth/logout/",
+    return api.get("item/publico/",
         {
             headers: {
                 "Authorization": "Token " + token,
             }
-        }
-    ).then((res) => {
-        localStorage.removeItem("ifsolve_token");
-        localStorage.removeItem("ifsolve_user");
-    })
-
+        },
+    )
 }
 
 export function GetAreas() {
@@ -162,4 +183,36 @@ export function GetItemByID(id) {
             "Authorization": "Token " + token,
         }
     })
+}
+
+
+export function GetTags() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get('tag/', {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function AnswerItem(data) {
+    // Pegua dados do usuario salvos no local storage
+    const user = JSON.parse(localStorage.getItem("ifsolve_user"));  
+
+    // Envia dados da resposta para a api via POST
+    return api.post("resposta/",
+        {
+            "resposta": data.resposta,
+            "nota_obtida": data.nota_obtida,
+            "data_hora" : new Date().toJSON(),
+            "aluno": user.id,
+            "item": data.item
+        },
+        {
+            headers: {
+                "Authorization": "Token " + localStorage.getItem("ifsolve_token"),
+            }
+        }
+    )
 }

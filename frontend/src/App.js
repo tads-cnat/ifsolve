@@ -1,8 +1,22 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, Settings, VisualizarItem, RespostasItem } from "./pages";
+import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, RespostaItem } from "./pages";
 import { ProtectedRoute } from "./components";
+import { useContext, useEffect } from "react";
+import { GetUser } from "./api/config";
+import { GlobalContext } from "./providers/context";
 
 export default function App() {
+  const {setUser} = useContext(GlobalContext);
+  
+
+  useEffect(()=>{
+    GetUser().then(res =>{
+      console.log(res.data);
+      setUser(res.data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[])
 
   const router = createBrowserRouter([
     {
@@ -15,23 +29,27 @@ export default function App() {
     },
     {
       path: "/item",
-      element: (<ProtectedRoute><ListarItem></ListarItem></ProtectedRoute>)
+      element: (<ListarItem></ListarItem>)
     },
     {
       path: "/item/:id",
-      element: (<ProtectedRoute><VisualizarItem></VisualizarItem></ProtectedRoute>)
+      element: (<VisualizarItem></VisualizarItem>)
+    },
+    {
+      path: "/item/:id/responder",
+      element: (<ResponderItem></ResponderItem>)
     },
     {
       path: "/criar/item",
-      element: (<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>)
+      element: (<CriarItem></CriarItem>)
     },
     {
       path: "/item/:id/resposta",
-      element: (<ProtectedRoute><RespostasItem></RespostasItem></ProtectedRoute>)
+      element: (<RespostaItem></RespostaItem>)
     },
     {
       path: "/settings",
-      element: (<ProtectedRoute><Settings></Settings></ProtectedRoute>)
+      element: (<Settings></Settings>)
     }
     
   ])

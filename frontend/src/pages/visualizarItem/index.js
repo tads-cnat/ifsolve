@@ -16,7 +16,6 @@ export default function VisualizarItem() {
 
     useEffect(() => {
         GetItemByID(id).then(res => {
-            console.log(res.data);
             setItem(res.data);
             setEnunciado(res.data.enunciado);
         })
