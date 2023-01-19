@@ -29,27 +29,27 @@ export default function App() {
     },
     {
       path: "/item",
-      element: (<ListarItem></ListarItem>)
+      element: (<ProtectedRoute><ListarItem></ListarItem></ProtectedRoute>)
     },
     {
       path: "/item/:id",
-      element: (<VisualizarItem></VisualizarItem>)
+      element: (<ProtectedRoute><VisualizarItem></VisualizarItem></ProtectedRoute>)
     },
     {
       path: "/item/:id/responder",
-      element: (<ResponderItem></ResponderItem>)
+      element: (<ProtectedRoute><ResponderItem></ResponderItem></ProtectedRoute>)
     },
     {
       path: "/criar/item",
-      element: (<CriarItem></CriarItem>)
+      element: (<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>)
     },
     {
       path: "/item/:id/resposta",
-      element: (<RespostaItem></RespostaItem>)
+      element: (<ProtectedRoute><RespostaItem></RespostaItem></ProtectedRoute>)
     },
     {
       path: "/settings",
-      element: (<Settings></Settings>)
+      element: (<ProtectedRoute><Settings></Settings></ProtectedRoute>)
     }
     
   ])
