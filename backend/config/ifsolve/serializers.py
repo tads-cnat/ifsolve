@@ -307,6 +307,8 @@ class RespostaItemSerializer(serializers.ModelSerializer):
 
 
 class RespostaAvaliacaoSerializer(serializers.ModelSerializer):
+    data_hora = serializers.DateTimeField(required=False)
+    nota_obtida = serializers.IntegerField(required=False)
 
     def create(self, validated_data):
         resposta = Resposta.objects.create(
@@ -314,8 +316,6 @@ class RespostaAvaliacaoSerializer(serializers.ModelSerializer):
                 id=RespostaAvaliacaoSerializer.__getitem__(self, "item_avaliacao").value),
             resposta=RespostaAvaliacaoSerializer.__getitem__(
                 self, "resposta").value,
-            nota_obtida=RespostaAvaliacaoSerializer.__getitem__(
-                self, "nota_obtida").value,
         )
         return Response(RespostaAvaliacaoSerializer.data)
         

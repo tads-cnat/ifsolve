@@ -11,6 +11,9 @@ from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer
                         ItemSerializer, ItemAvaliacaoSerializer, RespostaItemSerializer, RespostaAvaliacaoSerializer,  TagSerializer, UsuarioSerializer, 
                         LoginSerializer, UserSerializer)
 from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
@@ -163,11 +166,19 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='responder', permission_classes=[IsAluno])
     def responder(self, request):
         serializer = RespostaAvaliacaoSerializer(data=request.data, many=True)
+
         if serializer.is_valid():
             for resposta in serializer.validated_data:
+                item_avaliacao = get_object_or_404(ItemAvaliacao, pk=resposta['item_avaliacao'].id)
                 resposta['aluno'] = request.user.usuario.aluno
                 resposta['data_hora'] = datetime.now()
+                # Verifica se item_avaliacao é de múltipla escolha
+                if item_avaliacao.item.tipo == 'ME':
+                    if resposta['resposta'].upper() == item_avaliacao.item.alternativa_correta.upper():
+                        resposta['nota_obtida'] = item_avaliacao.nota_item
+            
                 Resposta.objects.create(**resposta)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
