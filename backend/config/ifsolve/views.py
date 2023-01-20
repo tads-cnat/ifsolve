@@ -12,6 +12,7 @@ from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer
                         ItemSerializer, ItemAvaliacaoSerializer, RespostaItemSerializer, TagSerializer, UsuarioSerializer,RespostaAvaliacaoSerializer,
                         LoginSerializer, UserSerializer, ElaboradorMostrarSerializer, AlunoMostrarSerializer)
 
+from datetime import datetime
 class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
     serializer_class = None
@@ -96,7 +97,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['get'], permission_classes=[IsAlunoOrElaborador])
+    @action(detail=True, methods=['get'], url_path='detalhe', permission_classes=[IsAlunoOrElaborador])
     def detalhe(self, request, pk = None):
         if(hasattr(request.user.usuario, 'aluno')):
             queryset = Item.objects.filter(visibilidade = 'PU')
@@ -157,8 +158,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         serializer = AvaliacaoSerializer(avaliacao, many=True)
         return Response(serializer.data)
 
-    # * Listar uma instância de avaliação com seus itens
-    @action(detail=True, methods=['get'], permission_classes=[IsAlunoOrElaborador])
+    @action(detail=True, methods=['get'], url_path='detalhe', permission_classes=[IsAlunoOrElaborador])
     def detalhe(self, request, pk = None):
         avaliacao = get_object_or_404(Avaliacao, pk=pk)
         itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
