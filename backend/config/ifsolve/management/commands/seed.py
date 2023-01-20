@@ -197,7 +197,7 @@ def create_item(st_number):
     lista_alternativas = Alternativa.objects.all()
     visibilidade = random.choice(["0", "1", "2"])
     tem_texto_base = random.choice(["0", "1"])
-    tipo = random.choice(["OB", "DI"])
+    tipo = random.choice(["ME", "DI"])
 
     item.area = random.choice(lista_areas)
     item.titulo = f'item{st_number:05d}'
