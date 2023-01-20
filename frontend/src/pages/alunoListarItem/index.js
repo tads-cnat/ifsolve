@@ -7,7 +7,7 @@ import { GlobalContext } from "../../providers/context";
 
 export default function AlunoListarItem() {
     const { setCurrentPage } = useContext(GlobalContext);
-    const [getData, setData] = useState([])
+    const [getData, setData] = useState([]);
     const [getSearch, setSearch] = useState("");
 
     // Executa quando o componente é carregado

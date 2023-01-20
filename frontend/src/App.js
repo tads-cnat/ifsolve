@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem } from "./pages";
+import { CreateAvaliacao, CriarItem, ListarItem, ListAvaliacao, Login, Register, ResponderItem, Settings, VisualizarItem } from "./pages";
 import { ProtectedRoute } from "./components";
 import { useContext, useEffect } from "react";
 import { GetUser } from "./api/config";
@@ -11,9 +11,9 @@ export default function App() {
 
   useEffect(()=>{
     GetUser().then(res =>{
-      console.log(res.data);
       setUser(res.data);
     }).catch((error)=>{
+      console.log("amigo estou aqui!");
       console.log(error);
     })
   },[])
@@ -26,6 +26,14 @@ export default function App() {
     {
       path: "/registro",
       element: (<Register></Register>)
+    },
+    {
+      path: "/avaliacao",
+      element: (<ProtectedRoute><ListAvaliacao></ListAvaliacao></ProtectedRoute>)
+    },
+    {
+      path: "/avaliacao/criar",
+      element: (<ProtectedRoute><CreateAvaliacao></CreateAvaliacao></ProtectedRoute>)
     },
     {
       path: "/item",

@@ -195,3 +195,23 @@ export function GetTags() {
         }
     })
 }
+
+export function GetAvaliações() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("avaliacao/elaborador/todas", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function GetAlunos() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("aluno/listar/", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
