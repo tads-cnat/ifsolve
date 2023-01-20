@@ -9,15 +9,24 @@
 > ### Fluxo Principal
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   |  
-|                                          | 1 - Exibir o conteúdo de respostas de uma avaliação de forma distinta a depender do tipo do usuário logado (aluno ou elaborador). Se o usuário que deseja visualizar as respostas de uma avaliação é um aluno, segue **Fluxo Alternativo I**. Por outro lado, caso seja um elaborador, segue **Fluxo Alternativo II**. | 
+| Selecionar uma avaliação.                                       |
+|                                          | 1 - Exibir o conteúdo de respostas de uma avaliação de forma distinta a depender do tipo do usuário logado (aluno ou elaborador). Se o usuário que deseja visualizar as respostas de uma avaliação é um aluno, segue **Fluxo Alternativo I.I (Visualizar respostas após enviar avaliação)** ou **Fluxo Alternativo I.II (Apenas visualizar respostas)**. Por outro lado, caso seja um elaborador, segue **Fluxo Alternativo II**. | 
 
 <br>
 
-> ### Fluxo Alternativo I - Visualização como Aluno
+> ### Fluxo Alternativo I.I - Visualizar respostas após enviar avaliação (Aluno)
 | Ações do ator                            | Ações do sistema      |
 | :-----------------:                      | :-----------------:   | 
-| 1.1 - Selecionar uma avaliação já respondida para ver suas respostas fornecidas a ela ou visualizar as suas respostas dadas a uma avaliação logo após submeter o envio dela. |               |   
-|                                          | 1.2 - Para cada item contido na avaliação, exibir as respostas que o próprio aluno forneceu e o status de acerto ou de erro (em caso de item de múltipla escolha) e a nota obtida com aquele item. O status de um item discursivo será uma mensagem de aguardo de correção (caso ele ainda não tenha sido avaliado pelo elaborador que criou a avaliação), ou a nota obtida com aquele item (após correção), assim como a resposta que era esperada para ele. | 
+| 1.1 - Enviar a avaliação. |               |   
+|                                          | 1.2 - Para cada item contido na avaliação, exibir a resposta que o próprio aluno forneceu e o status de acerto ou de erro (em caso de item de múltipla escolha) e a nota obtida com aquele item, além de uma totalização das pontuações obtidas com todos os itens respondidos. O status de um item discursivo será uma mensagem de aguardo de correção, esta que será realizada posteriormente pelo elaborador que criou a avaliação. | 
+
+<br>
+
+> ### Fluxo Alternativo I.II - Apenas visualizar respostas (Aluno)
+| Ações do ator                            | Ações do sistema      |
+| :-----------------:                      | :-----------------:   | 
+| 1.1 - Selecionar a opção de visualizar as respostas fornecidas por si próprio a uma avaliação em um momento passado. |               |   
+|                                          | 1.2 - Para cada item contido na avaliação, exibir as respostas que o próprio aluno forneceu e o status de acerto ou de erro (em caso de item de múltipla escolha) e a nota obtida com aquele item, além de uma totalização das pontuações obtidas com todos os itens respondidos. O status de um item discursivo será uma mensagem de aguardo de correção (caso ele ainda não tenha sido avaliado pelo elaborador que criou a avaliação), ou a nota obtida com aquele item (após correção), assim como a resposta que era esperada para ele. | 
 
 <br>
 
