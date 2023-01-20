@@ -182,6 +182,14 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         serializer = RespostaAvaliacaoSerializer(respostas_itens, many = True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'], url_path='aluno/(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsAluno])
+    def RespostaAvaliacaoAlunoSerializer(self, request, avaliacao_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
+        respostas = Resposta.objects.filter(aluno = request.user.usuario.aluno).filter(item_avaliacao__in = itens_avaliacao)
+        serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+        return Response(serializer.data)
+    
 class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()
     serializer_class = RespostaItemSerializer
