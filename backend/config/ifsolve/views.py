@@ -125,9 +125,9 @@ class ItemViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'], url_path='(?P<item_id>[^/.]+)/responder', permission_classes=[IsAluno])
-    def responder(self, request, pk=None, item_id=None):
-        item = get_object_or_404(Item, pk=item_id)
+    @action(detail=True, methods=['post'], url_path=('responder'), permission_classes=[IsAluno])
+    def responder(self, request, pk=None):
+        item = get_object_or_404(Item, pk=pk)       
         serializer = RespostaItemSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(item=item, aluno=request.user.usuario.aluno)
