@@ -6,14 +6,11 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated, IsAlunoOrElaborador
-from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
-from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
-                        ItemSerializer, ItemAvaliacaoSerializer, RespostaItemSerializer, RespostaAvaliacaoSerializer,  TagSerializer, UsuarioSerializer, 
-                        LoginSerializer, UserSerializer)
-from datetime import datetime
-import logging
-
-logger = logging.getLogger(__name__)
+from .models import (Alternativa, Aluno, Area, Avaliacao,
+                     Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
+from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer,
+                        ItemSerializer, ItemAvaliacaoSerializer, RespostaItemSerializer, TagSerializer, UsuarioSerializer,RespostaAvaliacaoSerializer,
+                        LoginSerializer, UserSerializer, ElaboradorMostrarSerializer, AlunoMostrarSerializer)
 
 class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
@@ -31,11 +28,11 @@ class AuthViewSet(viewsets.GenericViewSet):
 
         if not user.exists():
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         user = user.first()
         if not user.check_password(password):
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         token, created = Token.objects.get_or_create(user=user)
         user_data = UserSerializer(user).data
         user_data['token'] = token.key
@@ -50,14 +47,15 @@ class AuthViewSet(viewsets.GenericViewSet):
     def user(self, request):
         return Response(UserSerializer(request.user).data)
 
+
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()
     serializer_class = AlunoSerializer
-    
-    @action(detail=False, methods=['get'], url_path = "listar", permission_classes = [IsElaborador])
-    def listarAlunos(self, request):
+
+    @action(detail=False, methods=['get'], url_path = "todos", permission_classes = [IsElaborador])
+    def listar(self, request):
         lista_alunos = Aluno.objects.all()
-        serializer = AlunoSerializer(lista_alunos, many=True)
+        serializer = AlunoMostrarSerializer(lista_alunos, many=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
@@ -71,8 +69,14 @@ class AlunoViewSet(viewsets.ModelViewSet):
 class ElaboradorViewSet(viewsets.ModelViewSet):
     queryset = Elaborador.objects.none()
     serializer_class = ElaboradorSerializer
-    
-    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [AllowAny])
+
+    @action(detail=False, methods=['get'], url_path = "todos", permission_classes = [IsElaborador])
+    def listar(self, request):
+        lista_elaboradores = Elaborador.objects.filter(verificado=True)
+        serializer = ElaboradorMostrarSerializer(lista_elaboradores, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
     def post(self, request):
         serializer = ElaboradorSerializer(data = request.data)
         if serializer.is_valid():
@@ -99,7 +103,6 @@ class ItemViewSet(viewsets.ModelViewSet):
 
         elif(hasattr(request.user.usuario, 'elaborador')):
             queryset = Item.objects.filter(elaborador=request.user.usuario.elaborador) | Item.objects.filter(visibilidade = 'PU')
-       
         item = get_object_or_404(queryset, pk=pk)
         serializer = ItemSerializer(item)
         return Response(serializer.data)
@@ -214,4 +217,3 @@ class TagViewSet(viewsets.ModelViewSet):
                 serializer.save(item=item)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        

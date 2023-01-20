@@ -44,7 +44,6 @@ export default function Register() {
                     navigate("/", { replace: true })
                     localStorage.setItem("ifsolve_success_alert", "Sua conta foi criada com sucesso.");
                 }).catch(error => {
-                    console.log(error);
                     toast.error("Não foi possivel criar sua conta.")
                 });
             }
