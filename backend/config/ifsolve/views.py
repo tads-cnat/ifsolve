@@ -170,7 +170,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         }
         return Response(contexto)
 
-    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/elaborador/respostas', permission_classes=[IsElaborador])
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
     def RespostaAvaliacaoListagemSerializer(self, request, avaliacao_id):
         avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
         alunos = avaliacao.alunos.all()
