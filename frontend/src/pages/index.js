@@ -7,5 +7,6 @@ import VisualizarItem from "./visualizarItem";
 import AlunoListarItem from "./alunoListarItem";
 import ElaboradorListarItem from "./elaboradorListarItem";
 import ResponderItem from "./responderItem";
+import AlunoVisualizarRespostaAvaliacao from "./AlunoVisualizarRespostaAvaliacao";
 
-export { ListarItem, CriarItem, Login, Register, Settings, VisualizarItem, AlunoListarItem, ElaboradorListarItem, ResponderItem };
+export { ListarItem, CriarItem, Login, Register, Settings, VisualizarItem, AlunoListarItem, ElaboradorListarItem, ResponderItem, AlunoVisualizarRespostaAvaliacao };

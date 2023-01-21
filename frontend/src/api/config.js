@@ -185,6 +185,16 @@ export function GetItemByID(id) {
     })
 }
 
+export function GetRespostasAlunoAvaliacao(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/aluno/respostas/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
 
 export function GetTags() {
     const token = localStorage.getItem("ifsolve_token");
