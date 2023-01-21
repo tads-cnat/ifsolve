@@ -170,19 +170,48 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         }
         return Response(contexto)
 
-    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsAlunoOrElaborador])
-    def RespostasAvaliacao(self, request, avaliacao_id):
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/elaborador/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoListagemSerializer(self, request, avaliacao_id):
         avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
-        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
-        respostas_itens = []
+        alunos = avaliacao.alunos.all()
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
+        
+        for aluno in alunos:
+            for item in itens_avaliacao:
+                respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+                serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+                contexto_atual = {
+                    "aluno" : aluno.user.username, "respostas" : serializer.data
+                }
+                if aluno.user.username in contexto:
+                    contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+                else:
+                    contexto[aluno.user.username] = contexto_atual
+        return Response(contexto)
+    
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/(?P<aluno_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoIndividualSerializer(self, request, avaliacao_id, aluno_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        aluno = get_object_or_404(Aluno, id = aluno_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
 
-        for item_av in itens_avaliacao:
-            respostas_itens += Resposta.objects.filter(item_avaliacao = item_av)
-
-        serializer = RespostaAvaliacaoSerializer(respostas_itens, many = True)
-        return Response(serializer.data)
-
-    @action(detail=False, methods=['get'], url_path='aluno/(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsAluno])
+        for item in itens_avaliacao:
+            respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+            serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+            contexto_atual = {
+                "aluno" : aluno.user.username, "respostas" : serializer.data
+            }
+            if aluno.user.username in contexto:
+                contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+            else:
+                contexto[aluno.user.username] = contexto_atual
+        return Response(contexto)
+        
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/respostas', permission_classes=[IsAluno])
     def RespostaAvaliacaoAlunoSerializer(self, request, avaliacao_id):
         avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
         itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
