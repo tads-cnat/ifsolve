@@ -13,5 +13,23 @@ import Navbar from "./navbar";
 import RegisterForm from "./registerForm";
 import PassowordInput from "./passwordInput";
 import GlobalAlert from "./globalAlert";
+import Container from "./container";
 
-export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput, ProtectedRoute, Navbar, RegisterForm, PassowordInput, GlobalAlert };
+export {
+    Sidebar,
+    SidebarItem,
+    CardItem,
+    SidebarLayout,
+    TagInput,
+    FormControl,
+    InputGroup,
+    PrimaryButton,
+    FormLabel,
+    SelectInput,
+    ProtectedRoute,
+    Navbar,
+    RegisterForm,
+    PassowordInput,
+    GlobalAlert,
+    Container,
+};

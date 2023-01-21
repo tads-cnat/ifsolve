@@ -28,8 +28,8 @@ class Aluno(Usuario):
 
 
 class Alternativa(models.Model):
-    texto = models.TextField()
-    justificativa = models.TextField()
+    texto = models.TextField(blank=True, null=True)
+    justificativa = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return (self.texto if self.texto else '----')
@@ -132,14 +132,14 @@ class Avaliacao(models.Model):
         ('PR', 'Privado')
     ]
     titulo = models.CharField("Título", max_length=200)
+    elaborador = models.ForeignKey(
+        Elaborador, related_name = "elaborador", on_delete=models.CASCADE)
     co_elaboradores = models.ManyToManyField(Elaborador, blank = True)
     descricao = models.TextField("Descrição")
     data_inicio = models.DateTimeField(blank=True, null=True)
     data_fim = models.DateTimeField(blank=True, null=True)
     nota = models.IntegerField()
     visibilidade = models.CharField(max_length=2, choices=visibilidade_opcao)
-    elaborador = models.ForeignKey(
-        Elaborador, related_name = "elaborador", on_delete=models.CASCADE)
     alunos = models.ManyToManyField(Aluno, blank=True)
 
     class Meta:
