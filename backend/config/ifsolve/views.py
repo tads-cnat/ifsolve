@@ -185,6 +185,55 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoListagemSerializer(self, request, avaliacao_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        alunos = avaliacao.alunos.all()
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
+        
+        for aluno in alunos:
+            for item in itens_avaliacao:
+                respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+                serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+                contexto_atual = {
+                    "aluno" : aluno.user.username, "respostas" : serializer.data
+                }
+                if aluno.user.username in contexto:
+                    contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+                else:
+                    contexto[aluno.user.username] = contexto_atual
+        return Response(contexto)
+    
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/(?P<aluno_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoIndividualSerializer(self, request, avaliacao_id, aluno_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        aluno = get_object_or_404(Aluno, id = aluno_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
+
+        for item in itens_avaliacao:
+            respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+            serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+            contexto_atual = {
+                "aluno" : aluno.user.username, "respostas" : serializer.data
+            }
+            if aluno.user.username in contexto:
+                contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+            else:
+                contexto[aluno.user.username] = contexto_atual
+        return Response(contexto)
+        
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/respostas', permission_classes=[IsAluno])
+    def RespostaAvaliacaoAlunoSerializer(self, request, avaliacao_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
+        respostas = Resposta.objects.filter(aluno = request.user.usuario.aluno).filter(item_avaliacao__in = itens_avaliacao)
+        serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+        return Response(serializer.data)
+    
 class RespostaItemViewSet(viewsets.ModelViewSet):
     queryset = Resposta.objects.none()
     serializer_class = RespostaItemSerializer
