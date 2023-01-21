@@ -175,6 +175,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
                 item_avaliacao = get_object_or_404(ItemAvaliacao, pk=resposta['item_avaliacao'].id)
                 resposta['aluno'] = request.user.usuario.aluno
                 resposta['data_hora'] = datetime.now()
+                resposta['item'] = item_avaliacao.item
                 # Verifica se item_avaliacao é de múltipla escolha
                 if item_avaliacao.item.tipo == 'ME':
                     if resposta['resposta'].upper() == item_avaliacao.item.alternativa_correta.upper():
