@@ -221,10 +221,10 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
             contexto_atual = {
                 "aluno" : aluno.user.username, "respostas" : serializer.data
             }
-            if aluno.user.username in contexto:
-                contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+            if "resposta" in contexto:
+                contexto["resposta"]['respostas'] += contexto_atual['respostas']
             else:
-                contexto[aluno.user.username] = contexto_atual
+                contexto["resposta"] = contexto_atual
         return Response(contexto)
         
     @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/respostas', permission_classes=[IsAluno])
