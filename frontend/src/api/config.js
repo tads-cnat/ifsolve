@@ -185,6 +185,15 @@ export function GetItemByID(id) {
     })
 }
 
+export function GetRespostaByItem(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`resposta/item/${id}/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
 
 export function GetTags() {
     const token = localStorage.getItem("ifsolve_token");
