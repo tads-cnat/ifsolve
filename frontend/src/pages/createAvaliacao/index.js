@@ -1,16 +1,17 @@
 import { useFormik } from "formik";
-import { Container } from "../../components";
+import { AlunosInput, Container } from "../../components";
 import * as Yup from "yup";
 import { FiInbox, FiPlus, FiSearch } from "react-icons/fi";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GetAlunos, GetItems } from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
 
 
 
 export default function CreateAvaliacao() {
+    const [getAluno, setAluno] = useState([]);
+
     const [getItemList, setItemList] = useState([]);
-    const [getAlunoList, setAlunoList] = useState([]);
     const [getItemSearch, setItemSearch] = useState("");
     const [getItemAvaliacao, setItemAvaliacao] = useState([]);
     const navigate = useNavigate();
@@ -22,12 +23,9 @@ export default function CreateAvaliacao() {
             console.log(error);
         })
 
-        GetAlunos().then(res => {
-            console.log(res); 
-        })
+
     }, [])
 
-    const filteredData = getItemSearch.length > 0 ? getItemList.filter(item => item.titulo.includes(getItemSearch)) : getItemList;
 
     const formik = useFormik({
         initialValues: {
@@ -51,16 +49,15 @@ export default function CreateAvaliacao() {
         }
     })
 
-    function AddItemAvaliacao(item) {
+    const filteredData = getItemSearch.length > 0 ? getItemList.filter(item => item.titulo.includes(getItemSearch)) : getItemList;
 
-        if (!getItemAvaliacao.includes(item))
+    function AddItemAvaliacao(item) {
+        if (!getItemAvaliacao.includes(item)) {
             setItemAvaliacao(getItemAvaliacao => [...getItemAvaliacao, item])
-        else {
+        } else {
             setItemAvaliacao(getItemAvaliacao.filter(itemAvaliacao => itemAvaliacao.id !== item.id))
         }
     }
-
-    console.log(getItemAvaliacao);
 
 
     return (
@@ -69,6 +66,8 @@ export default function CreateAvaliacao() {
                 <h1 className="text-2xl font-medium text-dark-100">Criar avaliação</h1>
 
                 <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-8">
+                    <h2 className="text-lg text-dark-100 font-medium">Informações gerais</h2>
+
                     <div className="flex flex-col">
                         <label htmlFor="">Titulo</label>
                         <input
@@ -152,11 +151,14 @@ export default function CreateAvaliacao() {
                         </div>
                     </div>
 
-                    {/* Input para selecionar alunos */}
 
                 </div>
 
-                <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-8">
+                {/* Input para selecionar alunos */}
+                <AlunosInput get={getAluno} set={setAluno} />
+
+
+                <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-4">
                     <h2 className="text-lg font-medium text-dark-100">Adicionar questões</h2>
                     <div className="relative flex items-center">
                         <FiSearch className="absolute left-4 "></FiSearch>
@@ -180,7 +182,7 @@ export default function CreateAvaliacao() {
 
                 {getItemAvaliacao.length > 0 ?
                     getItemAvaliacao.map((item, i) =>
-                        <div key={i} className="container flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-8" style={{ maxWidth: "720px" }}>
+                        <div key={i} className="container flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-4" style={{ maxWidth: "720px" }}>
                             <h2>{item.titulo}</h2>
                         </div>
                     )

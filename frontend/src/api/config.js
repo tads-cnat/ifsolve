@@ -209,7 +209,7 @@ export function GetAvaliações() {
 export function GetAlunos() {
     const token = localStorage.getItem("ifsolve_token");
 
-    return api.get("aluno/listar/", {
+    return api.get("aluno/todos/", {
         headers: {
             "Authorization": "Token " + token,
         }
