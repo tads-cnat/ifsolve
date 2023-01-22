@@ -185,6 +185,16 @@ export function GetItemByID(id) {
     })
 }
 
+export function GetAvaliacaoByID(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/detalhe/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
 export function GetRespostasAlunoAvaliacao(id) {
     const token = localStorage.getItem("ifsolve_token");
 
