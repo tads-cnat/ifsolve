@@ -7,7 +7,7 @@ export default function Sidebar(props) {
         <div id="Sidebar" className="flex flex-col bg-white basis-2/12 h-screen px-4 pt-5 pt-5 pb-8">
             <img className="h-6 mb-10" src={IFSolvelogo} alt="" />
             <div className="flex flex-col gap-4">
-                <SidebarItem icon={<FiHome></FiHome>} itemKey="provas" title="Provas"></SidebarItem>
+                <SidebarItem icon={<FiHome></FiHome>} itemKey="avaliacao" title="Avaliações" link="/avaliacao"></SidebarItem>
                 <SidebarItem icon={<FiList></FiList>} itemKey="questoes" title="Questões" link="/"></SidebarItem>
             </div>
             <div className="flex flex-col gap-4 mt-auto">

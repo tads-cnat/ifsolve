@@ -118,7 +118,7 @@ export default function CriarItem() {
 
                                         <div className="mb-3">
                                             <FormLabel label="Alternativa correta"></FormLabel>
-                                            <Field as="select" name="alternativa_correta" >
+                                            <Field as="select" defaultValue="a" name="alternativa_correta" >
                                                 <option value="" selected disabled hidden>Escolhar a alternativa correta</option>
                                                 {values.alternativas.map((alternativa, i) =>
                                                     <option key={i} value={(i + 10).toString(36)}>{(i + 10).toString(36)}</option>

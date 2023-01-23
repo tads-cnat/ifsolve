@@ -7,7 +7,7 @@ import { GlobalContext } from "../../providers/context";
 
 export default function AlunoListarItem() {
     const { setCurrentPage } = useContext(GlobalContext);
-    const [getData, setData] = useState([])
+    const [getData, setData] = useState([]);
     const [getSearch, setSearch] = useState("");
 
     // Executa quando o componente é carregado
@@ -36,7 +36,7 @@ export default function AlunoListarItem() {
                     <div className="flex">
                         <span className="basis-6/12">Encontramos <b> {filteredData.length} {filteredData.length > 1 ? "questões!" : "questão!"} </b>🙌</span>
                     </div>
-                    <div className="grid grid-cols-2">
+                    <div className="grid grid-cols-2 gap-4">
                         {filteredData.map((item, i) =>
                             <CardItem key={i} item={item}></CardItem>
                         )}
