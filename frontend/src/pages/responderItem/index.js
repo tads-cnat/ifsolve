@@ -5,6 +5,7 @@ import { AnswerItem, GetItemByID } from "../../api/config";
 import { Container } from "../../components";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
+import { FiArrowLeft } from "react-icons/fi";
 
 
 export default function ResponderItem(props) {
@@ -47,45 +48,50 @@ export default function ResponderItem(props) {
 
     return (
         <div className="min-h-screen bg-dark-5 py-5">
-            <Container className="">
-                <div className="flex flex-col gap-4 mx-auto bg-white px-8 py-4 rounded-lg mb-4" style={{ maxWidth: "720px" }}>
+            <Container className="flex flex-col gap-4" style={{ maxWidth: "720px" }}>
+                <div className="flex flex-row items-center gap-4 w-full">
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft></FiArrowLeft></div>
+                </div>
+
+                <div className="bg-white p-4 rounded-lg">
                     <h1 className="text-3xl font-medium">{getData.titulo}</h1>
                     <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getData.enunciado} readOnly={true}></ReactQuill>
                 </div>
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="flex flex-col gap-4 mx-auto bg-white px-8 py-4 rounded-lg mb-4" style={{ maxWidth: "720px" }}>
+
+                <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">
+                    <div className="bg-white p-4 rounded-lg">
                         {getData.tipo === "ME" ?
-                            <div className="flex flex-col">
+                            <div className="flex flex-col gap-2">
 
                                 {getData.alternativa_a && getData.alternativa_a.texto !== (undefined || null || "") ?
-                                    <label>
+                                    <Label>
                                         <input type="radio" value="A" name="resposta" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                         {getData.alternativa_a.texto}
-                                    </label>
+                                    </Label>
                                     : null}
                                 {getData.alternativa_b && getData.alternativa_b.texto !== (undefined || null || "") ?
-                                    <label>
+                                    <Label>
                                         <input type="radio" value="B" name="resposta" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                         {getData.alternativa_b.texto}
-                                    </label>
+                                    </Label>
                                     : null}
                                 {getData.alternativa_c && getData.alternativa_c.texto !== (undefined || null || "") ?
-                                    <label>
+                                    <Label>
                                         <input type="radio" value="C" name="resposta" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                         {getData.alternativa_c.texto}
-                                    </label>
+                                    </Label>
                                     : null}
                                 {getData.alternativa_d && getData.alternativa_d.texto !== (undefined || null || "") ?
-                                    <label>
+                                    <Label>
                                         <input type="radio" value="D" name="resposta" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                         {getData.alternativa_d.texto}
-                                    </label>
+                                    </Label>
                                     : null}
                                 {getData.alternativa_e && getData.alternativa_e.texto !== (undefined || null || "") ?
-                                    <label>
+                                    <Label>
                                         <input type="radio" value="E" name="resposta" onChange={formik.handleChange} onBlur={formik.handleBlur} />
                                         {getData.alternativa_e.texto}
-                                    </label>
+                                    </Label>
                                     : null}
 
                             </div>
@@ -94,22 +100,33 @@ export default function ResponderItem(props) {
                             <input
                                 name="resposta"
                                 type="text"
+                                className="w-full"
                                 onChange={formik.handleChange}
                                 value={formik.values.resposta}
-                                placeholder="Resposta"
+                                placeholder="Escreva sua resposta"
                             />
                         }
 
                         {formik.errors.resposta && formik.touched.resposta ? <span className="text-red-500">{formik.errors.resposta}</span> : null}
                     </div>
+
+
                     <div className="flex flex-row gap-4">
-                        <button type="submit">Submit</button>
-                        <button type="buttun" onClick={e=>navigate(-1)}> Voltar </button>
+                        <button type="submit" className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
+                        <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={e => navigate(-1)}> Voltar </button>
                     </div>
                 </form>
-
             </Container>
 
         </div>
+    )
+}
+
+
+function Label(props) {
+    return (
+        <label className="w-full flex flex-row gap-2 px-4 py-2 border border-dark-5 rounded-lg hover:bg-dark-5">
+            {props.children}
+        </label>
     )
 }
