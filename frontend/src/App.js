@@ -1,3 +1,4 @@
+
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import { AvaliacaoRespostas, CreateAvaliacao, CriarItem, ListarItem, ListAvaliacao, Login, Register, ResponderItem, Settings, VisualizarItem } from "./pages";
 import { ProtectedRoute } from "./components";
@@ -59,6 +60,10 @@ export default function App() {
     {
       path: "/criar/item",
       element: (<ProtectedRoute><CriarItem></CriarItem></ProtectedRoute>)
+    },
+    {
+      path: "/item/:id/resposta",
+      element: (<ProtectedRoute><RespostaItem></RespostaItem></ProtectedRoute>)
     },
     {
       path: "/settings",
