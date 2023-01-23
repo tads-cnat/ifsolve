@@ -178,7 +178,7 @@ export function GetAreas() {
 export function GetItemByID(id) {
     const token = localStorage.getItem("ifsolve_token");
 
-    return api.get(`item/${id}/`, {
+    return api.get(`item/${id}/detalhe/`, {
         headers: {
             "Authorization": "Token " + token,
         }
@@ -224,4 +224,98 @@ export function AnswerItem(data) {
             }
         }
     )
+    
+export function GetAvaliacoes() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("avaliacao/elaborador/listar/", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+export function GetAvaliacoesAluno() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("avaliacao/aluno/listar/", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function PostAvaliacao(avaliacao, itens, alunos) {
+    const token = localStorage.getItem("ifsolve_token");
+    const user = JSON.parse(localStorage.getItem("ifsolve_user"));
+
+    return api.post("avaliacao/elaborador/criar/", {
+        "itens": itens,
+        "titulo": avaliacao.titulo,
+        "descricao": avaliacao.descricao,
+        "data_inicio": avaliacao.data_inicio,
+        "data_fim": avaliacao.data_fim,
+        "nota": avaliacao.nota,
+        "visibilidade": avaliacao.visibilidade,
+        "elaborador": user.id,
+        "alunos": alunos,
+    },
+        {
+            headers: {
+                "Authorization": "Token " + token,
+            }
+        })
+}
+
+export function GetAlunos() {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get("aluno/todos/", {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function GetAlunoById(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`aluno/${id}/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function GetAvaliacaoDetails(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/detalhe/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function GetAvaliacaoRespostasByAluno(avaliacao_id, aluno_id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${avaliacao_id}/aluno/${aluno_id}/respostas/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function PatchResposta(id, nota) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.patch(`resposta/${id}/`,
+        {
+            "nota_obtida": nota,
+        },
+        {
+            headers: {
+                "Authorization": "Token " + token,
+            }
+        })
 }

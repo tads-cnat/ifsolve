@@ -28,7 +28,7 @@ export default function Login() {
             .then((res) => {
                 localStorage.setItem('ifsolve_token', res.data.token)
                 localStorage.setItem('ifsolve_user', JSON.stringify(res.data))
-                navigate("/item");
+                navigate("/avaliacao");
             })
             .catch((error) => {
                 if (error.response.status === 400) {

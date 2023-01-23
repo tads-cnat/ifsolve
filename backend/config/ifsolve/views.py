@@ -6,11 +6,13 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated, IsAlunoOrElaborador
-from .models import (Alternativa, Aluno, Area, Avaliacao, Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario, Area)
-from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer, 
-                        ItemSerializer, ItemAvaliacaoSerializer, RespostaSerializer, TagSerializer, UsuarioSerializer, 
-                        LoginSerializer, UserSerializer, AreaSerializer)
+from .models import (Alternativa, Aluno, Area, Avaliacao,
+                     Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
+from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer,
+                        ItemSerializer, ItemAvaliacaoSerializer, RespostaItemSerializer, TagSerializer, UsuarioSerializer,RespostaAvaliacaoSerializer,
+                        LoginSerializer, UserSerializer, ElaboradorMostrarSerializer, AlunoMostrarSerializer)
 
+from datetime import datetime
 class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
     serializer_class = None
@@ -27,11 +29,11 @@ class AuthViewSet(viewsets.GenericViewSet):
 
         if not user.exists():
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         user = user.first()
         if not user.check_password(password):
             return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         token, created = Token.objects.get_or_create(user=user)
         user_data = UserSerializer(user).data
         user_data['token'] = token.key
@@ -46,14 +48,15 @@ class AuthViewSet(viewsets.GenericViewSet):
     def user(self, request):
         return Response(UserSerializer(request.user).data)
 
+
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.none()
     serializer_class = AlunoSerializer
-    
-    @action(detail=False, methods=['get'], url_path = "listar", permission_classes = [IsElaborador])
-    def listarAlunos(self, request):
+
+    @action(detail=False, methods=['get'], url_path = "todos", permission_classes = [IsElaborador])
+    def listar(self, request):
         lista_alunos = Aluno.objects.all()
-        serializer = AlunoSerializer(lista_alunos, many=True)
+        serializer = AlunoMostrarSerializer(lista_alunos, many=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
@@ -67,8 +70,14 @@ class AlunoViewSet(viewsets.ModelViewSet):
 class ElaboradorViewSet(viewsets.ModelViewSet):
     queryset = Elaborador.objects.none()
     serializer_class = ElaboradorSerializer
-    
-    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [AllowAny])
+
+    @action(detail=False, methods=['get'], url_path = "todos", permission_classes = [IsElaborador])
+    def listar(self, request):
+        lista_elaboradores = Elaborador.objects.filter(verificado=True)
+        serializer = ElaboradorMostrarSerializer(lista_elaboradores, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'], url_path = "cadastro", permission_classes = [IsNotAuthenticated])
     def post(self, request):
         serializer = ElaboradorSerializer(data = request.data)
         if serializer.is_valid():
@@ -88,15 +97,14 @@ class ItemViewSet(viewsets.ModelViewSet):
         serializer = ItemSerializer(item, many=True)
         return Response(serializer.data)
 
-    @action(detail=False, methods=['get'], url_path='(?P<item_id>[^/.]+)', permission_classes=[IsAlunoOrElaborador])
-    def visualizarItem(self, request, item_id):
+    @action(detail=True, methods=['get'], url_path='detalhe', permission_classes=[IsAlunoOrElaborador])
+    def detalhe(self, request, pk = None):
         if(hasattr(request.user.usuario, 'aluno')):
             queryset = Item.objects.filter(visibilidade = 'PU')
 
         elif(hasattr(request.user.usuario, 'elaborador')):
             queryset = Item.objects.filter(elaborador=request.user.usuario.elaborador) | Item.objects.filter(visibilidade = 'PU')
-       
-        item = get_object_or_404(queryset, pk=item_id)
+        item = get_object_or_404(queryset, pk=pk)
         serializer = ItemSerializer(item)
         return Response(serializer.data)
 
@@ -117,10 +125,10 @@ class ItemViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=['post'], url_path='(?P<item_id>[^/.]+)/responder', permission_classes=[IsAluno])
-    def responder(self, request, pk=None, item_id=None):
-        item = get_object_or_404(Item, pk=item_id)
-        serializer = RespostaSerializer(data=request.data)
+    @action(detail=True, methods=['post'], url_path=('responder'), permission_classes=[IsAluno])
+    def responder(self, request, pk=None):
+        item = get_object_or_404(Item, pk=pk)       
+        serializer = RespostaItemSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(item=item, aluno=request.user.usuario.aluno)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -143,36 +151,107 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
             serializer.save(elaborador=elaborador)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    @action(detail=False, methods=['get'], url_path='elaborador/todas', permission_classes=[IsElaborador])
-    def listarAvaliacoes(self, request, pk = None):
+
+    @action(detail=False, methods=['get'], url_path='elaborador/listar', permission_classes=[IsElaborador])
+    def avaliacoesElaborador(self, request, pk = None):
         avaliacao = Avaliacao.objects.filter(elaborador=request.user.usuario.elaborador)
         serializer = AvaliacaoSerializer(avaliacao, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'], url_path='aluno/listar', permission_classes=[IsAluno])
+    def avaliacoesAluno(self, request, pk = None):
+        avaliacao = Avaliacao.objects.filter(alunos=request.user.usuario.aluno.id)
+        serializer = AvaliacaoSerializer(avaliacao, many=True)
+        return Response(serializer.data)
 
-    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)', permission_classes=[IsElaborador])
-    def ListarAvaliacao(self, request, avaliacao_id = None):
+    @action(detail=True, methods=['get'], url_path='detalhe', permission_classes=[IsAlunoOrElaborador])
+    def detalhe(self, request, pk = None):
+        avaliacao = get_object_or_404(Avaliacao, pk=pk)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
+        serializer_avaliacao = AvaliacaoSerializer(avaliacao)
+        serializer_itens = ItemAvaliacaoSerializer(itens_avaliacao, many=True)
+        return Response({'avaliacao': serializer_avaliacao.data, 'itens': serializer_itens.data})
+
+    @action(detail=False, methods=['post'], url_path='responder', permission_classes=[IsAluno])
+    def responder(self, request):
+        serializer = RespostaAvaliacaoSerializer(data=request.data, many=True)
+
+        if serializer.is_valid():
+            for resposta in serializer.validated_data:
+                item_avaliacao = get_object_or_404(ItemAvaliacao, pk=resposta['item_avaliacao'].id)
+                resposta['aluno'] = request.user.usuario.aluno
+                resposta['data_hora'] = datetime.now()
+                resposta['item'] = item_avaliacao.item
+                # Verifica se item_avaliacao é de múltipla escolha
+                if item_avaliacao.item.tipo == 'ME':
+                    if resposta['resposta'].upper() == item_avaliacao.item.alternativa_correta.upper():
+                        resposta['nota_obtida'] = item_avaliacao.nota_item
+            
+                Resposta.objects.create(**resposta)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoListagemSerializer(self, request, avaliacao_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        alunos = avaliacao.alunos.all()
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
+        
+        for aluno in alunos:
+            for item in itens_avaliacao:
+                respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+                serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+                contexto_atual = {
+                    "aluno" : aluno.user.username, "respostas" : serializer.data
+                }
+                if aluno.user.username in contexto:
+                    contexto[aluno.user.username]['respostas'] += contexto_atual['respostas']
+                else:
+                    contexto[aluno.user.username] = contexto_atual
+        return Response(contexto)
+    
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/(?P<aluno_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    def RespostaAvaliacaoIndividualSerializer(self, request, avaliacao_id, aluno_id):
+        avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
+        aluno = get_object_or_404(Aluno, id = aluno_id)
+        itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao).order_by("numero_item")
+        respostas = []
+        contexto = {}
+
+        for item in itens_avaliacao:
+            respostas = Resposta.objects.filter(item_avaliacao = item).filter(aluno = aluno)
+            serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+            contexto_atual = {
+                "aluno" : aluno.user.username, "respostas" : serializer.data
+            }
+            if "resposta" in contexto:
+                contexto["resposta"]['respostas'] += contexto_atual['respostas']
+            else:
+                contexto["resposta"] = contexto_atual
+        return Response(contexto)
+        
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/respostas', permission_classes=[IsAluno])
+    def RespostaAvaliacaoAlunoSerializer(self, request, avaliacao_id):
         avaliacao = get_object_or_404(Avaliacao, id = avaliacao_id)
         itens_avaliacao = ItemAvaliacao.objects.filter(avaliacao = avaliacao)
-
-        serializer_avaliacao = AvaliacaoSerializer(avaliacao)
-        serializer = ItemAvaliacaoSerializer(itens_avaliacao, many=True)
-        contexto = {
-            'avaliacao': serializer_avaliacao.data, 'itens' : serializer.data
-        }
-        return Response(contexto)
-
+        respostas = Resposta.objects.filter(aluno = request.user.usuario.aluno).filter(item_avaliacao__in = itens_avaliacao)
+        serializer = RespostaAvaliacaoSerializer(respostas, many = True)
+        return Response(serializer.data)
+    
 class RespostaItemViewSet(viewsets.ModelViewSet):
-    queryset = Resposta.objects.none()
-    serializer_class = RespostaSerializer
+    queryset = Resposta.objects.all()
+    serializer_class = RespostaItemSerializer
 
     @action(detail=False, methods=['get'], url_path='item/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
     def resposta(self, request, pk=None, item_id=None):
         item = get_object_or_404(Item, pk=item_id)
         respostas = Resposta.objects.filter(item=item, aluno=request.user.usuario.aluno).order_by("data_hora")
-        serializer = RespostaSerializer(respostas, many=True)
+        serializer = RespostaItemSerializer(respostas, many=True)
         return Response(serializer.data)
-
+        
 class TagViewSet(viewsets.ModelViewSet):
     permission_classes = [IsElaborador]
     queryset = Tag.objects.none()

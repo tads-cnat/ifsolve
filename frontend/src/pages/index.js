@@ -8,5 +8,8 @@ import RespostaItem from "./respostaItem";
 import AlunoListarItem from "./alunoListarItem";
 import ElaboradorListarItem from "./elaboradorListarItem";
 import ResponderItem from "./responderItem";
+import ListAvaliacao from "./listAvaliacao";
+import CreateAvaliacao from "./createAvaliacao";
+import AvaliacaoRespostas from "./avaliacaoRespostas";
 
-export { ListarItem, CriarItem, Login, Register, Settings, VisualizarItem, RespostaItem, AlunoListarItem, ElaboradorListarItem, ResponderItem };
+export { ListarItem, CriarItem, Login, Register, Settings, VisualizarItem, AlunoListarItem, ElaboradorListarItem, ResponderItem, ListAvaliacao, CreateAvaliacao, AvaliacaoRespostas };

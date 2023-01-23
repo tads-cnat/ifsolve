@@ -14,6 +14,9 @@ import RegisterForm from "./registerForm";
 import PassowordInput from "./passwordInput";
 import GlobalAlert from "./globalAlert";
 import Container from "./container";
+import AlunosInput from "./alunosInput";
+import AlunoListAvalicao from "./AlunoListAvaliacao";
+import ElaboradorListAvalicao from "./ElaboradorListAvaliacao";
 
 export {
     Sidebar,
@@ -32,4 +35,7 @@ export {
     PassowordInput,
     GlobalAlert,
     Container,
+    AlunosInput,
+    AlunoListAvalicao,
+    ElaboradorListAvalicao
 };
