@@ -189,12 +189,12 @@ export function FormAlert(props) {
 
 export function FormRadio(props) {
     return (
-        <div className="flex border border-dark-10 px-4 py-2 gap-4 rounded-lg">
+        <label className="flex border border-dark-10 px-4 py-2 gap-4 rounded-lg">
             <input name="tipo" type="radio" value={props.value} onChange={props.onChange} onBlur={props.onBlur} />
             <div className="flex flex-col justify-center">
-                <label className="text-lg font-medium">{props.label}</label>
+                <p className="text-lg font-medium">{props.label}</p>
                 <p>{props.descripton}</p>
             </div>
-        </div>
+        </label>
     )
 }
