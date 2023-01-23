@@ -157,6 +157,12 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         avaliacao = Avaliacao.objects.filter(elaborador=request.user.usuario.elaborador)
         serializer = AvaliacaoSerializer(avaliacao, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'], url_path='aluno/listar', permission_classes=[IsAluno])
+    def avaliacoesAluno(self, request, pk = None):
+        avaliacao = Avaliacao.objects.filter(alunos=request.user.usuario.aluno.id)
+        serializer = AvaliacaoSerializer(avaliacao, many=True)
+        return Response(serializer.data)
 
     @action(detail=True, methods=['get'], url_path='detalhe', permission_classes=[IsAlunoOrElaborador])
     def detalhe(self, request, pk = None):

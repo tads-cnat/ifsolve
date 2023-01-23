@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { AlunosInput, Container } from "../../components";
 import * as Yup from "yup";
-import { FiInbox, FiPlus, FiSearch } from "react-icons/fi";
+import { FiArrowLeft, FiInbox, FiPlus, FiSearch } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
 import { GetAlunos, GetItems, PostAvaliacao } from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,7 +32,7 @@ export default function CreateAvaliacao() {
             descricao: "",
             data_inicio: "",
             data_fim: "",
-            nota: "",
+            nota: 100,
             visibilidade: "PU",
         },
         validationSchema: Yup.object({
@@ -40,8 +40,6 @@ export default function CreateAvaliacao() {
             descricao: Yup.string().required("Descrição é obrigatória."),
             data_inicio: Yup.date().required("Data de início é obrigatória."),
             data_fim: Yup.date().required("Data de termino é obrigatória."),
-            nota: Yup.number().required("Nota é obrigatória."),
-            visibilidade: Yup.string().required("Visibilidade é obrigatória."),
         }),
         onSubmit: data => {
             // console.log(data);
@@ -51,6 +49,7 @@ export default function CreateAvaliacao() {
                 navigate("/avaliacao", { replace: true });
                 localStorage.setItem('ifsolve_success_alert', "Avaliação criada com sucesso.");
             }).catch(error => {
+                console.log(error);
                 toast.error("Opss...Erro ao cadastrar avaliação.")
             })
 
@@ -74,7 +73,10 @@ export default function CreateAvaliacao() {
     return (
         <div className="w-full min-h-screen flex flex-col items-center bg-dark-5 pt-4 pb-8 gap-4" >
             <form onSubmit={formik.handleSubmit} className="container flex flex-col py-8 gap-8" style={{ maxWidth: "720px" }}>
-                <h1 className="text-2xl font-medium text-dark-100">Criar avaliação</h1>
+                <div className="flex flex-row items-center gap-4 w-full">
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft></FiArrowLeft></div>
+                    <h1 className="text-2xl font-medium text-dark-100">Nova avaliação</h1>
+                </div>
 
                 <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-8">
                     <h2 className="text-lg text-dark-100 font-medium">Informações gerais</h2>
@@ -135,33 +137,6 @@ export default function CreateAvaliacao() {
 
                         </div>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="flex flex-col">
-                            <label htmlFor="">Nota</label>
-                            <input
-                                type="number"
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                placeholder="Digite nota máxima"
-                                name="nota"
-                                value={formik.values.nota}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                            />
-                            {formik.errors.nota && formik.touched.nota ? <span>{formik.errors.nota}</span> : null}
-
-                        </div>
-                        <div className="flex flex-col">
-                            <label htmlFor="">Visibilidade</label>
-                            <select className="px-6 py-4 bg-dark-5 rounded-lg" name="visibilidade" value={formik.values.visibilidade} onBlur={formik.handleBlur} onChange={formik.handleChange}>
-                                <option value="PU">Público</option>
-                                <option value="PI">Privado</option>
-                            </select>
-                            {formik.errors.visibilidade && formik.touched.visibilidade ? <span>{formik.errors.visibilidade}</span> : null}
-
-                        </div>
-                    </div>
-
 
                 </div>
 
