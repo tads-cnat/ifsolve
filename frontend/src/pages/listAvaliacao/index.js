@@ -8,6 +8,10 @@ import { GlobalContext } from "../../providers/context";
 export default function ListAvaliacao() {
     const { setCurrentPage, getUser } = useContext(GlobalContext)
 
+    useEffect(() => {
+        setCurrentPage("avaliacao");
+     }, []);
+
     function renderSwitch() {
         if (getUser) {
             switch (getUser.extra_data.tipo_usuario) {
