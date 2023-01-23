@@ -1,6 +1,5 @@
-
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
-import { AvaliacaoRespostas, CreateAvaliacao, CriarItem, ListarItem, ListAvaliacao, Login, Register, ResponderItem, Settings, VisualizarItem } from "./pages";
+import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, AlunoVisualizarRespostaAvaliacao, AvaliacaoRespostas, CreateAvaliacao } from "./pages";
 import { ProtectedRoute } from "./components";
 import { useContext, useEffect } from "react";
 import { GetUser, Logout } from "./api/config";
@@ -68,6 +67,10 @@ export default function App() {
     {
       path: "/settings",
       element: (<ProtectedRoute><Settings></Settings></ProtectedRoute>)
+    },
+    {
+      path: "/avaliacao/:id/aluno/respostas",
+      element: (<ProtectedRoute><AlunoVisualizarRespostaAvaliacao></AlunoVisualizarRespostaAvaliacao></ProtectedRoute>)
     }
 
   ])

@@ -185,15 +185,34 @@ export function GetItemByID(id) {
     })
 }
 
+
 export function GetRespostaByItem(id) {
     const token = localStorage.getItem("ifsolve_token");
 
     return api.get(`resposta/item/${id}/`, {
+
+
+export function GetAvaliacaoByID(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/detalhe/`, {
         headers: {
             "Authorization": "Token " + token,
         }
     })
 }
+
+
+export function GetRespostasAlunoAvaliacao(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/aluno/respostas/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
 
 export function GetTags() {
     const token = localStorage.getItem("ifsolve_token");
