@@ -3,8 +3,9 @@ import { AlunosInput, Container } from "../../components";
 import * as Yup from "yup";
 import { FiInbox, FiPlus, FiSearch } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
-import { GetAlunos, GetItems } from "../../api/config";
+import { GetAlunos, GetItems, PostAvaliacao } from "../../api/config";
 import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -22,8 +23,6 @@ export default function CreateAvaliacao() {
         }).catch(error => {
             console.log(error);
         })
-
-
     }, [])
 
 
@@ -45,14 +44,26 @@ export default function CreateAvaliacao() {
             visibilidade: Yup.string().required("Visibilidade é obrigatória."),
         }),
         onSubmit: data => {
-            alert(JSON.stringify(data, null, 2));
+            // console.log(data);
+            // console.log(getAluno.map(aluno => aluno.id));
+            console.log(getItemAvaliacao);
+            PostAvaliacao(data, getItemAvaliacao, getAluno.map(aluno => aluno.id)).then(res => {
+                navigate("/avaliacao", { replace: true });
+                localStorage.setItem('ifsolve_success_alert', "Avaliação criada com sucesso.");
+            }).catch(error => {
+                toast.error("Opss...Erro ao cadastrar avaliação.")
+            })
+
         }
     })
 
     const filteredData = getItemSearch.length > 0 ? getItemList.filter(item => item.titulo.includes(getItemSearch)) : getItemList;
 
-    function AddItemAvaliacao(item) {
+    function AddItemAvaliacao(item, i) {
         if (!getItemAvaliacao.includes(item)) {
+            item.numero_item = i;
+            item.nota_item = 10;
+            item.item = item.id;
             setItemAvaliacao(getItemAvaliacao => [...getItemAvaliacao, item])
         } else {
             setItemAvaliacao(getItemAvaliacao.filter(itemAvaliacao => itemAvaliacao.id !== item.id))
@@ -168,7 +179,7 @@ export default function CreateAvaliacao() {
                     <div className="grid overflow-auto gap-4" style={{ maxHeight: "400px" }}>
                         {filteredData.length > 0 ?
                             filteredData.map((item, i) =>
-                                <CardItem key={i} item={item} onClick={(e) => AddItemAvaliacao(item)}></CardItem>
+                                <CardItem key={i} item={item} onClick={(e) => AddItemAvaliacao(item, i)}></CardItem>
                             )
                             :
                             <div className="flex flex-col items-center gap-4 bg-dark-5 p-8 rounded-lg">
@@ -194,6 +205,7 @@ export default function CreateAvaliacao() {
                 </div>
 
             </form>
+            <Toaster />
         </div>
     )
 }

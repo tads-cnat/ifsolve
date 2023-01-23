@@ -18,7 +18,7 @@ export default function AlunosInput({ get, set }) {
         set(get.filter((alunos) => alunos.id !== aluno.id));
     }
 
-    const filteredAlunos = getSearch.length > 0 ? getAlunos.filter(alunos => alunos.email.includes(getSearch)) : getAlunos;
+    const filteredAlunos = getSearch.length > 0 ? getAlunos.filter(alunos => alunos.email.includes(getSearch.trim())) : getAlunos;
 
     useEffect(() => {
         GetAlunos().then(res => {
@@ -32,7 +32,7 @@ export default function AlunosInput({ get, set }) {
                 {get.map((aluno, i) => <span key={i} className="text-sm bg-primary-10 text-primary-80 px-2 py-1 rounded-lg">{aluno.email}</span>)}
             </div> */}
             <h2 className="text-lg text-dark-100 font-medium">Adicionar alunos</h2>
-            <div className="flex relative items-center w-full flex-wrap bg-dark-5 px-4 py-2 rounded-lg">
+            <div className="flex relative items-center w-full flex-wrap bg-dark-5 px-4 py-2 gap-2 rounded-lg">
                 {get.map((aluno, i) =>
                     <span
                         key={i}
@@ -45,9 +45,9 @@ export default function AlunosInput({ get, set }) {
 
                 <input
                     type="text"
-                    className="bg-transparent flex-1 px-2 focus:outline-0"
+                    className="bg-transparent flex-1 focus:outline-0"
                     placeholder="Busque por nome de usuário, email ou nome completo..."
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     value={getSearch}
                     onChange={e => setSearch(e.target.value)}
                 />
