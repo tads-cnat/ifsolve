@@ -236,7 +236,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
     
 class RespostaItemViewSet(viewsets.ModelViewSet):
-    queryset = Resposta.objects.none()
+    queryset = Resposta.objects.all()
     serializer_class = RespostaItemSerializer
 
     @action(detail=False, methods=['get'], url_path='item/(?P<item_id>[^/.]+)', permission_classes=[IsAluno])
