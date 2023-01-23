@@ -10,5 +10,32 @@ import FormLabel from "./formLabel";
 import SelectInput from "./selectInput";
 import ProtectedRoute from "./protectedRoute";
 import Navbar from "./navbar";
+import RegisterForm from "./registerForm";
+import PassowordInput from "./passwordInput";
+import GlobalAlert from "./globalAlert";
+import Container from "./container";
+import AlunosInput from "./alunosInput";
+import AlunoListAvalicao from "./AlunoListAvaliacao";
+import ElaboradorListAvalicao from "./ElaboradorListAvaliacao";
 
-export { Sidebar, SidebarItem, CardItem, SidebarLayout, TagInput, FormControl, InputGroup, PrimaryButton, FormLabel, SelectInput, ProtectedRoute, Navbar };
+export {
+    Sidebar,
+    SidebarItem,
+    CardItem,
+    SidebarLayout,
+    TagInput,
+    FormControl,
+    InputGroup,
+    PrimaryButton,
+    FormLabel,
+    SelectInput,
+    ProtectedRoute,
+    Navbar,
+    RegisterForm,
+    PassowordInput,
+    GlobalAlert,
+    Container,
+    AlunosInput,
+    AlunoListAvalicao,
+    ElaboradorListAvalicao
+};

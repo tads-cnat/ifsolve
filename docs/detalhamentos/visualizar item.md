@@ -1,8 +1,8 @@
 ## Visualizar item
-*Nome do caso de uso:* Visualizer Item. <br>
+*Nome do caso de uso:* Visualizar Item. <br>
 *Ator principal:* Aluno. <br>
 *Atores secundários:* Elaborador<br>	 
-*Resumo:* Descreve as etapas percorridas por um aluno ou elaborador para visualizer um item. <br>
+*Resumo:* Descreve as etapas percorridas por um aluno ou elaborador para visualizar um item. <br>
 *Pré-condição:* Estar logado no sistema como aluno ou como elaborador. <br>
 *Pós-Condição:* <br> <br>
 

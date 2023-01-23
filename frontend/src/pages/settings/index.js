@@ -1,15 +1,22 @@
 import { SidebarLayout } from "../../components";
 import { Logout } from "../../api/config";
 import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { GlobalContext } from "../../providers/context";
 
 
 export default function Settings() {
     const navigate = useNavigate();
+    const { setCurrentPage } = useContext(GlobalContext);
+
+
+    useEffect(() => {
+        setCurrentPage("settings")
+    }, [])
 
     function HandleLogout(e) {
         e.preventDefault();
         Logout().then((res) => {
-            console.log(res);
             navigate("/");
         });
     }
@@ -18,7 +25,7 @@ export default function Settings() {
         <SidebarLayout>
             <div className="md:container py-5">
                 <h1 className="text-xl font-bold text-dark-100 mb-5">Configurações</h1>
-                
+
                 <div className="mb-3">
                     <h2 className="text-md font-medium text-dark-100 mb-2">Sair</h2>
                     <p className="text-dark-80 mb-2">Deseja realmente sair?</p>
