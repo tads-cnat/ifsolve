@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, AlunoVisualizarRespostaAvaliacao, AvaliacaoRespostas, CreateAvaliacao } from "./pages";
+import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, AlunoVisualizarRespostaAvaliacao, AvaliacaoRespostas, CreateAvaliacao, ListAvaliacao, RespostaItem } from "./pages";
 import { ProtectedRoute } from "./components";
 import { useContext, useEffect } from "react";
 import { GetUser, Logout } from "./api/config";
@@ -41,7 +41,7 @@ export default function App() {
       element: (<ProtectedRoute><CreateAvaliacao></CreateAvaliacao></ProtectedRoute>)
     },
     {
-      path:"avaliacao/:id/respostas",
+      path: "avaliacao/:id/respostas",
       element: (<ProtectedRoute><AvaliacaoRespostas></AvaliacaoRespostas></ProtectedRoute>)
     },
     {
