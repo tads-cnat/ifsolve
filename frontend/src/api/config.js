@@ -190,8 +190,11 @@ export function GetRespostaByItem(id) {
     const token = localStorage.getItem("ifsolve_token");
 
     return api.get(`resposta/item/${id}/`, {
-
-
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
 export function GetAvaliacaoByID(id) {
     const token = localStorage.getItem("ifsolve_token");
 
@@ -226,14 +229,14 @@ export function GetTags() {
 
 export function AnswerItem(data) {
     // Pegua dados do usuario salvos no local storage
-    const user = JSON.parse(localStorage.getItem("ifsolve_user"));  
+    const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
     // Envia dados da resposta para a api via POST
     return api.post("resposta/",
         {
             "resposta": data.resposta,
             "nota_obtida": data.nota_obtida,
-            "data_hora" : new Date().toJSON(),
+            "data_hora": new Date().toJSON(),
             "aluno": user.id,
             "item": data.item
         },
@@ -243,7 +246,8 @@ export function AnswerItem(data) {
             }
         }
     )
-    
+}
+
 export function GetAvaliacoes() {
     const token = localStorage.getItem("ifsolve_token");
 
@@ -253,6 +257,7 @@ export function GetAvaliacoes() {
         }
     })
 }
+
 export function GetAvaliacoesAluno() {
     const token = localStorage.getItem("ifsolve_token");
 
