@@ -89,6 +89,24 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.none()
     serializer_class = ItemSerializer
 
+    @action(detail=True, methods=['delete'], url_path='excluir', permission_classes=[IsElaborador])
+    def delete(self, request, pk=None):
+        item = get_object_or_404(Item.objects.all(), pk=pk)
+        if (item.tipo == "ME"):
+            item.alternativa_a.delete()
+            item.alternativa_b.delete()
+            if(item.alternativa_c):
+                item.alternativa_c.delete()
+
+            if(item.alternativa_d):
+                item.alternativa_d.delete()
+
+            if(item.alternativa_e):
+                item.alternativa_e.delete()
+
+        item.delete()
+        return Response(status=status.HTTP_200_OK)
+
     @action(detail=False, methods=['get'], url_path='elaborador/(?P<elaborador_id>[^/.]+)', permission_classes=[IsElaborador])
     def itensElaborador(self, request, elaborador_id):
         # View para o elaborador ver os itens que ele criou
