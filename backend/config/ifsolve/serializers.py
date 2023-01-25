@@ -101,38 +101,36 @@ class ElaboradorMostrarSerializer(serializers.Serializer):
         user = User.objects.get(usuario__elaborador = obj)
         return user.email
     
-class ElaboradorSerializer(serializers.ModelSerializer):
-    data_nascimento = serializers.DateField()
+class ElaboradorSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    email = serializers.EmailField()
+    nascimento = serializers.DateField()
     verificado = serializers.BooleanField()
     nome_completo = serializers.CharField(max_length=100)
 
     def create(self, validated_data):
-        username = UsuarioSerializer.__getitem__(self, "username").value
-        nome_completo = UsuarioSerializer.__getitem__(
-            self, "nome_completo").value
-        senha = UsuarioSerializer.__getitem__(self, "password").value
-        email = UsuarioSerializer.__getitem__(self, "email").value
-        nascimento = UsuarioSerializer.__getitem__(
-            self, "data_nascimento").value
-        verificado = UsuarioSerializer.__getitem__(self, "verificado").value
+        username = validated_data['username']
+        nome_completo = validated_data['nome_completo']
+        email = validated_data['email']
+        nascimento = validated_data['data_nascimento']
+        verificado = validated_data['verificado']
+
         user = User.objects.create_user(
             username=username,
-            password=senha,
             email=email,
         )
-        elaborador = Elaborador()
-        elaborador.verificado = verificado
-        elaborador.user = user
-        elaborador.data_nascimento = nascimento
-        elaborador.nome_completo = nome_completo
+
+        user = User.objects.create_user(username=username, email=email)
+        usuario = Usuario.objects.create(user=user, nome_completo=nome_completo, data_nascimento=nascimento,)
+        elaborador = Elaborador.objects.create(usuario=usuario, verificado=verificado)
         elaborador.save()
+        usuario.save()
         return Response(UsuarioSerializer.data)
 
     class Meta:
         model = User
         fields = ['username', 'password', 'email',
                   'data_nascimento', 'verificado', 'nome_completo']
-
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
