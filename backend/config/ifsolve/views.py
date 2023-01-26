@@ -66,10 +66,14 @@ class AuthViewSet(viewsets.GenericViewSet):
             matricula = user['matricula']
             nome_completo = user['nome_usual']
             email = user['email']
-            cargo = user['vinculo']['cargo']
             tipo_vinculo = user['tipo_vinculo']
             nascimento = user['data_nascimento']
 
+            try:
+                cargo = user['vinculo']['cargo']
+            except:
+                cargo = ''
+            
             # Verificar se o usuario é um professor ou um aluno
             def get_funcao(array_funcao):
                 if cargo.find('PROFESSOR') != -1:
@@ -83,9 +87,20 @@ class AuthViewSet(viewsets.GenericViewSet):
                                                         'email': email, 'nascimento': nascimento, 'verificado':False})
                 serializer.is_valid(raise_exception=True)
                 elaborador = serializer.save()
-                return Response({'user': UserSerializer(elaborador).data})
+                user = get_object_or_404(User, username=matricula)
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key}, status=status.HTTP_200_OK)
 
-            return Response({'error': 'Você não é um usuário válido para o sistema'}, status=status.HTTP_400_BAD_REQUEST)
+            if tipo_vinculo == 'Aluno':
+                serializer = AlunoSerializer(data={'username': matricula, 'nome_completo': nome_completo, 
+                                                   'email': email, 'nascimento': nascimento, 'verificado':False})
+                serializer.is_valid(raise_exception=True)
+                aluno = serializer.save()
+                user = get_object_or_404(User, username=matricula)
+                token, created = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key}, status=status.HTTP_200_OK)
+            
+            return Response({'error': 'Você precisa ser aluno ou professor'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': token}, status=token.status_code)
 
