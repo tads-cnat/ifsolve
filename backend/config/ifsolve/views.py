@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status, permissions
 from rest_framework.response import Response
+from django.db import connection
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated, IsAlunoOrElaborador
@@ -91,21 +92,24 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['delete'], url_path='excluir', permission_classes=[IsElaborador])
     def delete(self, request, pk=None):
-        item = get_object_or_404(Item.objects.all(), pk=pk)
-        if (item.tipo == "ME"):
-            item.alternativa_a.delete()
-            item.alternativa_b.delete()
-            if(item.alternativa_c):
-                item.alternativa_c.delete()
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM ifsolve_item WHERE id = %s", [pk])
+            item = cursor.fetchall()
+            if (item[0][1] == "ME"):
+                (get_object_or_404(Alternativa, pk = item[0][10])).delete() # Excluindo alternativa A
+                (get_object_or_404(Alternativa, pk = item[0][11])).delete() # Excluindo alternativa B
 
-            if(item.alternativa_d):
-                item.alternativa_d.delete()
+                if (item[0][12]): 
+                    (get_object_or_404(Alternativa, pk = item[0][12])).delete() # Excluindo alternativa C
+                
+                if (item[0][13]):
+                    (get_object_or_404(Alternativa, pk = item[0][13])).delete() # Excluindo alternativa D
 
-            if(item.alternativa_e):
-                item.alternativa_e.delete()
+                if (item[0][14]):
+                    (get_object_or_404(Alternativa, pk = item[0][14])).delete() # Excluindo alternativa E
 
-        item.delete()
-        return Response(status=status.HTTP_200_OK)
+            (get_object_or_404(Item, pk = item[0][0])).delete() # Excluindo item
+            return Response(status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], url_path='elaborador/(?P<elaborador_id>[^/.]+)', permission_classes=[IsElaborador])
     def itensElaborador(self, request, elaborador_id):
