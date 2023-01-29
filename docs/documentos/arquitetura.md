@@ -1,6 +1,6 @@
 # IFSolve
 
-**Documento de Arquitetura do Sistema**
+### **Documento de Arquitetura do Sistema**
 
 **Histórico da Revisão**
 
@@ -18,10 +18,10 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 # 2. Termos e Abreviações
 
 - **Item**: Questão criada pelo usuário do tipo elaborador para ser aplicada em uma avaliação ou disponibilizada publicamente para que os alunos possam exercitar seu conhecimento sobre aquele assunto.
-- **Avaliação: exame desenvolvido pelo usuário do tipo elaborador para testar o conhecimento adquirido pelos seus alunos.**
+- **Avaliação:** exame desenvolvido pelo usuário do tipo elaborador para testar o conhecimento adquirido pelos seus alunos.
 - **Aluno:** Usuário cadastrado no sistema responsável por responder itens e avaliações.
-- **Elaborador: Usuário cadastrado no sistema responsável por elaborar itens e avaliações.**
-- **Administrador: Usuário responsável por gerenciar alunos, elaboradores, itens, avaliações e validação dos novos usuários cadastrados como elaborador.**
+- **Elaborador:** Usuário cadastrado no sistema responsável por elaborar itens e avaliações.
+- **Administrador:** Usuário responsável por gerenciar alunos, elaboradores, itens, avaliações e validação dos novos usuários cadastrados como elaborador.
 
 # 3. Descrição de Requisitos
 
@@ -41,11 +41,11 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 | ID | Atributo de qualidade | Motivação |
 | --- | --- | --- |
-| 1 | Autenticação de usuários para realizar login no sistema | Segurança |
+| 1 | Autenticação de usuários para realizar login no sistema. | Segurança |
 | 2 | Apenas o elaborador pode criar item e avaliação. | Segurança |
 | 3 | Apenas o aluno pode responder item e avaliação. | Segurança |
 | 4 | O elaborador só tem acesso aos itens criados por ele e os com status público. | Segurança |
-| 5 | O elaborador só pode excluir um item de sua autoria se este ainda não foi inserido em uma avaliação | segurança |
+| 5 | O elaborador só pode excluir um item de sua autoria se este ainda não foi inserido em uma avaliação. | segurança |
 
 ## 3.3. Stakeholders
 
@@ -62,7 +62,7 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 |  | Restrição | Contexto e/ou Motivação |
 | --- | --- | --- |
 | Restrição de software e programação |  |  |
-| RT1 | Acessibilidade | Nossa plataforma não dispõe de ferramentas que auxiliam pessoas com deficiência visual |
+| RT1 | Acessibilidade | Nossa plataforma não dispõe de ferramentas que auxiliam pessoas com deficiência visual. |
 | RT2 | Sistema Docker | Faz-se necessário o uso do sistema Docker para executar o backend do IFSolve. |
 | Restrição de sistema operacional |  |  |
 | RT3 | Compatibilidade | Se o sistema operacional não é compatível com o software ou as bibliotecas utilizadas pelo aplicativo, isso pode causar problemas de compatibilidade. |
@@ -101,9 +101,8 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 ## 6.1 Visão Lógica
 
-**Modelos de domínio**
+### **Modelos de domínio**
 <br>
-
 <img src="../diagramas/classes/classes_novo_revisado.png" alt="Diagrama de classes">
 
 | Conceito | Descrição |
@@ -123,14 +122,14 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 | ItemAvaliação | Mantém informações sobre os itens incluídos em uma avaliação. |
 | Resposta | Mantém informações sobre as respostas dadas a itens e avaliações pelo usuário do tipo aluno. |
 
-**Modelo comportamental**
+### **Modelo comportamental**
 
-**Cenário 1: Cadastrar Item**
+#### **Cenário 1: Cadastrar Item**
 
 <img src="../diagramas/sequencia/cadastrar_item.png" alt="Diagrama de sequência de cadastrar item">
 É representado no diagrama de sequência acima o CDU de cadastrar item realizado pelo usuário do tipo elaborador.
 
-**Cenário 2: Responder Item**
+#### **Cenário 2: Responder Item**
 
 <img src="../diagramas/sequencia/responder_item.png" alt="Diagrama de sequência de responder item">
 É representado no diagrama de sequência acima o CDU de responder item realizado pelo usuário do tipo aluno.
@@ -139,7 +138,9 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 ## 7.1 Visão de Implementação
   
-[Inserir diagrama de componentes][Listar os componentes e suas respectivas responsabilidades]
+[Inserir diagrama de componentes]
+
+[Listar os componentes e suas respectivas responsabilidades]
 
 | Componente | Responsabilidades |
 | --- | --- |
@@ -156,7 +157,7 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 <img src="../diagramas/banco/modelo relacional.png" alt = "Modelo relacional">
 
-**Modelo de Domínio *versus* Modelo Relacional**
+### **Modelo de Domínio *versus* Modelo Relacional**
 
 | Classe | Tabela | Significado |
 | --- | --- | --- |
@@ -177,19 +178,19 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 ## 7.4 Interface de Usuário
 
-**Tecnologias utilizadas**
+### **Tecnologias utilizadas**
 
 | Tecnologia | Motivação |
 | --- | --- |
 | Reactjs | A equipe tem certo conhecimento com o react, “facilitando” o desenvolvimento. E por ser um dos frameworks mais populares e amplamente utilizados no mundo do desenvolvimento web, o que significa que há uma grande comunidade e muitos recursos e ferramentas disponíveis. |
 | React Router Dom | Framework obrigatório para realizar redirecionamento e troca de componentes em tela, tem objetivo de auxiliar no desenvolvimento de uma SPA(Single page application). |
 | Tailwind | Auxiliar na estilização dos componentes. |
-| Quill | Utilizada para utilização de Rich Text Editors no enunciado de itens |
-| Formik | Utilizado para auxiliar o desenvolvimento de componentes de formulário |
-| Yup | Utilizado para validação de dados dos formulários |
-| React Hot Toast | Utilizado para gerar alertas Toast |
+| Quill | Utilizada para utilização de Rich Text Editors no enunciado de itens. |
+| Formik | Utilizado para auxiliar o desenvolvimento de componentes de formulário. |
+| Yup | Utilizado para validação de dados dos formulários. |
+| React Hot Toast | Utilizado para gerar alertas Toast. |
 
-**Componentes de terceiros**
+### **Componentes de terceiros**
 
 | Biblioteca | Motivação |
 | --- | --- |
@@ -205,30 +206,30 @@ O IFSolve é uma plataforma web desenvolvida para contribuir com o âmbito acad�
 
 | URL | Descrição | Método HTTP | Tipo retorno | Exemplo de Retorno |
 | --- | --- | --- | --- | --- |
-| http://127.0.0.1:8000/aluno/todos | Retornar todos os alunos cadastrados | GET | ARRAY | [{ "username": "string", "email": "user@example.com", "nascimento": "2019-08-24", "nome_completo": "string" }] |
-| http://127.0.0.1:8000/aluno/cadastro | Cadastrar um aluno | POST | Objeto | { "username": "string", "email": "user@example.com", "nascimento": "2019-08-24", "nome_completo": "string" } |
-| http://127.0.0.1:8000/area | Retornar todas as áreas cadastradas | GET | ARRAY | [ { "id": 0, "codigo": "string", "nome": "string", "descricao": "string", "subarea_de": 0 }] |
-| http://127.0.0.1:8000/auth/suap/auth_register | Gerar o token de usuário | POST | Objeto | { "token": "string" } |
+| http://127.0.0.1:8000/aluno/todos | Retornar todos os alunos cadastrados | GET | ARRAY | [{"username": "string", "email": "user@example.com", "nascimento": "2019-08-24", "nome_completo": "string" }] |
+| http://127.0.0.1:8000/aluno/cadastro | Cadastrar um aluno | POST | Objeto | {"username": "string", "email": "user@example.com", "nascimento": "2019-08-24", "nome_completo": "string" } |
+| http://127.0.0.1:8000/area | Retornar todas as áreas cadastradas | GET | ARRAY | [{"id": 0, "codigo": "string", "nome": "string", "descricao": "string", "subarea_de": 0 }] |
+| http://127.0.0.1:8000/auth/suap/auth_register | Gerar o token de usuário | POST | Objeto | {"token": "string" } |
 | http://127.0.0.1:8000/auth/logout | Remover o token do usuário do banco de dados | GET | Código de Status |  |
-| http://127.0.0.1:8000/auth/user | Retornar os dados do usuário logado | GET | Objeto | { "id": 0, "username": "string", "email": "email@email", "extra_data": { "tipo_usuario": "string", “nome_completo”: “string }} |
-| http://127.0.0.1:8000/avaliacao/elaborador/criar | Criar uma avaliação | POST | Objeto | { "itens": [{ "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0 }], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]} |
-| http://127.0.0.1:8000/avaliacao/elaborador/listar | Listar as avaliações do elaborador logado | GET | ARRAY | [{ "id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0 }], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]}] |
-| http://127.0.0.1:8000/avaliacao/aluno/listar | Listar as avaliações que o aluno logado está inserido | GET | ARRAY | [{ "id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]}] |
+| http://127.0.0.1:8000/auth/user | Retornar os dados do usuário logado | GET | Objeto | {"id": 0, "username": "string", "email": "email@email", "extra_data": { "tipo_usuario": "string", “nome_completo”: “string }} |
+| http://127.0.0.1:8000/avaliacao/elaborador/criar | Criar uma avaliação | POST | Objeto | {"itens": [{"numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0 }], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]} |
+| http://127.0.0.1:8000/avaliacao/elaborador/listar | Listar as avaliações do elaborador logado | GET | ARRAY | [{"id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0 }], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]}] |
+| http://127.0.0.1:8000/avaliacao/aluno/listar | Listar as avaliações que o aluno logado está inserido | GET | ARRAY | [{"id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]}] |
 | http://127.0.0.1:8000/avaliacao/{id}/detalhe | Retornar os dados da avaliação especificada | GET | ARRAY | {"id": 0, "itens": [{"id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]} |
-| http://127.0.0.1:8000/avaliacao/responder | Gerar respostas de um aluno para uma avaliação | POST | Objeto | {"itens": [{ "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]} |
+| http://127.0.0.1:8000/avaliacao/responder | Gerar respostas de um aluno para uma avaliação | POST | Objeto | {"itens": [{"numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]} |
 | http://127.0.0.1:8000/avaliacao/{id}/respostas | Retornar todas as respostas da avaliação especificada | GET | ARRAY | [{"id": 0, "itens": [{"id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": ["string"]}] |
-| http://127.0.0.1:8000/avaliacao/{id}/aluno/{id_aluno}/respostas | Retornar as respostas de um aluno para a avaliação especificada | GET | ARRAY | [{ "id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos":["string"]}] |
-| http://127.0.0.1:8000/avaliacao/{id}/aluno/respostas | Retornar as respostas do aluno logado para a avaliação especificada | GET | ARRAY | [{ "id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": [ "string"]}] |
-| http://127.0.0.1:8000/item/{id} | Retornar as respostas do aluno logado para um item especificado | GET | ARRAY | [{ "id": 0, "resposta": "string", "nota_obtida": -2147483648, "data_hora": "2019-08-24T14:15:22Z", "aluno": "string", "item": 0, "item_avaliacao": 0}] |
-| http://127.0.0.1:8000/tag/item/{id} | GET | Retornar todos as tags de um item especificado | ARRAY | [{ "id": 0, "nome": "string"}] |
-| http://127.0.0.1:8000/tag/item/{id} | POST | Criar tags para um item especificado | Objeto | { "nome": "string"} |
+| http://127.0.0.1:8000/avaliacao/{id}/aluno/{id_aluno}/respostas | Retornar as respostas de um aluno para a avaliação especificada | GET | ARRAY | [{"id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos":["string"]}] |
+| http://127.0.0.1:8000/avaliacao/{id}/aluno/respostas | Retornar as respostas do aluno logado para a avaliação especificada | GET | ARRAY | [{"id": 0, "itens": [{ "id": 0, "numero_item": -2147483648, "nota_item": -2147483648, "item": 0, "avaliacao": 0}], "titulo": "string", "descricao": "string", "data_inicio": "2019-08-24T14:15:22Z", "data_fim": "2019-08-24T14:15:22Z", "nota": -2147483648, "visibilidade": "PU", "elaborador": "string", "co_elaboradores": ["string"], "alunos": [ "string"]}] |
+| http://127.0.0.1:8000/item/{id} | Retornar as respostas do aluno logado para um item especificado | GET | ARRAY | [{"id": 0, "resposta": "string", "nota_obtida": -2147483648, "data_hora": "2019-08-24T14:15:22Z", "aluno": "string", "item": 0, "item_avaliacao": 0}] |
+| http://127.0.0.1:8000/tag/item/{id} | GET | Retornar todos as tags de um item especificado | ARRAY | [{"id": 0, "nome": "string"}] |
+| http://127.0.0.1:8000/tag/item/{id} | POST | Criar tags para um item especificado | Objeto | {"nome": "string"} |
 
 ## 8.2 API Externa
 
 | URL | Descrição | Método HTTP | Tipo Retorno | Exemplo de Retorno |
 | --- | --- | --- | --- | --- |
-| https://suap.ifrn.edu.br/api/v2/autenticacao/token/ | Gerar token de usuário do SUAP | POST | Objeto | { "refresh": "string", "access": "string"} |
-| https://suap.ifrn.edu.br/api/v2/minhas-informacoes/meus-dados/ | Retornar os dados do usuário a partir do token de acesso | GET | Objeto | { "id": 0, "matricula": "string", "nome_usual": "string", "cpf": "0", "rg": "string ", "filiacao": [“string”, “string”], "data_nascimento": "2010-01-01", "naturalidade": "string", "tipo_sanguineo": "string", "email": "user@example.com", "url_foto_75x100": "string", "url_foto_150x200": "string", "tipo_vinculo": "string", "vinculo": {"matricula": "string", "nome": "string", "curso": "string", "campus": "string", "situacao": "string", "cota_sistec": "string", "cota_mec": "string", "situacao_sistemica": "string", "matricula_regular": false, "linha_pesquisa": string, "curriculo_lattes": "string"}} |
+| https://suap.ifrn.edu.br/api/v2/autenticacao/token/ | Gerar token de usuário do SUAP | POST | Objeto | {"refresh": "string", "access": "string"} |
+| https://suap.ifrn.edu.br/api/v2/minhas-informacoes/meus-dados/ | Retornar os dados do usuário a partir do token de acesso | GET | Objeto | {"id": 0, "matricula": "string", "nome_usual": "string", "cpf": "0", "rg": "string ", "filiacao": [“string”, “string”], "data_nascimento": "2010-01-01", "naturalidade": "string", "tipo_sanguineo": "string", "email": "user@example.com", "url_foto_75x100": "string", "url_foto_150x200": "string", "tipo_vinculo": "string", "vinculo": {"matricula": "string", "nome": "string", "curso": "string", "campus": "string", "situacao": "string", "cota_sistec": "string", "cota_mec": "string", "situacao_sistemica": "string", "matricula_regular": false, "linha_pesquisa": string, "curriculo_lattes": "string"}} |
 
 # Referências
 
