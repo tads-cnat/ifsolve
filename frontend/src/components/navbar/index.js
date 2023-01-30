@@ -3,8 +3,11 @@ import { FaUserAlt } from "react-icons/fa";
 import { Logout } from "../../api/config";
 import { useNavigate } from "react-router-dom";
 import { FiChevronDown, FiLogOut, FiSearch } from "react-icons/fi";
+import { useContext } from "react";
+import { GlobalContext } from "../../providers/context";
 
 export default function Navbar() {
+    const { getUser } = useContext(GlobalContext);
     const [getOverlay, setOverlay] = useState(false);
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
     const navigate = useNavigate();
@@ -30,8 +33,8 @@ export default function Navbar() {
                     <FaUserAlt className="text-primary-60 text-sm"></FaUserAlt>
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-sm font-medium text-dark-100 capitalize">{user.username}</span>
-                    <span className="text-sm text-dark-60">{user.email}</span>
+                    <span className="text-sm font-medium text-dark-100 capitalize">{getUser.extra_data.nome_completo}</span>
+                    <span className="text-sm text-dark-60">{getUser.email}</span>
                 </div>
                 <FiChevronDown className={"transition duration-300 " + (getOverlay ? "rotate-180" : null)} />
                 <ul className={"absolute translate-y-full z-10 bottom-0 w-full bg-white drop-shadow rounded-lg py-2 transition duration-300 " + (getOverlay ? "" : "hidden h-0")}>

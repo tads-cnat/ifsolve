@@ -23,7 +23,7 @@ export default function AvaliacaoRespostas() {
             setAlunos(res.data);
         });
 
-    }, []);
+    }, [id]);
 
     return (
         <div className="bg-dark-5 min-h-screen flex flex-col items-center">
@@ -42,7 +42,7 @@ export default function AvaliacaoRespostas() {
                         <GroupContent>
                             <h2>Respostas</h2>
                             {getAvalicao.avaliacao.alunos.map((aluno, i) =>
-                                <AlunoRespostas key={i} avaliacao={id} aluno={getAlunos.find(alunos => alunos.id == aluno)} items={getAvalicao.itens} />
+                                <AlunoRespostas key={i} avaliacao={id} aluno={getAlunos.find(alunos => alunos.id === aluno)} items={getAvalicao.itens} />
                             )}
                         </GroupContent>
                     </>
@@ -63,15 +63,20 @@ function GroupContent(props) {
 function AlunoRespostas({ avaliacao, aluno, items }) {
     const [getRespostas, setRespostas] = useState(null);
 
+    console.log(avaliacao);
+    console.log(aluno);
+
     useEffect(() => {
-        GetAvaliacaoRespostasByAluno(avaliacao, aluno.id).then(res => {
-            // console.log(res.data.resposta);
-            setRespostas(res.data.resposta);
-        })
-    }, [aluno]);
+        if (aluno) {
+            GetAvaliacaoRespostasByAluno(avaliacao, aluno.id).then(res => {
+                console.log(res.data);
+                setRespostas(res.data.resposta);
+            })
+        }
+    }, [aluno, avaliacao]);
 
     return (
-        aluno !== (undefined) ?
+        aluno !== undefined ?
             <div className="flex flex-col gap-6 p-4 bg-dark-5 rounded-lg">
                 {/* Dados do usuário */}
                 <div className="flex flex-row items-center gap-2">
@@ -87,7 +92,7 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
                 {/* Dados do usuário */}
 
                 {/* Lista de respostas */}
-                {getRespostas !== null && getRespostas.length > 0 ?
+                {getRespostas && getRespostas.respostas.length > 0 ?
                     getRespostas.respostas.map((resposta, i) =>
                         <RespostaForm key={i} resposta={resposta} itemAvaliacao={items.find(items => items.id === resposta.item_avaliacao)} />
                     )
@@ -101,7 +106,7 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
 
 function RespostaForm({ resposta, itemAvaliacao }) {
     const [getItem, setItem] = useState(null)
-    console.log(resposta);
+    // console.log(resposta);
     const formik = useFormik({
         initialValues: {
             nota_obtida: resposta.nota_obtida ? resposta.nota_obtida : 0
@@ -137,6 +142,12 @@ function RespostaForm({ resposta, itemAvaliacao }) {
                 <div>
                     <h2 className="text-lg text-dark-100 font-medium">{getItem.titulo}</h2>
                     <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getItem.enunciado} readOnly={true}></ReactQuill>
+                    <h4 className="text-dark-80 font-medium">Expectativa de resposta:</h4>
+                    {getItem.tipo === "ME" ?
+                        <p>{getItem.alternativa_correta}</p>
+                        :
+                        <p>{getItem.expectativa_resposta}</p>
+                    }
                 </div>
                 : null
             }

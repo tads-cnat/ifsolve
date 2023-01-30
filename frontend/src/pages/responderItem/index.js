@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnswerItem, GetItemByID } from "../../api/config";
-import { Container } from "../../components";
+import { Container, GlobalAlert } from "../../components";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { FiArrowLeft } from "react-icons/fi";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 export default function ResponderItem(props) {
@@ -36,12 +38,14 @@ export default function ResponderItem(props) {
         }),
         onSubmit: values => {
             // Cadastrando resposta na API
-            AnswerItem(values).then(
-                res => {
-                    console.log(res)
-                    navigate(`/item/${id}/resposta`)
-                }
-            )
+            AnswerItem(values).then(res => {
+                console.log(res);
+                navigate(`/item/${id}/resposta`);
+                localStorage.setItem("ifsolve_success_alert", "Sua resposta foi registrada.");
+            }).catch(error => {
+                console.log(error);
+                toast.error("Não foi possivel registrar sua resposta.")
+            })
         },
     });
 
@@ -117,7 +121,7 @@ export default function ResponderItem(props) {
                     </div>
                 </form>
             </Container>
-
+            <Toaster />
         </div>
     )
 }

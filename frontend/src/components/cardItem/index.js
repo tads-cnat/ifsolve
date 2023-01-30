@@ -9,10 +9,16 @@ export default function CardItem(props) {
                     {props.content.tipo === "ME" ? <FiCheckSquare /> : <FiAlignLeft />}
                 </div>
             </div>
-            <div className="block">
-                <span>{props.content.assunto}</span>
+            <div className="flex flex-col gap-2">
+                <span className="text-sm text-dark-80">{props.content.assunto}</span>
                 <p className="text-lg font-medium">{props.content.titulo}</p>
+                <div className="flex flex-row gap-4">
+                    {props.content.tags.filter((tag, i) => i < 3).map((tag, i) =>
+                        <span className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg">{tag.nome}</span>
+                    )}
+                </div>
             </div>
+
         </Link>
     )
 }

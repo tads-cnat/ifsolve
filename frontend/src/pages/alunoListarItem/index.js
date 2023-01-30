@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { FiFilter } from "react-icons/fi";
+import { FiAlignLeft, FiCheckSquare, FiFilter } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { GetItems } from "../../api/config";
 import { SidebarLayout } from "../../components";
@@ -36,7 +36,7 @@ export default function AlunoListarItem() {
                     <div className="flex">
                         <span className="basis-6/12">Encontramos <b> {filteredData.length} {filteredData.length > 1 ? "questões!" : "questão!"} </b>🙌</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-8">
                         {filteredData.map((item, i) =>
                             <CardItem key={i} item={item}></CardItem>
                         )}
@@ -49,13 +49,20 @@ export default function AlunoListarItem() {
 
 function CardItem(props) {
     return (
-        <Link to={`/item/${props.item.id}/responder`} className="bg-white px-4 py-2 rounded-lg">
-            <small className="text-sm">{props.item.assunto}</small>
-            <h4 className="text-lg">{props.item.titulo}</h4>
-            <div className="flex flex-row gap-4">
-                {props.item.tags.filter((tag, i) => i < 3).map((tag, i) =>
-                    <span className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg">{tag.nome}</span>
-                )}
+        <Link to={`/item/${props.item.id}/responder`} className="bg-white px-4 py-2 rounded-lg flex flex-row gap-2 justify-start items-center">
+            <div className="bg-primary-20 w-10 h-10 flex items-center justify-center rounded-lg">
+                <div className="text-primary-100 text-xl">
+                    {props.item.tipo === "ME" ? <FiCheckSquare /> : <FiAlignLeft />}
+                </div>
+            </div>
+            <div className="flex flex-col gap-2">
+                <small className="text-sm">{props.item.assunto}</small>
+                <h4 className="text-lg">{props.item.titulo}</h4>
+                <div className="flex flex-row gap-4">
+                    {props.item.tags.filter((tag, i) => i < 3).map((tag, i) =>
+                        <span className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg">{tag.nome}</span>
+                    )}
+                </div>
             </div>
         </Link>
     )

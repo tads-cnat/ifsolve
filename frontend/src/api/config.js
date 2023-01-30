@@ -5,7 +5,7 @@ export const api = axios.create({
 });
 
 export function loginApi(data) {
-    return api.post("auth/login/", {
+    return api.post("auth/suap/auth_register/", {
         "username": data.login,
         "password": data.password,
     })
@@ -337,6 +337,29 @@ export function PatchResposta(id, nota) {
         {
             "nota_obtida": nota,
         },
+        {
+            headers: {
+                "Authorization": "Token " + token,
+            }
+        })
+}
+
+export function GetAvaliacaoById(id) {
+    const token = localStorage.getItem("ifsolve_token");
+
+    return api.get(`avaliacao/${id}/`, {
+        headers: {
+            "Authorization": "Token " + token,
+        }
+    })
+}
+
+export function AnswerAvaliacao(respostas) {
+    const token = localStorage.getItem("ifsolve_token");
+    const user = JSON.parse(localStorage.getItem("ifsolve_user"));
+    console.log(user);
+
+    return api.post("avaliacao/responder/", respostas,
         {
             headers: {
                 "Authorization": "Token " + token,

@@ -17,6 +17,7 @@ import Container from "./container";
 import AlunosInput from "./alunosInput";
 import AlunoListAvalicao from "./AlunoListAvaliacao";
 import ElaboradorListAvalicao from "./ElaboradorListAvaliacao";
+import Loading from "./loading";
 
 export {
     Sidebar,
@@ -37,5 +38,6 @@ export {
     Container,
     AlunosInput,
     AlunoListAvalicao,
-    ElaboradorListAvalicao
+    ElaboradorListAvalicao,
+    Loading
 };
