@@ -22,12 +22,14 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_extra_data(self, obj):
         tipo_usuario = ''
+        nome_completo = obj.usuario.nome_completo
         if hasattr(obj.usuario, 'aluno'):
             tipo_usuario = 'aluno'
         elif hasattr(obj.usuario, 'elaborador'):
             tipo_usuario = 'elaborador'
         return {
             'tipo_usuario': tipo_usuario,
+            'nome_completo': nome_completo,
         }
 
     def get_id(self, obj):
