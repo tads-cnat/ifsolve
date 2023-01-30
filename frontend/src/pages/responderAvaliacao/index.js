@@ -106,6 +106,7 @@ function ItemForm(props) {
     }, [props.item.item]);
 
     function HandleChange(resposta) {
+        console.log("here");
         props.respostas[props.i].resposta = resposta;
     }
     return (
@@ -159,7 +160,7 @@ function ItemForm(props) {
 
                         </>
                         :
-                        <input placeholder="Digite sua resposta" />
+                        <input onChange={e => HandleChange(e.target.value)} placeholder="Digite sua resposta" />
                     }
                 </Container>
                 : null
