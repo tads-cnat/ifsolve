@@ -103,7 +103,25 @@ class AuthViewSet(viewsets.GenericViewSet):
             
             return Response({'error': 'Você precisa ser aluno ou professor'}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error': token}, status=token.status_code)
+            username = request.data.get('username')
+            email = request.data.get('email')
+            password = request.data.get('password')
+            user = User.objects.filter(email=email)
+
+            if not user.exists():
+                user = User.objects.filter(username=username)
+
+            if not user.exists():
+                return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+
+            user = user.first()
+            if not user.check_password(password):
+                return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+
+            token, created = Token.objects.get_or_create(user=user)
+            user_data = UserSerializer(user).data
+            user_data['token'] = token.key
+            return Response(user_data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
     def logout(self, request):
