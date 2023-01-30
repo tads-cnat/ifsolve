@@ -314,7 +314,7 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
                     contexto[aluno.user.username] = contexto_atual
         return Response(contexto)
 
-    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/(?P<aluno_id>[^/.]+)/respostas', permission_classes=[IsElaborador])
+    @action(detail=False, methods=['get'], url_path='(?P<avaliacao_id>[^/.]+)/aluno/(?P<aluno_id>[^/.]+)/respostas', permission_classes=[IsAlunoOrElaborador])
     def RespostaAvaliacaoIndividualSerializer(self, request, avaliacao_id, aluno_id):
         avaliacao = get_object_or_404(Avaliacao, id=avaliacao_id)
         aluno = get_object_or_404(Aluno, id=aluno_id)
