@@ -11,7 +11,7 @@ export default function AlunosInput({ get, set }) {
     function AddAlunos(aluno) {
         if (!get.includes(aluno)) {
             set(get => [...get, aluno]);
-            setSearch("");
+            setSearch(" ");
         }
     }
     function RemoveAluno(aluno) {
@@ -53,7 +53,7 @@ export default function AlunosInput({ get, set }) {
                 />
                 {
                     getSearch ?
-                        <ul className="absolute top-full bg-white shadow first rounded-lg overflow-hidden" style={{ maxHeight: "200px" }}>
+                        <ul className="absolute top-full bg-white shadow first rounded-lg overflow-y-scroll z-10" style={{ maxHeight: "200px" }}>
                             {filteredAlunos.map((aluno, i) =>
                                 <li className="px-4 py-2 first:bg-dark-10" key={i} onClick={e => AddAlunos(aluno)}>
                                     <p className="text-sm font-medium uppercase">{aluno.username}</p>

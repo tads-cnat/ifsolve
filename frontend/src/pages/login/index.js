@@ -5,7 +5,7 @@ import LoginBackground from "../../images/login-background.png"
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import IFSolvelogo from "../../images/IFSolve-logo.svg";
 import { useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
 import * as Yup from "yup";
 
 export default function Login() {
@@ -14,8 +14,8 @@ export default function Login() {
     const [getError, setError] = useState();
 
     const LoginSchema = Yup.object().shape({
-        login: Yup.string().required(),
-        password: Yup.string().required(),
+        login: Yup.string().required("Ooops. Parece que você não digitou seu usuário"),
+        password: Yup.string().required("Ooops. Parece que você não digitou sua senha"),
     })
 
     const initialValues = {
@@ -31,9 +31,7 @@ export default function Login() {
                 navigate("/avaliacao");
             })
             .catch((error) => {
-                if (error.response.status === 400) {
-                    setError("Usuário e/ou senha inválidos");
-                }
+                setError("Usuário e/ou senha inválidos");
             })
     }
 
@@ -50,8 +48,8 @@ export default function Login() {
 
                             <div className="mb-5">
                                 <FormLabel label="Email ou usuário"></FormLabel>
-                                <FormControl name="login" placeholder="Digite seu email ou nome de usuário" />
-                                {errors.login && touched.login ? <div className="">{errors.login}</div> : null}
+                                <FormControl name="login" placeholder="Digite seu usuário" />
+                                {errors.login && touched.login ? <Alert>{errors.login}</Alert> : null}
                             </div>
                             <div className="mb-5">
                                 <FormLabel label="Senha"></FormLabel>
@@ -64,19 +62,25 @@ export default function Login() {
                                         :
                                         null}
                                 </div>
-                                {errors.password && touched.password ? <div className="">{errors.password}</div> : null}
+                                {errors.password && touched.password ? <Alert>{errors.password}</Alert> : null}
 
                             </div>
-                            {getError ? getError : null}
-                            <button type="submit" className="w-full bg-primary-100 px-4 py-2 rounded-lg text-md font-medium text-dark-100 mb-5">Entrar</button>
+                            {getError ? <Alert>{getError}</Alert> : null}
+                            <button type="submit" className="w-full bg-primary-100 px-4 py-2 rounded-lg text-md font-medium text-dark-100 mb-5 mt-3">Entrar</button>
                         </Form>
                     }
                 </Formik>
-                <span>Não tem uma conta? <Link to="/registro" className="font-medium text-primary-100">Cadastre-se</Link></span>
+                {/* <span>Não tem uma conta? <Link to="/registro" className="font-medium text-primary-100">Cadastre-se</Link></span> */}
                 {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace={true}></Navigate> : null}
 
             </div>
             <GlobalAlert></GlobalAlert>
         </div>
+    )
+}
+
+export function Alert(props) {
+    return (
+        <p className="flex items-center gap-2 text-sm text-red-800 bg-red-100 px-4 py-2 rounded-lg"><FiAlertCircle />{props.children}</p>
     )
 }

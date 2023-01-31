@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react"
 import { Link } from "react-router-dom";
-import { CardItem, SidebarLayout } from "../../components/"
+import { CardItem, GlobalAlert, SidebarLayout } from "../../components/"
 import { GlobalContext } from "../../providers/context"
 import { GetItemsPU } from "../../api/config";
 import { FiPlus } from "react-icons/fi";
@@ -39,6 +39,7 @@ export default function ElaboradorListarItem() {
                         : "Carregando itens"}
                 </div>
             </div>
+            <GlobalAlert />
         </SidebarLayout>
     )
 }

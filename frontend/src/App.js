@@ -1,27 +1,12 @@
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
-import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, AlunoVisualizarRespostaAvaliacao, AvaliacaoRespostas, CreateAvaliacao, ListAvaliacao, RespostaItem } from "./pages";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CriarItem, ListarItem, Login, Register, ResponderItem, Settings, VisualizarItem, AlunoVisualizarRespostaAvaliacao, AvaliacaoRespostas, CreateAvaliacao, ListAvaliacao, RespostaItem, ResponderAvaliacao } from "./pages";
 import { ProtectedRoute } from "./components";
 import { useContext, useEffect } from "react";
 import { GetUser, Logout } from "./api/config";
 import { GlobalContext } from "./providers/context";
 
 export default function App() {
-  const { setUser } = useContext(GlobalContext);
-
-
-  useEffect(() => {
-    GetUser().then(res => {
-      setUser(res.data);
-    }).catch((error) => {
-      if (error.response.status === 401) {
-        console.log("here");
-        localStorage.clear();
-        // Logout().then(res => {
-        //   navigate("/");
-        // })
-      }
-    })
-  }, [])
+  const { getUser } = useContext(GlobalContext);
 
   const router = createBrowserRouter([
     {
@@ -39,6 +24,10 @@ export default function App() {
     {
       path: "/avaliacao/criar",
       element: (<ProtectedRoute><CreateAvaliacao></CreateAvaliacao></ProtectedRoute>)
+    },
+    {
+      path: "/avaliacao/:id/responder",
+      element:(<ProtectedRoute><ResponderAvaliacao></ResponderAvaliacao></ProtectedRoute>)
     },
     {
       path: "avaliacao/:id/respostas",
