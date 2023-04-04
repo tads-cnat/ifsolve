@@ -108,26 +108,21 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 ## 9. Casos de uso por ordem de prioridade
 
-| Código              | Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    |
-| :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-|         CP01        | Elaborar item       |           x         |                     |                     |
-|         CP02        | Visualizar item     |           x         |                     |                     |
-|         CP03        | Responder item      |           x         |                     |                     |
-|         CP04        | Visualizar respostas de um item |    x    |                     |                     |
-|         CP05        | Realizar login      |           x         |                     |                     |
-|         CP06        | Realizar logout     |           x         |                     |                     |
-|         CP07        | Elaborar avaliação    |                   |           x         |                     |
-|         CP08        | Visualizar avaliação  |                   |           x         |                     |
-|         CP09        | Aplicar avaliação     |                   |           x         |                     |
-|         CP10        | Realizar autocadastro |                   |           x         |                     |
-|         CP11        | Responder avaliação   |                   |                     |          x          |
-|         CP12        | Visualizar resposta em avaliação |        |                     |          x          |
-|         CP13        | Avaliar resposta em avaliação    |        |                     |          x          |
-|         CP14        | Visualizar simulado              |        |                     |          x          |
-|         CP15        | Realizar simulado                |        |                     |          x          |
-|         CP16        | Editar item           |                   |                     |          x          |
-|         CP17        | Editar avaliação      |                   |                     |          x          |
-|         CP18        | Validar elaborador    |                   |                     |          x          |
+| Código              | Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    | Status    |
+| :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
+|         CP01        | Elaborar item       |           x         |                     |                     | Feito |
+|         CP02        | Visualizar item     |           x         |                     |                     | Feito |
+|         CP03        | Responder item      |           x         |                     |                     | Feito |
+|         CP04        | Visualizar respostas de um item |    x    |                     |                     | Feito |
+|         CP05        | Realizar login      |           x         |                     |                     | Feito |
+|         CP06        | Realizar logout     |           x         |                     |                     | Feito |
+|         CP07        | Elaborar avaliação    |                   |           x         |                     | Feito |
+|         CP08        | Visualizar avaliação  |                   |           x         |                     | Feito |
+|         CP09        | Aplicar avaliação     |                   |           x         |                     | Feito |
+|         CP10        | Realizar autocadastro |                   |           x         |                     | Feito |
+|         CP11        | Responder avaliação   |                   |                     |          x          | Feito |
+|         CP12        | Visualizar resposta em avaliação |        |                     |          x          | Feito |
+|         CP13        | Avaliar resposta em avaliação    |        |                     |          x          | Feito |
 
 ## 10. Requisitos funcionais
 
