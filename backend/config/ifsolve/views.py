@@ -7,7 +7,7 @@ from django.db import connection
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 import requests
-from .permissions import IsElaborador, IsAluno, AllowAny, IsNotAuthenticated, IsAlunoOrElaborador
+from .permissions import IsElaborador, IsAluno, IsNotAuthenticated, IsAlunoOrElaborador
 from .models import (Alternativa, Aluno, Area, Avaliacao,
                      Elaborador, Item, ItemAvaliacao, Resposta, Tag, Usuario)
 from .serializers import (AlternativaSerializer, AlunoSerializer, AreaSerializer, AvaliacaoSerializer, ElaboradorSerializer,
