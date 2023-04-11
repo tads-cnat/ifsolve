@@ -7,7 +7,7 @@ from drf_yasg.views import get_schema_view as swagger_get_schema_view
 from ifsolve.permissions import AllowAny
 
 
-app_name = "ifsolve"
+APP_NAME = "ifsolve"
 
 schema_view = swagger_get_schema_view(
     openapi.Info(
