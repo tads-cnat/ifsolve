@@ -1,4 +1,3 @@
-import { useContext, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
     CriarItem,
@@ -16,12 +15,8 @@ import {
     ResponderAvaliacao,
 } from "./pages";
 import { ProtectedRoute } from "./components";
-import { GetUser, Logout } from "./api/config";
-import { GlobalContext } from "./providers/context";
 
 export default function App() {
-    const { getUser } = useContext(GlobalContext);
-
     const router = createBrowserRouter([
         {
             path: "/",
