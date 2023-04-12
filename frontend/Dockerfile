@@ -5,7 +5,7 @@ FROM node:alpine
 RUN apk add --no-cache yarn
 
 # Define o diretório de trabalho dentro do contêiner
-WORKDIR /usr/app
+WORKDIR /app
 
 # Copia o arquivo package.json e o yarn.lock para o diretório de trabalho
 COPY package*.json yarn.lock ./

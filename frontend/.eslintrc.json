@@ -5,7 +5,8 @@
     },
     "extends": [
         "airbnb",
-        "prettier"
+        "prettier",
+        "plugin:react/jsx-runtime"
     ],
     "overrides": [],
     "parserOptions": {
@@ -15,5 +16,7 @@
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+        "import/no-extraneous-dependencies": 0
+    }
 }
