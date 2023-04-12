@@ -47,6 +47,7 @@ export default function CriarItem() {
         validationSchema: Yup.object({
             titulo: Yup.string().required("Título é um campo obrigatório."),
             assunto: Yup.string().required("Assunto é um campo obrigatório."),
+            area: Yup.string().required("Área é um campo obrigatório."),
             expectativa_resposta: Yup.string().when("tipo", { is: "DI", then: Yup.string().required("É obrigatório cadastar uma resposta.") }),
         }),
         onSubmit: data => {
@@ -72,7 +73,7 @@ export default function CriarItem() {
             }
         },
     })
-
+    
     return (
         <div className="w-full min-h-screen flex flex-col items-center bg-dark-5 pt-4 pb-8 gap-4">
             <FormikProvider value={formik}>
@@ -123,6 +124,7 @@ export default function CriarItem() {
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                 >
+                                    <option value=""> Selecione uma área</option>
                                     {getAreas !== undefined ?
                                         getAreas.map((item, i) =>
                                             <option key={i} value={item.id}>{item.nome}</option>
