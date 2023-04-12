@@ -20,17 +20,17 @@ export default function App() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <Login></Login>,
+            element: <Login />,
         },
         {
             path: "/registro",
-            element: <Register></Register>,
+            element: <Register />,
         },
         {
             path: "/avaliacao",
             element: (
                 <ProtectedRoute>
-                    <ListAvaliacao></ListAvaliacao>
+                    <ListAvaliacao />
                 </ProtectedRoute>
             ),
         },
@@ -38,7 +38,7 @@ export default function App() {
             path: "/avaliacao/criar",
             element: (
                 <ProtectedRoute>
-                    <CreateAvaliacao></CreateAvaliacao>
+                    <CreateAvaliacao />
                 </ProtectedRoute>
             ),
         },
@@ -46,7 +46,7 @@ export default function App() {
             path: "/avaliacao/:id/responder",
             element: (
                 <ProtectedRoute>
-                    <ResponderAvaliacao></ResponderAvaliacao>
+                    <ResponderAvaliacao />
                 </ProtectedRoute>
             ),
         },
@@ -54,7 +54,7 @@ export default function App() {
             path: "avaliacao/:id/respostas",
             element: (
                 <ProtectedRoute>
-                    <AvaliacaoRespostas></AvaliacaoRespostas>
+                    <AvaliacaoRespostas />
                 </ProtectedRoute>
             ),
         },
@@ -62,7 +62,7 @@ export default function App() {
             path: "/item",
             element: (
                 <ProtectedRoute>
-                    <ListarItem></ListarItem>
+                    <ListarItem />
                 </ProtectedRoute>
             ),
         },
@@ -70,7 +70,7 @@ export default function App() {
             path: "/item/:id",
             element: (
                 <ProtectedRoute>
-                    <VisualizarItem></VisualizarItem>
+                    <VisualizarItem />
                 </ProtectedRoute>
             ),
         },
@@ -78,7 +78,7 @@ export default function App() {
             path: "/item/:id/responder",
             element: (
                 <ProtectedRoute>
-                    <ResponderItem></ResponderItem>
+                    <ResponderItem />
                 </ProtectedRoute>
             ),
         },
@@ -86,7 +86,7 @@ export default function App() {
             path: "/criar/item",
             element: (
                 <ProtectedRoute>
-                    <CriarItem></CriarItem>
+                    <CriarItem />
                 </ProtectedRoute>
             ),
         },
@@ -94,7 +94,7 @@ export default function App() {
             path: "/item/:id/resposta",
             element: (
                 <ProtectedRoute>
-                    <RespostaItem></RespostaItem>
+                    <RespostaItem />
                 </ProtectedRoute>
             ),
         },
@@ -102,7 +102,7 @@ export default function App() {
             path: "/settings",
             element: (
                 <ProtectedRoute>
-                    <Settings></Settings>
+                    <Settings />
                 </ProtectedRoute>
             ),
         },
@@ -110,11 +110,11 @@ export default function App() {
             path: "/avaliacao/:id/aluno/respostas",
             element: (
                 <ProtectedRoute>
-                    <AlunoVisualizarRespostaAvaliacao></AlunoVisualizarRespostaAvaliacao>
+                    <AlunoVisualizarRespostaAvaliacao />
                 </ProtectedRoute>
             ),
         },
     ]);
 
-    return <RouterProvider router={router}></RouterProvider>;
+    return <RouterProvider router={router} />;
 }
