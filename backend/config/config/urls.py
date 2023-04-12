@@ -9,7 +9,7 @@ from ifsolve.permissions import AllowAny
 
 APP_NAME = "ifsolve"
 
-schema_view = swagger_get_schema_view(
+SchemaView = swagger_get_schema_view(
     openapi.Info(
         title = "IFSolve API",
         default_version = '1.0.0',
@@ -34,6 +34,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('swagger/', SchemaView.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', SchemaView.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
