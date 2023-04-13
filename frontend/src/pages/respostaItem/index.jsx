@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { GlobalAlert, SidebarLayout } from "../../components";
-import { GetItemByID, GetRespostaByItem } from "../../api/config";
 import { useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
 import { FiAlignJustify, FiCheck, FiX } from "react-icons/fi";
+import { GetItemByID, GetRespostaByItem } from "../../api/config";
+import { GlobalAlert, SidebarLayout } from "../../components";
 
 
 export default function RespostaItem() {
     const [getItem, setItem] = useState([]);
     const [itemData, setItemData] = useState("");
 
-    let { id } = useParams();
+    const { id } = useParams();
 
     const modules = {
         toolbar: false
@@ -35,7 +35,7 @@ export default function RespostaItem() {
                 {itemData ?
                     <div className="flex flex-col gap-2 bg-white p-4 rounded-lg">
                         <h2 className="text-lg text-dark-100 font-medium">{itemData.titulo}</h2>
-                        <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={itemData.enunciado} readOnly={true} />
+                        <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={itemData.enunciado} readOnly />
                         <p>Resposta</p>
                         <div className="bg-dark-5 p-4 rounded-lg">
                             {itemData.tipo === "ME" ? itemData.alternativa_correta : itemData.expectativa_resposta}

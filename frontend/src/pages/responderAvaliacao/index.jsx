@@ -54,7 +54,7 @@ export default function ResponderAvaliacao(props) {
             <form onSubmit={e => HandleSubmit(e)} className="container flex flex-col gap-4 py-8" style={{ maxWidth: "720px" }}>
                 {/* Header */}
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft></FiArrowLeft></div>
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
                     Voltar
                 </div>
                 {/* Header */}
@@ -73,7 +73,7 @@ export default function ResponderAvaliacao(props) {
                     : null
                 }
                 <div className="flex flex-row gap-4">
-                    <button type={"submit"} className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
+                    <button type="submit" className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
                     <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={e => navigate(-1)}> Voltar </button>
                 </div>
             </form>
@@ -91,7 +91,7 @@ function Container(props) {
 
 function Header2(props) {
     return (
-        <h2 className={"text-lg text-dark-100 font-medium " + props.className}>{props.children}</h2>
+        <h2 className={`text-lg text-dark-100 font-medium ${  props.className}`}>{props.children}</h2>
     )
 }
 
@@ -183,7 +183,7 @@ function RichText(props) {
         toolbar: false
     }
     return (
-        <ReactQuill modules={modules} value={props.value} readOnly={true} />
+        <ReactQuill modules={modules} value={props.value} readOnly />
     )
 
 }

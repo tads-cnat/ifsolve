@@ -10,10 +10,10 @@ export default function ListarItem() {
         if (getUser !== undefined) {
             switch (getUser.extra_data.tipo_usuario) {
                 default:
-                    return (<AlunoListarItem></AlunoListarItem>)
+                    return (<AlunoListarItem />)
 
                 case "elaborador":
-                    return (<ElaboradorListarItem></ElaboradorListarItem>)
+                    return (<ElaboradorListarItem />)
             }
         }
     }

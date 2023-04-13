@@ -1,11 +1,11 @@
-import { AlunoRegister, ElaboradorRegister } from "../../api/config";
-import { PassowordInput, PrimaryButton } from "../../components";
-import LoginBackground from "../../images/login-background.png"
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FiAlertCircle } from "react-icons/fi";
 import toast, { Toaster } from 'react-hot-toast';
+import LoginBackground from "../../images/login-background.png"
+import { PassowordInput, PrimaryButton } from "../../components";
+import { AlunoRegister, ElaboradorRegister } from "../../api/config";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -146,7 +146,7 @@ export default function Register() {
                     <span>Tem uma conta? <Link to="/" className="text-primary-100 font-medium">Conecte-se</Link></span>
                 </form>
             </div>
-            <Toaster></Toaster>
+            <Toaster />
         </div>
     )
 }
@@ -155,7 +155,7 @@ export function FormInput(props) {
         <input
             type={props.type}
             name={props.name}
-            className={"w-full px-4 py-2 border border-dark-20 rounded-lg hover:bg-dark-5 focus:outline focus:outline-4 focus:outline-primary-20 focus:bg-primary-5 transition-all duration-200"}
+            className="w-full px-4 py-2 border border-dark-20 rounded-lg hover:bg-dark-5 focus:outline focus:outline-4 focus:outline-primary-20 focus:bg-primary-5 transition-all duration-200"
             onChange={props.onChange}
             onBlur={props.onBlur}
             value={props.value}

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { GetAlunoById, GetAlunos, GetAvaliacaoDetails, GetAvaliacaoRespostasByAluno, GetItemByID, PatchResposta } from "../../api/config";
 import { FiArrowLeft, FiUser } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from 'react-hot-toast';
+import { GetAlunoById, GetAlunos, GetAvaliacaoDetails, GetAvaliacaoRespostasByAluno, GetItemByID, PatchResposta } from "../../api/config";
 
 export default function AvaliacaoRespostas() {
     const { id } = useParams();
@@ -29,7 +29,7 @@ export default function AvaliacaoRespostas() {
         <div className="bg-dark-5 min-h-screen flex flex-col items-center">
             <div className="container flex flex-col gap-4 py-8 px-4 items-center" style={{ maxWidth: "720px" }}>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft></FiArrowLeft></div>
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
                     Voltar
                 </div>
                 {getAvalicao !== null ?
@@ -81,7 +81,7 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
                 {/* Dados do usuário */}
                 <div className="flex flex-row items-center gap-2">
                     <div className="flex items-center justify-center bg-dark-40 rounded-full w-10 h-10">
-                        <FiUser></FiUser>
+                        <FiUser />
                     </div>
                     <div className="div">
                         <h5 className="text-sm text-dark-100 font-medium uppercase">{aluno.username}</h5>
@@ -141,7 +141,7 @@ function RespostaForm({ resposta, itemAvaliacao }) {
             {getItem !== null ?
                 <div>
                     <h2 className="text-lg text-dark-100 font-medium">{getItem.titulo}</h2>
-                    <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getItem.enunciado} readOnly={true}></ReactQuill>
+                    <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getItem.enunciado} readOnly />
                     <h4 className="text-dark-80 font-medium">Expectativa de resposta:</h4>
                     {getItem.tipo === "ME" ?
                         <p>{getItem.alternativa_correta}</p>

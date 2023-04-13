@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { Container } from "../../components";
 import ReactQuill from "react-quill";
 import { useParams, useNavigate } from "react-router-dom";
-import { GetItemByID } from "../../api/config";
 import { FiArrowLeft, FiInfo, FiX } from "react-icons/fi";
+import { GetItemByID } from "../../api/config";
+import { Container } from "../../components";
 import "./style.css";
 
 export default function VisualizarItem() {
@@ -12,7 +12,7 @@ export default function VisualizarItem() {
     const [getInfo, setInfo] = useState(false);
     const navigate = useNavigate();
 
-    let { id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         GetItemByID(id).then(res => {
@@ -32,10 +32,10 @@ export default function VisualizarItem() {
                     <Container className="py-8 bg-white">
                         <div className="flex justify-between items-center mb-4">
                             <button className="w-8 h-8 flex items-center justify-center bg-dark-5 rounded-full" onClick={() => navigate(-1)}>
-                                <FiArrowLeft></FiArrowLeft>
+                                <FiArrowLeft />
                             </button>
                             <button type="button" className="w-8 h-8 flex items-center justify-center bg-dark-5 rounded-full" onClick={() => setInfo(!getInfo)}>
-                                {getInfo ? <FiX></FiX> : <FiInfo></FiInfo>}
+                                {getInfo ? <FiX /> : <FiInfo />}
                             </button>
                         </div>
                         {getInfo ?
@@ -65,7 +65,7 @@ export default function VisualizarItem() {
 
                     <Container className="bg-dark-5 min-h-full py-8">
                         <h2 className="text-3xl font-bold mb-4">{getItem.titulo}</h2>
-                        <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getEnunciado} readOnly={true}></ReactQuill>
+                        <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getEnunciado} readOnly />
                         {getItem.tipo === "DI" ?
                             <>
                                 <h4 className="text-lg font-medium mb-4">Expectativa de resposta</h4>
@@ -75,11 +75,11 @@ export default function VisualizarItem() {
                             <div className="">
                                 <h4 className="text-lg font-medium mb-4">Alternativas</h4>
 
-                                {getItem.alternativa_a ? <CardAlternativa key="a" correct={getItem.alternativa_correta === "a" ? true : false} item={getItem.alternativa_a}></CardAlternativa> : null}
-                                {getItem.alternativa_b ? <CardAlternativa key="b" correct={getItem.alternativa_correta === "b" ? true : false} item={getItem.alternativa_b}></CardAlternativa> : null}
-                                {getItem.alternativa_c ? <CardAlternativa key="c" correct={getItem.alternativa_correta === "c" ? true : false} item={getItem.alternativa_c}></CardAlternativa> : null}
-                                {getItem.alternativa_d ? <CardAlternativa key="d" correct={getItem.alternativa_correta === "d" ? true : false} item={getItem.alternativa_d}></CardAlternativa> : null}
-                                {getItem.alternativa_e ? <CardAlternativa key="e" correct={getItem.alternativa_correta === "e" ? true : false} item={getItem.alternativa_e}></CardAlternativa> : null}
+                                {getItem.alternativa_a ? <CardAlternativa key="a" correct={getItem.alternativa_correta === "a"} item={getItem.alternativa_a} /> : null}
+                                {getItem.alternativa_b ? <CardAlternativa key="b" correct={getItem.alternativa_correta === "b"} item={getItem.alternativa_b} /> : null}
+                                {getItem.alternativa_c ? <CardAlternativa key="c" correct={getItem.alternativa_correta === "c"} item={getItem.alternativa_c} /> : null}
+                                {getItem.alternativa_d ? <CardAlternativa key="d" correct={getItem.alternativa_correta === "d"} item={getItem.alternativa_d} /> : null}
+                                {getItem.alternativa_e ? <CardAlternativa key="e" correct={getItem.alternativa_correta === "e"} item={getItem.alternativa_e} /> : null}
                             </div>
                         }
                     </Container>
@@ -93,7 +93,7 @@ export default function VisualizarItem() {
 
 function CardAlternativa(props) {
     return (
-        <div className={"flex bg-white mb-4 px-4 py-2 rounded-lg gap-4 " + (props.correct ? "outline outline-4 outline-primary-60" : "")}>
+        <div className={`flex bg-white mb-4 px-4 py-2 rounded-lg gap-4 ${  props.correct ? "outline outline-4 outline-primary-60" : ""}`}>
             {props.correct ?
                 <input type="radio" checked />
                 :

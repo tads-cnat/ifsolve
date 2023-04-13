@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
-import { AnswerItem, GetItemByID } from "../../api/config";
-import { Container, GlobalAlert } from "../../components";
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { FiArrowLeft } from "react-icons/fi";
 import toast, { Toaster } from 'react-hot-toast';
+import { Container, GlobalAlert } from "../../components";
+import { AnswerItem, GetItemByID } from "../../api/config";
 
 
 
@@ -54,12 +54,12 @@ export default function ResponderItem(props) {
         <div className="min-h-screen bg-dark-5 py-5">
             <Container className="flex flex-col gap-4" style={{ maxWidth: "720px" }}>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft></FiArrowLeft></div>
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
                 </div>
 
                 <div className="bg-white p-4 rounded-lg">
                     <h1 className="text-3xl font-medium">{getData.titulo}</h1>
-                    <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getData.enunciado} readOnly={true}></ReactQuill>
+                    <ReactQuill className="border-0 mb-4 text-lg font-medium" modules={modules} value={getData.enunciado} readOnly />
                 </div>
 
                 <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2">

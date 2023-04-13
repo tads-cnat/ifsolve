@@ -1,12 +1,12 @@
-import { loginApi } from "../../api/config";
-import { FormLabel, FormControl, GlobalAlert } from "../../components";
 import { Formik, Form } from "formik";
-import LoginBackground from "../../images/login-background.png"
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import IFSolvelogo from "../../images/IFSolve-logo.svg";
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
 import * as Yup from "yup";
+import IFSolvelogo from "../../images/IFSolve-logo.svg";
+import LoginBackground from "../../images/login-background.png"
+import { FormLabel, FormControl, GlobalAlert } from "../../components";
+import { loginApi } from "../../api/config";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -47,17 +47,17 @@ export default function Login() {
                             <h1 className="text-xl font-bold text-dark-100 mb-5">Entrar no IFSolve</h1>
 
                             <div className="mb-5">
-                                <FormLabel label="Email ou usuário"></FormLabel>
+                                <FormLabel label="Email ou usuário" />
                                 <FormControl name="login" placeholder="Digite seu usuário" />
                                 {errors.login && touched.login ? <Alert>{errors.login}</Alert> : null}
                             </div>
                             <div className="mb-5">
-                                <FormLabel label="Senha"></FormLabel>
+                                <FormLabel label="Senha" />
                                 <div className="relative">
                                     <FormControl name="password" className="pr-32" type={getPassword ? "password" : "text"} placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
                                     {values.password.trim().length > 0 ?
                                         <i className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg cursor-pointer" onClick={e => setPassword(!getPassword)}>
-                                            {getPassword ? <FiEye></FiEye> : <FiEyeOff></FiEyeOff>}
+                                            {getPassword ? <FiEye /> : <FiEyeOff />}
                                         </i>
                                         :
                                         null}
@@ -71,10 +71,10 @@ export default function Login() {
                     }
                 </Formik>
                 {/* <span>Não tem uma conta? <Link to="/registro" className="font-medium text-primary-100">Cadastre-se</Link></span> */}
-                {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace={true}></Navigate> : null}
+                {localStorage.getItem("ifsolve_token") !== null ? <Navigate to="/item" replace /> : null}
 
             </div>
-            <GlobalAlert></GlobalAlert>
+            <GlobalAlert />
         </div>
     )
 }

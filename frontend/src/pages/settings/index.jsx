@@ -1,7 +1,7 @@
-import { SidebarLayout } from "../../components";
-import { Logout } from "../../api/config";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
+import { SidebarLayout } from "../../components";
+import { Logout } from "../../api/config";
 import { GlobalContext } from "../../providers/context";
 
 

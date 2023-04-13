@@ -17,7 +17,7 @@ export function Logout() {
     return api.get("auth/logout/",
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         }
     ).then((res) => {
@@ -32,7 +32,7 @@ export function GetUser() {
 
     return api.get("auth/user/", {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -82,7 +82,7 @@ export function PostItemDI(data) {
         },
         {
             headers: {
-                "Authorization": "Token " + localStorage.getItem("ifsolve_token"),
+                "Authorization": `Token ${  localStorage.getItem("ifsolve_token")}`,
             }
         }
     ).then((res) => {
@@ -129,7 +129,7 @@ export function PostItemME(data) {
         },
         {
             headers: {
-                "Authorization": "Token " + localStorage.getItem("ifsolve_token"),
+                "Authorization": `Token ${  localStorage.getItem("ifsolve_token")}`,
             }
         }
     ).then((res) => {
@@ -143,7 +143,7 @@ export function GetItemsPU(setItens, setListItens) {
     return api.get("item/publico/",
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         },
     ).then((res) => {
@@ -157,7 +157,7 @@ export function GetItems() {
     return api.get("item/publico/",
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         },
     )
@@ -169,7 +169,7 @@ export function GetAreas() {
     return api.get("area/",
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         }
     )
@@ -180,7 +180,7 @@ export function GetItemByID(id) {
 
     return api.get(`item/${id}/detalhe/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -191,7 +191,7 @@ export function GetRespostaByItem(id) {
 
     return api.get(`resposta/item/${id}/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -200,7 +200,7 @@ export function GetAvaliacaoByID(id) {
 
     return api.get(`avaliacao/${id}/detalhe/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -211,7 +211,7 @@ export function GetRespostasAlunoAvaliacao(id) {
 
     return api.get(`avaliacao/${id}/aluno/respostas/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -222,7 +222,7 @@ export function GetTags() {
 
     return api.get('tag/', {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -242,7 +242,7 @@ export function AnswerItem(data) {
         },
         {
             headers: {
-                "Authorization": "Token " + localStorage.getItem("ifsolve_token"),
+                "Authorization": `Token ${  localStorage.getItem("ifsolve_token")}`,
             }
         }
     )
@@ -253,7 +253,7 @@ export function GetAvaliacoes() {
 
     return api.get("avaliacao/elaborador/listar/", {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -263,7 +263,7 @@ export function GetAvaliacoesAluno() {
 
     return api.get("avaliacao/aluno/listar/", {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -285,7 +285,7 @@ export function PostAvaliacao(avaliacao, itens, alunos) {
     },
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         })
 }
@@ -295,7 +295,7 @@ export function GetAlunos() {
 
     return api.get("aluno/todos/", {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -305,7 +305,7 @@ export function GetAlunoById(id) {
 
     return api.get(`aluno/${id}/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -315,7 +315,7 @@ export function GetAvaliacaoDetails(id) {
 
     return api.get(`avaliacao/${id}/detalhe/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -325,7 +325,7 @@ export function GetAvaliacaoRespostasByAluno(avaliacao_id, aluno_id) {
 
     return api.get(`avaliacao/${avaliacao_id}/aluno/${aluno_id}/respostas/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -339,7 +339,7 @@ export function PatchResposta(id, nota) {
         },
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         })
 }
@@ -349,7 +349,7 @@ export function GetAvaliacaoById(id) {
 
     return api.get(`avaliacao/${id}/`, {
         headers: {
-            "Authorization": "Token " + token,
+            "Authorization": `Token ${  token}`,
         }
     })
 }
@@ -362,7 +362,7 @@ export function AnswerAvaliacao(respostas) {
     return api.post("avaliacao/responder/", respostas,
         {
             headers: {
-                "Authorization": "Token " + token,
+                "Authorization": `Token ${  token}`,
             }
         })
 }

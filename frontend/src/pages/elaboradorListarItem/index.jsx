@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react"
 import { Link } from "react-router-dom";
-import { CardItem, GlobalAlert, SidebarLayout } from "../../components/"
+import { FiPlus } from "react-icons/fi";
+import { CardItem, GlobalAlert, SidebarLayout } from "../../components"
 import { GlobalContext } from "../../providers/context"
 import { GetItemsPU } from "../../api/config";
-import { FiPlus } from "react-icons/fi";
 
 export default function ElaboradorListarItem() {
     const { getListItens, setListItens, setItens, setCurrentPage } = useContext(GlobalContext);
@@ -34,7 +34,7 @@ export default function ElaboradorListarItem() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                     {getListItens.length > 0 ?
                         getListItens.map((item) =>
-                            <CardItem key={item.id} content={item}></CardItem>
+                            <CardItem key={item.id} content={item} />
                         )
                         : "Carregando itens"}
                 </div>

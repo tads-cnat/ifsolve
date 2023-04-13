@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useContext } from "react";
+import { useEffect , useContext } from "react";
+
 import { Navigate, useNavigate } from "react-router-dom";
 import { GetUser, Logout } from "../../api/config";
 import { GlobalContext } from "../../providers/context";

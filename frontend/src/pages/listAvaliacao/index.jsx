@@ -30,7 +30,7 @@ export default function ListAvaliacao() {
     return (
         <SidebarLayout>
             {renderSwitch()}
-            <GlobalAlert></GlobalAlert>
+            <GlobalAlert />
         </SidebarLayout>
     )
 }

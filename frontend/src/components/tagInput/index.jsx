@@ -24,7 +24,7 @@ export default function TagInput({ get, set }) {
         <div className="flex flex-col gap-2">
             <div className="flex gap-2 w-100 flex-wrap">
                 {get.map((tag, i) =>
-                    <div key={i} className="flex gap-2 bg-dark-5 px-2 py-1 rounded-md"><small className="text-xs font-medium text-dark-100">{tag.nome}</small> <i onClick={(e) => removeTag(e, tag.nome)}><FiX></FiX></i></div>
+                    <div key={i} className="flex gap-2 bg-dark-5 px-2 py-1 rounded-md"><small className="text-xs font-medium text-dark-100">{tag.nome}</small> <i onClick={(e) => removeTag(e, tag.nome)}><FiX /></i></div>
                 )}
             </div>
             <input type="text" value={getInput} placeholder="Enter a tag" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e.target.value)} className="w-full px-6 py-4 bg-dark-5 rounded-lg" />

@@ -39,7 +39,7 @@ export default function AlunosInput({ get, set }) {
                         className="flex flex-row gap-2 items-center text-sm bg-dark-10 text-dark-80 px-2 py-1 rounded-lg hover:bg-dark-20"
                     >
                         {aluno.email}
-                        <FiX className="cursor-pointer" onClick={e => RemoveAluno(aluno)}></FiX>
+                        <FiX className="cursor-pointer" onClick={e => RemoveAluno(aluno)} />
                     </span>)
                 }
 
@@ -58,7 +58,7 @@ export default function AlunosInput({ get, set }) {
                                 <li className="px-4 py-2 first:bg-dark-10" key={i} onClick={e => AddAlunos(aluno)}>
                                     <p className="text-sm font-medium uppercase">{aluno.username}</p>
                                     <span className="text-sm">{aluno.email}</span>
-                                    {get.includes(aluno) ? <FiCheck></FiCheck> : null}
+                                    {get.includes(aluno) ? <FiCheck /> : null}
                                 </li>
                             )}
                         </ul>

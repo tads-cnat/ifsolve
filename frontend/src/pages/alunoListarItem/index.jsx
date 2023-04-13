@@ -25,25 +25,23 @@ export default function AlunoListarItem() {
     const filteredData = getSearch.length > 0 ? getData.filter(item => item.titulo.includes(getSearch)) : getData;
 
     return (
-        <>
-            <SidebarLayout>
+        <SidebarLayout>
                 <div className="container py-5 flex flex-col gap-4">
                     <h2 className="text-3xl font-bold text-dark-100">Questões</h2>
                     <div className="flex justify-between">
                         <input className="bg-dark-10 px-4 py-2 rounded-lg" type="text" placeholder="Busque por titulo, assunto, código..." onChange={e => setSearch(e.target.value)} />
-                        <button type="button" className="flex items-center px-4 py-2 bg-white rounded-lg text-dark-80 gap-4 hover:bg-dark-10"><FiFilter></FiFilter> Filtros</button>
+                        <button type="button" className="flex items-center px-4 py-2 bg-white rounded-lg text-dark-80 gap-4 hover:bg-dark-10"><FiFilter /> Filtros</button>
                     </div>
                     <div className="flex">
                         <span className="basis-6/12">Encontramos <b> {filteredData.length} {filteredData.length > 1 ? "questões!" : "questão!"} </b>🙌</span>
                     </div>
                     <div className="grid grid-cols-2 gap-8">
                         {filteredData.map((item, i) =>
-                            <CardItem key={i} item={item}></CardItem>
+                            <CardItem key={i} item={item} />
                         )}
                     </div>
                 </div>
             </SidebarLayout>
-        </>
     )
 }
 

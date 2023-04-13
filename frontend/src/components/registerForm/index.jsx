@@ -130,7 +130,7 @@ export function FormInput(props) {
         <input
             type={props.type}
             name={props.name}
-            className={"w-full px-4 py-2 border border-dark-20 rounded-lg hover:bg-dark-5 focus:outline focus:outline-4 focus:outline-primary-20 focus:bg-primary-5 transition-all duration-200"}
+            className="w-full px-4 py-2 border border-dark-20 rounded-lg hover:bg-dark-5 focus:outline focus:outline-4 focus:outline-primary-20 focus:bg-primary-5 transition-all duration-200"
             onChange={props.onChange}
             onBlur={props.onBlur}
             value={props.value}

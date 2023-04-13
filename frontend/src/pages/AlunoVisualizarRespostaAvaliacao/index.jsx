@@ -7,8 +7,8 @@ export default function AlunoVisualizarRespostaAvaliacao() {
     const [getRespostas, setRespostas] = useState([]);
     const [getAvaliacao, setAvaliacao] = useState([]);
 
-    var nota_total = 0
-    let { id } = useParams();
+    let nota_total = 0
+    const { id } = useParams();
 
     function total(valor){
         nota_total += valor
@@ -37,8 +37,7 @@ export default function AlunoVisualizarRespostaAvaliacao() {
     }, [id])
 
     return (  
-        <> 
-            <SidebarLayout>
+        <SidebarLayout>
                 { getAvaliacao && getAvaliacao.avaliacao && getAvaliacao.itens &&
                     <h1 className = "bg-green-100 text-2xl text-center text-gray-500 mt-3 font-semibold p-4"> { getAvaliacao.avaliacao.titulo } </h1>
                 }
@@ -66,7 +65,6 @@ export default function AlunoVisualizarRespostaAvaliacao() {
                     <div className = "pt-5 text-lg font-semibold"> <span className = "font-semibold"> Nota Total: </span> <span className = "text-green-500"> {nota_total} </span>  </div>
                             
                 </Container>
-            </SidebarLayout>    
-        </>
+            </SidebarLayout>
     )
 }
