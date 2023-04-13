@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { FiPlus, FiSearch } from "react-icons/fi";
+import PropTypes from "prop-types";
+import { FiSearch } from "react-icons/fi";
 import { TbReportSearch } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { GetAvaliacoesAluno } from "../../api/config";
@@ -16,7 +16,6 @@ export default function AlunoListAvalicao() {
 
     useEffect(() => {
         GetAvaliacoesAluno().then((res) => {
-            console.log(res.data);
             setData(res.data);
         });
     }, []);
@@ -55,8 +54,8 @@ export default function AlunoListAvalicao() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-4 gap-4">
                 {filteredData && filteredData.length > 0 ? (
-                    filteredData.map((avalicao, i) => (
-                        <CardAvalicao key={i} item={avalicao} />
+                    filteredData.map((avalicao) => (
+                        <CardAvalicao key={avalicao.id} item={avalicao} />
                     ))
                 ) : (
                     <div className="flex flex-col items-center py-12 gap-4 col-span-full">
@@ -75,6 +74,7 @@ export default function AlunoListAvalicao() {
         </div>
     );
 }
+
 function CardAvalicao({ item }) {
     return item ? (
         <Link
@@ -89,3 +89,11 @@ function CardAvalicao({ item }) {
         </Link>
     ) : null;
 }
+CardAvalicao.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.number,
+        titulo: PropTypes.string,
+        descricao: PropTypes.string,
+        data_fim: PropTypes.string,
+    }).isRequired,
+};
