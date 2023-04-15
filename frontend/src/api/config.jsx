@@ -292,7 +292,7 @@ export function PostAvaliacao(avaliacao, itens, alunos) {
     return api.post(
         "avaliacao/elaborador/criar/",
         {
-            itens: itens,
+            itens,
             titulo: avaliacao.titulo,
             descricao: avaliacao.descricao,
             data_inicio: avaliacao.data_inicio,
@@ -300,7 +300,7 @@ export function PostAvaliacao(avaliacao, itens, alunos) {
             nota: avaliacao.nota,
             visibilidade: avaliacao.visibilidade,
             elaborador: user.id,
-            alunos: alunos,
+            alunos,
         },
         {
             headers: {
