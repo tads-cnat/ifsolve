@@ -144,7 +144,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
+    'DATE_FORMAT': '%d/%m/%Y'
 }
+
+TIME_ZONE = 'America/Sao_Paulo'
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
