@@ -50,6 +50,11 @@ export default function AlunosInput({ get, set }) {
                     autoComplete="new-password"
                     value={getSearch}
                     onChange={e => setSearch(e.target.value)}
+                    onKeyDown ={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                        }
+                    }}
                 />
                 {
                     getSearch ?

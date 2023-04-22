@@ -94,6 +94,9 @@ export default function CreateAvaliacao() {
                             required
                             className="px-6 py-4 bg-dark-5 rounded-lg"
                             placeholder="Digite o titulo da avaliação"
+                            onKeyDown ={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                            }}
                         />
                         {formik.errors.titulo && formik.touched.titulo ? <span>{formik.errors.titulo}</span> : null}
                     </div>
@@ -109,6 +112,9 @@ export default function CreateAvaliacao() {
                             value={formik.values.descricao}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
+                            onKeyDown ={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                            }}
                         />
                         {formik.errors.descricao && formik.touched.descricao ? <span>{formik.errors.descricao}</span> : null}
                     </div>
@@ -126,6 +132,9 @@ export default function CreateAvaliacao() {
                                 value={formik.values.data_inicio}
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
+                                onKeyDown ={(e) => {
+                                    if (e.key === "Enter") e.preventDefault();
+                                }}
                             />
                             {formik.errors.data_inicio && formik.touched.data_inicio ? <span>{formik.errors.data_inicio}</span> : null}
 
@@ -141,6 +150,9 @@ export default function CreateAvaliacao() {
                                 value={formik.values.data_fim}
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
+                                onKeyDown ={(e) => {
+                                    if (e.key === "Enter") e.preventDefault();
+                                }}
                             />
                             {formik.errors.data_fim && formik.touched.data_fim ? <span>{formik.errors.data_fim}</span> : null}
 
@@ -157,7 +169,15 @@ export default function CreateAvaliacao() {
                     <h2 className="text-lg font-medium text-dark-100">Adicionar questões</h2>
                     <div className="relative flex items-center">
                         <FiSearch className="absolute left-4 "></FiSearch>
-                        <input onChange={(e) => setItemSearch(e.target.value)} className="pl-12 pr-6 py-4 bg-dark-5 rounded-lg w-full" type="text" placeholder="Busque por titulo, assunto e tags..." />
+                        <input 
+                            onChange={(e) => setItemSearch(e.target.value)} 
+                            className="pl-12 pr-6 py-4 bg-dark-5 rounded-lg w-full" 
+                            type="text" 
+                            placeholder="Busque por titulo, assunto e tags..."
+                            onKeyDown ={(e) => {
+                                if (e.key === "Enter") e.preventDefault();
+                            }}
+                            />
                     </div>
 
                     <div className="grid overflow-auto gap-4" style={{ maxHeight: "400px" }}>
