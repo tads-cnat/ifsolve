@@ -11,6 +11,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function CreateAvaliacao() {
     const [getAluno, setAluno] = useState([]);
+    const today = new Date();
+    const dataMinima = `${today.getFullYear()}-${('0' + (today.getMonth()+1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}T${('0' + today.getHours()).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}`;
 
     const [getItemList, setItemList] = useState([]);
     const [getItemSearch, setItemSearch] = useState("");
@@ -38,8 +40,8 @@ export default function CreateAvaliacao() {
         validationSchema: Yup.object({
             titulo: Yup.string().required("Título é obrigatório."),
             descricao: Yup.string().required("Descrição é obrigatória."),
-            data_inicio: Yup.date().required("Data de início é obrigatória."),
-            data_fim: Yup.date().required("Data de termino é obrigatória."),
+            data_inicio: Yup.date().required("Data de início é obrigatória.").min(new Date(), "A data de início NÃO pode ser no passado!"),
+            data_fim: Yup.date().required("Data de termino é obrigatória.").min(Yup.ref('data_inicio'), "A data de término deve ser posterior à data de início!"),
         }),
         onSubmit: data => {
             // console.log(data);
@@ -89,6 +91,7 @@ export default function CreateAvaliacao() {
                             value={formik.values.titulo}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
+                            required
                             className="px-6 py-4 bg-dark-5 rounded-lg"
                             placeholder="Digite o titulo da avaliação"
                         />
@@ -102,6 +105,7 @@ export default function CreateAvaliacao() {
                             className="px-6 py-4 bg-dark-5 rounded-lg"
                             placeholder="Digite a descrição da avaliação"
                             name="descricao"
+                            required
                             value={formik.values.descricao}
                             onBlur={formik.handleBlur}
                             onChange={formik.handleChange}
@@ -116,6 +120,9 @@ export default function CreateAvaliacao() {
                                 type="datetime-local"
                                 className="px-6 py-4 bg-dark-5 rounded-lg"
                                 name="data_inicio"
+                                id="data_inicio"
+                                required
+                                min={dataMinima}
                                 value={formik.values.data_inicio}
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
@@ -129,6 +136,8 @@ export default function CreateAvaliacao() {
                                 type="datetime-local"
                                 className="px-6 py-4 bg-dark-5 rounded-lg"
                                 name="data_fim"
+                                required
+                                min={document.getElementById("data_inicio") ? document.getElementById("data_inicio").value : dataMinima}
                                 value={formik.values.data_fim}
                                 onBlur={formik.handleBlur}
                                 onChange={formik.handleChange}
