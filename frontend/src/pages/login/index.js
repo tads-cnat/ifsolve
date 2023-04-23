@@ -7,14 +7,15 @@ import IFSolvelogo from "../../images/IFSolve-logo.svg";
 import { useState } from "react";
 import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
 import * as Yup from "yup";
-
+import logoSuap from "../../images/logo-suap.svg"
+ 
 export default function Login() {
     const navigate = useNavigate();
     const [getPassword, setPassword] = useState(true);
     const [getError, setError] = useState();
 
     const LoginSchema = Yup.object().shape({
-        login: Yup.string().required("Ooops. Parece que você não digitou seu usuário"),
+        login: Yup.string().required("Ooops. Parece que você não digitou sua matrícula"),
         password: Yup.string().required("Ooops. Parece que você não digitou sua senha"),
     })
 
@@ -44,11 +45,13 @@ export default function Login() {
                 <Formik initialValues={initialValues} validationSchema={LoginSchema} onSubmit={formSubmit}>
                     {({ values, errors, touched }) =>
                         <Form >
-                            <h1 className="text-xl font-bold text-dark-100 mb-5">Entrar no IFSolve</h1>
-
+                            <div className="flex mb-5">
+                                <h1 className="text-xl font-bold text-dark-100">Entrar no IFSolve via </h1>
+                                <img className = "pl-2 h-9" src = {logoSuap} alt = "Logo do suap IFRN"/>
+                            </div>
                             <div className="mb-5">
-                                <FormLabel label="Email ou usuário"></FormLabel>
-                                <FormControl name="login" placeholder="Digite seu usuário" />
+                                <FormLabel label="Matrícula"></FormLabel>
+                                <FormControl name="login" placeholder="Digite sua matrícula" />
                                 {errors.login && touched.login ? <Alert>{errors.login}</Alert> : null}
                             </div>
                             <div className="mb-5">
