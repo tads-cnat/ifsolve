@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { FiPlus, FiSearch } from "react-icons/fi";
 import { TbReportSearch } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { GetAvaliacoes } from "../../api/config";
 
 export default function ElaboradorListAvalicao() {
@@ -67,8 +68,8 @@ export default function ElaboradorListAvalicao() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 py-4 gap-4">
                 {filteredData && filteredData.length > 0 ? (
-                    filteredData.map((avalicao, i) => (
-                        <CardAvalicao key={i} item={avalicao} />
+                    filteredData.map((avalicao) => (
+                        <CardAvalicao key={avalicao.id} item={avalicao} />
                     ))
                 ) : (
                     <div className="flex flex-col items-center py-12 gap-4 col-span-full">
@@ -108,3 +109,12 @@ function CardAvalicao({ item }) {
         </Link>
     ) : null;
 }
+
+CardAvalicao.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.number,
+        titulo: PropTypes.string,
+        descricao: PropTypes.string,
+        data_fim: PropTypes.string,
+    }).isRequired,
+};

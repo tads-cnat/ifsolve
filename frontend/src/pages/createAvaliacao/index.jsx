@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FiArrowLeft, FiInbox, FiPlus, FiSearch } from "react-icons/fi";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
-import { GetAlunos, GetItems, PostAvaliacao } from "../../api/config";
-import { AlunosInput, Container } from "../../components";
+import { GetItems, PostAvaliacao } from "../../api/config";
+import { AlunosInput } from "../../components";
 
 
 

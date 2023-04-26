@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 export default function Container({ children, className }) {
     return (
         <div
@@ -7,3 +9,12 @@ export default function Container({ children, className }) {
         </div>
     );
 }
+
+Container.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+};
+
+Container.defaultProps = {
+    className: "",
+};

@@ -72,7 +72,7 @@ export default function AlunoListarItem() {
 function CardItem({ item }) {
     return (
         <Link
-            to={`/item/${props.item.id}/responder`}
+            to={`/item/${item.id}/responder`}
             className="bg-white px-4 py-2 rounded-lg flex flex-row gap-2 justify-start items-center"
         >
             <div className="bg-primary-20 w-10 h-10 flex items-center justify-center rounded-lg">

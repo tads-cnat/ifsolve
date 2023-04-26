@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { FiCheck, FiSearch, FiX } from "react-icons/fi";
+import { FiCheck, FiX } from "react-icons/fi";
 import { GetAlunos } from "../../api/config";
 
 export default function AlunosInput({ get, set }) {
@@ -8,7 +9,7 @@ export default function AlunosInput({ get, set }) {
 
     function AddAlunos(aluno) {
         if (!get.includes(aluno)) {
-            set((get) => [...get, aluno]);
+            set(() => [...get, aluno]);
             setSearch(" ");
         }
     }
@@ -19,8 +20,8 @@ export default function AlunosInput({ get, set }) {
     const filteredAlunos =
         getSearch.length > 0
             ? getAlunos.filter((alunos) =>
-                  alunos.email.includes(getSearch.trim())
-              )
+                alunos.email.includes(getSearch.trim())
+            )
             : getAlunos;
 
     useEffect(() => {
@@ -38,15 +39,15 @@ export default function AlunosInput({ get, set }) {
                 Adicionar alunos
             </h2>
             <div className="flex relative items-center w-full flex-wrap bg-dark-5 px-4 py-2 gap-2 rounded-lg">
-                {get.map((aluno, i) => (
+                {get.map((aluno) => (
                     <span
-                        key={i}
+                        key={aluno.id}
                         className="flex flex-row gap-2 items-center text-sm bg-dark-10 text-dark-80 px-2 py-1 rounded-lg hover:bg-dark-20"
                     >
                         {aluno.email}
                         <FiX
                             className="cursor-pointer"
-                            onClick={(e) => RemoveAluno(aluno)}
+                            onClick={() => RemoveAluno(aluno)}
                         />
                     </span>
                 ))}
@@ -64,10 +65,10 @@ export default function AlunosInput({ get, set }) {
                         className="absolute top-full bg-white shadow first rounded-lg overflow-y-scroll z-10"
                         style={{ maxHeight: "200px" }}
                     >
-                        {filteredAlunos.map((aluno, i) => (
+                        {filteredAlunos.map((aluno) => (
                             <li
                                 className="px-4 py-2 first:bg-dark-10"
-                                key={i}
+                                key={aluno.id}
                                 onClick={() => AddAlunos(aluno)}
                                 onKeyDown={() => AddAlunos(aluno)}
                             >
@@ -84,3 +85,13 @@ export default function AlunosInput({ get, set }) {
         </div>
     );
 }
+
+AlunosInput.propTypes = {
+    get: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            email: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    set: PropTypes.func.isRequired,
+};

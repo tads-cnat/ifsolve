@@ -20,7 +20,7 @@ export function Logout() {
                 Authorization: `Token ${token}`,
             },
         })
-        .then((res) => {
+        .then(() => {
             localStorage.removeItem("ifsolve_token");
             localStorage.removeItem("ifsolve_user");
         });
@@ -340,10 +340,10 @@ export function GetAvaliacaoDetails(id) {
     });
 }
 
-export function GetAvaliacaoRespostasByAluno(avaliacao_id, aluno_id) {
+export function GetAvaliacaoRespostasByAluno(avaliacaoId, alunoId) {
     const token = localStorage.getItem("ifsolve_token");
 
-    return api.get(`avaliacao/${avaliacao_id}/aluno/${aluno_id}/respostas/`, {
+    return api.get(`avaliacao/${avaliacaoId}/aluno/${alunoId}/respostas/`, {
         headers: {
             Authorization: `Token ${token}`,
         },
