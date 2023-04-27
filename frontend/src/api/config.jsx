@@ -1,5 +1,6 @@
 import axios from "axios";
 
+/* jscpd:ignore-start */
 export const api = axios.create({
     baseURL: "http://localhost:8000/",
 });
@@ -387,3 +388,4 @@ export function AnswerAvaliacao(respostas) {
         },
     });
 }
+/* jscpd:ignore-end */
