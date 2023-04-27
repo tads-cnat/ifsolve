@@ -10,7 +10,6 @@ import FormLabel from "./formLabel";
 import SelectInput from "./selectInput";
 import ProtectedRoute from "./protectedRoute";
 import Navbar from "./navbar";
-import RegisterForm from "./registerForm";
 import PassowordInput from "./passwordInput";
 import GlobalAlert from "./globalAlert";
 import Container from "./container";
@@ -18,6 +17,10 @@ import AlunosInput from "./alunosInput";
 import AlunoListAvalicao from "./AlunoListAvaliacao";
 import ElaboradorListAvalicao from "./ElaboradorListAvaliacao";
 import Loading from "./loading";
+import FormArea from "./formArea";
+import FormInput from "./formInput";
+import FormAlert from "./formAlert";
+import FormRadio from "./formRadio";
 
 export {
     Sidebar,
@@ -32,12 +35,15 @@ export {
     SelectInput,
     ProtectedRoute,
     Navbar,
-    RegisterForm,
     PassowordInput,
     GlobalAlert,
     Container,
     AlunosInput,
     AlunoListAvalicao,
     ElaboradorListAvalicao,
-    Loading
+    Loading,
+    FormInput,
+    FormArea,
+    FormAlert,
+    FormRadio,
 };
