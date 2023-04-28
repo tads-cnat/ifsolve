@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { FiArrowLeft, FiUser } from "react-icons/fi";
@@ -5,7 +6,7 @@ import ReactQuill from "react-quill";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast, { Toaster } from 'react-hot-toast';
-import { GetAlunoById, GetAlunos, GetAvaliacaoDetails, GetAvaliacaoRespostasByAluno, GetItemByID, PatchResposta } from "../../api/config";
+import { GetAlunos, GetAvaliacaoDetails, GetAvaliacaoRespostasByAluno, GetItemByID, PatchResposta } from "../../api/config";
 
 export default function AvaliacaoRespostas() {
     const { id } = useParams();
@@ -29,7 +30,8 @@ export default function AvaliacaoRespostas() {
         <div className="bg-dark-5 min-h-screen flex flex-col items-center">
             <div className="container flex flex-col gap-4 py-8 px-4 items-center" style={{ maxWidth: "720px" }}>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}>
+                        <FiArrowLeft /></div>
                     Voltar
                 </div>
                 {getAvalicao !== null ?
@@ -41,40 +43,39 @@ export default function AvaliacaoRespostas() {
 
                         <GroupContent>
                             <h2>Respostas</h2>
-                            {getAvalicao.avaliacao.alunos.map((aluno, i) =>
-                                <AlunoRespostas key={i} avaliacao={id} aluno={getAlunos.find(alunos => alunos.id === aluno)} items={getAvalicao.itens} />
+                            {getAvalicao.avaliacao.alunos.map((aluno) =>
+                                <AlunoRespostas key={aluno.id} avaliacao={id} aluno={getAlunos.find(alunos => alunos.id === aluno)} items={getAvalicao.itens} />
                             )}
                         </GroupContent>
                     </>
                     : null
                 }
-                <button className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={e => navigate(-1)}>Voltar</button>
+                <button className="px-4 py-2 rounded-lg hover:bg-dark-10" type="button" onClick={() => navigate(-1)}>Voltar</button>
             </div>
         </div>
     )
 }
 
-function GroupContent(props) {
+function GroupContent({ children }) {
     return (
-        <div className="flex flex-col w-full bg-white p-6 gap-4 rounded-lg">{props.children}</div>
+        <div className="flex flex-col w-full bg-white p-6 gap-4 rounded-lg">{children}</div>
     )
 }
 
-function AlunoRespostas({ avaliacao, aluno, items }) {
-    const [getRespostas, setRespostas] = useState(null);
+GroupContent.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
-    console.log(avaliacao);
-    console.log(aluno);
+function AlunoRespostas({ avaliacao, aluno, itens }) {
+    const [getRespostas, setRespostas] = useState(null);
 
     useEffect(() => {
         if (aluno) {
             GetAvaliacaoRespostasByAluno(avaliacao, aluno.id).then(res => {
-                console.log(res.data);
                 setRespostas(res.data.resposta);
             })
         }
     }, [aluno, avaliacao]);
-
     return (
         aluno !== undefined ?
             <div className="flex flex-col gap-6 p-4 bg-dark-5 rounded-lg">
@@ -93,8 +94,8 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
 
                 {/* Lista de respostas */}
                 {getRespostas && getRespostas.respostas.length > 0 ?
-                    getRespostas.respostas.map((resposta, i) =>
-                        <RespostaForm key={i} resposta={resposta} itemAvaliacao={items.find(items => items.id === resposta.item_avaliacao)} />
+                    getRespostas.respostas.map((resposta) =>
+                        <RespostaForm key={resposta.id} resposta={resposta} itemAvaliacao={itens.find(items => items.id === resposta.item_avaliacao)} />
                     )
                     : "Nenhuma resposta encontrada"
                 }
@@ -103,6 +104,18 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
             : null
     )
 }
+
+AlunoRespostas.propTypes = {
+    avaliacao: PropTypes.number.isRequired,
+    aluno: PropTypes.string.isRequired,
+    itens: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        nome: PropTypes.string.isRequired,
+        descricao: PropTypes.string.isRequired,
+    })).isRequired,
+};
+
+
 
 function RespostaForm({ resposta, itemAvaliacao }) {
     const [getItem, setItem] = useState(null)
@@ -115,11 +128,10 @@ function RespostaForm({ resposta, itemAvaliacao }) {
             nota_obtida: Yup.number().min(0, "Nota mínima: 0(zero)").max(itemAvaliacao.nota_item, `Nota máxima: ${itemAvaliacao.nota_item}`)
         }),
         onSubmit: data => {
-            PatchResposta(resposta.id, data.nota_obtida).then(res => {
-                console.log(res.data);
+            PatchResposta(resposta.id, data.nota_obtida).then(() => {
                 toast.success('Nota salva com sucesso!');
                 formik.setTouched({});
-            }).catch(error => {
+            }).catch(() => {
                 toast.error('Não foi possível salvar a nota. 😬')
             })
         }
@@ -185,3 +197,16 @@ function RespostaForm({ resposta, itemAvaliacao }) {
         </div>
     )
 }
+
+RespostaForm.propTypes = {
+    resposta: PropTypes.arrayOf(
+        PropTypes.shape({
+            nota_obtida: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    itemAvaliacao: PropTypes.arrayOf(
+        PropTypes.shape({
+            nota_item: PropTypes.number.isRequired,
+        })
+    ).isRequired,
+};

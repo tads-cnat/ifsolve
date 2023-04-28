@@ -123,6 +123,7 @@ export default function CriarItem() {
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                 >
+                                    <option value="">Seleciona uma área</option>
                                     {getAreas !== undefined ?
                                         getAreas.map((item, i) =>
                                             <option key={i} value={item.id}>{item.nome}</option>
