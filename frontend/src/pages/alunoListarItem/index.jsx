@@ -60,8 +60,8 @@ export default function AlunoListarItem() {
                     </span>
                 </div>
                 <div className="grid grid-cols-2 gap-8">
-                    {filteredData.map((item, i) => (
-                        <CardItem key={i} item={item} />
+                    {filteredData.map((item) => (
+                        <CardItem key={item.id} item={item} />
                     ))}
                 </div>
             </div>
@@ -101,6 +101,7 @@ function CardItem({ item }) {
 }
 CardItem.propTypes = {
     item: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         titulo: PropTypes.string,
         assunto: PropTypes.string,
         tipo: PropTypes.string,

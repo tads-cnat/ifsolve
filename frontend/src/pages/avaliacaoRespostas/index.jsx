@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import toast, { Toaster } from 'react-hot-toast';
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import { FiArrowLeft, FiUser } from "react-icons/fi";
 import ReactQuill from "react-quill";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import toast, { Toaster } from 'react-hot-toast';
 import { GetAlunos, GetAvaliacaoDetails, GetAvaliacaoRespostasByAluno, GetItemByID, PatchResposta } from "../../api/config";
 
 export default function AvaliacaoRespostas() {
@@ -17,21 +18,17 @@ export default function AvaliacaoRespostas() {
     useEffect(() => {
         GetAvaliacaoDetails(id).then(res => {
             setAvaliacao(res.data);
-            // console.log(res.data);
         });
-
         GetAlunos().then(res => {
             setAlunos(res.data);
         });
-
     }, [id]);
 
     return (
         <div className="bg-dark-5 min-h-screen flex flex-col items-center">
             <div className="container flex flex-col gap-4 py-8 px-4 items-center" style={{ maxWidth: "720px" }}>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}>
-                        <FiArrowLeft /></div>
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}><FiArrowLeft /></div>
                     Voltar
                 </div>
                 {getAvalicao !== null ?
@@ -50,12 +47,11 @@ export default function AvaliacaoRespostas() {
                     </>
                     : null
                 }
-                <button className="px-4 py-2 rounded-lg hover:bg-dark-10" type="button" onClick={() => navigate(-1)}>Voltar</button>
+                <button className="px-4 py-2 rounded-lg hover:bg-dark-10" type='button' onClick={() => navigate(-1)}>Voltar</button>
             </div>
         </div>
     )
 }
-
 function GroupContent({ children }) {
     return (
         <div className="flex flex-col w-full bg-white p-6 gap-4 rounded-lg">{children}</div>
@@ -63,10 +59,13 @@ function GroupContent({ children }) {
 }
 
 GroupContent.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
+};
+GroupContent.defaultProps = {
+    children: null,
 };
 
-function AlunoRespostas({ avaliacao, aluno, itens }) {
+function AlunoRespostas({ avaliacao, aluno, items }) {
     const [getRespostas, setRespostas] = useState(null);
 
     useEffect(() => {
@@ -76,6 +75,7 @@ function AlunoRespostas({ avaliacao, aluno, itens }) {
             })
         }
     }, [aluno, avaliacao]);
+
     return (
         aluno !== undefined ?
             <div className="flex flex-col gap-6 p-4 bg-dark-5 rounded-lg">
@@ -87,7 +87,6 @@ function AlunoRespostas({ avaliacao, aluno, itens }) {
                     <div className="div">
                         <h5 className="text-sm text-dark-100 font-medium uppercase">{aluno.username}</h5>
                         <p className="text-sm text-dark-80">{aluno.email}</p>
-
                     </div>
                 </div>
                 {/* Dados do usuário */}
@@ -95,7 +94,7 @@ function AlunoRespostas({ avaliacao, aluno, itens }) {
                 {/* Lista de respostas */}
                 {getRespostas && getRespostas.respostas.length > 0 ?
                     getRespostas.respostas.map((resposta) =>
-                        <RespostaForm key={resposta.id} resposta={resposta} itemAvaliacao={itens.find(items => items.id === resposta.item_avaliacao)} />
+                        <RespostaForm key={resposta.id} resposta={resposta} itemAvaliacao={items.find(items => items.id === resposta.item_avaliacao)} />
                     )
                     : "Nenhuma resposta encontrada"
                 }
@@ -106,20 +105,21 @@ function AlunoRespostas({ avaliacao, aluno, itens }) {
 }
 
 AlunoRespostas.propTypes = {
-    avaliacao: PropTypes.number.isRequired,
-    aluno: PropTypes.string.isRequired,
-    itens: PropTypes.arrayOf(PropTypes.shape({
+    avaliacao: PropTypes.string.isRequired,
+    aluno: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        nome: PropTypes.string.isRequired,
-        descricao: PropTypes.string.isRequired,
-    })).isRequired,
+        username: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+    }).isRequired,
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+        })
+    ).isRequired,
 };
-
-
 
 function RespostaForm({ resposta, itemAvaliacao }) {
     const [getItem, setItem] = useState(null)
-    // console.log(resposta);
     const formik = useFormik({
         initialValues: {
             nota_obtida: resposta.nota_obtida ? resposta.nota_obtida : 0
@@ -170,9 +170,10 @@ function RespostaForm({ resposta, itemAvaliacao }) {
                 <div className="bg-dark-10 p-4 rounded-lg">
                     <div className="flex flex-row items-center justify-between">
                         <h4 className="text-dark-80 font-medium">Resposta:</h4>
-                        <label>
+                        <label htmlFor="nota_obtida">
                             <input
                                 type="number"
+                                id="nota_obtida"
                                 name="nota_obtida"
                                 className="bg-transparent border-b border-dark-100"
                                 value={formik.values.nota_obtida}
@@ -199,14 +200,14 @@ function RespostaForm({ resposta, itemAvaliacao }) {
 }
 
 RespostaForm.propTypes = {
-    resposta: PropTypes.arrayOf(
-        PropTypes.shape({
-            nota_obtida: PropTypes.string.isRequired,
-        })
-    ).isRequired,
+    resposta: PropTypes.string.isRequired,
     itemAvaliacao: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            numero_item: PropTypes.number.isRequired,
             nota_item: PropTypes.number.isRequired,
+            item: PropTypes.number.isRequired,
+            avaliacao: PropTypes.number.isRequired,
         })
     ).isRequired,
 };

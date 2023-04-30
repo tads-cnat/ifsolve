@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Field } from "formik";
 
 export default function FormControl({ type, name, placeholder, className }) {
@@ -12,3 +13,14 @@ export default function FormControl({ type, name, placeholder, className }) {
         </div>
     );
 }
+FormControl.propTypes = {
+    type: PropTypes.oneOf(['text', 'password']),
+    name: PropTypes.string.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    className: PropTypes.string,
+};
+
+FormControl.defaultProps = {
+    type: 'text',
+    className: '',
+};

@@ -45,7 +45,7 @@ export default function CreateAvaliacao() {
             // console.log(data);
             // console.log(getAluno.map(aluno => aluno.id));
             console.log(getItemAvaliacao);
-            PostAvaliacao(data, getItemAvaliacao, getAluno.map(aluno => aluno.id)).then(res => {
+            PostAvaliacao(data, getItemAvaliacao, getAluno.map(aluno => aluno.id)).then(() => {
                 navigate("/avaliacao", { replace: true });
                 localStorage.setItem('ifsolve_success_alert', "Avaliação criada com sucesso.");
             }).catch(error => {
@@ -58,7 +58,7 @@ export default function CreateAvaliacao() {
 
     const filteredData = getItemSearch.length > 0 ? getItemList.filter(item => item.titulo.includes(getItemSearch)) : getItemList;
 
-    function AddItemAvaliacao(item, i) {
+    function AddItemAvaliacao(item) {
         if (!getItemAvaliacao.includes(item)) {
             item.numero_item = i;
             item.nota_item = 10;
