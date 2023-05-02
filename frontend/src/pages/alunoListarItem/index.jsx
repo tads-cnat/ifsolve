@@ -73,7 +73,7 @@ function CardItem({ item }) {
     return (
         <Link
             to={`/item/${item.id}/responder`}
-            className="bg-white px-4 py-2 rounded-lg flex flex-row gap-2 justify-start items-center"
+            className="card-item flex items-center gap-4 bg-white px-4 py-3 rounded-lg hover:outline hover:outline-3 hover:outline-primary-80"
         >
             <div className="bg-primary-20 w-10 h-10 flex items-center justify-center rounded-lg">
                 <div className="text-primary-100 text-xl">
