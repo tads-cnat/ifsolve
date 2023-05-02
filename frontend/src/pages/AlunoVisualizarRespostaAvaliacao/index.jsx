@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GetRespostasAlunoAvaliacao, GetAvaliacaoByID } from "../../api/config";
 import { Container, SidebarLayout } from "../../components";
+import { GetRespostasAlunoAvaliacao, GetAvaliacaoByID } from "../../api/config";
 
 export default function AlunoVisualizarRespostaAvaliacao() {
     const [getRespostas, setRespostas] = useState([]);
@@ -18,22 +18,14 @@ export default function AlunoVisualizarRespostaAvaliacao() {
         GetRespostasAlunoAvaliacao(id)
             .then((res) => {
                 setRespostas(res.data);
-                console.log("Dados respostas:", res.data);
             })
-            .catch((error) => {
-                console.log(error);
-            });
     }, [id]);
 
     useEffect(() => {
         GetAvaliacaoByID(id)
             .then((res) => {
                 setAvaliacao(res.data);
-                console.log("Dados avaliação:", res.data);
             })
-            .catch((error) => {
-                console.log(error);
-            });
     }, [id]);
 
     return (
@@ -46,8 +38,8 @@ export default function AlunoVisualizarRespostaAvaliacao() {
             )}
             <Container>
                 {getRespostas.length > 0 &&
-                    getRespostas.map((res, i) => (
-                        <div key={i} className="mt-8">
+                    getRespostas.map((res) => (
+                        <div key={res.id} className="mt-8">
                             <div className="font-semibold text-lg">
                                 {" "}
                                 Item: {res.item_avaliacao}{" "}
@@ -62,24 +54,28 @@ export default function AlunoVisualizarRespostaAvaliacao() {
                             </div>
                             {total(res.nota_obtida)}
 
-                            {res.resposta.trim().length > 1 ? ( // É discursiva
+                            {res.resposta.trim().length > 1 ? (
+                                // É discursiva
                                 <div className="p-1.5 bg-gray-200 text-gray-500 rounded-lg w-max">
                                     {" "}
                                     Aguardando Correção{" "}
                                 </div>
-                            ) : res.nota_obtida > 0 ? ( // É multipla escolha
-                                // Acertou
-                                <div className="p-1.5 bg-green-100 text-green-500 rounded-lg w-max">
-                                    {" "}
-                                    Correta! + {res.nota_obtida} pontos{" "}
-                                </div>
-                            ) : (
-                                // Errou
-                                <div className="p-1.5 bg-red-100 text-red-500 rounded-lg w-max">
-                                    {" "}
-                                    Incorreta{" "}
-                                </div>
-                            )}
+                            ) : (() => {
+                                if (res.nota_obtida > 0) {
+                                    // Acertou
+                                    <div className="p-1.5 bg-green-100 text-green-500 rounded-lg w-max">
+                                        {" "}
+                                        Correta! + {res.nota_obtida} pontos{" "}
+                                    </div>
+                                } else {
+                                    // Errou
+                                    <div className="p-1.5 bg-red-100 text-red-500 rounded-lg w-max">
+                                        {" "}
+                                        Incorreta{" "}
+                                    </div>
+                                }
+                            })()}
+
                         </div>
                     ))}
 

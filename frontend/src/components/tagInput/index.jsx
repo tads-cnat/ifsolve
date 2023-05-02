@@ -10,9 +10,9 @@ export default function TagInput({ get, set }) {
     }
     function handleKeyDown(e) {
         const trimInput = getInput.trim();
-        if ((e.key === "," || e.key === "Enter") && trimInput.length > 0 && !get.includes(trimInput)) {
+        if ((e.key === "Enter") && trimInput.length > 0 && !get.includes(trimInput)) {
             e.preventDefault();
-            set(get => [...get, { 'nome': trimInput }]);
+            set(() => [...get, { 'nome': trimInput }]);
             setInput("");
         }
     }
@@ -25,7 +25,21 @@ export default function TagInput({ get, set }) {
         <div className="flex flex-col gap-2">
             <div className="flex gap-2 w-100 flex-wrap">
                 {get.map((tag) =>
-                    <div key={tag.id} className="flex gap-2 bg-dark-5 px-2 py-1 rounded-md"><small className="text-xs font-medium text-dark-100">{tag.nome}</small> <i onClick={(e) => removeTag(e, tag.nome)}><FiX /></i></div>
+                    <div key={tag.id} className="flex gap-2 bg-dark-5 px-2 py-1 rounded-md">
+                        <small className="text-xs font-medium text-dark-100">{tag.nome}</small>
+                        <button
+                            type="button"
+                            onClick={(e) => removeTag(e, tag.nome)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    removeTag(e, tag.nome);
+                                }
+                            }}
+                            tabIndex={0}
+                        >
+                            <FiX />
+                        </button>
+                    </div>
                 )}
             </div>
             <input type="text" value={getInput} placeholder="Enter a tag" onKeyDown={(e) => handleKeyDown(e)} onChange={(e) => handleChange(e.target.value)} className="w-full px-6 py-4 bg-dark-5 rounded-lg" />

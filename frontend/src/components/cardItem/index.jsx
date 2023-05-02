@@ -15,8 +15,8 @@ export default function CardItem({ content }) {
                 <span className="text-sm text-dark-80">{assunto}</span>
                 <p className="text-lg font-medium">{titulo}</p>
                 <div className="flex flex-row gap-4">
-                    {tags && tags.filter((tag, i) => i < 3).map((tag, i) =>
-                        <span key={i} className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg">{tag.nome}</span>
+                    {tags && tags.filter((tag, i) => i < 3).map((tag) =>
+                        <span key={tag.id} className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg">{tag.nome}</span>
                     )}
                 </div>
             </div>

@@ -69,14 +69,26 @@ export default function AlunosInput({ get, set }) {
                             <li
                                 className="px-4 py-2 first:bg-dark-10"
                                 key={aluno.id}
-                                onClick={() => AddAlunos(aluno)}
-                                onKeyDown={() => AddAlunos(aluno)}
                             >
-                                <p className="text-sm font-medium uppercase">
-                                    {aluno.username}
-                                </p>
-                                <span className="text-sm">{aluno.email}</span>
-                                {get.includes(aluno) ? <FiCheck /> : null}
+                                <button
+                                    type="button"
+                                    className="w-full text-left"
+                                    onClick={() => AddAlunos(aluno)}
+                                // onKeyDown={(event) => {
+                                //     if (event.key === "Enter") {
+                                //         event.preventDefault();
+                                //         if (filteredAlunos.length > 0) {
+                                //             AddAlunos(filteredAlunos[0]);
+                                //         }
+                                //     }
+                                // }}
+                                >
+                                    <p className="text-sm font-medium uppercase">
+                                        {aluno.username}
+                                    </p>
+                                    <span className="text-sm">{aluno.email}</span>
+                                    {get.includes(aluno) ? <FiCheck /> : null}
+                                </button>
                             </li>
                         ))}
                     </ul>

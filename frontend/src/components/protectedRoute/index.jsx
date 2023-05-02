@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { GetUser, Logout } from "../../api/config";
+import { GetUser } from "../../api/config";
 import { GlobalContext } from "../../providers/context";
 import Loading from "../loading";
 
@@ -28,9 +28,6 @@ export default function ProtectedRoute({ children }) {
             .catch(() => {
                 localStorage.clear();
                 navigate("/");
-                Logout().then((res) => {
-                    console.log(res);
-                });
             });
     }, []);
 

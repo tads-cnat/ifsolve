@@ -1,3 +1,4 @@
+import toast, { Toaster } from 'react-hot-toast';
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FiAlignLeft, FiCheckSquare, FiFilter } from "react-icons/fi";
@@ -20,8 +21,8 @@ export default function AlunoListarItem() {
             .then((res) => {
                 setData(res.data);
             })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                toast.error("Opss... Questão não encontrada")
             });
     }, []);
 
@@ -96,6 +97,7 @@ function CardItem({ item }) {
                         ))}
                 </div>
             </div>
+            <Toaster />
         </Link>
     );
 }

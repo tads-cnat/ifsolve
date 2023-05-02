@@ -89,9 +89,6 @@ export function PostItemDI(data) {
                 },
             }
         )
-        .then((res) => {
-            console.log(res);
-        });
 }
 
 export function PostItemME(data) {
@@ -157,9 +154,6 @@ export function PostItemME(data) {
                 },
             }
         )
-        .then((res) => {
-            console.log(res);
-        });
 }
 
 export function GetItemsPU(setItens, setListItens) {
@@ -379,8 +373,6 @@ export function GetAvaliacaoById(id) {
 
 export function AnswerAvaliacao(respostas) {
     const token = localStorage.getItem("ifsolve_token");
-    const user = JSON.parse(localStorage.getItem("ifsolve_user"));
-    console.log(user);
 
     return api.post("avaliacao/responder/", respostas, {
         headers: {

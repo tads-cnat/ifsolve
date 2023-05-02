@@ -18,6 +18,7 @@ export default function PasswordInput({ name, onChange, onBlur, value, className
             />
             {value.trim().length > 0 && (
                 <button
+                    type="button"
                     className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg cursor-pointer"
                     tabIndex="0"
                     onClick={() => setShowPassword(!showPassword)}

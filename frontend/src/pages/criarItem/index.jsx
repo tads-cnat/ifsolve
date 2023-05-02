@@ -62,11 +62,10 @@ export default function CriarItem() {
                 })
             }
             else {
-                PostItemDI(data).then(res => {
+                PostItemDI(data).then(() => {
                     navigate("/item");
                     localStorage.setItem('ifsolve_success_alert', "Item criado com sucesso.");
-                }).catch(error => {
-                    console.log(error);
+                }).catch(() => {
                     toast.error("Opss...Erro ao cadastrar o item.")
                 })
             }
