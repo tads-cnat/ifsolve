@@ -27,10 +27,11 @@ export default function AvaliacaoRespostas() {
     return (
         <div className="bg-dark-5 min-h-screen flex flex-col items-center">
             <div className="container flex flex-col gap-4 py-8 px-4 items-center" style={{ maxWidth: "720px" }}>
-                <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}><FiArrowLeft /></div>
+                <button type="button" className="flex flex-row items-center gap-4 w-full bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)} aria-label="Voltar">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-full"><FiArrowLeft /></div>
                     Voltar
-                </div>
+                </button>
+
                 {getAvalicao !== null ?
                     <>
                         <GroupContent>
@@ -94,6 +95,7 @@ function AlunoRespostas({ avaliacao, aluno, items }) {
                 {/* Lista de respostas */}
                 {getRespostas && getRespostas.respostas.length > 0 ?
                     getRespostas.respostas.map((resposta) =>
+                        // eslint-disable-next-line no-shadow
                         <RespostaForm key={resposta.id} resposta={resposta} itemAvaliacao={items.find(items => items.id === resposta.item_avaliacao)} />
                     )
                     : "Nenhuma resposta encontrada"
