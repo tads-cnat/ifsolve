@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
+import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -85,9 +86,10 @@ export default function Login() {
                                         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                     />
                                     {values.password.trim().length > 0 ? (
-                                        <i
+                                        <button
+                                            type="button"
                                             className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg cursor-pointer"
-                                            onClick={(e) =>
+                                            onClick={() =>
                                                 setPassword(!getPassword)
                                             }
                                         >
@@ -96,8 +98,9 @@ export default function Login() {
                                             ) : (
                                                 <FiEyeOff />
                                             )}
-                                        </i>
+                                        </button>
                                     ) : null}
+
                                 </div>
                                 {errors.password && touched.password ? (
                                     <Alert>{errors.password}</Alert>
@@ -123,11 +126,14 @@ export default function Login() {
     );
 }
 
-export function Alert(props) {
+export function Alert({ children }) {
     return (
         <p className="flex items-center gap-2 text-sm text-red-800 bg-red-100 px-4 py-2 rounded-lg">
             <FiAlertCircle />
-            {props.children}
+            {children}
         </p>
     );
 }
+Alert.propTypes = {
+    children: PropTypes.node.isRequired,
+};

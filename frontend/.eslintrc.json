@@ -9,7 +9,14 @@
         "prettier",
         "plugin:react/jsx-runtime"
     ],
-    "overrides": [],
+    "overrides": [
+        {
+            "files": [
+                "*.js",
+                "*.jsx"
+            ]
+        }
+    ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"

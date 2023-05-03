@@ -1,13 +1,11 @@
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
-import { useState } from "react";
-import { useEffect } from "react";
+import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
 import { AnswerAvaliacao, GetAvaliacaoRespostasByAluno, GetAvaliacaoByID, GetItemByID } from "../../api/config";
 
-export default function ResponderAvaliacao(props) {
+export default function ResponderAvaliacao() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [avaliacao, setAvaliacao] = useState(null);
@@ -25,9 +23,7 @@ export default function ResponderAvaliacao(props) {
     useEffect(() => {
         if (user && avaliacao) {
             GetAvaliacaoRespostasByAluno(avaliacao.avaliacao.id, user.id).then(res => {
-                // console.log(res);
                 if (res.data.resposta.respostas.length > 0) {
-                    console.log("respondeu");
                     navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
                 }
             })
@@ -42,8 +38,7 @@ export default function ResponderAvaliacao(props) {
 
     function HandleSubmit(e) {
         e.preventDefault();
-        AnswerAvaliacao(respostas).then(res => {
-            console.log(res);
+        AnswerAvaliacao(respostas).then(() => {
             navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
         })
         // alert(JSON.stringify(respostas, null, 2));
@@ -54,7 +49,9 @@ export default function ResponderAvaliacao(props) {
             <form onSubmit={e => HandleSubmit(e)} className="container flex flex-col gap-4 py-8" style={{ maxWidth: "720px" }}>
                 {/* Header */}
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
+                    <button type='button' className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}>
+                        <FiArrowLeft />
+                    </button>
                     Voltar
                 </div>
                 {/* Header */}
@@ -65,35 +62,46 @@ export default function ResponderAvaliacao(props) {
                             <Header2>{avaliacao.avaliacao.titulo}</Header2>
                             <p>{avaliacao.avaliacao.descricao}</p>
                         </Container>
-
-                        {avaliacao.itens && avaliacao.itens.map((item, i) => (
-                            <ItemForm item={item} i={i} key={i} respostas={respostas} />
+                        {avaliacao.itens && avaliacao.itens.map((item) => (
+                            <ItemForm item={item} key={item.id} respostas={respostas} />
                         ))}
                     </>
                     : null
                 }
+
                 <div className="flex flex-row gap-4">
                     <button type="submit" className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
-                    <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={e => navigate(-1)}> Voltar </button>
+                    <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={() => navigate(-1)}> Voltar </button>
                 </div>
             </form>
         </div>
     )
 }
 
-function Container(props) {
+function Container({ children }) {
     return (
         <div className="bg-white p-8 rounded-lg flex flex-col gap-2">
-            {props.children}
+            {children}
         </div>
     )
 }
+Container.propTypes = {
+    children: PropTypes.node.isRequired,
 
-function Header2(props) {
+};
+
+function Header2({ className, children }) {
     return (
-        <h2 className={`text-lg text-dark-100 font-medium ${  props.className}`}>{props.children}</h2>
+        <h2 className={`text-lg text-dark-100 font-medium ${className}`}>{children}</h2>
     )
 }
+Header2.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string.isRequired,
+
+};
+
+
 
 function ItemForm(props) {
     const [item, setItem] = useState();
@@ -101,12 +109,10 @@ function ItemForm(props) {
     useEffect(() => {
         GetItemByID(props.item.item).then(res => {
             setItem(res.data);
-            console.log(res.data);
         })
     }, [props.item.item]);
 
     function HandleChange(resposta) {
-        console.log("here");
         props.respostas[props.i].resposta = resposta;
     }
     return (
@@ -169,22 +175,38 @@ function ItemForm(props) {
     )
 }
 
-function ItemOption(props) {
+
+function ItemOption({ name, value, onChange, onBlur, text }) {
     return (
         <label className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg border border-dark-10">
-            <input type="radio" name={props.name} value={props.value} onChange={props.onChange} onBlur={props.onBlur} />
-            <p>{props.text}</p>
+            <input type="radio" name={name} value={value} onChange={onChange} onBlur={onBlur} />
+            <p>{text}</p>
         </label>
     )
 }
+ItemOption.propTypes = {
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func,
+    text: PropTypes.string,
 
-function RichText(props) {
+};
+ItemOption.defaultProps = {
+    onBlur: () => { },
+    text: ' ',
+};
+
+function RichText({ value }) {
     const modules = {
         toolbar: false
     }
     return (
-        <ReactQuill modules={modules} value={props.value} readOnly />
+        <ReactQuill modules={modules} value={value} readOnly />
     )
 
 }
+RichText.propTypes = {
+    value: PropTypes.string.isRequired,
+};
 

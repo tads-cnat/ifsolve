@@ -17,11 +17,10 @@ export default function RespostaItem() {
     }
 
     useEffect(() => {
-        GetRespostaByItem(id).then(res => {
+        GetRespostaByItem(id).then((res) => {
             setItem(res.data);
         })
-        GetItemByID(id).then(res => {
-            console.log(res.data);
+        GetItemByID(id).then((res) => {
             setItemData(res.data);
         });
     }, [id]);

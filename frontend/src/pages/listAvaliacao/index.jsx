@@ -1,10 +1,7 @@
-import { useContext, useEffect, useState } from "react";
-import { FiPlus } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { GetAvaliacoes } from "../../api/config";
+import { useContext, useEffect } from "react";
+
 import {
     GlobalAlert,
-    PrimaryButton,
     SidebarLayout,
     AlunoListAvalicao,
     ElaboradorListAvalicao,
@@ -31,6 +28,7 @@ export default function ListAvaliacao() {
                     return null;
             }
         }
+        return null;
     }
 
     return (

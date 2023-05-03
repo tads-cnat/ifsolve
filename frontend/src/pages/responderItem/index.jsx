@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
@@ -5,19 +6,18 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { FiArrowLeft } from "react-icons/fi";
 import toast, { Toaster } from 'react-hot-toast';
-import { Container, GlobalAlert } from "../../components";
+import { Container } from "../../components";
 import { AnswerItem, GetItemByID } from "../../api/config";
 
 
 
-export default function ResponderItem(props) {
+export default function ResponderItem() {
     const { id } = useParams();
     const [getData, setData] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        GetItemByID(id).then(res => {
-            // console.log(res.data);
+        GetItemByID(id).then((res) => {
             setData(res.data)
         })
     }, [id])
@@ -38,12 +38,10 @@ export default function ResponderItem(props) {
         }),
         onSubmit: values => {
             // Cadastrando resposta na API
-            AnswerItem(values).then(res => {
-                console.log(res);
+            AnswerItem(values).then(() => {
                 navigate(`/item/${id}/resposta`);
                 localStorage.setItem("ifsolve_success_alert", "Sua resposta foi registrada.");
-            }).catch(error => {
-                console.log(error);
+            }).catch(() => {
                 toast.error("Não foi possivel registrar sua resposta.")
             })
         },
@@ -54,7 +52,9 @@ export default function ResponderItem(props) {
         <div className="min-h-screen bg-dark-5 py-5">
             <Container className="flex flex-col gap-4" style={{ maxWidth: "720px" }}>
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={e => navigate(-1)}><FiArrowLeft /></div>
+                    <button type='button' className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}>
+                        <FiArrowLeft />
+                    </button>
                 </div>
 
                 <div className="bg-white p-4 rounded-lg">
@@ -117,7 +117,7 @@ export default function ResponderItem(props) {
 
                     <div className="flex flex-row gap-4">
                         <button type="submit" className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
-                        <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={e => navigate(-1)}> Voltar </button>
+                        <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={() => navigate(-1)}> Voltar </button>
                     </div>
                 </form>
             </Container>
@@ -127,10 +127,15 @@ export default function ResponderItem(props) {
 }
 
 
-function Label(props) {
+function Label({ children }) {
     return (
         <label className="w-full flex flex-row gap-2 px-4 py-2 border border-dark-5 rounded-lg hover:bg-dark-5">
-            {props.children}
+            {children}
         </label>
     )
 }
+
+Label.propTypes = {
+    children: PropTypes.node.isRequired,
+
+};
