@@ -89,7 +89,10 @@ export default function CreateAvaliacao() {
             itens.numero_item = i;
             itens.nota_item = 10;
             itens.item = item.id;
-            setItemAvaliacao((getItemAvaliacao) => [...getItemAvaliacao, item]);
+            setItemAvaliacao((getItemAvaliacao) => [
+                ...getItemAvaliacao,
+                itens,
+            ]);
         } else {
             setItemAvaliacao(
                 getItemAvaliacao.filter(
