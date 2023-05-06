@@ -89,10 +89,7 @@ export default function CreateAvaliacao() {
             itens.numero_item = i;
             itens.nota_item = 10;
             itens.item = item.id;
-            setItemAvaliacao((getItemAvaliacao) => [
-                ...getItemAvaliacao,
-                itens,
-            ]);
+            setItemAvaliacao((itemAvaliacao) => [...itemAvaliacao, item]);
         } else {
             setItemAvaliacao(
                 getItemAvaliacao.filter(
@@ -250,11 +247,13 @@ export default function CreateAvaliacao() {
                         style={{ maxHeight: "400px" }}
                     >
                         {filteredData.length > 0 ? (
-                            filteredData.map((item, i) => (
+                            filteredData.map((item) => (
                                 <CardItem
-                                    key={i}
+                                    key={item.id}
                                     item={item}
-                                    onClick={() => AddItemAvaliacao(item, i)}
+                                    onClick={() =>
+                                        AddItemAvaliacao(item, item.id)
+                                    }
                                 />
                             ))
                         ) : (
