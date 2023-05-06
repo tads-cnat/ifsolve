@@ -30,7 +30,7 @@ export default function CreateAvaliacao() {
                 setItemList(res.data);
             })
             .catch((error) => {
-                console.log(error);
+                throw new Error(error);
             });
     }, []);
 
