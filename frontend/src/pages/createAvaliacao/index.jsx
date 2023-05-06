@@ -106,11 +106,8 @@ export default function CreateAvaliacao() {
                 style={{ maxWidth: "720px" }}
             >
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <div
-                        className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20"
-                        onClick={() => navigate(-1)}
-                    >
-                        <FiArrowLeft />
+                    <div className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20">
+                        <FiArrowLeft onClick={() => navigate(-1)} />
                     </div>
                     <h1 className="text-2xl font-medium text-dark-100">
                         Nova avaliação
