@@ -272,9 +272,9 @@ export default function CreateAvaliacao() {
                 </div>
 
                 {getItemAvaliacao.length > 0
-                    ? getItemAvaliacao.map((item, i) => (
+                    ? getItemAvaliacao.map((item) => (
                           <div
-                              key={i}
+                              key={item.id}
                               className="container flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-4"
                               style={{ maxWidth: "720px" }}
                           >
@@ -311,10 +311,10 @@ function CardItem(props) {
             <h4 className="text-lg">{props.item.titulo}</h4>
             <div className="flex flex-row gap-4">
                 {props.item.tags
-                    .filter((tag, i) => i < 3)
-                    .map((tag, i) => (
+                    .filter((tag) => tag.id < 3)
+                    .map((tag) => (
                         <span
-                            key={i}
+                            key={tag.id}
                             className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg"
                         >
                             {tag.nome}
