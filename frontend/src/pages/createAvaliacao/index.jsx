@@ -293,7 +293,7 @@ export default function CreateAvaliacao() {
                     >
                         Cadastrar
                     </button>
-                    <button type="button" onClick={(e) => navigate(-1)}>
+                    <button type="button" onClick={() => navigate(-1)}>
                         Voltar
                     </button>
                 </div>
