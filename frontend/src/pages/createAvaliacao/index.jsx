@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { FiArrowLeft, FiInbox, FiPlus, FiSearch } from "react-icons/fi";
 import { useEffect, useState } from "react";
@@ -307,18 +308,18 @@ export default function CreateAvaliacao() {
     );
 }
 
-function CardItem(props) {
+function CardItem({ item, onClick }) {
     return (
         <div
-            to={`/item/${props.item.id}/responder`}
+            to={`/item/${item.id}/responder`}
             className="bg-dark-5 px-4 py-2 rounded-lg"
-            onClick={props.onClick}
+            onClick={onClick}
             role="presentation"
         >
-            <small className="text-sm">{props.item.assunto}</small>
-            <h4 className="text-lg">{props.item.titulo}</h4>
+            <small className="text-sm">{item.assunto}</small>
+            <h4 className="text-lg">{item.titulo}</h4>
             <div className="flex flex-row gap-4">
-                {props.item.tags
+                {item.tags
                     .filter((tag) => tag.id < 3)
                     .map((tag) => (
                         <span
@@ -332,3 +333,18 @@ function CardItem(props) {
         </div>
     );
 }
+CardItem.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.string,
+        titulo: PropTypes.string,
+        assunto: PropTypes.string,
+        tipo: PropTypes.string,
+        tags: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.string,
+                nome: PropTypes.string,
+            })
+        ),
+    }).isRequired,
+    onClick: PropTypes.func.isRequired,
+};
