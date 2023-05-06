@@ -85,9 +85,10 @@ export default function CreateAvaliacao() {
 
     function AddItemAvaliacao(item, i) {
         if (!getItemAvaliacao.includes(item)) {
-            item.numero_item = i;
-            item.nota_item = 10;
-            item.item = item.id;
+            const itens = item;
+            itens.numero_item = i;
+            itens.nota_item = 10;
+            itens.item = item.id;
             setItemAvaliacao((getItemAvaliacao) => [...getItemAvaliacao, item]);
         } else {
             setItemAvaliacao(
