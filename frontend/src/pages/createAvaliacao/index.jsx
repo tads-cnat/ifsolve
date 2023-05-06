@@ -119,93 +119,105 @@ export default function CreateAvaliacao() {
                         Informações gerais
                     </h2>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="">Titulo</label>
-                        <input
-                            type="text"
-                            name="titulo"
-                            value={formik.values.titulo}
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            required
-                            className="px-6 py-4 bg-dark-5 rounded-lg"
-                            placeholder="Digite o titulo da avaliação"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") e.preventDefault();
-                            }}
-                        />
-                        {formik.errors.titulo && formik.touched.titulo ? (
-                            <span>{formik.errors.titulo}</span>
-                        ) : null}
-                    </div>
+                    <label htmlFor="titulo">
+                        Titulo
+                        <div className="flex flex-col">
+                            <input
+                                type="text"
+                                name="titulo"
+                                value={formik.values.titulo}
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                required
+                                className="px-6 py-4 bg-dark-5 rounded-lg"
+                                placeholder="Digite o titulo da avaliação"
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") e.preventDefault();
+                                }}
+                            />
+                            {formik.errors.titulo && formik.touched.titulo ? (
+                                <span>{formik.errors.titulo}</span>
+                            ) : null}
+                        </div>
+                    </label>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="">Descrição</label>
-                        <input
-                            type="text"
-                            className="px-6 py-4 bg-dark-5 rounded-lg"
-                            placeholder="Digite a descrição da avaliação"
-                            name="descricao"
-                            required
-                            value={formik.values.descricao}
-                            onBlur={formik.handleBlur}
-                            onChange={formik.handleChange}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") e.preventDefault();
-                            }}
-                        />
-                        {formik.errors.descricao && formik.touched.descricao ? (
-                            <span>{formik.errors.descricao}</span>
-                        ) : null}
-                    </div>
+                    <label htmlFor="descricao">
+                        Descrição
+                        <div className="flex flex-col">
+                            <input
+                                type="text"
+                                className="px-6 py-4 bg-dark-5 rounded-lg"
+                                placeholder="Digite a descrição da avaliação"
+                                name="descricao"
+                                required
+                                value={formik.values.descricao}
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") e.preventDefault();
+                                }}
+                            />
+                            {formik.errors.descricao &&
+                            formik.touched.descricao ? (
+                                <span>{formik.errors.descricao}</span>
+                            ) : null}
+                        </div>
+                    </label>
 
                     <div className="grid grid-cols-2 gap-4">
-                        <div className="flex flex-col">
-                            <label htmlFor="">Começa em</label>
-                            <input
-                                type="datetime-local"
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                name="data_inicio"
-                                id="data_inicio"
-                                required
-                                min={dataMinima}
-                                value={formik.values.data_inicio}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") e.preventDefault();
-                                }}
-                            />
-                            {formik.errors.data_inicio &&
-                            formik.touched.data_inicio ? (
-                                <span>{formik.errors.data_inicio}</span>
-                            ) : null}
-                        </div>
-                        <div className="flex flex-col">
-                            <label htmlFor="">Termina em</label>
-                            <input
-                                type="datetime-local"
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                name="data_fim"
-                                required
-                                min={
-                                    document.getElementById("data_inicio")
-                                        ? document.getElementById("data_inicio")
-                                              .value
-                                        : dataMinima
-                                }
-                                value={formik.values.data_fim}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") e.preventDefault();
-                                }}
-                            />
-                            {formik.errors.data_fim &&
-                            formik.touched.data_fim ? (
-                                <span>{formik.errors.data_fim}</span>
-                            ) : null}
-                        </div>
+                        <label htmlFor="data_inicio">
+                            Começa em
+                            <div className="flex flex-col">
+                                <input
+                                    type="datetime-local"
+                                    className="px-6 py-4 bg-dark-5 rounded-lg"
+                                    name="data_inicio"
+                                    id="data_inicio"
+                                    required
+                                    min={dataMinima}
+                                    value={formik.values.data_inicio}
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter")
+                                            e.preventDefault();
+                                    }}
+                                />
+                                {formik.errors.data_inicio &&
+                                formik.touched.data_inicio ? (
+                                    <span>{formik.errors.data_inicio}</span>
+                                ) : null}
+                            </div>
+                        </label>
+                        <label htmlFor="data_fim">
+                            Termina em
+                            <div className="flex flex-col">
+                                <input
+                                    type="datetime-local"
+                                    className="px-6 py-4 bg-dark-5 rounded-lg"
+                                    name="data_fim"
+                                    required
+                                    min={
+                                        document.getElementById("data_inicio")
+                                            ? document.getElementById(
+                                                  "data_inicio"
+                                              ).value
+                                            : dataMinima
+                                    }
+                                    value={formik.values.data_fim}
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter")
+                                            e.preventDefault();
+                                    }}
+                                />
+                                {formik.errors.data_fim &&
+                                formik.touched.data_fim ? (
+                                    <span>{formik.errors.data_fim}</span>
+                                ) : null}
+                            </div>
+                        </label>
                     </div>
                 </div>
 
