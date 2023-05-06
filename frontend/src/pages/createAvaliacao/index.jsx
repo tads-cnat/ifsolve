@@ -71,7 +71,7 @@ export default function CreateAvaliacao() {
                         "Avaliação criada com sucesso."
                     );
                 })
-                .catch((error) => {
+                .catch(() => {
                     // console.log(error);
                     toast.error("Opss...Erro ao cadastrar avaliação.");
                 });
