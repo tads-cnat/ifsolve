@@ -58,7 +58,7 @@ export default function CreateAvaliacao() {
         onSubmit: (data) => {
             // console.log(data);
             // console.log(getAluno.map(aluno => aluno.id));
-            console.log(getItemAvaliacao);
+            // console.log(getItemAvaliacao);
             PostAvaliacao(
                 data,
                 getItemAvaliacao,
@@ -72,7 +72,7 @@ export default function CreateAvaliacao() {
                     );
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     toast.error("Opss...Erro ao cadastrar avaliação.");
                 });
         },
