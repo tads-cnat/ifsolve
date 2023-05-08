@@ -2,23 +2,19 @@
 FROM node:alpine
 
 # Cria e define o diretório de trabalho
-WORKDIR /ifsolve
+WORKDIR /ifsolve_front
 
-# Copia o package.json e o package-lock.json (se existir)
-COPY package.json ./
-
-# Instala as dependências do projeto
-
-RUN npm install
-
-# Copia os arquivos do projeto
+# Copia todos os arquivos do front e cola no diretório de trabalho
 COPY . .
 
-# Build do projeto
-# RUN npm run build
-
 # Define a porta do container
-EXPOSE 5173
+EXPOSE 3000
+
+# Instala as dependências do projeto
+RUN yarn install
+
+# Comando para converter todos arquivos em linguagem de máquina
+RUN npm run build
 
 # Comando para iniciar o servidor de desenvolvimento
-CMD ["npm","run","dev"]
+CMD ["yarn", "start"]
