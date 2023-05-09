@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from "react-icons/fi";
 import { toast, Toaster } from "react-hot-toast"; import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 // Other imports
 import { useNavigate } from "react-router-dom";
 import { FieldArray, useFormik, FormikProvider } from "formik";
@@ -280,8 +281,14 @@ export default function CriarItem() {
     )
 }
 
-export function Alert(props) {
+export function Alert({children}) {
     return (
-        <p className="flex items-center gap-2 text-sm text-red-800 bg-red-100 px-4 py-2 rounded-lg"><FiAlertCircle />{props.children}</p>
+        <p className="flex items-center gap-2 text-sm text-red-800 bg-red-100 px-4 py-2 rounded-lg">
+            <FiAlertCircle />{children}
+        </p>
     )
+}
+
+Alert.propTypes = {
+    children: PropTypes.node.isRequired,
 }
