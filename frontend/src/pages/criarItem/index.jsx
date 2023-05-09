@@ -79,7 +79,12 @@ export default function CriarItem() {
                 <form onSubmit={formik.handleSubmit} className="container flex flex-col py-8 gap-8" style={{ maxWidth: "720px" }}>
                     {/* Header */}
                     <div className="flex gap-4 items-center py-4">
-                        <button type="button" className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}><FiArrowLeft /></button>
+                        <button
+                            type="button"
+                            className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20"
+                            onClick={() => navigate(-1)}>
+                            <FiArrowLeft />
+                        </button>
                         <h2 className="text-2xl font-medium text-dark-100">Nova questão</h2>
                     </div>
                     {/* Header */}
@@ -210,7 +215,9 @@ export default function CriarItem() {
                                                 <button
                                                     type="button"
                                                     className="absolute top-0 left-full rounded-full p-2 border border-red-100 bg-red-100 -translate-y-1/2 -translate-x-1/2"
-                                                    onClick={() => arrayHelpers.remove(index)}><FiTrash /></button>
+                                                    onClick={() => arrayHelpers.remove(index)}>
+                                                    <FiTrash />
+                                                </button>
                                                 : null
                                             }
 
