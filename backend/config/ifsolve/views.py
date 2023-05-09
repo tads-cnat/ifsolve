@@ -75,14 +75,6 @@ class AuthViewSet(viewsets.GenericViewSet):
             except KeyError:
                 cargo = ''
 
-            # Verificar se o usuario é um professor ou um aluno
-            def get_funcao(array_funcao):
-                if cargo.find('PROFESSOR') != -1:
-                    return 'PROF'
-                if tipo_vinculo == 'ALUNO':
-                    return 'ALUNO'
-                return 'OUTRO'
-
             if cargo.find('PROFESSOR') != -1:
                 serializer = ElaboradorSerializer(data={'username': matricula, 'nome_completo': nome_completo,
                                                         'email': email, 'nascimento': nascimento, 'verificado': False})
@@ -108,7 +100,7 @@ class AuthViewSet(viewsets.GenericViewSet):
             password = request.data.get('password')
             user = User.objects.filter(email=email)
             credencias_invalidas_msg = 'Credenciais inválidas'
-            
+
             if not user.exists():
                 user = User.objects.filter(username=username)
 
