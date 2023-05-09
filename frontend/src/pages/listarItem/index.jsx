@@ -1,22 +1,21 @@
-import { useContext } from "react"
-import { GlobalContext } from "../../providers/context"
+import { useContext } from "react";
+import { GlobalContext } from "../../providers/context";
 import AlunoListarItem from "../alunoListarItem";
 import ElaboradorListarItem from "../elaboradorListarItem";
 
-export default function ListarItem() {
+function Page() {
     const { getUser } = useContext(GlobalContext);
+    if (getUser !== undefined) {
+        switch (getUser.extra_data.tipo_usuario) {
+            case "elaborador":
+                return <ElaboradorListarItem />;
 
-    function Page() {
-        if (getUser !== undefined) {
-            switch (getUser.extra_data.tipo_usuario) {
-                default:
-                    return (<AlunoListarItem />)
-
-                case "elaborador":
-                    return (<ElaboradorListarItem />)
-            }
+            default:
+                return <AlunoListarItem />;
         }
     }
+}
 
-    return (<>{Page()}</>)
+export default function ListarItem() {
+    return <Page />;
 }
