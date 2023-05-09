@@ -3,7 +3,12 @@ import { useState, useEffect } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import ReactQuill from "react-quill";
 import { useNavigate, useParams } from "react-router-dom";
-import { AnswerAvaliacao, GetAvaliacaoRespostasByAluno, GetAvaliacaoByID, GetItemByID } from "../../api/config";
+import {
+    AnswerAvaliacao,
+    GetAvaliacaoRespostasByAluno,
+    GetAvaliacaoByID,
+    GetItemByID,
+} from "../../api/config";
 
 export default function ResponderAvaliacao() {
     const { id } = useParams();
@@ -12,70 +17,107 @@ export default function ResponderAvaliacao() {
     const [respostas, setRespostas] = useState([]);
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
-
     useEffect(() => {
-        GetAvaliacaoByID(id).then(res => {
+        GetAvaliacaoByID(id).then((res) => {
             setAvaliacao(res.data);
             // console.log(res.data);
-        })
+        });
     }, [id]);
 
     useEffect(() => {
         if (user && avaliacao) {
-            GetAvaliacaoRespostasByAluno(avaliacao.avaliacao.id, user.id).then(res => {
-                if (res.data.resposta.respostas.length > 0) {
-                    navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
+            GetAvaliacaoRespostasByAluno(avaliacao.avaliacao.id, user.id).then(
+                (res) => {
+                    if (res.data.resposta.respostas.length > 0) {
+                        navigate(
+                            `/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`
+                        );
+                    }
                 }
-            })
+            );
         }
-    }, [user, avaliacao])
+    }, [user, avaliacao]);
 
     useEffect(() => {
         if (!respostas.length > 0 && avaliacao) {
-            avaliacao.itens.map((item) => (setRespostas(respostas => [...respostas, { item_avaliacao: item.id, aluno: user.id, item: item.item, resposta: "" }])));
+            avaliacao.itens.map((item) =>
+                setRespostas((resposta) => [
+                    ...resposta,
+                    {
+                        item_avaliacao: item.id,
+                        aluno: user.id,
+                        item: item.item,
+                        resposta: "",
+                    },
+                ])
+            );
         }
-    }, [respostas, avaliacao, user])
+    }, [respostas, avaliacao, user]);
 
     function HandleSubmit(e) {
         e.preventDefault();
         AnswerAvaliacao(respostas).then(() => {
             navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
-        })
+        });
         // alert(JSON.stringify(respostas, null, 2));
     }
 
     return (
         <div className="w-full min-h-screen bg-dark-5 flex justify-center">
-            <form onSubmit={e => HandleSubmit(e)} className="container flex flex-col gap-4 py-8" style={{ maxWidth: "720px" }}>
+            <form
+                onSubmit={(e) => HandleSubmit(e)}
+                className="container flex flex-col gap-4 py-8"
+                style={{ maxWidth: "720px" }}
+            >
                 {/* Header */}
                 <div className="flex flex-row items-center gap-4 w-full">
-                    <button type='button' className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20" onClick={() => navigate(-1)}>
+                    <button
+                        type="button"
+                        className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20"
+                        onClick={() => navigate(-1)}
+                    >
                         <FiArrowLeft />
                     </button>
                     Voltar
                 </div>
                 {/* Header */}
 
-                {avaliacao ?
+                {avaliacao ? (
                     <>
                         <Container>
                             <Header2>{avaliacao.avaliacao.titulo}</Header2>
                             <p>{avaliacao.avaliacao.descricao}</p>
                         </Container>
-                        {avaliacao.itens && avaliacao.itens.map((item) => (
-                            <ItemForm item={item} key={item.id} respostas={respostas} />
-                        ))}
+                        {avaliacao.itens &&
+                            avaliacao.itens.map((item) => (
+                                <ItemForm
+                                    item={item}
+                                    key={item.id}
+                                    respostas={respostas}
+                                />
+                            ))}
                     </>
-                    : null
-                }
+                ) : null}
 
                 <div className="flex flex-row gap-4">
-                    <button type="submit" className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100">Responder</button>
-                    <button type="button" className="px-4 py-2 rounded-lg hover:bg-dark-10" onClick={() => navigate(-1)}> Voltar </button>
+                    <button
+                        type="submit"
+                        className="bg-primary-80 px-4 py-2 rounded-lg hover:bg-primary-100"
+                    >
+                        Responder
+                    </button>
+                    <button
+                        type="button"
+                        className="px-4 py-2 rounded-lg hover:bg-dark-10"
+                        onClick={() => navigate(-1)}
+                    >
+                        {" "}
+                        Voltar{" "}
+                    </button>
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
 function Container({ children }) {
@@ -83,33 +125,31 @@ function Container({ children }) {
         <div className="bg-white p-8 rounded-lg flex flex-col gap-2">
             {children}
         </div>
-    )
+    );
 }
 Container.propTypes = {
     children: PropTypes.node.isRequired,
-
 };
 
 function Header2({ className, children }) {
     return (
-        <h2 className={`text-lg text-dark-100 font-medium ${className}`}>{children}</h2>
-    )
+        <h2 className={`text-lg text-dark-100 font-medium ${className}`}>
+            {children}
+        </h2>
+    );
 }
 Header2.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string.isRequired,
-
 };
-
-
 
 function ItemForm(props) {
     const [item, setItem] = useState();
 
     useEffect(() => {
-        GetItemByID(props.item.item).then(res => {
+        GetItemByID(props.item.item).then((res) => {
             setItem(res.data);
-        })
+        });
     }, [props.item.item]);
 
     function HandleChange(resposta) {
@@ -117,72 +157,81 @@ function ItemForm(props) {
     }
     return (
         <>
-            {item ?
+            {item ? (
                 <Container>
                     <Header2>{item.titulo}</Header2>
                     <RichText value={item.enunciado} />
-                    {item.tipo === "ME" ?
+                    {item.tipo === "ME" ? (
                         <>
                             <ItemOption
                                 name={`respostas.${props.i}.texto`}
                                 value="a"
                                 text={item.alternativa_a.texto}
-                                onChange={e => HandleChange(e.target.value)}
+                                onChange={(e) => HandleChange(e.target.value)}
                             />
                             <ItemOption
                                 name={`respostas.${props.i}.texto`}
                                 value="b"
                                 text={item.alternativa_b.texto}
-                                onChange={e => HandleChange(e.target.value)}
+                                onChange={(e) => HandleChange(e.target.value)}
                             />
-                            {item.alternativa_c && item.alternativa_c.texto ?
+                            {item.alternativa_c && item.alternativa_c.texto ? (
                                 <ItemOption
                                     name={`respostas.${props.i}.texto`}
                                     value="c"
                                     text={item.alternativa_c.texto}
-                                    onChange={e => HandleChange(e.target.value)}
+                                    onChange={(e) =>
+                                        HandleChange(e.target.value)
+                                    }
                                 />
-                                : null
-                            }
+                            ) : null}
 
-                            {item.alternativa_d && item.alternativa_d.texto ?
+                            {item.alternativa_d && item.alternativa_d.texto ? (
                                 <ItemOption
                                     name={`respostas.${props.i}.texto`}
                                     value="d"
                                     text={item.alternativa_d.texto}
-                                    onChange={e => HandleChange(e.target.value)}
+                                    onChange={(e) =>
+                                        HandleChange(e.target.value)
+                                    }
                                 />
-                                : null
-                            }
-                            {item.alternativa_e && item.alternativa_e.texto ?
+                            ) : null}
+                            {item.alternativa_e && item.alternativa_e.texto ? (
                                 <ItemOption
                                     name={`respostas.${props.i}.texto`}
                                     value="e"
                                     text={item.alternativa_e.texto}
-                                    onChange={e => HandleChange(e.target.value)}
+                                    onChange={(e) =>
+                                        HandleChange(e.target.value)
+                                    }
                                 />
-                                : null
-                            }
-
+                            ) : null}
                         </>
-                        :
-                        <input onChange={e => HandleChange(e.target.value)} placeholder="Digite sua resposta" />
-                    }
+                    ) : (
+                        <input
+                            onChange={(e) => HandleChange(e.target.value)}
+                            placeholder="Digite sua resposta"
+                        />
+                    )}
                 </Container>
-                : null
-            }
+            ) : null}
         </>
-    )
+    );
 }
-
 
 function ItemOption({ name, value, onChange, onBlur, text }) {
     return (
         <label className="flex flex-row items-center gap-2 px-4 py-2 rounded-lg border border-dark-10">
-            <input type="radio" name={name} value={value} onChange={onChange} onBlur={onBlur} />
+            <input
+                type="radio"
+                name={name}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+            />
             <p>{text}</p>
         </label>
-    )
+    );
 }
 ItemOption.propTypes = {
     name: PropTypes.string.isRequired,
@@ -190,23 +239,18 @@ ItemOption.propTypes = {
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func,
     text: PropTypes.string,
-
 };
 ItemOption.defaultProps = {
-    onBlur: () => { },
-    text: ' ',
+    onBlur: () => {},
+    text: " ",
 };
 
 function RichText({ value }) {
     const modules = {
-        toolbar: false
-    }
-    return (
-        <ReactQuill modules={modules} value={value} readOnly />
-    )
-
+        toolbar: false,
+    };
+    return <ReactQuill modules={modules} value={value} readOnly />;
 }
 RichText.propTypes = {
     value: PropTypes.string.isRequired,
 };
-
