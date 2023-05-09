@@ -21,27 +21,27 @@ class AuthViewSet(viewsets.GenericViewSet):
     permission_classes = []
     serializer_class = None
 
-    @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[IsNotAuthenticated])
-    def login(self, request):
-        username = request.data.get('username')
-        email = request.data.get('email')
-        password = request.data.get('password')
-        user = User.objects.filter(email=email)
+    # @action(detail=False, methods=['post'], serializer_class=LoginSerializer, permission_classes=[IsNotAuthenticated])
+    # def login(self, request):
+    #     username = request.data.get('username')
+    #     email = request.data.get('email')
+    #     password = request.data.get('password')
+    #     user = User.objects.filter(email=email)
 
-        if not user.exists():
-            user = User.objects.filter(username=username)
+    #     if not user.exists():
+    #         user = User.objects.filter(username=username)
 
-        if not user.exists():
-            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+    #     if not user.exists():
+    #         return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = user.first()
-        if not user.check_password(password):
-            return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+    #     user = user.first()
+    #     if not user.check_password(password):
+    #         return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
 
-        token, created = Token.objects.get_or_create(user=user)
-        user_data = UserSerializer(user).data
-        user_data['token'] = token.key
-        return Response(user_data, status=status.HTTP_200_OK)
+    #     token, created = Token.objects.get_or_create(user=user)
+    #     user_data = UserSerializer(user).data
+    #     user_data['token'] = token.key
+    #     return Response(user_data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['post'], serializer_class=LoginSerializer,
             permission_classes=[IsNotAuthenticated], url_path='suap/auth_register')
@@ -74,7 +74,7 @@ class AuthViewSet(viewsets.GenericViewSet):
                 cargo = user['vinculo']['cargo']
             except KeyError:
                 cargo = ''
-            
+
             # Verificar se o usuario é um professor ou um aluno
             def get_funcao(array_funcao):
                 if cargo.find('PROFESSOR') != -1:
@@ -84,8 +84,8 @@ class AuthViewSet(viewsets.GenericViewSet):
                 return 'OUTRO'
 
             if cargo.find('PROFESSOR') != -1:
-                serializer = ElaboradorSerializer(data={'username': matricula, 'nome_completo': nome_completo, 
-                                                        'email': email, 'nascimento': nascimento, 'verificado':False})
+                serializer = ElaboradorSerializer(data={'username': matricula, 'nome_completo': nome_completo,
+                                                        'email': email, 'nascimento': nascimento, 'verificado': False})
                 serializer.is_valid(raise_exception=True)
                 elaborador = serializer.save()
                 user = get_object_or_404(User, username=matricula)
@@ -93,30 +93,31 @@ class AuthViewSet(viewsets.GenericViewSet):
                 return Response({'token': token.key}, status=status.HTTP_200_OK)
 
             if tipo_vinculo == 'Aluno':
-                serializer = AlunoSerializer(data={'username': matricula, 'nome_completo': nome_completo, 
-                                                   'email': email, 'nascimento': nascimento, 'verificado':False})
+                serializer = AlunoSerializer(data={'username': matricula, 'nome_completo': nome_completo,
+                                                   'email': email, 'nascimento': nascimento, 'verificado': False})
                 serializer.is_valid(raise_exception=True)
                 aluno = serializer.save()
                 user = get_object_or_404(User, username=matricula)
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key}, status=status.HTTP_200_OK)
-            
+
             return Response({'error': 'Você precisa ser aluno ou professor'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             username = request.data.get('username')
             email = request.data.get('email')
             password = request.data.get('password')
             user = User.objects.filter(email=email)
-
+            credencias_invalidas_msg = 'Credenciais inválidas'
+            
             if not user.exists():
                 user = User.objects.filter(username=username)
 
             if not user.exists():
-                return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': credencias_invalidas_msg}, status=status.HTTP_400_BAD_REQUEST)
 
             user = user.first()
             if not user.check_password(password):
-                return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': credencias_invalidas_msg}, status=status.HTTP_400_BAD_REQUEST)
 
             token, created = Token.objects.get_or_create(user=user)
             user_data = UserSerializer(user).data
@@ -181,19 +182,24 @@ class ItemViewSet(viewsets.ModelViewSet):
             cursor.execute("SELECT * FROM ifsolve_item WHERE id = %s", [pk])
             item = cursor.fetchall()
             if (item[0][1] == "ME"):
-                (get_object_or_404(Alternativa, pk = item[0][10])).delete() # Excluindo alternativa A
-                (get_object_or_404(Alternativa, pk = item[0][11])).delete() # Excluindo alternativa B
+                # Excluindo alternativa A
+                (get_object_or_404(Alternativa, pk=item[0][10])).delete()
+                # Excluindo alternativa B
+                (get_object_or_404(Alternativa, pk=item[0][11])).delete()
 
-                if (item[0][12]): 
-                    (get_object_or_404(Alternativa, pk = item[0][12])).delete() # Excluindo alternativa C
-                
+                if (item[0][12]):
+                    # Excluindo alternativa C
+                    (get_object_or_404(Alternativa, pk=item[0][12])).delete()
+
                 if (item[0][13]):
-                    (get_object_or_404(Alternativa, pk = item[0][13])).delete() # Excluindo alternativa D
+                    # Excluindo alternativa D
+                    (get_object_or_404(Alternativa, pk=item[0][13])).delete()
 
                 if (item[0][14]):
-                    (get_object_or_404(Alternativa, pk = item[0][14])).delete() # Excluindo alternativa E
+                    # Excluindo alternativa E
+                    (get_object_or_404(Alternativa, pk=item[0][14])).delete()
 
-            (get_object_or_404(Item, pk = item[0][0])).delete() # Excluindo item
+            (get_object_or_404(Item, pk=item[0][0])).delete()  # Excluindo item
             return Response(status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], url_path='elaborador/(?P<elaborador_id>[^/.]+)', permission_classes=[IsElaborador])
