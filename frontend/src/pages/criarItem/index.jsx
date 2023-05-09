@@ -50,10 +50,11 @@ export default function CriarItem() {
             expectativa_resposta: Yup.string().when("tipo", { is: "DI", then: Yup.string().required("É obrigatório cadastar uma resposta.") }),
         }),
         onSubmit: data => {
-            data.tags = getTags;
-            data.enunciado = quillValue;
-            if (data.tipo === "ME") {
-                PostItemME(data).then(() => {
+            const datum = data;
+            datum.tags = getTags;
+            datum.enunciado = quillValue;
+            if (datum.tipo === "ME") {
+                PostItemME(datum).then(() => {
                     navigate("/item");
                     localStorage.setItem('ifsolve_success_alert', "Item criado com sucesso.");
                 }).catch(error => {
@@ -62,7 +63,7 @@ export default function CriarItem() {
                 })
             }
             else {
-                PostItemDI(data).then(() => {
+                PostItemDI(datum).then(() => {
                     navigate("/item");
                     localStorage.setItem('ifsolve_success_alert', "Item criado com sucesso.");
                 }).catch(() => {
