@@ -93,99 +93,112 @@ export default function CriarItem() {
                     {/* Form */}
                     <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-8">
                         {/* Titulo */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="">Titulo</label>
-                            <input
-                                type="text"
-                                name="titulo"
-                                value={formik.values.titulo}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                placeholder="Digite o titulo da questão"
-                            />
-                            {formik.errors.titulo && formik.touched.titulo ? <Alert>{formik.errors.titulo}</Alert> : null}
-                        </div>
+                        <label htmlFor="titulo">Titulo
+                            <div className="flex flex-col gap-2">
+                                <input
+                                    type="text"
+                                    name="titulo"
+                                    value={formik.values.titulo}
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                    className="px-6 py-4 bg-dark-5 rounded-lg"
+                                    placeholder="Digite o titulo da questão"
+                                />
+                                {formik.errors.titulo && formik.touched.titulo ? <Alert>{formik.errors.titulo}</Alert> : null}
+                            </div>
+                        </label>
                         {/* Titulo */}
 
                         {/* Enunciado */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="">Enunciado</label>
-                            <ReactQuill theme="snow" value={quillValue} onChange={setQuillValue} />
-                            {formik.errors.enunciado && formik.touched.enunciado ? <Alert>{formik.errors.enunciado}</Alert> : null}
-                        </div>
+                        <label htmlFor="enunciado">Enunciado
+                            <div className="flex flex-col gap-2">
+                                <ReactQuill 
+                                    theme="snow"
+                                    value={quillValue}
+                                    onChange={setQuillValue} />
+                                    {formik.errors.enunciado && formik.touched.enunciado ? 
+                                        <Alert>{formik.errors.enunciado}</Alert> 
+                                    : null}
+                            </div>
+                        </label>
                         {/* Enunciado */}
 
                         <div className="grid grid-cols-2 gap-4">
 
-
                             {/* Área */}
-                            <div className="flex flex-col gap-2">
-                                <label>Área</label>
-                                <select
-                                    className="px-6 py-4 bg-dark-5 rounded-lg"
-                                    name="area"
-                                    value={formik.values.area}
-                                    onBlur={formik.handleBlur}
-                                    onChange={formik.handleChange}
-                                >
-                                    <option value="">Seleciona uma área</option>
-                                    {getAreas !== undefined ?
-                                        getAreas.map((item) =>
-                                            <option 
-                                                key={item.id}
-                                                value={item.id}>{item.nome}
+                            <label htmlFor="area">Área
+                                <div className="flex flex-col gap-2">
+                                        <select
+                                            className="px-6 py-4 bg-dark-5 rounded-lg"
+                                            name="area"
+                                            value={formik.values.area}
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+                                        >
+                                            <option value="">Seleciona uma área</option>
+                                            {getAreas !== undefined ?
+                                                getAreas.map((item) =>
+                                                    <option 
+                                                        key={item.id}
+                                                        value={item.id}>{item.nome}
+                                                    </option>
+                                                )
+                                                : null
+                                            }
+                                        </select>
+                                    {formik.errors.area && formik.touched.area ? <Alert>{formik.errors.area}</Alert> : null}
+                                </div>
+                            </label>
+                            {/* Área */}
+
+                            {/* Tipo */}
+                            <label htmlFor="tipo">Tipo
+                                <div className="flex flex-col gap-2">
+                                        <select
+                                            className="px-6 py-4 bg-dark-5 rounded-lg"
+                                            name="tipo"
+                                            value={formik.values.tipo}
+                                            onBlur={formik.handleBlur}
+                                            onChange={formik.handleChange}
+                                        >
+                                            <option value="DI">
+                                                Discursiva
                                             </option>
-                                        )
-                                        : null
-                                    }
-                                </select>
-                                {formik.errors.area && formik.touched.area ? <Alert>{formik.errors.area}</Alert> : null}
-                            </div>
-                            {/* Área */}
-
+                                            <option value="ME">
+                                                Multipla escolha
+                                            </option>
+                                        </select>
+                                    {formik.errors.tipo && formik.touched.tipo ? <Alert>{formik.errors.tipo}</Alert> : null}
+                                </div>
+                            </label>
                             {/* Tipo */}
+                        </div>
+
+                        {/* Assunto */}
+                        <label htmlFor="assunto">Assunto
                             <div className="flex flex-col gap-2">
-                                <label>Tipo</label>
-                                <select
+                                <input
+                                    type="text"
+                                    name="assunto"
                                     className="px-6 py-4 bg-dark-5 rounded-lg"
-                                    name="tipo"
-                                    value={formik.values.tipo}
+                                    placeholder="Digite o assunto da questão"
+                                    value={formik.values.assunto}
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
-                                >
-                                    <option value="DI">
-                                        Discursiva
-                                    </option>
-                                    <option value="ME">
-                                        Multipla escolha
-                                    </option>
-                                </select>
-                                {formik.errors.tipo && formik.touched.tipo ? <Alert>{formik.errors.tipo}</Alert> : null}
+                                />
+                                {formik.errors.assunto && formik.touched.assunto ? <Alert>{formik.errors.assunto}</Alert> : null}
                             </div>
-                            {/* Tipo */}
-                        </div>
-
-                        {/* Assunto */}
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="">Assunto</label>
-                            <input
-                                type="text"
-                                name="assunto"
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                placeholder="Digite o assunto da questão"
-                                value={formik.values.assunto}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                            />
-                            {formik.errors.assunto && formik.touched.assunto ? <Alert>{formik.errors.assunto}</Alert> : null}
-                        </div>
+                        </label>
                         {/* Assunto */}
 
-                        <div className="flex flex-col gap-2">
-                            <label>Tags</label>
-                            <TagInput get={getTags} set={setTags} />
-                        </div>
+                            <div className="flex flex-col gap-2">
+                                <label>Tags
+                                    <TagInput
+                                        get={getTags}
+                                        set={setTags}
+                                    />
+                                </label>
+                            </div>
                     </div>
 
                     {formik.values.tipo === "ME" ?
@@ -197,23 +210,25 @@ export default function CriarItem() {
                                         <div key={alternativa.id} className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 relative">
                                             <div className="flex flex-col gap-2">
                                                 <h2 className="text-lg text-dark-80 font-medium">Alternativa {(i + 10).toString(36)}</h2>
-                                                <label>Texto</label>
-                                                <input
-                                                    name={`alternativas[${i}].texto`}
-                                                    className="px-6 py-4 bg-dark-5 rounded-lg"
-                                                    placeholder="Digite o texto da alternativa"
-                                                    value={formik.values.alternativas[i].texto}
-                                                    onChange={formik.handleChange}
-                                                />
+                                                <label htmlFor="texto" className="flex flex-col gap-2">Texto
+                                                    <input 
+                                                        name={`alternativas[${i}].texto`}
+                                                        className="px-6 py-4 bg-dark-5 rounded-lg"
+                                                        placeholder="Digite o texto da alternativa"
+                                                        value={formik.values.alternativas[i].texto}
+                                                        onChange={formik.handleChange}
+                                                    />
+                                                </label>
 
-                                                <label>Justificativa</label>
-                                                <input
-                                                    name={`alternativas.${i}.justificativa`}
-                                                    className="px-6 py-4 bg-dark-5 rounded-lg"
-                                                    placeholder="Digite a justificativa da alternativa"
-                                                    value={formik.values.alternativas[i].justificativa}
-                                                    onChange={formik.handleChange}
-                                                />
+                                                <label htmlFor="justificativa" className="flex flex-col gap-2">Justificativa
+                                                    <input
+                                                        name={`alternativas.${i}.justificativa`}
+                                                        className="px-6 py-4 bg-dark-5 rounded-lg"
+                                                        placeholder="Digite a justificativa da alternativa"
+                                                        value={formik.values.alternativas[i].justificativa}
+                                                        onChange={formik.handleChange}
+                                                    />
+                                                </label>
                                             </div>
                                             {formik.values.alternativas.length > 2 ?
                                                 <button
@@ -256,19 +271,20 @@ export default function CriarItem() {
                             )}
                         />
                         :
-                        <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2">
-                            <label htmlFor="">Expectativa de resposta</label>
-                            <input
-                                type="text"
-                                name="expectativa_resposta"
-                                className="px-6 py-4 bg-dark-5 rounded-lg"
-                                placeholder="Digite a resposta da questão"
-                                value={formik.values.expectativa_resposta}
-                                onBlur={formik.handleBlur}
-                                onChange={formik.handleChange}
-                            />
-                            {formik.errors.expectativa_resposta && formik.touched.expectativa_resposta ? <Alert>{formik.errors.expectativa_resposta}</Alert> : null}
-                        </div>
+                        <label htmlFor="expectativa_resposta">Expectativa de resposta
+                            <div className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2">
+                                <input
+                                    type="text"
+                                    name="expectativa_resposta"
+                                    className="px-6 py-4 bg-dark-5 rounded-lg"
+                                    placeholder="Digite a resposta da questão"
+                                    value={formik.values.expectativa_resposta}
+                                    onBlur={formik.handleBlur}
+                                    onChange={formik.handleChange}
+                                />
+                                {formik.errors.expectativa_resposta && formik.touched.expectativa_resposta ? <Alert>{formik.errors.expectativa_resposta}</Alert> : null}
+                            </div>
+                        </label>
                     }
                     <div className="container flex flex-row mx-auto justify-start gap-4">
                         <button type="submit" className="bg-primary-100 px-6 py-2 rounded-lg font-medium text-dark-100">Cadastrar</button>
