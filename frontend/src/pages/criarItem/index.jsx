@@ -1,11 +1,11 @@
 // React Quill
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+// Other imports
 import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from "react-icons/fi";
 import { toast, Toaster } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-// Other imports
 import { useNavigate } from "react-router-dom";
 import { FieldArray, useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
