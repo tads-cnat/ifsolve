@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TagInput } from "../../components";
 import { PostItemDI, PostItemME, GetAreas } from "../../api/config";
@@ -8,7 +8,7 @@ import * as Yup from "yup";
 // React Quill
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash, FiX } from "react-icons/fi";
+import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from "react-icons/fi";
 import { toast, Toaster } from "react-hot-toast";
 
 export default function CriarItem() {
@@ -53,7 +53,7 @@ export default function CriarItem() {
             data.tags = getTags;
             data.enunciado = quillValue;
             if (data.tipo === "ME") {
-                PostItemME(data).then(res => {
+                PostItemME(data).then(() => {
                     navigate("/item");
                     localStorage.setItem('ifsolve_success_alert', "Item criado com sucesso.");
                 }).catch(error => {
@@ -257,7 +257,7 @@ export default function CriarItem() {
                     }
                     <div className="container flex flex-row mx-auto justify-start gap-4">
                         <button type="submit" className="bg-primary-100 px-6 py-2 rounded-lg font-medium text-dark-100">Cadastrar</button>
-                        <button type="button" onClick={(e) => navigate(-1)}>Voltar</button>
+                        <button type="button" onClick={() => navigate(-1)}>Voltar</button>
                     </div>
                 </form>
             </FormikProvider>
