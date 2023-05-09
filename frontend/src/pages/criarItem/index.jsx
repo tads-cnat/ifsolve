@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { TagInput } from "../../components";
-import { PostItemDI, PostItemME, GetAreas } from "../../api/config";
-import { FieldArray, useFormik, FormikProvider } from "formik";
-import * as Yup from "yup";
-
 // React Quill
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from "react-icons/fi";
-import { toast, Toaster } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast"; import { useState, useEffect } from "react";
+// Other imports
+import { useNavigate } from "react-router-dom";
+import { FieldArray, useFormik, FormikProvider } from "formik";
+import * as Yup from "yup";
+import { PostItemDI, PostItemME, GetAreas } from "../../api/config";
+import { TagInput } from "../../components";
+
 
 export default function CriarItem() {
     const navigate = useNavigate();
