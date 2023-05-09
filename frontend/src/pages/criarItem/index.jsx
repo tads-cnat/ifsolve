@@ -130,8 +130,11 @@ export default function CriarItem() {
                                 >
                                     <option value="">Seleciona uma área</option>
                                     {getAreas !== undefined ?
-                                        getAreas.map((item, i) =>
-                                            <option key={i} value={item.id}>{item.nome}</option>
+                                        getAreas.map((item) =>
+                                            <option 
+                                                key={item.id}
+                                                value={item.id}>{item.nome}
+                                            </option>
                                         )
                                         : null
                                     }
@@ -189,25 +192,25 @@ export default function CriarItem() {
                             name="alternativas"
                             render={(arrayHelpers) => (
                                 <>
-                                    {formik.values.alternativas.map((alternativa, index) => (
-                                        <div key={index} className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 relative">
+                                    {formik.values.alternativas.map((alternativa) => (
+                                        <div key={alternativa.id} className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 relative">
                                             <div className="flex flex-col gap-2">
-                                                <h2 className="text-lg text-dark-80 font-medium">Alternativa {(index + 10).toString(36)}</h2>
+                                                <h2 className="text-lg text-dark-80 font-medium">Alternativa {(alternativa.id + 10).toString(36)}</h2>
                                                 <label>Texto</label>
                                                 <input
-                                                    name={`alternativas[${index}].texto`}
+                                                    name={`alternativas[${alternativa.id}].texto`}
                                                     className="px-6 py-4 bg-dark-5 rounded-lg"
                                                     placeholder="Digite o texto da alternativa"
-                                                    value={formik.values.alternativas[index].texto}
+                                                    value={formik.values.alternativas[alternativa.id].texto}
                                                     onChange={formik.handleChange}
                                                 />
 
                                                 <label>Justificativa</label>
                                                 <input
-                                                    name={`alternativas.${index}.justificativa`}
+                                                    name={`alternativas.${alternativa.id}.justificativa`}
                                                     className="px-6 py-4 bg-dark-5 rounded-lg"
                                                     placeholder="Digite a justificativa da alternativa"
-                                                    value={formik.values.alternativas[index].justificativa}
+                                                    value={formik.values.alternativas[alternativa.id].justificativa}
                                                     onChange={formik.handleChange}
                                                 />
                                             </div>
@@ -215,7 +218,7 @@ export default function CriarItem() {
                                                 <button
                                                     type="button"
                                                     className="absolute top-0 left-full rounded-full p-2 border border-red-100 bg-red-100 -translate-y-1/2 -translate-x-1/2"
-                                                    onClick={() => arrayHelpers.remove(index)}>
+                                                    onClick={() => arrayHelpers.remove(alternativa.id)}>
                                                     <FiTrash />
                                                 </button>
                                                 : null
@@ -238,8 +241,11 @@ export default function CriarItem() {
                                             onBlur={formik.handleBlur}
                                             onChange={formik.handleChange}
                                         >
-                                            {formik.values.alternativas.map((alternativa, i) => (
-                                                <option key={i} value={(i + 10).toString(36)}>Alternativa {(i + 10).toString(36)}</option>
+                                            {formik.values.alternativas.map((alternativa) => (
+                                                <option 
+                                                    key={alternativa.id}
+                                                    value={(alternativa.id + 10).toString(36)}>Alternativa{(alternativa.id + 10).toString(36)}
+                                                </option>
                                             ))}
                                         </select>
                                         {formik.errors.alternativa_correta && formik.touched.alternativa_correta ? <Alert>{formik.errors.alternativa_correta}</Alert> : null}
