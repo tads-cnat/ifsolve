@@ -20,8 +20,8 @@ export default function AlunosInput({ get, set }) {
     const filteredAlunos =
         getSearch.length > 0
             ? getAlunos.filter((alunos) =>
-                alunos.email.includes(getSearch.trim())
-            )
+                  alunos.email.includes(getSearch.trim())
+              )
             : getAlunos;
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function AlunosInput({ get, set }) {
                         key={aluno.id}
                         className="flex flex-row gap-2 items-center text-sm bg-dark-10 text-dark-80 px-2 py-1 rounded-lg hover:bg-dark-20"
                     >
-                        {aluno.email}
+                        {aluno.username}
                         <FiX
                             className="cursor-pointer"
                             onClick={() => RemoveAluno(aluno)}
@@ -74,19 +74,21 @@ export default function AlunosInput({ get, set }) {
                                     type="button"
                                     className="w-full text-left"
                                     onClick={() => AddAlunos(aluno)}
-                                // onKeyDown={(event) => {
-                                //     if (event.key === "Enter") {
-                                //         event.preventDefault();
-                                //         if (filteredAlunos.length > 0) {
-                                //             AddAlunos(filteredAlunos[0]);
-                                //         }
-                                //     }
-                                // }}
+                                    // onKeyDown={(event) => {
+                                    //     if (event.key === "Enter") {
+                                    //         event.preventDefault();
+                                    //         if (filteredAlunos.length > 0) {
+                                    //             AddAlunos(filteredAlunos[0]);
+                                    //         }
+                                    //     }
+                                    // }}
                                 >
                                     <p className="text-sm font-medium uppercase">
                                         {aluno.username}
                                     </p>
-                                    <span className="text-sm">{aluno.email}</span>
+                                    <span className="text-sm">
+                                        {aluno.email}
+                                    </span>
                                     {get.includes(aluno) ? <FiCheck /> : null}
                                 </button>
                             </li>
