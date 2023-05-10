@@ -1,4 +1,4 @@
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FiAlignLeft, FiCheckSquare, FiFilter } from "react-icons/fi";
@@ -22,7 +22,7 @@ export default function AlunoListarItem() {
                 setData(res.data);
             })
             .catch(() => {
-                toast.error("Opss... Questão não encontrada")
+                toast.error("Opss... Questão não encontrada");
             });
     }, []);
 
@@ -103,13 +103,13 @@ function CardItem({ item }) {
 }
 CardItem.propTypes = {
     item: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         titulo: PropTypes.string,
         assunto: PropTypes.string,
         tipo: PropTypes.string,
         tags: PropTypes.arrayOf(
             PropTypes.shape({
-                id: PropTypes.string,
+                id: PropTypes.number,
                 nome: PropTypes.string,
             })
         ),
