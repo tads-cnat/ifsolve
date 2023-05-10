@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import ReactQuill from "react-quill";
 import { FiAlignJustify, FiCheck, FiX } from "react-icons/fi";
 import { GetItemByID, GetRespostaByItem } from "../../api/config";
@@ -59,11 +60,11 @@ export default function RespostaItem() {
                         getItem.map((resp) => (
                             <div className="flex flex-row px-4 py-2 gap-2">
                                 <AlternativaCorreta
-                                    itemData={itemData}
+                                    item={itemData}
                                     resp={resp}
                                 />
                                 <div className="flex-flex-col">
-                                    {/* <p className="text-sm text-dark-60">{}</p> */}
+                                    <p className="text-sm text-dark-60">{}</p>
                                     <p className="text-xl">{resp.resposta}</p>
                                 </div>
                             </div>
@@ -75,22 +76,38 @@ export default function RespostaItem() {
             <GlobalAlert />
         </SidebarLayout>
     );
-
-    function AlternativaCorreta({ item, resp }) {
-        if (item.tipo === "ME") {
-            if (resp.resposta.toLowerCase() === item.alternativa_correta) {
+}
+function AlternativaCorreta({ item, resp }) {
+    if (item.tipo === "ME") {
+        if (resp.resposta.toLowerCase() === item.alternativa_correta) {
+            return (
                 <div className="text-xl bg-primary-10 text-primary-100 p-2 rounded-lg my-auto">
                     <FiCheck />
-                </div>;
-            } else {
-                <div className="text-xl bg-red-200 text-red-600 p-2 rounded-lg my-auto">
-                    <FiX />
-                </div>;
-            }
-        } else {
-            <div className="text-xl bg-dark-10 text-dark-40 p-2 rounded-lg my-auto">
-                <FiAlignJustify />
-            </div>;
+                </div>
+            );
         }
+        return (
+            <div className="text-xl bg-red-200 text-red-600 p-2 rounded-lg my-auto">
+                <FiX />
+            </div>
+        );
     }
+    return (
+        <div className="text-xl bg-dark-10 text-dark-40 p-2 rounded-lg my-auto">
+            <FiAlignJustify />
+        </div>
+    );
 }
+AlternativaCorreta.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        titulo: PropTypes.string,
+        enunciado: PropTypes.string,
+        tipo: PropTypes.string.isRequired,
+        alternativa_correta: PropTypes.string,
+        expectativa_resposta: PropTypes.string,
+    }).isRequired,
+    resp: PropTypes.shape({
+        resposta: PropTypes.string,
+    }).isRequired,
+};
