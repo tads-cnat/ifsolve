@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier",
+        "plugin:react/jsx-runtime"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.js",
+                "*.jsx"
+            ]
+        }
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [
+            0
+        ],
+        "import/extensions": "off"
+    },
+    "ignorePatterns": [
+        "**/*.png",
+        "*.css"
+    ]
+}
