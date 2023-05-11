@@ -72,7 +72,7 @@ class AuthViewSet(viewsets.GenericViewSet):
 
             try:
                 cargo = user['vinculo']['cargo']
-            except:
+            except KeyError:
                 cargo = ''
             
             # Verificar se o usuario é um professor ou um aluno
