@@ -11,7 +11,7 @@ COPY . .
 EXPOSE 3000
 
 # Instala as dependências do projeto
-RUN yarn install --ignore-scripts
+RUN yarn install
 
 # Comando para converter todos arquivos em linguagem de máquina
 RUN npm run build
