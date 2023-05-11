@@ -56,7 +56,7 @@ export default function TagInput({ get, set }) {
                 {!getInput && (
                     <span className="pointer-events-none flex absolute top-1/2 left-4 transform -translate-y-1/2 text-gray-400">
                         <span>Pressione</span>
-                        <AiOutlineEnter className="bg-slate-300 ml-2 mr-2 mt-1 text-black"/>
+                        <AiOutlineEnter className="bg-slate-300 ml-2 mr-2 mt-1 text-black" />
                         <span>para inserir uma tag</span>
                     </span>
                 )}
@@ -68,18 +68,6 @@ export default function TagInput({ get, set }) {
                     onKeyDown={(e) => handleKeyDown(e)}
                 />
             </div>
-            
-            {/* <label htmlFor="tags">
-                Tags
-                <input
-                    type="text"
-                    value={getInput}
-                    placeholder="Enter a tag"
-                    onKeyDown={(e) => handleKeyDown(e)}
-                    onChange={(e) => handleChange(e.target.value)}
-                    className="w-full px-6 py-4 bg-dark-5 rounded-lg"
-                />
-            </label> */}
         </div>
     );
 }
