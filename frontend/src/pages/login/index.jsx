@@ -9,6 +9,7 @@ import IFSolvelogo from "../../images/IFSolve-logo.svg";
 import LoginBackground from "../../images/login-background.png";
 import { FormLabel, FormControl, GlobalAlert } from "../../components";
 import { loginApi } from "../../api/config";
+import logoSuap from "../../images/logo-suap.svg";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -17,10 +18,10 @@ export default function Login() {
 
     const LoginSchema = Yup.object().shape({
         login: Yup.string().required(
-            "Ooops. Parece que você não digitou seu usuário"
+            "Ooops. Parece que você não digitou sua matrícula!"
         ),
         password: Yup.string().required(
-            "Ooops. Parece que você não digitou sua senha"
+            "Ooops. Parece que você não digitou sua senha!"
         ),
     });
 
@@ -62,15 +63,22 @@ export default function Login() {
                 >
                     {({ values, errors, touched }) => (
                         <Form>
-                            <h1 className="text-xl font-bold text-dark-100 mb-5">
-                                Entrar no IFSolve
-                            </h1>
+                            <div className="flex mb-5">
+                                <h1 className="text-xl font-bold text-dark-100">
+                                    Entrar no IFSolve via{" "}
+                                </h1>
+                                <img
+                                    className="pl-2 h-9"
+                                    src={logoSuap}
+                                    alt="Logo do suap IFRN"
+                                />
+                            </div>
 
                             <div className="mb-5">
-                                <FormLabel label="Email ou usuário" />
+                                <FormLabel label="Matrícula" />
                                 <FormControl
                                     name="login"
-                                    placeholder="Digite seu usuário"
+                                    placeholder="Digite sua matrícula"
                                 />
                                 {errors.login && touched.login ? (
                                     <Alert>{errors.login}</Alert>
@@ -100,7 +108,6 @@ export default function Login() {
                                             )}
                                         </button>
                                     ) : null}
-
                                 </div>
                                 {errors.password && touched.password ? (
                                     <Alert>{errors.password}</Alert>

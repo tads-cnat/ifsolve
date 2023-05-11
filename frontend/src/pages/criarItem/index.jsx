@@ -48,6 +48,7 @@ export default function CriarItem() {
         validationSchema: Yup.object({
             titulo: Yup.string().required("Título é um campo obrigatório."),
             assunto: Yup.string().required("Assunto é um campo obrigatório."),
+            area: Yup.string().required("Área é um campo obrigatório."),
             expectativa_resposta: Yup.string().when("tipo", {
                 is: "DI",
                 then: Yup.string().required(

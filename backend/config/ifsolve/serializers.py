@@ -263,11 +263,11 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
         data_inicio = AvaliacaoSerializer.__getitem__(
             self, "data_inicio").value
         if (data_inicio != None):
-            avaliacao.data_inicio = data_inicio
+            avaliacao.data_inicio = datetime.strptime(data_inicio, '%d/%m/%Y %H:%M:%S')
 
         data_fim = AvaliacaoSerializer.__getitem__(self, "data_fim").value
         if (data_fim != None):
-            avaliacao.data_fim = data_fim
+            avaliacao.data_fim = datetime.strptime(data_fim, '%d/%m/%Y %H:%M:%S')
 
         id_alunos = AvaliacaoSerializer.__getitem__(self, "alunos").value
         if (id_alunos != None):
@@ -302,8 +302,8 @@ class RespostaItemSerializer(serializers.ModelSerializer):
                 id=RespostaItemSerializer.__getitem__(self, "aluno").value),
             resposta=RespostaItemSerializer.__getitem__(
                 self, "resposta").value,
-            data_hora=RespostaItemSerializer.__getitem__(
-                self, "data_hora").value
+            data_hora=datetime.strptime(RespostaItemSerializer.__getitem__(
+                self, "data_hora").value, '%d/%m/%Y %H:%M:%S')
         )
 
         item = Item.objects.get(
