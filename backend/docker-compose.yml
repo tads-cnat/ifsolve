@@ -1,19 +1,25 @@
 version: "3.9"
-   
+
 services:
   postgresql:
     image: postgres
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/data/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=ifsolve
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5433:5432"
-    
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   web:
-    working_dir: /code/config
+    working_dir: /code/config/
+    # image: diogoodiego/ifsolve
     build: .
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     networks:
@@ -24,7 +30,8 @@ services:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    volumes:
-      - .:/code
     depends_on:
-      - postgresql
+      postgresql:
+        condition: service_healthy
+volumes:
+  postgres_data:
