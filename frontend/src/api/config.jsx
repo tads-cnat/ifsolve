@@ -2,7 +2,7 @@ import axios from "axios";
 
 /* jscpd:ignore-start */
 export const api = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 export function loginApi(data) {
@@ -65,95 +65,87 @@ export function AlunoRegister(data) {
 export function PostItemDI(data) {
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
-    return api
-        .post(
-            "item/criar/",
-            {
-                titulo: data.titulo,
-                texto_base: "",
-                tipo: data.tipo,
-                assunto: data.assunto,
-                tags: data.tags,
-                expectativa_resposta: data.expectativa_resposta,
-                elaborador: user.id,
-                enunciado: data.enunciado,
-                area: data.area,
-                visibilidade: "PU",
-                data_publicacao: new Date().toJSON(),
+    return api.post(
+        "item/criar/",
+        {
+            titulo: data.titulo,
+            texto_base: "",
+            tipo: data.tipo,
+            assunto: data.assunto,
+            tags: data.tags,
+            expectativa_resposta: data.expectativa_resposta,
+            elaborador: user.id,
+            enunciado: data.enunciado,
+            area: data.area,
+            visibilidade: "PU",
+            data_publicacao: new Date().toJSON(),
+        },
+        {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("ifsolve_token")}`,
             },
-            {
-                headers: {
-                    Authorization: `Token ${localStorage.getItem(
-                        "ifsolve_token"
-                    )}`,
-                },
-            }
-        )
+        }
+    );
 }
 
 export function PostItemME(data) {
     const user = JSON.parse(localStorage.getItem("ifsolve_user"));
 
-    return api
-        .post(
-            "item/criar/",
-            {
-                titulo: data.titulo,
-                texto_base: "",
-                tipo: data.tipo,
-                assunto: data.assunto,
-                tags: data.tags,
-                alternativa_correta: data.alternativa_correta,
-                elaborador: user.id,
-                enunciado: data.enunciado,
-                area: data.area,
-                visibilidade: "PU",
-                data_publicacao: new Date().toJSON(),
-                alternativa_a: {
-                    texto: data.alternativas[0].texto,
-                    justificativa: data.alternativas[0].justificativa,
-                },
-                alternativa_b: {
-                    texto: data.alternativas[1].texto,
-                    justificativa: data.alternativas[1].justificativa,
-                },
-                alternativa_c: {
-                    texto: data.alternativas[2]
-                        ? data.alternativas[2].texto
-                        : " ",
-                    justificativa: data.alternativas[2]
-                        ? data.alternativas[2].justificativa
-                        : " ",
-                },
-                alternativa_d: {
-                    texto:
-                        data.alternativas[3] === undefined
-                            ? " "
-                            : data.alternativas[3].texto,
-                    justificativa:
-                        data.alternativas[3] === undefined
-                            ? " "
-                            : data.alternativas[3].justificativa,
-                },
-                alternativa_e: {
-                    texto:
-                        data.alternativas[4] === undefined
-                            ? " "
-                            : data.alternativas[4].texto,
-                    justificativa:
-                        data.alternativas[4] === undefined
-                            ? " "
-                            : data.alternativas[4].justificativa,
-                },
+    return api.post(
+        "item/criar/",
+        {
+            titulo: data.titulo,
+            texto_base: "",
+            tipo: data.tipo,
+            assunto: data.assunto,
+            tags: data.tags,
+            alternativa_correta: data.alternativa_correta,
+            elaborador: user.id,
+            enunciado: data.enunciado,
+            area: data.area,
+            visibilidade: "PU",
+            data_publicacao: new Date().toJSON(),
+            alternativa_a: {
+                texto: data.alternativas[0].texto,
+                justificativa: data.alternativas[0].justificativa,
             },
-            {
-                headers: {
-                    Authorization: `Token ${localStorage.getItem(
-                        "ifsolve_token"
-                    )}`,
-                },
-            }
-        )
+            alternativa_b: {
+                texto: data.alternativas[1].texto,
+                justificativa: data.alternativas[1].justificativa,
+            },
+            alternativa_c: {
+                texto: data.alternativas[2] ? data.alternativas[2].texto : " ",
+                justificativa: data.alternativas[2]
+                    ? data.alternativas[2].justificativa
+                    : " ",
+            },
+            alternativa_d: {
+                texto:
+                    data.alternativas[3] === undefined
+                        ? " "
+                        : data.alternativas[3].texto,
+                justificativa:
+                    data.alternativas[3] === undefined
+                        ? " "
+                        : data.alternativas[3].justificativa,
+            },
+            alternativa_e: {
+                texto:
+                    data.alternativas[4] === undefined
+                        ? " "
+                        : data.alternativas[4].texto,
+                justificativa:
+                    data.alternativas[4] === undefined
+                        ? " "
+                        : data.alternativas[4].justificativa,
+            },
+        },
+        {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("ifsolve_token")}`,
+            },
+        }
+    );
 }
 
 export function GetItemsPU(setItens, setListItens) {
