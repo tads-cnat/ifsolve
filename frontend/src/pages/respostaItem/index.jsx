@@ -60,6 +60,7 @@ export default function RespostaItem() {
                         getItem.map((resp) => (
                             <div className="flex flex-row px-4 py-2 gap-2">
                                 <AlternativaCorreta
+                                    key={itemData.id}
                                     item={itemData}
                                     resp={resp}
                                 />
