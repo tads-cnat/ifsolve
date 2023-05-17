@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { GetItems, PostAvaliacao } from "../../api/config";
 import { AlunosInput } from "../../components";
+import { Alert } from "../criarItem";
 
 export default function CreateAvaliacao() {
     const [getAluno, setAluno] = useState([]);
@@ -138,7 +139,7 @@ export default function CreateAvaliacao() {
                                 }}
                             />
                             {formik.errors.titulo && formik.touched.titulo ? (
-                                <span>{formik.errors.titulo}</span>
+                                <Alert>{formik.errors.titulo}</Alert>
                             ) : null}
                         </div>
                     </label>
@@ -161,7 +162,7 @@ export default function CreateAvaliacao() {
                             />
                             {formik.errors.descricao &&
                             formik.touched.descricao ? (
-                                <span>{formik.errors.descricao}</span>
+                                <Alert>{formik.errors.descricao}</Alert>
                             ) : null}
                         </div>
                     </label>
@@ -187,7 +188,7 @@ export default function CreateAvaliacao() {
                                 />
                                 {formik.errors.data_inicio &&
                                 formik.touched.data_inicio ? (
-                                    <span>{formik.errors.data_inicio}</span>
+                                    <Alert>{formik.errors.data_inicio}</Alert>
                                 ) : null}
                             </div>
                         </label>
@@ -216,7 +217,7 @@ export default function CreateAvaliacao() {
                                 />
                                 {formik.errors.data_fim &&
                                 formik.touched.data_fim ? (
-                                    <span>{formik.errors.data_fim}</span>
+                                    <Alert>{formik.errors.data_fim}</Alert>
                                 ) : null}
                             </div>
                         </label>
