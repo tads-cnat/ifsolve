@@ -1,8 +1,9 @@
 import axios from "axios";
 
 /* jscpd:ignore-start */
+
 export const api = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 export function loginApi(data) {
