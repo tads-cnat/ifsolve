@@ -8,4 +8,4 @@ services:
     volumes:
       - .:/ifsolve
     environment:
-      - BACK="http://104.211.3.246:8000/"
+      - VITE_API_URL=http://20.232.179.6:8000/
