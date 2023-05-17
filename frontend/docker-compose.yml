@@ -1,12 +1,11 @@
 version: "3"
 
 services:
-  app:
-    build: .
+  ifsolve:
+    image: israelkleber/ifsolve_front-end
     ports:
       - "5173:5173"
     volumes:
       - .:/ifsolve
-    command: ["npm","run","dev"]
     environment:
-      - NODE_ENV=development
+      - VITE_API_URL=http://20.232.179.6:8000/

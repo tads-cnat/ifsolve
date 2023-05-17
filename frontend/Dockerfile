@@ -8,7 +8,7 @@ WORKDIR /ifsolve_front
 COPY . .
 
 # Define a porta do container
-EXPOSE 3000
+EXPOSE 5173
 
 # Instala as dependências do projeto
 RUN yarn install
@@ -17,4 +17,4 @@ RUN yarn install
 RUN npm run build
 
 # Comando para iniciar o servidor de desenvolvimento
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 /* jscpd:ignore-start */
+
 export const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
 });
