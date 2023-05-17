@@ -1,12 +1,11 @@
 version: "3"
 
 services:
-  app:
-    build: .
+  ifsolve:
+    image: israelkleber/ifsolve_front-end
     ports:
       - "5173:5173"
     volumes:
       - .:/ifsolve
-    command: ["npm","run","dev"]
     environment:
-      - NODE_ENV=development
+      - BACK="http://104.211.3.246:8000/"
