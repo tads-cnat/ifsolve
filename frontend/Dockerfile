@@ -13,8 +13,5 @@ EXPOSE 5173
 # Instala as dependências do projeto
 RUN yarn install --ignore-scripts
 
-# Comando para converter todos arquivos em linguagem de máquina
-RUN npm run build
-
 # Comando para iniciar o servidor de desenvolvimento
 CMD ["yarn", "dev"]
