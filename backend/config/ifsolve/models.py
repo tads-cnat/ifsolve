@@ -70,6 +70,16 @@ class CustomArea(models.Model):
         if isinstance(other, self.__class__):
             return self.nome == other.nome and self.codigo == other.codigo
         return NotImplemented
+    
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome < other.nome
+        return NotImplemented
+
+    def __gt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome > other.nome
+        return NotImplemented
 
 
 class Area(CustomArea):
