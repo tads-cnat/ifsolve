@@ -52,7 +52,17 @@ class Tag(CustomTag):
         return self.nome
 
 
-class Area(models.Model):
+class CustomArea(models.Model):
+    class Meta:
+        abstract = True
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome == other.nome and self.codigo == other.codigo
+        return super().__eq__(other)
+
+
+class Area(CustomArea):
     codigo = models.CharField("Código", max_length=50)
     nome = models.CharField(max_length=200)
     descricao = models.TextField("Descrição")
