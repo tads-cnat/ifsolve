@@ -1,21 +1,21 @@
 // React Quill
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 // Other imports
-import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from "react-icons/fi";
-import { toast, Toaster } from "react-hot-toast";
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { FieldArray, useFormik, FormikProvider } from "formik";
-import * as Yup from "yup";
-import { PostItemDI, PostItemME, GetAreas } from "../../api/config";
-import { TagInput } from "../../components";
+import { FiAlertCircle, FiArrowLeft, FiPlus, FiTrash } from 'react-icons/fi';
+import { toast, Toaster } from 'react-hot-toast';
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { FieldArray, useFormik, FormikProvider } from 'formik';
+import * as Yup from 'yup';
+import { PostItemDI, PostItemME, GetAreas } from '../../api/config';
+import { TagInput } from '../../components';
 
 export default function CriarItem() {
     const navigate = useNavigate();
     const [getTags, setTags] = useState([]);
-    const [quillValue, setQuillValue] = useState("");
+    const [quillValue, setQuillValue] = useState('');
     const [getAreas, setAreas] = useState();
     // const [getSelectedArea, setSelectedArea] = useState(1);
 
@@ -27,62 +27,54 @@ export default function CriarItem() {
 
     const formik = useFormik({
         initialValues: {
-            titulo: "",
-            enunciado: "",
-            assunto: "",
-            area: "",
-            tipo: "ME",
-            expectativa_resposta: "",
-            alternativa_correta: "a",
+            titulo: '',
+            enunciado: '',
+            assunto: '',
+            area: '',
+            tipo: 'ME',
+            expectativa_resposta: '',
+            alternativa_correta: 'a',
             alternativas: [
                 {
-                    texto: "",
-                    justificativa: "",
+                    texto: '',
+                    justificativa: '',
                 },
                 {
-                    texto: "",
-                    justificativa: "",
+                    texto: '',
+                    justificativa: '',
                 },
             ],
         },
         validationSchema: Yup.object({
-            titulo: Yup.string().required("Título é um campo obrigatório."),
-            assunto: Yup.string().required("Assunto é um campo obrigatório."),
-            area: Yup.string().required("Área é um campo obrigatório."),
-            expectativa_resposta: Yup.string().when("tipo", {
-                is: "DI",
-                then: Yup.string().required(
-                    "É obrigatório cadastar uma resposta."
-                ),
+            titulo: Yup.string().required('Título é um campo obrigatório.'),
+            assunto: Yup.string().required('Assunto é um campo obrigatório.'),
+            area: Yup.string().required('Área é um campo obrigatório.'),
+            expectativa_resposta: Yup.string().when('tipo', {
+                is: 'DI',
+                then: Yup.string().required('É obrigatório cadastar uma resposta.'),
             }),
         }),
         onSubmit: (data) => {
             const datum = data;
             datum.tags = getTags;
             datum.enunciado = quillValue;
-            if (datum.tipo === "ME") {
+            if (datum.tipo === 'ME') {
                 PostItemME(datum)
                     .then(() => {
-                        navigate("/item");
-                        localStorage.setItem(
-                            "ifsolve_success_alert",
-                            "Item criado com sucesso."
-                        );
+                        navigate('/item');
+                        localStorage.setItem('ifsolve_success_alert', 'Item criado com sucesso.');
                     })
                     .catch(() => {
-                        toast.error("Opss...Erro ao cadastrar o item.");
+                        toast.error('Opss...Erro ao cadastrar o item.');
                     });
             } else {
                 PostItemDI(datum)
                     .then(() => {
-                        navigate("/item");
-                        localStorage.setItem(
-                            "ifsolve_success_alert",
-                            "Item criado com sucesso."
-                        );
+                        navigate('/item');
+                        localStorage.setItem('ifsolve_success_alert', 'Item criado com sucesso.');
                     })
                     .catch(() => {
-                        toast.error("Opss...Erro ao cadastrar o item.");
+                        toast.error('Opss...Erro ao cadastrar o item.');
                     });
             }
         },
@@ -94,7 +86,7 @@ export default function CriarItem() {
                 <form
                     onSubmit={formik.handleSubmit}
                     className="container flex flex-col py-8 gap-8"
-                    style={{ maxWidth: "720px" }}
+                    style={{ maxWidth: '720px' }}
                 >
                     {/* Header */}
                     <div className="flex gap-4 items-center py-4">
@@ -105,9 +97,7 @@ export default function CriarItem() {
                         >
                             <FiArrowLeft />
                         </button>
-                        <h2 className="text-2xl font-medium text-dark-100">
-                            Nova questão
-                        </h2>
+                        <h2 className="text-2xl font-medium text-dark-100">Nova questão</h2>
                     </div>
                     {/* Header */}
 
@@ -126,8 +116,7 @@ export default function CriarItem() {
                                     className="px-6 py-4 bg-dark-5 rounded-lg"
                                     placeholder="Digite o titulo da questão"
                                 />
-                                {formik.errors.titulo &&
-                                formik.touched.titulo ? (
+                                {formik.errors.titulo && formik.touched.titulo ? (
                                     <Alert>{formik.errors.titulo}</Alert>
                                 ) : null}
                             </div>
@@ -143,8 +132,7 @@ export default function CriarItem() {
                                     value={quillValue}
                                     onChange={setQuillValue}
                                 />
-                                {formik.errors.enunciado &&
-                                formik.touched.enunciado ? (
+                                {formik.errors.enunciado && formik.touched.enunciado ? (
                                     <Alert>{formik.errors.enunciado}</Alert>
                                 ) : null}
                             </div>
@@ -163,22 +151,16 @@ export default function CriarItem() {
                                         onBlur={formik.handleBlur}
                                         onChange={formik.handleChange}
                                     >
-                                        <option value="">
-                                            Seleciona uma área
-                                        </option>
+                                        <option value="">Seleciona uma área</option>
                                         {getAreas !== undefined
                                             ? getAreas.map((item) => (
-                                                  <option
-                                                      key={item.id}
-                                                      value={item.id}
-                                                  >
+                                                  <option key={item.id} value={item.id}>
                                                       {item.nome}
                                                   </option>
                                               ))
                                             : null}
                                     </select>
-                                    {formik.errors.area &&
-                                    formik.touched.area ? (
+                                    {formik.errors.area && formik.touched.area ? (
                                         <Alert>{formik.errors.area}</Alert>
                                     ) : null}
                                 </div>
@@ -197,12 +179,9 @@ export default function CriarItem() {
                                         onChange={formik.handleChange}
                                     >
                                         <option value="DI">Discursiva</option>
-                                        <option value="ME">
-                                            Multipla escolha
-                                        </option>
+                                        <option value="ME">Multipla escolha</option>
                                     </select>
-                                    {formik.errors.tipo &&
-                                    formik.touched.tipo ? (
+                                    {formik.errors.tipo && formik.touched.tipo ? (
                                         <Alert>{formik.errors.tipo}</Alert>
                                     ) : null}
                                 </div>
@@ -223,8 +202,7 @@ export default function CriarItem() {
                                     onBlur={formik.handleBlur}
                                     onChange={formik.handleChange}
                                 />
-                                {formik.errors.assunto &&
-                                formik.touched.assunto ? (
+                                {formik.errors.assunto && formik.touched.assunto ? (
                                     <Alert>{formik.errors.assunto}</Alert>
                                 ) : null}
                             </div>
@@ -236,89 +214,70 @@ export default function CriarItem() {
                         </div>
                     </div>
 
-                    {formik.values.tipo === "ME" ? (
+                    {formik.values.tipo === 'ME' ? (
                         <FieldArray
                             name="alternativas"
                             render={(arrayHelpers) => (
                                 <>
-                                    {formik.values.alternativas.map(
-                                        (alternativa, i) => (
-                                            <div
-                                                key={alternativa.id}
-                                                className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 relative"
-                                            >
-                                                <div className="flex flex-col gap-2">
-                                                    <h2 className="text-lg text-dark-80 font-medium">
-                                                        Alternativa{" "}
-                                                        {(i + 10).toString(36)}
-                                                    </h2>
-                                                    <label
-                                                        htmlFor="texto"
-                                                        className="flex flex-col gap-2"
-                                                    >
-                                                        Texto
-                                                        <input
-                                                            name={`alternativas[${i}].texto`}
-                                                            className="px-6 py-4 bg-dark-5 rounded-lg"
-                                                            placeholder="Digite o texto da alternativa"
-                                                            value={
-                                                                formik.values
-                                                                    .alternativas[
-                                                                    i
-                                                                ].texto
-                                                            }
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                        />
-                                                    </label>
+                                    {formik.values.alternativas.map((alternativa, i) => (
+                                        <div
+                                            key={alternativa.id}
+                                            className="w-full flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 relative"
+                                        >
+                                            <div className="flex flex-col gap-2">
+                                                <h2 className="text-lg text-dark-80 font-medium">
+                                                    Alternativa {(i + 10).toString(36)}
+                                                </h2>
+                                                <label
+                                                    htmlFor="texto"
+                                                    className="flex flex-col gap-2"
+                                                >
+                                                    Texto
+                                                    <input
+                                                        name={`alternativas[${i}].texto`}
+                                                        className="px-6 py-4 bg-dark-5 rounded-lg"
+                                                        placeholder="Digite o texto da alternativa"
+                                                        value={formik.values.alternativas[i].texto}
+                                                        onChange={formik.handleChange}
+                                                    />
+                                                </label>
 
-                                                    <label
-                                                        htmlFor="justificativa"
-                                                        className="flex flex-col gap-2"
-                                                    >
-                                                        Justificativa
-                                                        <input
-                                                            name={`alternativas.${i}.justificativa`}
-                                                            className="px-6 py-4 bg-dark-5 rounded-lg"
-                                                            placeholder="Digite a justificativa da alternativa"
-                                                            value={
-                                                                formik.values
-                                                                    .alternativas[
-                                                                    i
-                                                                ].justificativa
-                                                            }
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                        />
-                                                    </label>
-                                                </div>
-                                                {formik.values.alternativas
-                                                    .length > 2 ? (
-                                                    <button
-                                                        type="button"
-                                                        className="absolute top-0 left-full rounded-full p-2 border border-red-100 bg-red-100 -translate-y-1/2 -translate-x-1/2"
-                                                        onClick={() =>
-                                                            arrayHelpers.remove(
-                                                                i
-                                                            )
+                                                <label
+                                                    htmlFor="justificativa"
+                                                    className="flex flex-col gap-2"
+                                                >
+                                                    Justificativa
+                                                    <input
+                                                        name={`alternativas.${i}.justificativa`}
+                                                        className="px-6 py-4 bg-dark-5 rounded-lg"
+                                                        placeholder="Digite a justificativa da alternativa"
+                                                        value={
+                                                            formik.values.alternativas[i]
+                                                                .justificativa
                                                         }
-                                                    >
-                                                        <FiTrash />
-                                                    </button>
-                                                ) : null}
+                                                        onChange={formik.handleChange}
+                                                    />
+                                                </label>
                                             </div>
-                                        )
-                                    )}
+                                            {formik.values.alternativas.length > 2 ? (
+                                                <button
+                                                    type="button"
+                                                    className="absolute top-0 left-full rounded-full p-2 border border-red-100 bg-red-100 -translate-y-1/2 -translate-x-1/2"
+                                                    onClick={() => arrayHelpers.remove(i)}
+                                                >
+                                                    <FiTrash />
+                                                </button>
+                                            ) : null}
+                                        </div>
+                                    ))}
                                     {formik.values.alternativas.length < 5 ? (
                                         <button
                                             type="button"
                                             className="flex flex-row items-center justify-center gap-2 px-4 py-2 border-2 border-dashed border-dark-20 rounded-lg text-sm text-dark-80 font-medium hover:bg-dark-10"
                                             onClick={() =>
                                                 arrayHelpers.push({
-                                                    texto: "",
-                                                    justificativa: "",
+                                                    texto: '',
+                                                    justificativa: '',
                                                 })
                                             }
                                         >
@@ -333,35 +292,22 @@ export default function CriarItem() {
                                         <select
                                             className="px-6 py-4 bg-dark-5 rounded-lg"
                                             name="alternativa_correta"
-                                            value={
-                                                formik.values
-                                                    .alternativa_correta
-                                            }
+                                            value={formik.values.alternativa_correta}
                                             onBlur={formik.handleBlur}
                                             onChange={formik.handleChange}
                                         >
-                                            {formik.values.alternativas.map(
-                                                (alternativa, i) => (
-                                                    <option
-                                                        key={alternativa.id}
-                                                        value={(
-                                                            i + 10
-                                                        ).toString(36)}
-                                                    >
-                                                        Alternativa
-                                                        {(i + 10).toString(36)}
-                                                    </option>
-                                                )
-                                            )}
+                                            {formik.values.alternativas.map((alternativa, i) => (
+                                                <option
+                                                    key={alternativa.id}
+                                                    value={(i + 10).toString(36)}
+                                                >
+                                                    Alternativa {(i + 10).toString(36)}
+                                                </option>
+                                            ))}
                                         </select>
                                         {formik.errors.alternativa_correta &&
                                         formik.touched.alternativa_correta ? (
-                                            <Alert>
-                                                {
-                                                    formik.errors
-                                                        .alternativa_correta
-                                                }
-                                            </Alert>
+                                            <Alert>{formik.errors.alternativa_correta}</Alert>
                                         ) : null}
                                     </div>
                                 </>
@@ -382,9 +328,7 @@ export default function CriarItem() {
                                 />
                                 {formik.errors.expectativa_resposta &&
                                 formik.touched.expectativa_resposta ? (
-                                    <Alert>
-                                        {formik.errors.expectativa_resposta}
-                                    </Alert>
+                                    <Alert>{formik.errors.expectativa_resposta}</Alert>
                                 ) : null}
                             </div>
                         </label>
