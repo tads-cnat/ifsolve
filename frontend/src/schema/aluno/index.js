@@ -18,4 +18,18 @@ export default class Aluno {
             this.email === otherAluno.email
         );
     }
+
+    compareTo(otherAluno) {
+        if (!(otherAluno instanceof Aluno)) {
+            return false;
+        }
+
+        if (this.matricula < otherAluno.matricula) {
+            return -1;
+        } else if (this.matricula > otherAluno.matricula) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
