@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ifsolve.models import Tag, Area
+from ifsolve.models import Tag
 
 
 class TagTestCase(TestCase):
@@ -9,43 +9,12 @@ class TagTestCase(TestCase):
         tag2 = Tag(nome="Logaritmo")
         self.assertEqual(tag1, tag2)
 
-class AreaTestCase(TestCase):
+    def test_tag_menor_que_outra(self):
+        tag1 = Tag(nome="Logaritmo")
+        tag2 = Tag(nome="Algoritmo")
+        self.assertLess(tag1, tag2)
 
-    def test_area_com_nomes_e_codigos_iguais(self):
-        area1 = Area(
-            codigo="AR01",
-            nome="Matemática",
-            descricao="A matemática é uma área do conhecimento que lida com números, formas, quantidades e padrões."
-            )
-        area2 = Area(
-            codigo="AR01",
-            nome="Matemática",
-            descricao="O português é uma língua falada por milhões de pessoas ao redor do mundo. É uma língua românica, derivada do latim, assim como o espanhol, o francês e o italiano. "
-            )
-        self.assertEqual(area1, area2)
-
-    def test_area_com_nomes_iguais_e_codigos_diferentes(self):
-        area1 = Area(
-            codigo="AR01",
-            nome="Matemática",
-            descricao="A matemática é uma área do conhecimento que lida com números, formas, quantidades e padrões."
-            )
-        area2 = Area(
-            codigo="AR02",
-            nome="Matemática",
-            descricao="O português é uma língua falada por milhões de pessoas ao redor do mundo. É uma língua românica, derivada do latim, assim como o espanhol, o francês e o italiano. "
-            )
-        self.assertEqual(area1, area2)
-
-    def test_area_com_nomes_diferentes_e_codigos_iguais(self):
-        area1 = Area(
-            codigo="AR01",
-            nome="Matemática",
-            descricao="A matemática é uma área do conhecimento que lida com números, formas, quantidades e padrões."
-            )
-        area2 = Area(
-            codigo="AR01",
-            nome="Português",
-            descricao="O português é uma língua falada por milhões de pessoas ao redor do mundo. É uma língua românica, derivada do latim, assim como o espanhol, o francês e o italiano. "
-            )
-        self.assertEqual(area1, area2)
+    def test_tag_maior_que_outra(self):
+        tag1 = Tag(nome="Algoritmo")
+        tag2 = Tag(nome="Logaritmo")
+        self.assertGreater(tag1, tag2)
