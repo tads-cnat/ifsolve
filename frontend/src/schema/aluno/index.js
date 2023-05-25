@@ -1,6 +1,5 @@
 export default class Aluno {
-    constructor(id, matricula, nome, email) {
-        this.id = id;
+    constructor(matricula, nome, email) {
         this.matricula = matricula;
         this.nome = nome;
         this.email = email;
@@ -12,7 +11,6 @@ export default class Aluno {
         }
 
         return (
-            this.id === otherAluno.id &&
             this.matricula === otherAluno.matricula &&
             this.nome === otherAluno.nome &&
             this.email === otherAluno.email
