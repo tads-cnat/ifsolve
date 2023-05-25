@@ -42,7 +42,17 @@ class CustomTag(models.Model):
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.nome == other.nome
-        return super().__eq__(other)
+        return NotImplemented
+
+    def __lt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome < other.nome
+        return NotImplemented
+
+    def __gt__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome > other.nome
+        return NotImplemented
 
 
 class Tag(CustomTag):
@@ -59,7 +69,7 @@ class CustomArea(models.Model):
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.nome == other.nome and self.codigo == other.codigo
-        return super().__eq__(other)
+        return NotImplemented
 
 
 class Area(CustomArea):
