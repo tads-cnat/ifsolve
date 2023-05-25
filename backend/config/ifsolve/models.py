@@ -33,8 +33,19 @@ class Alternativa(models.Model):
 
     def __str__(self):
         return (self.texto if self.texto else '----')
- 
-class Tag(models.Model):
+
+
+class CustomTag(models.Model):
+    class Meta:
+        abstract = True
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.nome == other.nome
+        return super().__eq__(other)
+
+
+class Tag(CustomTag):
     nome = models.CharField(max_length=100)
 
     def __str__(self):
