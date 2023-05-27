@@ -32,6 +32,7 @@
     },
     "ignorePatterns": [
         "**/*.png",
+        "**/*.svg",
         "*.css"
     ]
 }

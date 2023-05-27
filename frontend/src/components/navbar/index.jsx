@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
-import { FaUserAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { FiChevronDown, FiLogOut, FiSearch } from "react-icons/fi";
-import { Logout } from "../../api/config";
+import { useState, useContext } from 'react';
+import { FaUserAlt } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FiChevronDown, FiLogOut, FiSearch } from 'react-icons/fi';
+import { Logout } from '../../api/config';
 
-import { GlobalContext } from "../../providers/context";
+import { GlobalContext } from '../../providers/context';
 
 export default function Navbar() {
     const { getUser } = useContext(GlobalContext);
@@ -14,12 +14,12 @@ export default function Navbar() {
     function HandleLogout(e) {
         e.preventDefault();
         Logout().then(() => {
-            navigate("/");
+            navigate('/');
         });
     }
 
     return (
-        <div className="w-full flex flex-row justify-between px-8 py-2 border-b border-dark-20">
+        <div className="w-full hidden md:flex flex-row justify-between px-8 py-2 border-b border-dark-20">
             <div className="flex flex-row items-center relative">
                 <FiSearch className="absolute left-2" />
                 <input
@@ -34,7 +34,7 @@ export default function Navbar() {
                 className="flex relative items-center gap-2 hover:bg-dark-5 px-4 py-2 rounded-lg cursor-pointer focus:outline-none"
                 onClick={() => setOverlay(true)}
                 onKeyDown={(e) => {
-                    if (e.key === "Enter") {
+                    if (e.key === 'Enter') {
                         setOverlay(true);
                     }
                 }}
@@ -49,20 +49,16 @@ export default function Navbar() {
                     <span className="text-sm font-medium text-dark-100 capitalize">
                         {getUser.extra_data.nome_completo}
                     </span>
-                    <span className="text-sm text-dark-60">
-                        {getUser.email}
-                    </span>
+                    <span className="text-sm text-dark-60">{getUser.email}</span>
                 </div>
                 <FiChevronDown
-                    className={`transition duration-300 ${
-                        getOverlay ? "rotate-180" : null
-                    }`}
+                    className={`transition duration-300 ${getOverlay ? 'rotate-180' : null}`}
                 />
                 <ul
                     id="menu"
                     role="menu"
                     className={`absolute translate-y-full z-10 bottom-0 w-full bg-white drop-shadow rounded-lg py-2 transition duration-300 ${
-                        getOverlay ? "" : "hidden h-0"
+                        getOverlay ? '' : 'hidden h-0'
                     }`}
                     aria-hidden={!getOverlay}
                 >
@@ -70,7 +66,7 @@ export default function Navbar() {
                         role="menuitem"
                         onClick={(e) => HandleLogout(e)}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
+                            if (e.key === 'Enter' || e.key === ' ') {
                                 HandleLogout(e);
                             }
                         }}

@@ -22,6 +22,7 @@ import FormInput from './formInput';
 import FormAlert from './formAlert';
 import FormRadio from './formRadio';
 import SidebarMobile from './sidebar/mobile';
+import SidebarItem2 from './sidebar/sidebarItem';
 
 export {
     Sidebar,
@@ -48,4 +49,5 @@ export {
     FormAlert,
     FormRadio,
     SidebarMobile,
+    SidebarItem2,
 };

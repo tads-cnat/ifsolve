@@ -1,13 +1,10 @@
 import { FiHome, FiList, FiSettings } from 'react-icons/fi';
 import SidebarItem from '../sidebarItem';
-import IFSolvelogo from '../../images/IFSolve-logo.svg';
+import IFSolvelogo from '../../../images/IFSolve-logo.svg';
 
 export default function Sidebar() {
     return (
-        <div
-            id="Sidebar"
-            className="flex flex-col bg-white basis-2/12 h-screen px-4 pt-5 pt-5 pb-8"
-        >
+        <div id="Sidebar" className="flex flex-col bg-white basis-2/12 h-screen px-4 pt-5 pb-8">
             <img className="h-6 mb-10" src={IFSolvelogo} alt="" />
             <div className="flex flex-col gap-4">
                 <SidebarItem
