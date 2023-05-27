@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 
-import Navbar from "../navbar"
-import Sidebar from "../sidebar"
+import Navbar from '../navbar';
+import Sidebar from '../sidebar';
+import SidebarMobile from '../sidebar/mobile';
 
 export default function SidebarLayout({ children }) {
     return (
@@ -9,12 +10,11 @@ export default function SidebarLayout({ children }) {
             <Sidebar />
             <div className="w-full h-screen overflow-y-scroll box-content">
                 <Navbar />
-                <div className="px-8">
-                    {children}
-                </div>
+                <SidebarMobile>SidebarMobile</SidebarMobile>
+                <div className="px-8">{children}</div>
             </div>
         </div>
-    )
+    );
 }
 
 SidebarLayout.propTypes = {

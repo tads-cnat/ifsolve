@@ -6,7 +6,7 @@ export default function Sidebar() {
     return (
         <div
             id="Sidebar"
-            className="hidden md:flex flex-col bg-white basis-2/12 h-screen px-4 pt-5 pt-5 pb-8"
+            className="flex flex-col bg-white basis-2/12 h-screen px-4 pt-5 pt-5 pb-8"
         >
             <img className="h-6 mb-10" src={IFSolvelogo} alt="" />
             <div className="flex flex-col gap-4">
