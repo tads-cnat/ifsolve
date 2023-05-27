@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { GlobalContext } from '../../../providers/context';
 
-export default function SidebarItem2({ icon, label, itemKey, link, onClick }) {
+export default function SidebarItemMobile({ icon, label, itemKey, link, onClick }) {
     const { getCurrentPage } = useContext(GlobalContext);
 
     return (
@@ -26,7 +26,7 @@ export default function SidebarItem2({ icon, label, itemKey, link, onClick }) {
     );
 }
 
-SidebarItem2.propTypes = {
+SidebarItemMobile.propTypes = {
     icon: PropTypes.element.isRequired,
     label: PropTypes.string.isRequired,
     itemKey: PropTypes.string.isRequired,
@@ -34,7 +34,7 @@ SidebarItem2.propTypes = {
     onClick: PropTypes.func,
 };
 
-SidebarItem2.defaultProps = {
+SidebarItemMobile.defaultProps = {
     link: '',
     onClick: null,
 };

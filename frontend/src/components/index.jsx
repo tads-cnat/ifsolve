@@ -1,5 +1,7 @@
-import Sidebar from './sidebar';
-import SidebarItem from './sidebarItem';
+import SidebarDefault from './sidebar/default';
+import SidebarItemDefault from './sidebarItem/default';
+import SidebarMobile from './sidebar/mobile';
+import SidebarItemMobile from './sidebarItem/mobile';
 import CardItem from './cardItem';
 import SidebarLayout from './sidebarLayout';
 import TagInput from './tagInput';
@@ -21,12 +23,10 @@ import FormArea from './formArea';
 import FormInput from './formInput';
 import FormAlert from './formAlert';
 import FormRadio from './formRadio';
-import SidebarMobile from './sidebar/mobile';
-import SidebarItem2 from './sidebar/sidebarItem';
 
 export {
-    Sidebar,
-    SidebarItem,
+    SidebarDefault,
+    SidebarItemDefault,
     CardItem,
     SidebarLayout,
     TagInput,
@@ -49,5 +49,5 @@ export {
     FormAlert,
     FormRadio,
     SidebarMobile,
-    SidebarItem2,
+    SidebarItemMobile,
 };
