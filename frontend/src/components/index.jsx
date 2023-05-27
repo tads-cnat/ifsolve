@@ -23,6 +23,7 @@ import FormArea from './formArea';
 import FormInput from './formInput';
 import FormAlert from './formAlert';
 import FormRadio from './formRadio';
+import itemCard from './cards/itemCard';
 
 export {
     SidebarDefault,
