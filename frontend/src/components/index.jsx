@@ -23,7 +23,8 @@ import FormArea from './formArea';
 import FormInput from './formInput';
 import FormAlert from './formAlert';
 import FormRadio from './formRadio';
-import itemCard from './cards/itemCard';
+import ItemCard from './cards/itemCard';
+import SearchInput from './input/searcInput';
 
 export {
     SidebarDefault,
@@ -51,4 +52,6 @@ export {
     FormRadio,
     SidebarMobile,
     SidebarItemMobile,
+    ItemCard,
+    SearchInput,
 };

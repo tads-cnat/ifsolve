@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { FiHome, FiList, FiUser } from 'react-icons/fi';
+import { FiHome, FiList, FiPlusSquare, FiUser } from 'react-icons/fi';
 import Navbar from '../navbar';
 import SidebarMobile from '../sidebar/mobile';
 import SidebarItemMobile from '../sidebarItem/mobile';
 import SidebarDefault from '../sidebar/default';
 import SidebarItemDefault from '../sidebarItem/default';
 
-export default function SidebarLayout({ children }) {
+export default function SidebarLayout({ children, className }) {
     return (
         <div className="w-full bg-dark-5 flex flex-row overflow-hidden">
             <SidebarDefault>
@@ -40,11 +40,12 @@ export default function SidebarLayout({ children }) {
                 />
                 <SidebarItemMobile label="Questões" icon={<FiList />} itemKey="questoes" link="/" />
                 <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
+                <SidebarItemMobile label="Elaborar" icon={<FiPlusSquare />} itemKey="elaborar" />
             </SidebarMobile>
 
             <div className="w-full h-screen overflow-y-scroll box-content">
                 <Navbar />
-                <div className="px-8">{children}</div>
+                <div className={`px-8 py-4 ${className}`}>{children}</div>
             </div>
         </div>
     );
@@ -52,4 +53,8 @@ export default function SidebarLayout({ children }) {
 
 SidebarLayout.propTypes = {
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+};
+SidebarLayout.defaultProps = {
+    className: '',
 };

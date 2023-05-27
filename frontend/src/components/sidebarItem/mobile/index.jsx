@@ -10,11 +10,11 @@ export default function SidebarItemMobile({ icon, label, itemKey, link, onClick 
         <Link
             to={link}
             onClick={onClick}
-            className={`flex w-full flex-col items-center ${
+            className={`flex w-full flex-col items-center gap-2 ${
                 getCurrentPage === itemKey ? 'text-dark-100 stroke-4' : 'text-dark-60 stroke-0'
             }`}
         >
-            {icon}
+            <span className="text-xl">{icon}</span>
             <span
                 className={`text-sm ${
                     getCurrentPage === itemKey ? 'text-dark-80 font-medium' : ''

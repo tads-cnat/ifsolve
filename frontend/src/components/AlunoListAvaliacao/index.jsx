@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { FiSearch } from "react-icons/fi";
-import { TbReportSearch } from "react-icons/tb";
-import { Link } from "react-router-dom";
-import { GetAvaliacoesAluno } from "../../api/config";
+import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { FiSearch } from 'react-icons/fi';
+import { TbReportSearch } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
+import { GetAvaliacoesAluno } from '../../api/config';
 
 export default function AlunoListAvalicao() {
-    const [getSearch, setSearch] = useState("");
+    const [getSearch, setSearch] = useState('');
     const [getData, setData] = useState();
 
     const filteredData =
-        getSearch.length > 0
-            ? getData.filter((data) => data.titulo.includes(getSearch))
-            : getData;
+        getSearch.length > 0 ? getData.filter((data) => data.titulo.includes(getSearch)) : getData;
 
     useEffect(() => {
         GetAvaliacoesAluno().then((res) => {
@@ -25,9 +23,7 @@ export default function AlunoListAvalicao() {
             <div className="flex justify-start items-center gap-2 flex-wrap">
                 {/* Titulo e subtitulo da página */}
                 <div className="mr-auto order-first">
-                    <h1 className="text-xl text-dark-100 font-bold">
-                        Avaliacões
-                    </h1>
+                    <h1 className="text-xl text-dark-100 font-bold">Avaliacões</h1>
                 </div>
                 {/* Titulo e subtitulo da página */}
 
@@ -62,12 +58,8 @@ export default function AlunoListAvalicao() {
                         <div className="text-8xl text-dark-80">
                             <TbReportSearch />
                         </div>
-                        <h2 className="text-2xl text-dark-80 font-medium">
-                            Oops!
-                        </h2>
-                        <p className="text-dark-80">
-                            Desculpe, nenhuma avaliacão foi encontrada.
-                        </p>
+                        <h2 className="text-2xl text-dark-80 font-medium">Oops!</h2>
+                        <p className="text-dark-80">Desculpe, nenhuma avaliacão foi encontrada.</p>
                     </div>
                 )}
             </div>
@@ -81,9 +73,7 @@ function CardAvalicao({ item }) {
             to={`/avaliacao/${item.id}/responder`}
             className="w-full bg-white p-6 rounded-lg hover:outline hover:outline-4 hover:outline-primary-80"
         >
-            <h2 className="text-lg text-dark-100 font-medium break-all">
-                {item.titulo}
-            </h2>
+            <h2 className="text-lg text-dark-100 font-medium break-all">{item.titulo}</h2>
             <p className="text-dark-80 break-all">{item.descricao}</p>
             <p>Termina em: {item.data_fim}</p>
         </Link>
