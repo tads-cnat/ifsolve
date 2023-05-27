@@ -18,13 +18,13 @@ export default function SidebarLayout({ children }) {
                 />
                 <SidebarItemDefault
                     label="Questões"
-                    icon={<FiUser />}
+                    icon={<FiList />}
                     itemKey="questoes"
                     link="/"
                 />
                 <SidebarItemDefault
                     label="Perfil"
-                    icon={<FiList />}
+                    icon={<FiUser />}
                     itemKey="settings"
                     link="/settings"
                     className="mt-auto"
