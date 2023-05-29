@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { FiHome, FiList, FiPlusSquare, FiUser } from 'react-icons/fi';
+import { FiHome, FiList, FiUser } from 'react-icons/fi';
 import Navbar from '../navbar';
 import SidebarMobile from '../sidebar/mobile';
 import SidebarItemMobile from '../sidebarItem/mobile';
@@ -40,7 +40,6 @@ export default function SidebarLayout({ children, className }) {
                 />
                 <SidebarItemMobile label="Questões" icon={<FiList />} itemKey="questoes" link="/" />
                 <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
-                <SidebarItemMobile label="Elaborar" icon={<FiPlusSquare />} itemKey="elaborar" />
             </SidebarMobile>
 
             <div className="w-full h-screen overflow-y-scroll box-content">

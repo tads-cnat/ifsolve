@@ -9,8 +9,8 @@ export default function SidebarItemDefault({ link, itemKey, icon, label, classNa
     return (
         <Link
             to={link}
-            className={`group flex flex-row items-center gap-3 px-5 py-2 rounded-md hover:bg-primary-100 transition duration-200 ${className} ${
-                getCurrentPage === itemKey ? 'bg-primary-80' : ''
+            className={`group flex flex-row items-center gap-3 px-5 py-2 rounded-md hover:bg-dark-5 transition duration-200 ${className} ${
+                getCurrentPage === itemKey ? 'bg-dark-10' : ''
             }`}
         >
             <div className="text-dark-100">{icon}</div>

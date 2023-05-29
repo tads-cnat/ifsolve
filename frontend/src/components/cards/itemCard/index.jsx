@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FiCheckSquare, FiAlignLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function ItemCard({ id, tipo, assunto, titulo, tags, date }) {
+export default function ItemCard({ id, tipo, assunto, titulo, tags }) {
     return (
         <Link
             to={`/item/${id}`}
@@ -15,7 +15,6 @@ export default function ItemCard({ id, tipo, assunto, titulo, tags, date }) {
             </div>
             <div className="flex flex-col gap-2">
                 <span className="text-sm text-dark-80">{assunto}</span>
-                <span className="text-sm text-dark-80">{date}</span>
                 <p className="text-lg font-medium">{titulo}</p>
                 <div className="flex flex-row gap-4">
                     {tags &&
@@ -40,7 +39,6 @@ ItemCard.propTypes = {
     tipo: PropTypes.string.isRequired,
     assunto: PropTypes.string.isRequired,
     titulo: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(
         PropTypes.shape({
             nome: PropTypes.string.isRequired,

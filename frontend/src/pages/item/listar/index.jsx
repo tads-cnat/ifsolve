@@ -35,14 +35,14 @@ export default function ItemListar() {
 
         const csortedItems = filteredItems.sort((a, b) => {
             const dateA = new Date(
-                a.data_publicacao.split(' ')[0].split('/').reverse().join('-') +
-                    'T' +
+                `${a.data_publicacao.split(' ')[0].split('/').reverse().join('-')}T${
                     a.data_publicacao.split(' ')[1]
+                }`
             );
             const dateB = new Date(
-                b.data_publicacao.split(' ')[0].split('/').reverse().join('-') +
-                    'T' +
+                `${b.data_publicacao.split(' ')[0].split('/').reverse().join('-')}T${
                     b.data_publicacao.split(' ')[1]
+                }`
             );
 
             if (sortOrder === 'asc') {
@@ -74,7 +74,7 @@ export default function ItemListar() {
                 </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {sortedItems.map((item) => (
                     <ItemCard
                         key={item.id}
@@ -83,7 +83,6 @@ export default function ItemListar() {
                         assunto={item.assunto}
                         titulo={item.titulo}
                         tags={item.tags}
-                        date={item.data_publicacao}
                     />
                 ))}
             </div>
