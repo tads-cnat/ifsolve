@@ -18,7 +18,15 @@ export default function AvalicacaoCard({ data }) {
             </div>
             <h4 className="text-lg font-medium text-dark-80">{titulo}</h4>
             <p className="text-dark-60">{descricao}</p>
-            <span> {CompareDateTime(data_fim)}</span>
+            <span>
+                {CompareDateTime(data_fim) >= 24 ? (
+                    `Data de entrega: ${data_fim}`
+                ) : (
+                    <span className="text-sm bg-red-100 text-red-600 px-2 py-1 rounded-lg">{`Restam ${CompareDateTime(
+                        data_fim
+                    )}`}</span>
+                )}
+            </span>
         </Link>
     );
 }

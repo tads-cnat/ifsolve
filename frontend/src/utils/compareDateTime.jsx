@@ -18,8 +18,9 @@ export default function CompareDateTime(dataHoraString) {
     const diferencaHoras = Math.floor(diferenca / (1000 * 60 * 60));
 
     // Retornar a diferença em dias ou horas, dependendo do valor
-    if (diferencaDias > 0) {
-        return `${diferencaDias} dias`;
-    }
-    return `${diferencaHoras} horas`;
+    // if (diferencaDias > 0) {
+    //     return `${diferencaDias} dias`;
+    // }
+    // return `${diferencaHoras} horas`;
+    return diferencaHoras;
 }
