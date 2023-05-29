@@ -24,6 +24,7 @@ import FormInput from './formInput';
 import FormAlert from './formAlert';
 import FormRadio from './formRadio';
 import ItemCard from './cards/itemCard';
+import AvalicacaoCard from './cards/avaliacaoCard';
 import SearchInput from './input/searcInput';
 
 export {
@@ -53,5 +54,6 @@ export {
     SidebarMobile,
     SidebarItemMobile,
     ItemCard,
+    AvalicacaoCard,
     SearchInput,
 };

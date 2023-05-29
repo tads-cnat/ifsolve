@@ -13,7 +13,7 @@ export default function SidebarLayout({ children, className }) {
                 <SidebarItemDefault
                     label="Avaliações"
                     icon={<FiHome />}
-                    itemKey="avaliacao"
+                    itemKey="avaliacoes"
                     link="/avaliacao"
                 />
                 <SidebarItemDefault
@@ -35,7 +35,7 @@ export default function SidebarLayout({ children, className }) {
                 <SidebarItemMobile
                     label="Avaliações"
                     icon={<FiHome />}
-                    itemKey="avaliacao"
+                    itemKey="avaliacoes"
                     link="/avaliacao"
                 />
                 <SidebarItemMobile label="Questões" icon={<FiList />} itemKey="questoes" link="/" />

@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Login, Register, ItemListar } from './pages';
+import { Login, Register, ItemListar, AvaliacaoListar } from './pages';
 import { ProtectedRoute } from './components';
 
 export default function App() {
@@ -17,6 +17,14 @@ export default function App() {
             element: (
                 <ProtectedRoute>
                     <ItemListar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoListar />
                 </ProtectedRoute>
             ),
         },
