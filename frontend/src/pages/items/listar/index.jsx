@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { ItemCard, SearchInput, SidebarLayout } from '../../../../components';
-import { GlobalContext } from '../../../../providers/context';
-import { GetItems } from '../../../../api/config';
+import { ItemCard, SearchInput, SidebarLayout } from '../../../components';
+import { GlobalContext } from '../../../providers/context';
+import { GetItems } from '../../../api/config';
 
-export default function ListarItem() {
+export default function ItemListar() {
     const { setCurrentPage } = useContext(GlobalContext);
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
