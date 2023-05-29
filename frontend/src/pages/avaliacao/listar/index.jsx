@@ -68,7 +68,7 @@ export default function AvaliacaoListar() {
 
     return (
         <SidebarLayout className="flex flex-col gap-4">
-            <h3 className="text-xl font-medium text-dark-100">Avaliações</h3>
+            <h3 className="text-2xl font-medium text-dark-100">Avaliações</h3>
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}

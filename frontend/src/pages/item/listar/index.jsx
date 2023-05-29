@@ -56,7 +56,7 @@ export default function ItemListar() {
 
     return (
         <SidebarLayout className="flex flex-col gap-4">
-            <h3 className="text-xl font-medium text-dark-100">Questões</h3>
+            <h3 className="text-2xl font-medium text-dark-100">Questões</h3>
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}
@@ -76,14 +76,7 @@ export default function ItemListar() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {sortedItems.map((item) => (
-                    <ItemCard
-                        key={item.id}
-                        id={item.id}
-                        tipo={item.tipo}
-                        assunto={item.assunto}
-                        titulo={item.titulo}
-                        tags={item.tags}
-                    />
+                    <ItemCard key={item.id} data={item} />
                 ))}
             </div>
         </SidebarLayout>

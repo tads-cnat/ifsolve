@@ -8,7 +8,7 @@ export default function AvalicacaoCard({ data }) {
     return (
         <Link
             to="/"
-            className="group flex flex-col p-4 gap-2 bg-white rounded-lg transition-all duration-600 ease-in-out outline outline-0 outline-primary-100 hover:outline-1"
+            className="group flex flex-col p-4 gap-2 bg-white rounded-lg transition-all duration-600 linear outline outline-0 outline-dark-40 hover:outline-4"
         >
             <div className="flex flex-row justify-between items-center mb-8">
                 <span className="text-2xl bg-violet-100 p-2 rounded-lg text-violet-600 ">
@@ -18,7 +18,7 @@ export default function AvalicacaoCard({ data }) {
             </div>
             <h4 className="text-lg font-medium text-dark-80">{titulo}</h4>
             <p className="text-dark-60">{descricao}</p>
-            <span>Faltam {CompareDateTime(data_fim)}</span>
+            <span> {CompareDateTime(data_fim)}</span>
         </Link>
     );
 }

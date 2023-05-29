@@ -1,51 +1,46 @@
 import PropTypes from 'prop-types';
-import { FiCheckSquare, FiAlignLeft } from 'react-icons/fi';
+import { FiCheckSquare, FiAlignLeft, FiArrowUpRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function ItemCard({ id, tipo, assunto, titulo, tags }) {
+export default function ItemCard({ data }) {
+    const { id, tipo, assunto, titulo, tags } = data;
     return (
         <Link
             to={`/item/${id}`}
-            className="card-item flex items-center gap-4 bg-white px-4 py-3 rounded-lg hover:outline hover:outline-3 hover:outline-primary-80"
+            className="group flex flex-col p-4 gap-2 bg-white rounded-lg transition-all duration-200 linear outline outline-0 outline-dark-40 hover:outline-4"
         >
-            <div className="bg-primary-20 w-10 h-10 flex items-center justify-center rounded-lg">
-                <div className="text-primary-100 text-xl">
+            <div className="flex flex-row justify-between items-center mb-8">
+                <span className="text-2xl bg-amber-100 p-2 rounded-lg text-amber-600 ">
                     {tipo === 'ME' ? <FiCheckSquare /> : <FiAlignLeft />}
-                </div>
+                </span>
+                <FiArrowUpRight className="text-4xl stroke-1 text-dark-20 group-hover:text-dark-60" />
             </div>
-            <div className="flex flex-col gap-2">
-                <span className="text-sm text-dark-80">{assunto}</span>
-                <p className="text-lg font-medium">{titulo}</p>
-                <div className="flex flex-row gap-4">
-                    {tags &&
-                        tags
-                            .filter((tag, i) => i < 3)
-                            .map((tag) => (
-                                <span
-                                    key={tag.id}
-                                    className="text-sm bg-primary-10 text-primary-100 px-2 py-1 rounded-lg"
-                                >
-                                    {tag.nome}
-                                </span>
-                            ))}
-                </div>
+            <h4 className="text-lg font-medium text-dark-80">{titulo}</h4>
+            <p className="text-dark-60">{assunto}</p>
+            <div className="flex flex-row flex-wrap gap-2">
+                {tags.map((tag) => (
+                    <span
+                        className="text-sm px-2 py-1 bg-amber-100 text-amber-600 rounded-lg"
+                        key={tag.id}
+                    >
+                        {tag.nome}
+                    </span>
+                ))}
             </div>
         </Link>
     );
 }
 
 ItemCard.propTypes = {
-    id: PropTypes.number.isRequired,
-    tipo: PropTypes.string.isRequired,
-    assunto: PropTypes.string.isRequired,
-    titulo: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(
-        PropTypes.shape({
-            nome: PropTypes.string.isRequired,
-        })
-    ),
-};
-
-ItemCard.defaultProps = {
-    tags: '',
+    data: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        tipo: PropTypes.string.isRequired,
+        assunto: PropTypes.string.isRequired,
+        titulo: PropTypes.string.isRequired,
+        tags: PropTypes.arrayOf(
+            PropTypes.shape({
+                nome: PropTypes.string.isRequired,
+            })
+        ),
+    }).isRequired,
 };
