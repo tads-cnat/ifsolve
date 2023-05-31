@@ -8,7 +8,7 @@ export default function ItemListar() {
     const { setCurrentPage } = useContext(GlobalContext);
     const [items, setItems] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortOrder, setSortOrder] = useState('desc');
     const [sortedItems, setSortedItems] = useState([]);
 
     // Executa quando o componente é carregado
@@ -60,7 +60,7 @@ export default function ItemListar() {
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}
-                placeholder="Pesquisar questões por titulo ou assunto"
+                placeholder="Pesquisar questões por título ou assunto"
             />
 
             <div className="flex flex-row">
@@ -69,8 +69,8 @@ export default function ItemListar() {
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value)}
                 >
-                    <option value="asc">Mais antigo</option>
                     <option value="desc">Mais recente</option>
+                    <option value="asc">Mais antigo</option>
                 </select>
             </div>
 

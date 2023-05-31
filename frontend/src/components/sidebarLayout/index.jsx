@@ -31,20 +31,26 @@ export default function SidebarLayout({ children, className }) {
                 />
             </SidebarDefault>
 
-            <SidebarMobile>
-                <SidebarItemMobile
-                    label="Avaliações"
-                    icon={<FiHome />}
-                    itemKey="avaliacoes"
-                    link="/avaliacao"
-                />
-                <SidebarItemMobile label="Questões" icon={<FiList />} itemKey="questoes" link="/" />
-                <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
-            </SidebarMobile>
-
-            <div className="w-full h-screen overflow-y-scroll box-content">
+            <div className="w-full h-screen flex flex-col overflow-y-hidden box-content">
                 <Navbar />
-                <div className={`px-8 py-4 ${className}`}>{children}</div>
+                <div className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className}`}>
+                    {children}
+                </div>
+                <SidebarMobile>
+                    <SidebarItemMobile
+                        label="Avaliações"
+                        icon={<FiHome />}
+                        itemKey="avaliacoes"
+                        link="/avaliacao"
+                    />
+                    <SidebarItemMobile
+                        label="Questões"
+                        icon={<FiList />}
+                        itemKey="questoes"
+                        link="/"
+                    />
+                    <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
+                </SidebarMobile>
             </div>
         </div>
     );

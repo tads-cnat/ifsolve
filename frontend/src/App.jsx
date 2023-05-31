@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Login, Register, ItemListar, AvaliacaoListar } from './pages';
+import { Login, Register, ItemListar, AvaliacaoListar, FormLayout } from './pages';
 import { ProtectedRoute } from './components';
 
 export default function App() {
@@ -27,6 +27,10 @@ export default function App() {
                     <AvaliacaoListar />
                 </ProtectedRoute>
             ),
+        },
+        {
+            path: '/elaborar/',
+            element: <FormLayout />,
         },
     ]);
 

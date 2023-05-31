@@ -26,6 +26,8 @@ import FormRadio from './formRadio';
 import ItemCard from './cards/itemCard';
 import AvalicacaoCard from './cards/avaliacaoCard';
 import SearchInput from './input/searcInput';
+import TabDefault from './tab/default';
+import TabItemDefault from './tabItem/default';
 
 export {
     SidebarDefault,
@@ -56,4 +58,6 @@ export {
     ItemCard,
     AvalicacaoCard,
     SearchInput,
+    TabDefault,
+    TabItemDefault,
 };

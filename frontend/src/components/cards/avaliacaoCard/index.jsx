@@ -24,7 +24,7 @@ export default function AvalicacaoCard({ data }) {
                 ) : (
                     <span className="text-sm bg-red-100 text-red-600 px-2 py-1 rounded-lg">{`Restam ${CompareDateTime(
                         data_fim
-                    )}`}</span>
+                    )} horas`}</span>
                 )}
             </span>
         </Link>

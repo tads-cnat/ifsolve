@@ -8,7 +8,7 @@ export default function AvaliacaoListar() {
     const { setCurrentPage, getUser } = useContext(GlobalContext);
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortOrder, setSortOrder] = useState('desc');
     const [sortedData, setSortedData] = useState([]);
 
     useEffect(() => {
@@ -72,7 +72,7 @@ export default function AvaliacaoListar() {
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}
-                placeholder="Pesquisar questões por titulo ou assunto"
+                placeholder="Pesquisar avaliações por título ou descrição"
             />
             <div className="flex flex-row">
                 <select
@@ -80,8 +80,8 @@ export default function AvaliacaoListar() {
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value)}
                 >
-                    <option value="asc">Mais antigo</option>
                     <option value="desc">Mais recente</option>
+                    <option value="asc">Mais antigo</option>
                 </select>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
