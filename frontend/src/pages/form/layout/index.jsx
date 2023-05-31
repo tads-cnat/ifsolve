@@ -1,16 +1,18 @@
-// import { Outlet } from 'react-router-dom';
-// import { TabDefault, TabItemDefault } from '../../../components';
+/* eslint-disable react/forbid-prop-types */
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
 export default function FormLayout() {
+    const [values, setValues] = useState(1);
     const [currentStep, setCurrentStep] = useState(1);
 
     function renderForm() {
         switch (currentStep) {
             case 1:
-                return 1;
+                return <StepOne values={values} onNext={() => setCurrentStep(currentStep + 1)} />;
             case 2:
                 return 2;
             case 3:
@@ -32,3 +34,10 @@ export default function FormLayout() {
         </div>
     );
 }
+
+function StepOne({ values, onNext }) {
+    return <div className="">awdawd</div>;
+}
+StepOne.propTypes = {
+    values: PropTypes.any.isRequired,
+};

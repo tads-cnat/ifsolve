@@ -10,7 +10,7 @@ export default function SidebarMobile({ children }) {
                 className="flex flex-row items-center gap-4 absolute top-0 right-0 -translate-y-20 mr-8 px-8 py-4 rounded-lg text-lg text-dark-100 bg-primary-60 hover:bg-primary-80 active:bg-primary-100 focus:bg-primary-100"
             >
                 <FiPlusSquare />
-                Elaborar
+                Criar
             </Link>
             {children}
         </div>
