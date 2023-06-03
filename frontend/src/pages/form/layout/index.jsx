@@ -1,46 +1,78 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-// import { useFormik } from 'formik';
-// import { useState } from 'react';
-import { FiArrowRight } from 'react-icons/fi';
-import { ButtonPrimary } from '../../../components';
-
-const schema = yup.object({
-    tipo: yup.string().required(),
-});
+import { FiArrowRight, FiCheck } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 export default function FormLayout() {
-    const {
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: yupResolver(schema),
-    });
-    function onSubmit(data) {
-        console.log(data);
-    }
-
     return (
-        <div className="flex flex-col px-4 md:px-16 lg:px-48 xl:px-64 py-8 gap-2 w-full h-screen bg-dark-5">
-            <h3 className="text-xl text-dark-100 font-medium">Criar</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius id voluptatem</p>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 h-full">
-                <button type="submit">Continuar</button>
-            </form>
+        <div className="h-screen flex justify-center px-4 p-8 bg-dark-5">
+            <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex flex-col gap-2">
+                <h3 className="text-2xl text-dark-100 font-bold">Criar</h3>
+                <p>Defina se deseja criar uma questão ou avaliação</p>
+                {/* Cards */}
+                <div className="flex flex-col gap-2 p-4 bg-white border border-dark-20 rounded-lg shadow-sm">
+                    <h5 className="font-semibold text-dark-90 text-xl">Avaliação</h5>
+                    <p className="font-normal text-dark-60">
+                        Crie avaliações personalizadas para avaliar o progresso dos seus alunos
+                    </p>
+                    <ul className="flex flex-col gap-4">
+                        <li className="flex gap-2 items-center">
+                            <span className="p-1 bg-emerald-100 rounded-full">
+                                <FiCheck className="text-sm stroke-2 text-emerald-600" />
+                            </span>
+                            <span className="font-normal text-dark-60 ">
+                                Adicionar diferentes tipos de questões
+                            </span>
+                        </li>
+                        <li className="flex gap-2 items-center">
+                            <span className="p-1 bg-emerald-100 rounded-full">
+                                <FiCheck className="text-sm stroke-2 text-emerald-600" />
+                            </span>
+                            <span className="font-normal text-dark-60 ">
+                                Definir o tempo prazo para a realização da avaliação
+                            </span>
+                        </li>
+                    </ul>
+                    <Link
+                        to="/"
+                        className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
+                    >
+                        Criar Avaliação
+                    </Link>
+                </div>
 
-            {/* <form onSubmit=""">
-                <RadioCard
-                    label="Questão"
-                    description="Criar questão discursiva ou multipla escolha"
-                    name="tipo"
-                    id="tipo-questao"
-                    value="questao"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                />
+                <div className="flex flex-col gap-2 p-4 bg-white border border-dark-20 rounded-lg shadow-sm">
+                    <h5 className="font-semibold text-dark-90 text-xl">Questão</h5>
+                    <p className="font-normal text-dark-60">
+                        Crie uma variedade de questões para avaliar o conhecimento dos alunos
+                    </p>
+                    <ul className="flex flex-col gap-4">
+                        <li className="flex gap-2 items-center">
+                            <span className="p-1 bg-emerald-100 rounded-full">
+                                <FiCheck className="text-sm stroke-2 text-emerald-600" />
+                            </span>
+                            <span className="font-normal text-dark-60 ">
+                                Adicionar diferentes tipos de questões
+                            </span>
+                        </li>
+                        <li className="flex gap-2 items-center">
+                            <span className="p-1 bg-emerald-100 rounded-full">
+                                <FiCheck className="text-sm stroke-2 text-emerald-600" />
+                            </span>
+                            <span className="font-normal text-dark-60 ">
+                                Definir o tempo prazo para a realização da avaliação
+                            </span>
+                        </li>
+                    </ul>
+                    <Link
+                        to="/"
+                        className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
+                    >
+                        Criar Questão
+                    </Link>
+                </div>
+
+                {/* <form onSubmit=""">
                 <RadioCard
                     label="Avaliação"
                     description="Criar questão discursiva ou multipla escolha"
@@ -49,22 +81,23 @@ export default function FormLayout() {
                     value="avaliacao"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                />
-                <input
+                    />
+                    <input
                     type="text"
                     name="tipo"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                />
-
+                    />
+                    
                 {formik.errors.tipo ? 'true' : 'false'}
-
+                
                 <button type="submit">Continuar</button>
                 <div className="flex flex-row justify-between mt-auto">
                     <ButtonPrimary disabled>Voltar</ButtonPrimary>
                     <ButtonPrimary disabled={!formik.errors.tipo}>Continuar</ButtonPrimary>
                 </div>
             </form> */}
+            </div>
         </div>
     );
 }
