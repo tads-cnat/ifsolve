@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -26,7 +27,6 @@ export default function Login() {
     } = useForm({ resolver: yupResolver(schema) });
 
     function onSubmit(data) {
-        console.log(data);
         loginApi(data)
             .then((res) => {
                 localStorage.setItem('ifsolve_token', res.data.token);
@@ -37,6 +37,15 @@ export default function Login() {
                 console.log(error);
             });
     }
+
+    useEffect(() => {
+        if (
+            localStorage.getItem('ifsolve_token') !== null ||
+            localStorage.getItem('ifsolve_user') !== null
+        ) {
+            navigate('/item');
+        }
+    }, []);
 
     return (
         <div className="flex flex-col w-full h-screen justify-center items-center">
