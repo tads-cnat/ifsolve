@@ -29,7 +29,8 @@
             0
         ],
         "jsx-a11y/label-has-associated-control": "off",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "react/jsx-props-no-spreading": "off"
     },
     "ignorePatterns": [
         "**/*.png",

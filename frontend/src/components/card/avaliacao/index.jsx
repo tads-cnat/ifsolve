@@ -3,7 +3,7 @@ import { FiArrowUpRight, FiFileText } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import CompareDateTime from '../../../utils/compareDateTime';
 
-export default function AvalicacaoCard({ data }) {
+export default function CardAvaliacao({ data }) {
     const { titulo, descricao, data_fim } = data;
     return (
         <Link
@@ -31,7 +31,7 @@ export default function AvalicacaoCard({ data }) {
     );
 }
 
-AvalicacaoCard.propTypes = {
+CardAvaliacao.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.number.isRequired,
         titulo: PropTypes.string.isRequired,

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { AvalicacaoCard, SearchInput, SidebarLayout } from '../../../components';
+import { CardAvalicacao, SearchInput, SidebarLayout } from '../../../components';
 import { GlobalContext } from '../../../providers/context';
 import { GetAvaliacoes, GetAvaliacoesAluno } from '../../../api/config';
 
@@ -86,7 +86,7 @@ export default function AvaliacaoListar() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {sortedData.map((item) => (
-                    <AvalicacaoCard key={item.id} data={item} />
+                    <CardAvalicacao key={item.id} data={item} />
                 ))}
             </div>
         </SidebarLayout>

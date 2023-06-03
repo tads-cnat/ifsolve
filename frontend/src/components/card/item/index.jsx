@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FiCheckSquare, FiAlignLeft, FiArrowUpRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-export default function ItemCard({ data }) {
+export default function CardItem({ data }) {
     const { id, tipo, assunto, titulo, tags } = data;
     return (
         <Link
@@ -31,7 +31,7 @@ export default function ItemCard({ data }) {
     );
 }
 
-ItemCard.propTypes = {
+CardItem.propTypes = {
     data: PropTypes.shape({
         id: PropTypes.number.isRequired,
         tipo: PropTypes.string.isRequired,

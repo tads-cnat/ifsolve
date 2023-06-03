@@ -14,7 +14,7 @@ export default function CompareDateTime(dataHoraString) {
     const diferenca = Math.abs(dataHoraAtual - dataHoraComparar);
 
     // Calcular a diferença em dias e horas
-    const diferencaDias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+    // const diferencaDias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
     const diferencaHoras = Math.floor(diferenca / (1000 * 60 * 60));
 
     // Retornar a diferença em dias ou horas, dependendo do valor

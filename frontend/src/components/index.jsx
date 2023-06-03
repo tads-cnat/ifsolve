@@ -2,62 +2,36 @@ import SidebarDefault from './sidebar/default';
 import SidebarItemDefault from './sidebarItem/default';
 import SidebarMobile from './sidebar/mobile';
 import SidebarItemMobile from './sidebarItem/mobile';
-import CardItem from './cardItem';
 import SidebarLayout from './sidebarLayout';
-import TagInput from './tagInput';
-import FormControl from './formControl';
-import InputGroup from './inputGroup';
-import PrimaryButton from './primaryButton';
-import FormLabel from './formLabel';
-import SelectInput from './selectInput';
 import ProtectedRoute from './protectedRoute';
-import Navbar from './navbar';
-import PassowordInput from './passwordInput';
-import GlobalAlert from './globalAlert';
-import Container from './container';
-import AlunosInput from './alunosInput';
-import AlunoListAvalicao from './AlunoListAvaliacao';
-import ElaboradorListAvalicao from './ElaboradorListAvaliacao';
-import Loading from './loading';
-import FormArea from './formArea';
-import FormInput from './formInput';
-import FormAlert from './formAlert';
-import FormRadio from './formRadio';
-import ItemCard from './cards/itemCard';
-import AvalicacaoCard from './cards/avaliacaoCard';
+import CardItem from './card/item';
+import CardAvalicacao from './card/avaliacao';
 import SearchInput from './input/searcInput';
 import TabDefault from './tab/default';
 import TabItemDefault from './tabItem/default';
+import ButtonPrimary from './button/primary';
+import Loading from './loading';
+import Navbar from './navbar';
+import GlobalAlert from './globalAlert';
+import InputText from './input/text';
+import InputPassword from './input/password';
 
 export {
     SidebarDefault,
     SidebarItemDefault,
-    CardItem,
     SidebarLayout,
-    TagInput,
-    FormControl,
-    InputGroup,
-    PrimaryButton,
-    FormLabel,
-    SelectInput,
     ProtectedRoute,
-    Navbar,
-    PassowordInput,
-    GlobalAlert,
-    Container,
-    AlunosInput,
-    AlunoListAvalicao,
-    ElaboradorListAvalicao,
-    Loading,
-    FormInput,
-    FormArea,
-    FormAlert,
-    FormRadio,
     SidebarMobile,
     SidebarItemMobile,
-    ItemCard,
-    AvalicacaoCard,
+    CardItem,
+    CardAvalicacao,
     SearchInput,
     TabDefault,
     TabItemDefault,
+    ButtonPrimary,
+    Loading,
+    Navbar,
+    GlobalAlert,
+    InputText,
+    InputPassword,
 };

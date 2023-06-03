@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Login, Register, ItemListar, AvaliacaoListar, FormLayout } from './pages';
+import { Login, ItemListar, AvaliacaoListar, FormLayout } from './pages';
 import { ProtectedRoute } from './components';
 
 export default function App() {
@@ -7,10 +7,6 @@ export default function App() {
         {
             path: '/',
             element: <Login />,
-        },
-        {
-            path: '/registro',
-            element: <Register />,
         },
         {
             path: '/item',

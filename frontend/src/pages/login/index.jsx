@@ -1,146 +1,76 @@
 /* eslint-disable react/jsx-no-bind */
-import PropTypes from "prop-types";
-import { Formik, Form } from "formik";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { FiAlertCircle, FiEye, FiEyeOff } from "react-icons/fi";
-import * as Yup from "yup";
-import IFSolvelogo from "../../images/IFSolve-logo.svg";
-import LoginBackground from "../../images/login-background.png";
-import { FormLabel, FormControl, GlobalAlert } from "../../components";
-import { loginApi } from "../../api/config";
-import logoSuap from "../../images/logo-suap.svg";
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import IFSolvelogo from '../../images/IFSolve-logo.svg';
+import IFRNLogo from '../../images/ifrn-logo.png';
+// import LoginBackground from '../../images/login-background.png';
+import { loginApi } from '../../api/config';
+import { InputPassword, InputText } from '../../components';
+// import logoSuap from '../../images/logo-suap.svg';
+
+const schema = yup
+    .object({
+        login: yup.string().required(),
+        password: yup.string().required(),
+    })
+    .required();
 
 export default function Login() {
     const navigate = useNavigate();
-    const [getPassword, setPassword] = useState(true);
-    const [getError, setError] = useState();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ resolver: yupResolver(schema) });
 
-    const LoginSchema = Yup.object().shape({
-        login: Yup.string().required(
-            "Ooops. Parece que você não digitou sua matrícula!"
-        ),
-        password: Yup.string().required(
-            "Ooops. Parece que você não digitou sua senha!"
-        ),
-    });
-
-    const initialValues = {
-        login: "",
-        password: "",
-    };
-
-    async function formSubmit(data) {
-        await loginApi(data)
+    function onSubmit(data) {
+        console.log(data);
+        loginApi(data)
             .then((res) => {
-                localStorage.setItem("ifsolve_token", res.data.token);
-                localStorage.setItem("ifsolve_user", JSON.stringify(res.data));
-                navigate("/avaliacao");
+                localStorage.setItem('ifsolve_token', res.data.token);
+                localStorage.setItem('ifsolve_user', JSON.stringify(res.data));
+                navigate('/avaliacao');
             })
-            .catch(() => {
-                setError("Usuário e/ou senha inválidos");
+            .catch((error) => {
+                console.log(error);
             });
     }
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-12">
-            <img
-                src={LoginBackground}
-                alt=""
-                className="hidden lg:block fixed h-screen w-7/12 object-cover top-0 right-0"
-            />
-            <div className="col-span-5 flex flex-col justify-center h-screen px-8 md:px-24">
-                <img
-                    className="h-6 mb-12 self-start"
-                    src={IFSolvelogo}
-                    alt=""
-                />
+        <div className="flex flex-col w-full h-screen justify-center items-center">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col items-center w-full md:w-1/2 lg:w-1/3 p-8"
+            >
+                <img src={IFRNLogo} className="mb-12 h-8" alt="" />
+                <img src={IFSolvelogo} className="mb-12 h-8" alt="" />
+                <h3 className="text-lg font-semibold">Entre com sua matrícula do SUAP</h3>
+                <div className="mb-6 w-full">
+                    <InputText
+                        label="Usuário"
+                        placeholder="Digite sua matrícula"
+                        {...register('login')}
+                    />
+                    <p>{errors.login?.message}</p>
+                </div>
+                <div className="mb-6 w-full">
+                    <InputPassword
+                        label="Senha"
+                        placeholder="Digite sua senha"
+                        {...register('password')}
+                    />
+                    <p>{errors.password?.message}</p>
+                </div>
 
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={LoginSchema}
-                    onSubmit={formSubmit}
+                <button
+                    type="submit"
+                    className="w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
                 >
-                    {({ values, errors, touched }) => (
-                        <Form>
-                            <div className="flex mb-5">
-                                <h1 className="text-xl font-bold text-dark-100">
-                                    Entrar no IFSolve via{" "}
-                                </h1>
-                                <img
-                                    className="pl-2 h-9"
-                                    src={logoSuap}
-                                    alt="Logo do suap IFRN"
-                                />
-                            </div>
-
-                            <div className="mb-5">
-                                <FormLabel label="Matrícula" />
-                                <FormControl
-                                    name="login"
-                                    placeholder="Digite sua matrícula"
-                                />
-                                {errors.login && touched.login ? (
-                                    <Alert>{errors.login}</Alert>
-                                ) : null}
-                            </div>
-                            <div className="mb-5">
-                                <FormLabel label="Senha" />
-                                <div className="relative">
-                                    <FormControl
-                                        name="password"
-                                        className="pr-32"
-                                        type={getPassword ? "password" : "text"}
-                                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                                    />
-                                    {values.password.trim().length > 0 ? (
-                                        <button
-                                            type="button"
-                                            className="absolute bottom-2/4 translate-y-2/4 right-0 mr-4 text-sm px-2 py-1 hover:bg-dark-5 rounded-lg cursor-pointer"
-                                            onClick={() =>
-                                                setPassword(!getPassword)
-                                            }
-                                        >
-                                            {getPassword ? (
-                                                <FiEye />
-                                            ) : (
-                                                <FiEyeOff />
-                                            )}
-                                        </button>
-                                    ) : null}
-                                </div>
-                                {errors.password && touched.password ? (
-                                    <Alert>{errors.password}</Alert>
-                                ) : null}
-                            </div>
-                            {getError ? <Alert>{getError}</Alert> : null}
-                            <button
-                                type="submit"
-                                className="w-full bg-primary-100 px-4 py-2 rounded-lg text-md font-medium text-dark-100 mb-5 mt-3"
-                            >
-                                Entrar
-                            </button>
-                        </Form>
-                    )}
-                </Formik>
-                {/* <span>Não tem uma conta? <Link to="/registro" className="font-medium text-primary-100">Cadastre-se</Link></span> */}
-                {localStorage.getItem("ifsolve_token") !== null ? (
-                    <Navigate to="/item" replace />
-                ) : null}
-            </div>
-            <GlobalAlert />
+                    Login
+                </button>
+            </form>
         </div>
     );
 }
-
-export function Alert({ children }) {
-    return (
-        <p className="flex items-center gap-2 text-sm text-red-800 bg-red-100 px-4 py-2 rounded-lg">
-            <FiAlertCircle />
-            {children}
-        </p>
-    );
-}
-Alert.propTypes = {
-    children: PropTypes.node.isRequired,
-};

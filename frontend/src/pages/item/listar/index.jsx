@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { ItemCard, SearchInput, SidebarLayout } from '../../../components';
+import { CardItem, SearchInput, SidebarLayout } from '../../../components';
 import { GlobalContext } from '../../../providers/context';
 import { GetItems } from '../../../api/config';
 
@@ -76,7 +76,7 @@ export default function ItemListar() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {sortedItems.map((item) => (
-                    <ItemCard key={item.id} data={item} />
+                    <CardItem key={item.id} data={item} />
                 ))}
             </div>
         </SidebarLayout>
