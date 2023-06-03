@@ -20,7 +20,7 @@ export default function SidebarLayout({ children, className }) {
                     label="Questões"
                     icon={<FiList />}
                     itemKey="questoes"
-                    link="/"
+                    link="/item"
                 />
                 <SidebarItemDefault
                     label="Perfil"
@@ -47,7 +47,7 @@ export default function SidebarLayout({ children, className }) {
                         label="Questões"
                         icon={<FiList />}
                         itemKey="questoes"
-                        link="/"
+                        link="/item"
                     />
                     <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
                 </SidebarMobile>
