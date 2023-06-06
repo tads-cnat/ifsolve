@@ -1,11 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Login, ItemListar, AvaliacaoListar, FormLayout } from './pages';
+import { Login, ItemListar, AvaliacaoListar, FormLayout, Landing } from './pages';
 import { ProtectedRoute } from './components';
 
 export default function App() {
     const router = createBrowserRouter([
         {
             path: '/',
+            element: <Landing />,
+        },
+        {
+            path: '/login',
             element: <Login />,
         },
         {
