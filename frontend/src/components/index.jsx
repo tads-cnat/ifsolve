@@ -15,6 +15,7 @@ import Navbar from './navbar';
 import GlobalAlert from './globalAlert';
 import InputText from './input/text';
 import InputPassword from './input/password';
+import AlertDanger from './alert/danger';
 
 export {
     SidebarDefault,
@@ -34,4 +35,5 @@ export {
     GlobalAlert,
     InputText,
     InputPassword,
+    AlertDanger,
 };

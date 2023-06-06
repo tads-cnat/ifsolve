@@ -4,18 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { FiAlertCircle, FiLoader } from 'react-icons/fi';
+
 import IFSolvelogo from '../../images/IFSolve-logo.svg';
 import IFRNLogo from '../../images/ifrn-logo.png';
 import LoginBackground from '../../images/login-background.png';
 import { loginApi } from '../../api/config';
-import { InputPassword, InputText } from '../../components';
-import { FiLoader } from 'react-icons/fi';
-// import logoSuap from '../../images/logo-suap.svg';
+import { AlertDanger, InputPassword, InputText } from '../../components';
 
 const schema = yup
     .object({
-        login: yup.string().required(),
-        password: yup.string().required(),
+        login: yup.string().required('Digite seu usuário'),
+        password: yup.string().required('Digite sua senha'),
     })
     .required();
 
@@ -69,19 +69,27 @@ export default function Login() {
                         placeholder="Digite sua matrícula"
                         {...register('login')}
                     />
-                    <p>{errors.login?.message}</p>
+                    {errors.login ? (
+                        <AlertDanger icon={<FiAlertCircle />}>{errors.login?.message}</AlertDanger>
+                    ) : null}
+
                     <InputPassword
                         label="Senha"
                         placeholder="Digite sua senha"
                         {...register('password')}
                     />
-                    <p>{errors.password?.message}</p>
-                    {error ? <p>{error}</p> : null}
+                    {errors.password ? (
+                        <AlertDanger icon={<FiAlertCircle />}>
+                            {errors.password?.message}
+                        </AlertDanger>
+                    ) : null}
+
+                    {error ? <AlertDanger icon={<FiAlertCircle />}>{error}</AlertDanger> : null}
                     <button
                         type="submit"
                         className="w-full flex justify-center text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
                     >
-                        {loading ? <FiLoader className="animate-spin text-xl" /> : 'Login'}
+                        {loading ? <FiLoader className="animate-spin text-xl" /> : 'Entrar'}
                     </button>
                 </form>
             </div>
