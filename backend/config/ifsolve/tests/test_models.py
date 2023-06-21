@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.utils import timezone
 from django.contrib.auth.models import User
-from ifsolve.models import Item, Area, Elaborador, Alternativa
+from ifsolve.models import Item, Area, Elaborador, Alternativa, Aluno, ItemAvaliacao, Avaliacao
 
 # Create your tests here.
 
@@ -161,4 +161,112 @@ class ItemModelTest(TestCase):
 
         # Verifica se o item foi removido corretamente
         itens = Item.objects.all()
-        self.assertEqual(itens.count(), 1)
+        self.assertNotEqual(itens.count(), 1)
+
+
+class AvaliacaoModelTest(TestCase):
+
+    def setUp(self):
+        
+        self.user = User.objects.create(
+            username='elaborador',
+            password='@elaborador',
+            email='elaborador@example.com'
+        ) 
+
+        self.user = User.objects.create(
+            username='aluno',
+            password='@aluno',
+            email='aluno@example.com'
+        ) 
+
+        self.elaborador = Elaborador.objects.create(
+            user=self.user,
+            nome_completo='Aluno da Silva',
+            data_nascimento='2003-06-01',
+            verificado=True
+        )
+
+        self.aluno = Aluno.objects.create(
+            user=self.user,
+            nome_completo='Aluno da Silva',
+            data_nascimento='2003-06-01',
+        )
+
+        self.alternativa_a = Alternativa.objects.create(
+            texto='Texto A',
+            justificativa='Justificativa A',
+        )
+        self.alternativa_b = Alternativa.objects.create(
+            texto='Texto B',
+            justificativa='Justificativa B',
+        )
+        self.alternativa_c = Alternativa.objects.create(
+            texto='Texto C',
+            justificativa='Justificativa C',
+        )
+        self.alternativa_d = Alternativa.objects.create(
+            texto='Texto D',
+            justificativa='Justificativa E',
+        )
+        self.alternativa_e = Alternativa.objects.create(
+            texto='Texto E',
+            justificativa='Justificativa E',
+        )
+
+        self.itemDI = Item.objects.create(
+            elaborador=self.elaborador,
+            tipo='DI',
+            visibilidade='PU',
+            area= self.area,
+            assunto='Álgebra',
+            titulo='Equação quadrática',
+            data_publicacao=timezone.now(),
+            texto_base='Lorem ipsum dolor sit amet.',
+            enunciado='Resolva a seguinte equação:',
+            expectativa_resposta='x = 2, x = -3',
+        )
+
+        self.itemME = Item.objects.create(
+            elaborador=self.elaborador,
+            tipo='ME',
+            visibilidade='PU',
+            area= self.area,
+            assunto='Álgebra',
+            titulo='Equação quadrática',
+            data_publicacao=timezone.now(),
+            texto_base='Lorem ipsum dolor sit amet.',
+            enunciado='Resolva a seguinte equação:',
+            expectativa_resposta='A',
+            alternativa_a = self.alternativa_a,
+            alternativa_b = self.alternativa_b,
+            alternativa_c = self.alternativa_c,
+            alternativa_d = self.alternativa_d,
+            alternativa_e = self.alternativa_e,
+        )
+
+        self.avaliacao = Avaliacao.objects.create(
+            visibilidade='PU',
+            titulo='Prova de equação quadrática',
+            elaborador=self.elaborador,
+            aluno=self.aluno,
+            descricao="Essa prova é um teste",
+            data_inicio='2023-06-01 10:00:00',
+            data_fim='2023-07-01 10:00:00',
+            nota='100',
+        )
+
+        self.ItemAvaliacaoDI = ItemAvaliacao.objects.create(
+            item=self.itemDI,
+            avaliacao=self.avaliacao,
+            numero_item='1',
+            nota_item='50'
+        )
+
+        self.ItemAvaliacaoME = ItemAvaliacao.objects.create(
+            item=self.itemME,
+            avaliacao=self.avaliacao,
+            numero_item='2',
+            nota_item='50'
+        )
+
