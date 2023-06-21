@@ -103,6 +103,7 @@ class ItemModelTest(TestCase):
         self.assertEqual(self.itemME.alternativa_c, self.alternativa_c)
         self.assertEqual(self.itemME.alternativa_d, self.alternativa_d)
         self.assertEqual(self.itemME.alternativa_e, self.alternativa_e)
+        item = Item.objects.get(id=self.itemME.id)
 
     def test_item_edit(self):
         # Edita os atributos do item
