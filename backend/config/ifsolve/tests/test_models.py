@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils import timezone
+from datetime import date, datetime
 from django.contrib.auth.models import User
 from ifsolve.models import Item, Area, Elaborador, Alternativa, Aluno, ItemAvaliacao, Avaliacao
 
@@ -168,29 +169,35 @@ class AvaliacaoModelTest(TestCase):
 
     def setUp(self):
         
-        self.user = User.objects.create(
-            username='elaborador',
-            password='@elaborador',
-            email='elaborador@example.com'
+        self.user1 = User.objects.create(
+            username='elaboradora',
+            password='@elaboradora',
+            email='elaboradora@example.com'
         ) 
 
-        self.user = User.objects.create(
-            username='aluno',
-            password='@aluno',
-            email='aluno@example.com'
+        self.user2 = User.objects.create(
+            username='aluna',
+            password='@aluna',
+            email='aluna@example.com'
         ) 
 
         self.elaborador = Elaborador.objects.create(
-            user=self.user,
-            nome_completo='Aluno da Silva',
+            user=self.user1,
+            nome_completo='Elaboradora da Silva',
             data_nascimento='2003-06-01',
             verificado=True
         )
 
         self.aluno = Aluno.objects.create(
-            user=self.user,
-            nome_completo='Aluno da Silva',
+            user=self.user2,
+            nome_completo='Aluna da Silva',
             data_nascimento='2003-06-01',
+        )
+
+        self.area = Area.objects.create(
+            codigo='001',
+            nome='Matemática',
+            descricao='Área relacionada a cálculos e números'
         )
 
         self.alternativa_a = Alternativa.objects.create(
@@ -249,12 +256,13 @@ class AvaliacaoModelTest(TestCase):
             visibilidade='PU',
             titulo='Prova de equação quadrática',
             elaborador=self.elaborador,
-            aluno=self.aluno,
+            # alunos=[self.aluno,]
             descricao="Essa prova é um teste",
-            data_inicio='2023-06-01 10:00:00',
-            data_fim='2023-07-01 10:00:00',
+            data_inicio='2023-09-01 10:00:00',
+            data_fim='2023-09-01 10:00:00',
             nota='100',
         )
+        self.avaliacao.alunos.add(self.aluno.id)
 
         self.ItemAvaliacaoDI = ItemAvaliacao.objects.create(
             item=self.itemDI,
@@ -270,3 +278,27 @@ class AvaliacaoModelTest(TestCase):
             nota_item='50'
         )
 
+    def test_avaliacao_listing(self):
+        prova = Avaliacao.objects.filter(id=self.avaliacao.id)
+        self.assertTrue(prova.exists())
+
+    def test_avaliacao_edit(self):
+    # Edita os atributos de prova
+        self.avaliacao.visibilidade = 'PR'
+        self.avaliacao.titulo = 'Prova de geometria plana'
+        self.avaliacao.descricao = 'Essa prova é um teste de atualização.'
+        self.avaliacao.save()
+
+    # Verifica se as alterações foram salvas corretamente
+        updated_avaliacao = Avaliacao.objects.get(id=self.avaliacao.id)
+        self.assertEqual(updated_avaliacao.visibilidade, 'PR')
+        self.assertEqual(updated_avaliacao.elaborador, self.elaborador)
+        self.assertEqual(updated_avaliacao.titulo, 'Prova de geometria plana')
+        self.assertEqual(updated_avaliacao.nota, 100)
+
+    def test_avaliacao_deletion(self):
+        # Remove a avaliacao criado no setUp
+        self.avaliacao.delete()
+        # Verifica se a avaliacao foi removido corretamente
+        avaliacoes = Avaliacao.objects.all()
+        self.assertLess(avaliacoes.count(), 1)
