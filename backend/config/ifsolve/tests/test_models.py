@@ -78,6 +78,7 @@ class ItemModelTest(TestCase):
         )
 
     def test_item_di_creation(self):
+        item = Item.objects.get(id=self.itemDI.id)
         self.assertEqual(self.itemDI.tipo, item.tipo)
         self.assertEqual(self.itemDI.visibilidade, item.visibilidade)
         self.assertEqual(self.itemDI.area, item.area)
