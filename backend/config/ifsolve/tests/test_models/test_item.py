@@ -3,15 +3,15 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from ifsolve.models import Item, Area, Elaborador, Alternativa
 
-# Create your tests here.
 
 class ItemModelTest(TestCase):
+
     def setUp(self):
         self.user = User.objects.create(
             username='elaborador',
             password='el4b0r4d0r',
             email='elaborador@example.com'
-        ) 
+        )
 
         self.elaborador = Elaborador.objects.create(
             user=self.user,
@@ -51,7 +51,7 @@ class ItemModelTest(TestCase):
             elaborador=self.elaborador,
             tipo='DI',
             visibilidade='PU',
-            area= self.area,
+            area=self.area,
             assunto='Álgebra',
             titulo='Equação quadrática',
             data_publicacao=timezone.now(),
@@ -70,26 +70,26 @@ class ItemModelTest(TestCase):
             texto_base='Lorem ipsum dolor sit amet.',
             enunciado='Resolva a seguinte equação:',
             expectativa_resposta='A',
-            alternativa_a = self.alternativa_a,
-            alternativa_b = self.alternativa_b,
-            alternativa_c = self.alternativa_c,
-            alternativa_d = self.alternativa_d,
-            alternativa_e = self.alternativa_e,
+            alternativa_a=self.alternativa_a,
+            alternativa_b=self.alternativa_b,
+            alternativa_c=self.alternativa_c,
+            alternativa_d=self.alternativa_d,
+            alternativa_e=self.alternativa_e,
         )
 
-    def test_item_di_creation(self):
+    def test_item_di_create(self):
         item = Item.objects.get(id=self.itemDI.id)
         self.assertEqual(self.itemDI.tipo, item.tipo)
         self.assertEqual(self.itemDI.visibilidade, item.visibilidade)
         self.assertEqual(self.itemDI.area, item.area)
         self.assertEqual(self.itemDI.assunto, item.assunto)
-        self.assertEqual(self.itemDI.titulo, item.assunto)
+        self.assertEqual(self.itemDI.titulo, item.titulo)
         self.assertEqual(self.itemDI.data_publicacao, item.data_publicacao)
         self.assertEqual(self.itemDI.texto_base, item.texto_base)
         self.assertEqual(self.itemDI.enunciado, item.enunciado)
-        self.assertEqual(self.itemDI.expectativa_resposta, item.enunciado)
+        self.assertEqual(self.itemDI.expectativa_resposta, item.expectativa_resposta)
 
-    def test_item_me_creation(self):
+    def test_item_me_create(self):
         item = Item.objects.get(id=self.itemME.id)
         self.assertEqual(self.itemME.tipo, item.tipo)
         self.assertEqual(self.itemME.visibilidade, item.visibilidade)
@@ -104,10 +104,9 @@ class ItemModelTest(TestCase):
         self.assertEqual(self.itemME.alternativa_b, item.alternativa_b)
         self.assertEqual(self.itemME.alternativa_c, item.alternativa_c)
         self.assertEqual(self.itemME.alternativa_d, item.alternativa_d)
-        self.assertEqual(self.itemME.alternativa_e, item.alternativa_e)
-        
+        self.assertEqual(self.itemME.alternativa_e, item.alternativa_e)   
 
-    def test_item_edit(self):
+    def test_item_update(self):
         # Edita os atributos do item
         self.itemDI.visibilidade = 'PR'
         self.itemDI.assunto = 'Geometria'
@@ -126,13 +125,13 @@ class ItemModelTest(TestCase):
         self.assertEqual(updated_item.enunciado, 'Lorem sit amet.')
         self.assertEqual(updated_item.expectativa_resposta, 'Lorem sit amet.')
 
-    def test_area_listing(self):
+    def test_area_read(self):
         # Cria mais itens para listar
         Item.objects.create(
             elaborador=self.itemDI.elaborador,
             tipo='DI',
             visibilidade='PU',
-            area= self.itemDI.area,
+            area=self.itemDI.area,
             assunto='Álgebra',
             titulo='Equação quadrática',
             data_publicacao=timezone.now(),
@@ -145,7 +144,7 @@ class ItemModelTest(TestCase):
             elaborador=self.itemDI.elaborador,
             tipo='DI',
             visibilidade='PU',
-            area= self.itemDI.area,
+            area=self.itemDI.area,
             assunto='Álgebra',
             titulo='Equação quadrática',
             data_publicacao=timezone.now(),
@@ -158,7 +157,7 @@ class ItemModelTest(TestCase):
         itens = Item.objects.all()
         self.assertEqual(itens.count(), 4)  # Contando com o item criado no setUp
 
-    def test_item_deletion(self):
+    def test_item_delete(self):
         # Remove o item criado no setUp
         self.itemDI.delete()
 
