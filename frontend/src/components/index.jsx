@@ -13,11 +13,12 @@ import ButtonPrimary from './button/primary';
 import Loading from './loading';
 import Navbar from './navbar';
 import GlobalAlert from './globalAlert';
-import InputText from './input/text';
 import InputPassword from './input/password';
 import AlertDanger from './alert/danger';
 import { H1, H2, H3, H4, H5 } from './typography/headings';
 import AlunosInput from './alunosInput';
+import InputText from './input/text';
+import InputTag from './input/tag';
 
 export {
     SidebarDefault,
@@ -44,4 +45,5 @@ export {
     H4,
     H5,
     AlunosInput,
+    InputTag,
 };

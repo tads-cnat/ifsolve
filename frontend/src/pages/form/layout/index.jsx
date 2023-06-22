@@ -75,7 +75,7 @@ export default function FormLayout() {
                         </li>
                     </ul>
                     <Link
-                        to="/"
+                        to="/elaborar/item/"
                         className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
                     >
                         Criar Questão
