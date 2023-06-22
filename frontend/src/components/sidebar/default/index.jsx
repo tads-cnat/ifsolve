@@ -12,8 +12,8 @@ export default function SidebarDefault({ children }) {
             <img className="h-6 mb-10" src={IFSolvelogo} alt="" />
             <div className="flex flex-col gap-4 w-full h-full">
                 <Link
-                    to="/"
-                    className="flex flex-row items-center gap-4 px-6 py-4 text-lg text-dark-100 rounded-lg bg-primary-60 hover:bg-primary-80 active:bg-primary-100 focus:bg-primary-100"
+                    to="/elaborar"
+                    className="flex flex-row items-center gap-4 px-6 py-4 text-lg font-medium text-dark-100 rounded-lg bg-primary-60 hover:bg-primary-80 active:bg-primary-100 focus:bg-primary-100"
                 >
                     <FiPlusSquare />
                     Criar

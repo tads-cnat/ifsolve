@@ -98,40 +98,5 @@ export default function Login() {
                 <img src={LoginBackground} className="w-full h-full object-cover" alt="" />
             </div>
         </div>
-        // <div className="flex flex-col w-full h-screen justify-center items-center">
-        //     <form
-        //         onSubmit={handleSubmit(onSubmit)}
-        //         className="flex flex-col items-center w-full md:w-1/2 lg:w-1/3 p-8"
-        //     >
-        //         <div className="flex gap-2">
-        //             <img src={IFSolvelogo} className="mb-12 h-6" alt="" />
-        //             <img src={IFRNLogo} className="mb-12 h-6" alt="" />
-        //         </div>
-        //         <h3 className="text-lg font-semibold">Entre com sua matrícula do SUAP</h3>
-        //         <div className="mb-6 w-full">
-        //             <InputText
-        //                 label="Usuário"
-        //                 placeholder="Digite sua matrícula"
-        //                 {...register('login')}
-        //             />
-        //             <p>{errors.login?.message}</p>
-        //         </div>
-        //         <div className="mb-6 w-full">
-        //             <InputPassword
-        //                 label="Senha"
-        //                 placeholder="Digite sua senha"
-        //                 {...register('password')}
-        //             />
-        //             <p>{errors.password?.message}</p>
-        //         </div>
-        //         {error ? <p>{error}</p> : null}
-        //         <button
-        //             type="submit"
-        //             className="w-full flex justify-center text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
-        //         >
-        //             {loading ? <FiLoader className="animate-spin text-xl" /> : 'Login'}
-        //         </button>
-        //     </form>
-        // </div>
     );
 }

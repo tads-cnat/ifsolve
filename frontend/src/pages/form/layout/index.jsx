@@ -1,13 +1,23 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
-import { FiArrowRight, FiCheck } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { FiArrowRight, FiCheck, FiArrowLeft } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function FormLayout() {
+    const navigate = useNavigate();
     return (
         <div className="h-screen flex justify-center px-4 p-8 bg-dark-5">
             <div className="w-full md:w-1/2 lg:w-1/3 2xl:w-1/4 flex flex-col gap-2">
-                <h3 className="text-2xl text-dark-100 font-bold">Criar</h3>
+                <div className="flex flex-row gap-2">
+                    <div
+                        className="flex items-center justify-center w-8 h-8 bg-dark-10 rounded-full cursor-pointer hover:bg-dark-20"
+                        onClick={() => navigate(-1)}
+                        role="presentation"
+                    >
+                        <FiArrowLeft />
+                    </div>
+                    <h3 className="text-2xl text-dark-100 font-bold">Criar</h3>
+                </div>
                 <p>Defina se deseja criar uma questão ou avaliação</p>
                 {/* Cards */}
                 <div className="flex flex-col gap-2 p-4 bg-white border border-dark-20 rounded-lg shadow-sm">
@@ -34,7 +44,7 @@ export default function FormLayout() {
                         </li>
                     </ul>
                     <Link
-                        to="/"
+                        to="/elaborar/avaliacao/"
                         className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
                     >
                         Criar Avaliação

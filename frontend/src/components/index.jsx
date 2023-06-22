@@ -17,6 +17,7 @@ import InputText from './input/text';
 import InputPassword from './input/password';
 import AlertDanger from './alert/danger';
 import { H1, H2, H3, H4, H5 } from './typography/headings';
+import AlunosInput from './alunosInput';
 
 export {
     SidebarDefault,
@@ -42,4 +43,5 @@ export {
     H3,
     H4,
     H5,
+    AlunosInput,
 };

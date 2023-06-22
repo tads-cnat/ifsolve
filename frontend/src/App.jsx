@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Login, ItemListar, AvaliacaoListar, FormLayout, Landing } from './pages';
+import { Login, ItemListar, AvaliacaoListar, FormLayout, Landing, AvalicaoCriar } from './pages';
 import { ProtectedRoute } from './components';
 
 export default function App() {
@@ -31,6 +31,14 @@ export default function App() {
         {
             path: '/elaborar/',
             element: <FormLayout />,
+        },
+        {
+            path: '/elaborar/avaliacao/',
+            element: (
+                <ProtectedRoute>
+                    <AvalicaoCriar />
+                </ProtectedRoute>
+            ),
         },
     ]);
 

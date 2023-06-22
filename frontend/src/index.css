@@ -11,11 +11,11 @@
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
   }
 
   *::-webkit-scrollbar-track {
-    background: rgba(0, 0,0,0.1);
+    background: rgba(0, 0,0,0.05);
   }
 
   *::-webkit-scrollbar-thumb {
