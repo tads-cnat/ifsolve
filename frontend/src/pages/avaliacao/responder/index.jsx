@@ -31,7 +31,7 @@ export default function AvaliacaoResponder(props) {
                 // console.log(res);
                 if (res.data.resposta.respostas.length > 0) {
                     console.log('respondeu');
-                    navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
+                    navigate(`/avaliacao/${avaliacao.avaliacao.id}/respostas`);
                 }
             });
         }

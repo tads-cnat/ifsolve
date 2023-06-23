@@ -1,13 +1,21 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FiArrowUpRight, FiFileText } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import CompareDateTime from '../../../utils/compareDateTime';
+import { GlobalContext } from '../../../providers/context';
 
 export default function CardAvaliacao({ data }) {
     const { titulo, descricao, data_fim } = data;
+    const { getUser } = useContext(GlobalContext);
+
     return (
         <Link
-            to="/"
+            to={
+                getUser.extra_data.tipo_usuario === 'elaborador'
+                    ? `/avaliacao/${data.id}/resumo`
+                    : `/avaliacao/${data.id}/responder`
+            }
             className="group flex flex-col p-4 gap-2 bg-white rounded-lg transition-all duration-600 linear outline outline-0 outline-dark-40 hover:outline-4"
         >
             <div className="flex flex-row justify-between items-center mb-8">

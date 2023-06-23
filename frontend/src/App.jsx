@@ -13,6 +13,7 @@ import {
     AvaliacaoResponder,
     AvaliacaoResposta,
     AvaliacaoResumo,
+    Settings,
 } from './pages';
 import { ProtectedRoute } from './components';
 
@@ -43,7 +44,7 @@ export default function App() {
             ),
         },
         {
-            path: '/item/:id/resposta/',
+            path: '/item/:id/respostas/',
             element: (
                 <ProtectedRoute>
                     <ItemResposta />
@@ -83,7 +84,7 @@ export default function App() {
             ),
         },
         {
-            path: '/avaliacao/resumo/',
+            path: '/avaliacao/:id/resumo/',
             element: (
                 <ProtectedRoute>
                     <AvaliacaoResumo />
@@ -107,6 +108,14 @@ export default function App() {
             element: (
                 <ProtectedRoute>
                     <AvalicaoCriar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/perfil',
+            element: (
+                <ProtectedRoute>
+                    <Settings />
                 </ProtectedRoute>
             ),
         },

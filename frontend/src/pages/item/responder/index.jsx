@@ -38,7 +38,7 @@ export default function ItemResponder() {
             // Cadastrando resposta na API
             AnswerItem(values)
                 .then(() => {
-                    navigate(`/item/${id}/resposta`);
+                    navigate(`/item/${id}/resposta/`);
                     localStorage.setItem('ifsolve_success_alert', 'Sua resposta foi registrada.');
                 })
                 .catch(() => {

@@ -26,7 +26,7 @@ export default function SidebarLayout({ children, className }) {
                     label="Perfil"
                     icon={<FiUser />}
                     itemKey="settings"
-                    link="/settings"
+                    link="/perfil"
                     className="mt-auto"
                 />
             </SidebarDefault>
@@ -49,7 +49,12 @@ export default function SidebarLayout({ children, className }) {
                         itemKey="questoes"
                         link="/item"
                     />
-                    <SidebarItemMobile label="Perfil" icon={<FiUser />} itemKey="perfil" />
+                    <SidebarItemMobile
+                        label="Perfil"
+                        icon={<FiUser />}
+                        itemKey="perfil"
+                        link="/perfil"
+                    />
                 </SidebarMobile>
             </div>
         </div>
