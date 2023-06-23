@@ -19,6 +19,7 @@ import { H1, H2, H3, H4, H5 } from './typography/headings';
 import AlunosInput from './alunosInput';
 import InputText from './input/text';
 import InputTag from './input/tag';
+import Container from './container';
 
 export {
     SidebarDefault,
@@ -46,4 +47,5 @@ export {
     H5,
     AlunosInput,
     InputTag,
+    Container,
 };

@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children }) {
             localStorage.getItem('ifsolve_user') == null
         ) {
             localStorage.clear();
-            navigate('/');
+            navigate('/login/');
         }
 
         setUser(null);
@@ -27,7 +27,7 @@ export default function ProtectedRoute({ children }) {
             })
             .catch(() => {
                 localStorage.clear();
-                navigate('/');
+                navigate('/login/');
             });
     }, []);
 

@@ -1,12 +1,18 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
     Login,
-    ItemListar,
-    ItemCriar,
-    AvaliacaoListar,
     FormLayout,
     Landing,
+    ItemListar,
+    ItemCriar,
+    ItemResponder,
+    ItemResposta,
+    ItemVisualizar,
+    AvaliacaoListar,
     AvalicaoCriar,
+    AvaliacaoResponder,
+    AvaliacaoResposta,
+    AvaliacaoResumo,
 } from './pages';
 import { ProtectedRoute } from './components';
 
@@ -29,10 +35,58 @@ export default function App() {
             ),
         },
         {
-            path: '/avaliacao',
+            path: '/item/:id/responder/',
+            element: (
+                <ProtectedRoute>
+                    <ItemResponder />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/item/:id/resposta/',
+            element: (
+                <ProtectedRoute>
+                    <ItemResposta />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/item/:id/visualizar/',
+            element: (
+                <ProtectedRoute>
+                    <ItemVisualizar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/',
             element: (
                 <ProtectedRoute>
                     <AvaliacaoListar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/:id/responder/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResponder />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/:id/respostas/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResposta />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/resumo/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResumo />
                 </ProtectedRoute>
             ),
         },
