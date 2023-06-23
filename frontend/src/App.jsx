@@ -1,120 +1,125 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
-	CriarItem,
-	ListarItem,
-	Login,
-	Register,
-	ResponderItem,
-	Settings,
-	VisualizarItem,
-	AlunoVisualizarRespostaAvaliacao,
-	AvaliacaoRespostas,
-	CreateAvaliacao,
-	ListAvaliacao,
-	RespostaItem,
-	ResponderAvaliacao,
-} from "./pages";
-import { ProtectedRoute } from "./components";
+    Login,
+    FormLayout,
+    Landing,
+    ItemListar,
+    ItemCriar,
+    ItemResponder,
+    ItemResposta,
+    ItemVisualizar,
+    AvaliacaoListar,
+    AvalicaoCriar,
+    AvaliacaoResponder,
+    AvaliacaoResposta,
+    AvaliacaoResumo,
+    Settings,
+} from './pages';
+import { ProtectedRoute } from './components';
 
 export default function App() {
-	const router = createBrowserRouter([
-		{
-			path: "/",
-			element: <Login />,
-		},
-		{
-			path: "/registro",
-			element: <Register />,
-		},
-		{
-			path: "/avaliacao",
-			element: (
-				<ProtectedRoute>
-					<ListAvaliacao />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/avaliacao/criar",
-			element: (
-				<ProtectedRoute>
-					<CreateAvaliacao />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/avaliacao/:id/responder",
-			element: (
-				<ProtectedRoute>
-					<ResponderAvaliacao />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "avaliacao/:id/respostas",
-			element: (
-				<ProtectedRoute>
-					<AvaliacaoRespostas />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/item",
-			element: (
-				<ProtectedRoute>
-					<ListarItem />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/item/:id",
-			element: (
-				<ProtectedRoute>
-					<VisualizarItem />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/item/:id/responder",
-			element: (
-				<ProtectedRoute>
-					<ResponderItem />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/criar/item",
-			element: (
-				<ProtectedRoute>
-					<CriarItem />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/item/:id/resposta",
-			element: (
-				<ProtectedRoute>
-					<RespostaItem />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/settings",
-			element: (
-				<ProtectedRoute>
-					<Settings />
-				</ProtectedRoute>
-			),
-		},
-		{
-			path: "/avaliacao/:id/aluno/respostas",
-			element: (
-				<ProtectedRoute>
-					<AlunoVisualizarRespostaAvaliacao />
-				</ProtectedRoute>
-			),
-		},
-	]);
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <Landing />,
+        },
+        {
+            path: '/login',
+            element: <Login />,
+        },
+        {
+            path: '/item',
+            element: (
+                <ProtectedRoute>
+                    <ItemListar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/item/:id/responder/',
+            element: (
+                <ProtectedRoute>
+                    <ItemResponder />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/item/:id/respostas/',
+            element: (
+                <ProtectedRoute>
+                    <ItemResposta />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/item/:id/visualizar/',
+            element: (
+                <ProtectedRoute>
+                    <ItemVisualizar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoListar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/:id/responder/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResponder />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/:id/respostas/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResposta />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/avaliacao/:id/resumo/',
+            element: (
+                <ProtectedRoute>
+                    <AvaliacaoResumo />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/elaborar/',
+            element: <FormLayout />,
+        },
+        {
+            path: '/elaborar/item/',
+            element: (
+                <ProtectedRoute>
+                    <ItemCriar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/elaborar/avaliacao/',
+            element: (
+                <ProtectedRoute>
+                    <AvalicaoCriar />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/perfil',
+            element: (
+                <ProtectedRoute>
+                    <Settings />
+                </ProtectedRoute>
+            ),
+        },
+    ]);
 
-	return <RouterProvider router={router} />;
+    return <RouterProvider router={router} />;
 }

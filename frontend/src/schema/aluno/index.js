@@ -24,10 +24,10 @@ export default class Aluno {
 
         if (this.matricula < otherAluno.matricula) {
             return -1;
-        } else if (this.matricula > otherAluno.matricula) {
-            return 1;
-        } else {
-            return 0;
         }
+        if (this.matricula > otherAluno.matricula) {
+            return 1;
+        }
+        return 0;
     }
 }

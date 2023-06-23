@@ -10,6 +10,7 @@
         "test": "vitest"
     },
     "dependencies": {
+        "@hookform/resolvers": "^3.1.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^14.0.0",
         "@testing-library/user-event": "^13.5.0",
@@ -19,13 +20,14 @@
         "prop-types": "^15.8.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-hook-form": "^7.44.2",
         "react-hot-toast": "^2.4.0",
         "react-icons": "^4.7.1",
         "react-quill": "^2.0.0",
         "react-router-dom": "^6.4.5",
         "react-scripts": "5.0.1",
         "web-vitals": "^2.1.4",
-        "yup": "^0.32.11"
+        "yup": "^1.2.0"
     },
     "devDependencies": {
         "@types/react": "^18.0.28",
@@ -39,7 +41,7 @@
         "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
-        "jsdom": "^22.0.0",
+        "jsdom": "^22.1.0",
         "postcss": "^8.4.21",
         "prettier": "^2.8.7",
         "tailwindcss": "^3.3.1",

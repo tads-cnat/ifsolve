@@ -28,7 +28,9 @@
         "react/jsx-filename-extension": [
             0
         ],
-        "import/extensions": "off"
+        "jsx-a11y/label-has-associated-control": "off",
+        "import/extensions": "off",
+        "react/jsx-props-no-spreading": "off"
     },
     "ignorePatterns": [
         "**/*.png",

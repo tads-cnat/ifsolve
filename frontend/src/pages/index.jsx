@@ -1,17 +1,31 @@
-import ListarItem from "./listarItem";
-import CriarItem from "./criarItem";
-import Login from "./login";
-import Register from "./register";
-import Settings from "./settings";
-import VisualizarItem from "./visualizarItem";
-import RespostaItem from "./respostaItem";
-import AlunoListarItem from "./alunoListarItem";
-import ElaboradorListarItem from "./elaboradorListarItem";
-import ResponderItem from "./responderItem";
-import AlunoVisualizarRespostaAvaliacao from "./AlunoVisualizarRespostaAvaliacao";
-import ListAvaliacao from "./listAvaliacao";
-import CreateAvaliacao from "./createAvaliacao";
-import AvaliacaoRespostas from "./avaliacaoRespostas";
-import ResponderAvaliacao from "./responderAvaliacao";
+import Login from './login';
+import ItemListar from './item/listar';
+import ItemCriar from './item/criar';
+import ItemResponder from './item/responder';
+import ItemResposta from './item/resposta';
+import ItemVisualizar from './item/visualizar';
+import AvaliacaoListar from './avaliacao/listar';
+import AvalicaoCriar from './avaliacao/criar';
+import AvaliacaoResponder from './avaliacao/responder';
+import AvaliacaoResposta from './avaliacao/resposta';
+import AvaliacaoResumo from './avaliacao/resumo';
+import FormLayout from './form/layout';
+import Landing from './landing';
+import Settings from './settings';
 
-export { ListarItem, CriarItem, Login, Register, Settings, VisualizarItem, RespostaItem, AlunoListarItem, ElaboradorListarItem, ResponderItem, ListAvaliacao, CreateAvaliacao, AvaliacaoRespostas, AlunoVisualizarRespostaAvaliacao, ResponderAvaliacao };
+export {
+    Login,
+    Landing,
+    FormLayout,
+    Settings,
+    ItemListar,
+    ItemCriar,
+    ItemResponder,
+    ItemResposta,
+    ItemVisualizar,
+    AvaliacaoListar,
+    AvalicaoCriar,
+    AvaliacaoResponder,
+    AvaliacaoResposta,
+    AvaliacaoResumo,
+};
