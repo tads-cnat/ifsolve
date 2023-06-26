@@ -1,29 +1,41 @@
-import unittest
 from django.test import TestCase
 from datetime import date
 from django.contrib.auth.models import User
-from ifsolve.models import Usuario, Aluno, Alternativa, Item, ItemAvaliacao, Resposta
+from ifsolve.models import Elaborador, Aluno, Alternativa, Item, ItemAvaliacao, Resposta
 
 
 class ModelsIntegrationTest(TestCase):
     def setUp(self):
 
-        self.user = User.objects.create_user(
+        self.user_aluno = User.objects.create_user(
             username='testuser',
             password='testpassword'
         )
 
+        self.user_elaborador = User.objects.create_user(
+            username='testuser2',
+            password='testpassword2'
+        )
+
         self.aluno = Aluno.objects.create(
-            user=self.user,
+            user=self.user_aluno,
             nome_completo='Beltrano de Tal',
             data_nascimento=date(1995, 1, 1)
         )
+
+        self.elaborador = Elaborador.objects.create(
+            user=self.user_elaborador,
+            nome_completo='Fulano de Tal',
+            data_nascimento=date(1995, 1, 1),
+            verificado=True
+        )
+
         self.alternativa = Alternativa.objects.create(
             texto='Texto da Alternativa',
             justificativa='Justificativa da Alternativa'
         )
         self.item = Item.objects.create(
-            elaborador=self.usuario,
+            elaborador=self.elaborador,
             tipo='ME',
             visibilidade='PU',
             assunto='Assunto do Item',
@@ -59,7 +71,8 @@ class ModelsIntegrationTest(TestCase):
         self.assertEqual(test_resposta.item_avaliacao, self.item_avaliacao)
         self.assertEqual(test_resposta.resposta, 'a')
         self.assertEqual(test_resposta.nota_obtida, 10)
-        self.assertEqual(test_resposta.data_hora, date.today())
+        self.assertEqual(test_resposta.data_hora.date(),
+                         date.today())
 
     def test_resposta_update(self):
         test_resposta = Resposta.objects.get(
@@ -81,7 +94,8 @@ class ModelsIntegrationTest(TestCase):
         self.assertEqual(test_resposta[0].item_avaliacao, self.item_avaliacao)
         self.assertEqual(test_resposta[0].resposta, 'a')
         self.assertEqual(test_resposta[0].nota_obtida, 10)
-        self.assertEqual(test_resposta[0].data_hora, date.today())
+        self.assertEqual(test_resposta[0].data_hora.date(),
+                        date.today()) 
 
     def test_resposta_delete(self):
         test_resposta = Resposta.objects.get(
@@ -89,7 +103,3 @@ class ModelsIntegrationTest(TestCase):
         test_resposta.delete()
         test_resposta = Resposta.objects.all()
         self.assertEqual(test_resposta.count(), 0)
-
-
-if __name__ == '__main__':
-    unittest.main()
