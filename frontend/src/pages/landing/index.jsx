@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiClock, FiDatabase, FiHelpCircle, FiZap } from 'react-icons/fi';
-import { Navbar, Typography, Button, MenuItem } from '@material-tailwind/react';
+import { FiClock, FiDatabase, FiHelpCircle, FiMenu, FiX, FiZap } from 'react-icons/fi';
+import {
+    Navbar,
+    Typography,
+    Button,
+    MenuItem,
+    Collapse,
+    NavList,
+    IconButton,
+} from '@material-tailwind/react';
 import logo from '../../images/IFSolve-logo.svg';
 import featrueOne from '../../images/featureOne.jpg';
 import ctaImg from '../../images/cta.jpg';
@@ -21,27 +30,70 @@ export default function Landing() {
 }
 
 function MyNavbar() {
+    const [open, setOpen] = useState(false);
+
+    function toggleOpen() {
+        setOpen(!open);
+    }
+
+    const navItems = [
+        {
+            icon: <FiZap />,
+            text: 'Funcionalidades',
+            link: '#features',
+        },
+        {
+            icon: <FiHelpCircle />,
+            text: 'Perguntas frequentes',
+            link: '#faq',
+        },
+    ];
+
     return (
-        <Navbar className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto sticky flex flex-row items-center justify-between text-dark-100 top-2 z-10 h-max max-w-full rounded-lg py-2 px-4 lg:px-8">
-            <a href="#hero">
-                <img src={logo} alt="Logo do IFSolve" className="h-4" />
-            </a>
-            <div className="flex flex-row gap-6">
-                <MenuItem>
-                    <a href="#features" className="flex flex-row gap-2 items-center">
-                        <FiZap />
-                        Funcionalidades
-                    </a>
-                </MenuItem>
-                <MenuItem className="whitespace-nowrap">
-                    <a href="#faq" className="flex flex-row gap-2 items-center">
-                        <FiHelpCircle /> Perguntas frequentes
-                    </a>
-                </MenuItem>
+        <Navbar className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto sticky top-2 z-10 text-dark-100">
+            <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
+                <a href="#hero">
+                    <img src={logo} alt="Logo do IFSolve" className="h-4" />
+                </a>
+                <div className="hidden md:flex flex-row gap-6">
+                    {navItems.map((item) => (
+                        <MenuItem className="whitespace-nowrap">
+                            <a href={item.link} className="flex flex-row gap-2 items-center">
+                                {item.icon}
+                                {item.text}
+                            </a>
+                        </MenuItem>
+                    ))}
+                </div>
+                <IconButton
+                    color="blue-gray"
+                    variant="text"
+                    className="block md:hidden"
+                    onClick={() => setOpen(!open)}
+                >
+                    {!open ? <FiMenu /> : <FiX />}
+                </IconButton>
+
+                <Link to="/login" className="hidden md:block">
+                    <Button color="teal">Entrar</Button>
+                </Link>
             </div>
-            <Link to="/login">
-                <Button color="teal">Entrar</Button>
-            </Link>
+
+            <Collapse open={open} className="flex flex-col gap-4">
+                {navItems.map((item) => (
+                    <MenuItem>
+                        <a href={item.link} className="flex flex-row gap-2 items-center">
+                            {item.icon}
+                            {item.text}
+                        </a>
+                    </MenuItem>
+                ))}
+                <Link to="/login">
+                    <Button color="teal" className="w-full">
+                        Entrar
+                    </Button>
+                </Link>
+            </Collapse>
         </Navbar>
     );
 }
@@ -52,7 +104,10 @@ function Hero() {
             id="hero"
             className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto flex flex-col items-center justify-center min-h-screen mt-32 mb-24"
         >
-            <Typography variant="h1" className="text-center text-teal-700 mb-2 w-full md:w-4/5">
+            <Typography
+                variant="h2"
+                className="md:text-5xl text-center text-teal-700 mb-2 w-full md:w-4/5"
+            >
                 Simplifique o processo de criação e aplicação de provas
             </Typography>
             <Typography
@@ -94,11 +149,6 @@ function Feature() {
             header: 'Banco de questões completo e diversificado',
             body: 'Com acesso a um banco de questões diversificado. O IFSolve oferece uma ampla variedade de questões previamente cadastradas e categorizadas, permitindo que você encontre facilmente o conteúdo que precisa',
         },
-        // {
-        //     icon: featrueOne,
-        //     header: 'Gerenciamento eficiente de turmas e alunos',
-        //     body: 'Organize suas turmas de maneira eficiente e tenha uma visão completa do desempenho dos seus alunos. Através do IFSolve, você pode cadastrar suas turmas, adicionar alunos e acompanhar seu progresso individual e coletivo. Identifique rapidamente áreas de melhoria e personalize o aprendizado para cada aluno.',
-        // },
     ];
 
     return (
@@ -198,9 +248,9 @@ function Footer() {
     return (
         <footer className="w-full border-t border-dark-10">
             <div className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto">
-                <div className="flex flex-row justify-between items-center  py-8">
+                <div className="flex flex-col justify-between items-center py-8 md:flex-row">
                     <img src={logo} alt="Logo do IFSolve" className="h-4" />
-                    <div className="flex flex-row gap-6">
+                    <div className="flex flex-col gap-6 md:flex-row">
                         <MenuItem>
                             <a href="#features" className="flex flex-row gap-2 items-center">
                                 <FiZap />
