@@ -1,6 +1,19 @@
 version: "3.9"
 
 services:
+  web:
+    build: .
+    volumes:
+      - static:/app/static
+    expose:
+      - 8000
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      postgresql:
+        condition: service_healthy
   postgresql:
     image: postgres
     volumes:
@@ -16,22 +29,25 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  web:
-    working_dir: /code/config/
-    # image: diogoodiego/ifsolve
-    build: .
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    networks:
-      - default
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/app/static
     ports:
-      - "8000:8000"
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - 1337:80
     depends_on:
-      postgresql:
-        condition: service_healthy
+      - web
+
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #   volumes:
+  #     - static:/static
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - backend
+
 volumes:
+  static:
   postgres_data:
