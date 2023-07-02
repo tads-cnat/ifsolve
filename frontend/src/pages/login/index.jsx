@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import { useEffect, useState } from 'react';
+import { Button } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +9,7 @@ import { FiAlertCircle, FiLoader } from 'react-icons/fi';
 
 import IFSolvelogo from '../../images/IFSolve-logo.svg';
 import IFRNLogo from '../../images/ifrn-logo.png';
+import LogoSuap from '../../images/logo-suap.svg';
 import LoginBackground from '../../images/login-background.png';
 import { loginApi } from '../../api/config';
 import { AlertDanger, InputPassword, InputText } from '../../components';
@@ -85,12 +87,24 @@ export default function Login() {
                     ) : null}
 
                     {error ? <AlertDanger icon={<FiAlertCircle />}>{error}</AlertDanger> : null}
-                    <button
-                        type="submit"
-                        className="w-full flex justify-center text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
-                    >
-                        {loading ? <FiLoader className="animate-spin text-xl" /> : 'Entrar'}
-                    </button>
+                    {loading ? (
+                        <Button
+                            color="teal"
+                            className="flex justify-center items-center gap-4"
+                            disabled
+                        >
+                            <FiLoader className="animate-spin text-xl" />
+                        </Button>
+                    ) : (
+                        <Button
+                            type="submit"
+                            color="teal"
+                            className="flex justify-center items-center gap-4"
+                        >
+                            <img src={LogoSuap} className="h-6" alt="Logo do suap" />
+                            Entrar com suap
+                        </Button>
+                    )}
                 </form>
             </div>
             {/* Background */}
