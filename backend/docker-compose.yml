@@ -1,19 +1,6 @@
 version: "3.9"
 
 services:
-  web:
-    build: .
-    volumes:
-      - static:/app/static
-    expose:
-      - 8000
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    depends_on:
-      postgresql:
-        condition: service_healthy
   postgresql:
     image: postgres
     volumes:
@@ -29,25 +16,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  nginx:
-    build: ./nginx
-    volumes:
-      - static:/app/static
+
+  web:
+    working_dir: /code/config/
+    build: .
+    networks:
+      - default
     ports:
-      - 1337:80
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     depends_on:
-      - web
-
-  # nginx:
-  #   build:
-  #     context: ./nginx
-  #   volumes:
-  #     - static:/static
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - backend
-
+      postgresql:
+        condition: service_healthy
 volumes:
-  static:
   postgres_data:
