@@ -1,26 +1,41 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiClock, FiDatabase, FiHelpCircle, FiMenu, FiX, FiZap } from 'react-icons/fi';
+import {
+    FiArrowRight,
+    FiClock,
+    FiDatabase,
+    FiHelpCircle,
+    FiLogIn,
+    FiMenu,
+    FiUser,
+    FiX,
+    FiZap,
+} from 'react-icons/fi';
+import { SlGraduation } from 'react-icons/sl';
 import {
     Navbar,
     Typography,
     Button,
     MenuItem,
     Collapse,
-    NavList,
+    Carousel,
     IconButton,
 } from '@material-tailwind/react';
 import logo from '../../images/IFSolve-logo.svg';
 import featrueOne from '../../images/featureOne.jpg';
 import ctaImg from '../../images/cta.jpg';
 import poster from '../../images/poster.png';
+import carouselImage1 from '../../images/carousel_1.jpg';
+import carouselImage2 from '../../images/carousel_2.jpg';
+import carouselImage3 from '../../images/carousel_3.jpg';
+import carouselImage4 from '../../images/carousel_4.jpg';
 import promoVideo from '../../videos/promo_video.mp4';
 
 export default function Landing() {
     return (
-        <div className="flex flex-col  min-h-screen text-dark-100">
+        <div className="flex flex-col min-h-screen text-dark-100">
             <MyNavbar />
-            <Hero />
+            <Carroca />
             <Feature />
             <CTA />
             <FAQ />
@@ -32,14 +47,15 @@ export default function Landing() {
 function MyNavbar() {
     const [open, setOpen] = useState(false);
 
-    function toggleOpen() {
-        setOpen(!open);
-    }
-
     const navItems = [
         {
-            icon: <FiZap />,
-            text: 'Funcionalidades',
+            icon: <SlGraduation />,
+            text: 'Sou professor',
+            link: '#features',
+        },
+        {
+            icon: <FiUser />,
+            text: 'Sou aluno',
             link: '#features',
         },
         {
@@ -50,10 +66,10 @@ function MyNavbar() {
     ];
 
     return (
-        <Navbar className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto sticky top-2 z-10 text-dark-100">
+        <Navbar className="w-11/12 md:w-10/12 xl:w-4/6 fixed inset-x-1/2 -translate-x-1/2 top-2 z-10 text-dark-100">
             <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
                 <a href="#hero">
-                    <img src={logo} alt="Logo do IFSolve" className="h-4" />
+                    <img src={logo} alt="Logo do IFSolve" className="h-5" />
                 </a>
                 <div className="hidden md:flex flex-row gap-6">
                     {navItems.map((item) => (
@@ -75,7 +91,10 @@ function MyNavbar() {
                 </IconButton>
 
                 <Link to="/login" className="hidden md:block">
-                    <Button color="teal">Entrar</Button>
+                    <Button color="teal" className="flex flex-row items-center gap-2">
+                        Entrar
+                        <FiLogIn className="text-lg" />
+                    </Button>
                 </Link>
             </div>
 
@@ -95,6 +114,71 @@ function MyNavbar() {
                 </Link>
             </Collapse>
         </Navbar>
+    );
+}
+
+function Carroca() {
+    const items = [
+        {
+            image: carouselImage1,
+            header: 'Destaque-se como professor inovador',
+            paragraph: 'Ajudamos você a aplicar atividades para seus alunos.',
+        },
+        {
+            image: carouselImage2,
+            header: 'Resolva suas atitivades acadêmicas',
+            paragraph: 'Ajudamos você a estudar para atividades',
+        },
+        // {
+        //     image: carouselImage3,
+        //     header: 'testando',
+        //     paragraph: 'testando',
+        // },
+        // {
+        //     image: carouselImage4,
+        //     header: 'testando',
+        //     paragraph: 'testando',
+        // },
+    ];
+
+    return (
+        <Carousel className="w-full h-screen bg-dark-100" autoplayDelay={9000} autoplay loop>
+            {items.map((item) => (
+                <div className="relative h-full w-full">
+                    <img
+                        src={item.image}
+                        alt={item.header}
+                        className="h-full w-full object-cover"
+                    />
+                    <div className="absolute top-0 left-0 h-full w-full bg-black/75">
+                        <div className="w-11/12 md:w-10/12 xl:w-4/6 h-full mx-auto flex flex-col items-center justify-center text-white gap-4">
+                            <Typography
+                                variant="h1"
+                                className="w-full md:w-2/3 text-center text-6xl"
+                            >
+                                {item.header}
+                            </Typography>
+                            <Typography variant="text" className="text-center">
+                                {item.paragraph}
+                            </Typography>
+                            <div className="flex flex-row gap-2 mt-12">
+                                <Button color="teal" className="">
+                                    Entrar com suap
+                                </Button>
+                                <Button
+                                    variant="text"
+                                    color="white"
+                                    className="flex flex-row gap-2 items-center"
+                                >
+                                    Conhecer
+                                    <FiArrowRight className="text-lg" />
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </Carousel>
     );
 }
 
@@ -127,12 +211,6 @@ function Hero() {
                     <Button color="teal">Entrar</Button>
                 </Link>
             </div>
-            <div className="rounded-lg border border-[12px] border-white shadow-lg">
-                <video className="h-full w-full " poster={poster} controls>
-                    <source src={promoVideo} type="video/mp4" />
-                    Seu navegador não suporta vídeos
-                </video>
-            </div>
         </div>
     );
 }
@@ -152,7 +230,7 @@ function Feature() {
     ];
 
     return (
-        <div id="features" className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto mb-24">
+        <div id="features" className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto my-24">
             <Typography variant="h3" className="mb-2 text-teal-700">
                 Aproveite ao máximo sua experiência com o IFSolve
             </Typography>
@@ -160,11 +238,12 @@ function Feature() {
                 Transforme a forma como você avalia e engaja seus alunos. Estamos aqui para apoiá-lo
                 em sua jornada educacional
             </Typography>
-            <img
-                src={featrueOne}
-                alt="Funcionalidades do sistema"
-                className="aspect-[31/9] mb-8 object-cover object-bottom"
-            />
+            <div className="rounded-lg border border-[12px] border-white shadow-lg mb-8">
+                <video className="h-full w-full " poster={poster} controls>
+                    <source src={promoVideo} type="video/mp4" />
+                    Seu navegador não suporta vídeos
+                </video>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
                 {features.map((item) => (
                     <div className="flex flex-col items-start">
