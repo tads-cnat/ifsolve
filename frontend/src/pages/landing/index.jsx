@@ -34,6 +34,8 @@ import carouselImage1 from '../../images/carousel_1.jpg';
 import carouselImage2 from '../../images/carousel_2.jpg';
 import carouselImage3 from '../../images/carousel_3.jpg';
 import carouselImage4 from '../../images/carousel_4.jpg';
+import LogoSuap from '../../images/logo-suap.svg';
+
 // import promoVideo from '../../videos/promo_video.mp4';
 
 export default function Landing() {
@@ -179,8 +181,12 @@ function Hero() {
                                 {item.paragraph}
                             </Typography>
                             <div className="flex flex-row gap-2 mt-12">
-                                <Button color="teal" className="">
-                                    Entrar com suap
+                                <Button
+                                    color="teal"
+                                    className="flex justify-center items-center gap-4"
+                                >
+                                    Entrar com
+                                    <img src={LogoSuap} className="h-4" alt="Logo do suap" />
                                 </Button>
                                 <LinkScroll to={item.link} spy smooth offset={-90}>
                                     <Button
