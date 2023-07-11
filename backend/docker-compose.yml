@@ -2,11 +2,13 @@ version: "3"
 
 services:
   web:
+    working_dir: /code/
     build: .
-    volumes:
-      - static:/app/static
-    expose:
-      - 8000
+    # image: diogoodiego/ifsolve-backend-django
+    networks:
+      - default
+    ports:
+      - "8000:8000"
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
@@ -14,6 +16,7 @@ services:
     depends_on:
       postgresql:
         condition: service_healthy
+
   postgresql:
     image: postgres
     volumes:
@@ -29,15 +32,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  nginx:
-    build: ./nginx
-    volumes:
-      - static:/app/static
-    ports:
-      - 1337:80
-    depends_on:
-      - web
 
 volumes:
-  static:
   postgres_data:
+  config:

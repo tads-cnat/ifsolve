@@ -88,19 +88,20 @@ def create_admin_user():
     user.save()
 
 def create_elaborador():
-    user = User.objects.create(
+    user = User(
         username='elaborador',
-        password='elaborador',
         email='elaborador@example.com'
-    )  
+    )
+    user.set_password('elaborador')
     user.save()
-    elaborador = Elaborador.objects.create(
+    elaborador = Elaborador(
         user=user,
         nome_completo='Elaborador da Silva',
         data_nascimento='2000-06-01',
         verificado=True
     )
     elaborador.save()
+
 
 
 def run_seed(self, mode):
@@ -117,4 +118,6 @@ def run_seed(self, mode):
     # Creating admin user
     logging.warning('Creating admin user')
     create_admin_user()
+
+    logging.warning('Creating elaborador')
     create_elaborador()
