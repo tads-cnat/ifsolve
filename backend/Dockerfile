@@ -1,15 +1,17 @@
 FROM python:3.10
 
-WORKDIR /code
 
-RUN pip install --upgrade pip 
+RUN pip install --upgrade pip
 
-COPY requirements.txt /code/
-
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-# Copia o resto do código
-COPY ./config /code/
+COPY ./config ./app/
+WORKDIR /app/
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 COPY ./entrypoint.sh .
-ENTRYPOINT ["sh","/code/entrypoint.sh"]
+ENTRYPOINT ["sh","/app/entrypoint.sh"]
