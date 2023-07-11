@@ -1,15 +1,20 @@
-import { useState } from 'react';
+/* eslint-disable jsx-a11y/media-has-caption */
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Link as LinkScroll, animateScroll as scroll } from 'react-scroll';
 import {
+    FiAlignLeft,
     FiArrowRight,
-    FiClock,
+    FiCheckSquare,
     FiDatabase,
     FiHelpCircle,
     FiLogIn,
     FiMenu,
+    FiPlusSquare,
+    FiSmartphone,
+    FiStar,
     FiUser,
     FiX,
-    FiZap,
 } from 'react-icons/fi';
 import { SlGraduation } from 'react-icons/sl';
 import {
@@ -22,21 +27,22 @@ import {
     IconButton,
 } from '@material-tailwind/react';
 import logo from '../../images/IFSolve-logo.svg';
-import featrueOne from '../../images/featureOne.jpg';
+// import featrueOne from '../../images/featureOne.jpg';
 import ctaImg from '../../images/cta.jpg';
-import poster from '../../images/poster.png';
+// import poster from '../../images/poster.png';
 import carouselImage1 from '../../images/carousel_1.jpg';
 import carouselImage2 from '../../images/carousel_2.jpg';
 import carouselImage3 from '../../images/carousel_3.jpg';
 import carouselImage4 from '../../images/carousel_4.jpg';
-import promoVideo from '../../videos/promo_video.mp4';
+// import promoVideo from '../../videos/promo_video.mp4';
 
 export default function Landing() {
     return (
         <div className="flex flex-col min-h-screen text-dark-100">
             <MyNavbar />
-            <Carroca />
-            <Feature />
+            <Hero />
+            <ProfessorArea />
+            <AlunoArea />
             <CTA />
             <FAQ />
             <Footer />
@@ -51,33 +57,39 @@ function MyNavbar() {
         {
             icon: <SlGraduation />,
             text: 'Sou professor',
-            link: '#features',
+            link: 'professor',
         },
         {
             icon: <FiUser />,
             text: 'Sou aluno',
-            link: '#features',
+            link: 'aluno',
         },
         {
             icon: <FiHelpCircle />,
             text: 'Perguntas frequentes',
-            link: '#faq',
+            link: 'faq',
         },
     ];
 
     return (
         <Navbar className="w-11/12 md:w-10/12 xl:w-4/6 fixed inset-x-1/2 -translate-x-1/2 top-2 z-10 text-dark-100">
             <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
-                <a href="#hero">
-                    <img src={logo} alt="Logo do IFSolve" className="h-5" />
-                </a>
+                <LinkScroll to="hero" spy smooth offset={-90}>
+                    <img src={logo} alt="Logo do IFSolve" className="h-5 cursor-pointer" />
+                </LinkScroll>
                 <div className="hidden md:flex flex-row gap-6">
                     {navItems.map((item) => (
                         <MenuItem className="whitespace-nowrap">
-                            <a href={item.link} className="flex flex-row gap-2 items-center">
+                            <LinkScroll
+                                to={item.link}
+                                spy
+                                smooth
+                                offset={-90}
+                                className="flex flex-row gap-2 items-center"
+                            >
                                 {item.icon}
                                 {item.text}
-                            </a>
+                            </LinkScroll>
                         </MenuItem>
                     ))}
                 </div>
@@ -101,10 +113,17 @@ function MyNavbar() {
             <Collapse open={open} className="flex flex-col gap-4">
                 {navItems.map((item) => (
                     <MenuItem>
-                        <a href={item.link} className="flex flex-row gap-2 items-center">
+                        <LinkScroll
+                            to={item.link}
+                            spy
+                            smooth
+                            offset={-90}
+                            onClick={() => setOpen(false)}
+                            className="flex flex-row gap-2 items-center"
+                        >
                             {item.icon}
                             {item.text}
-                        </a>
+                        </LinkScroll>
                     </MenuItem>
                 ))}
                 <Link to="/login">
@@ -117,32 +136,30 @@ function MyNavbar() {
     );
 }
 
-function Carroca() {
+function Hero() {
     const items = [
         {
             image: carouselImage1,
             header: 'Destaque-se como professor inovador',
             paragraph: 'Ajudamos você a aplicar atividades para seus alunos.',
+            link: 'professor',
         },
         {
             image: carouselImage2,
             header: 'Resolva suas atitivades acadêmicas',
             paragraph: 'Ajudamos você a estudar para atividades',
+            link: 'aluno',
         },
-        // {
-        //     image: carouselImage3,
-        //     header: 'testando',
-        //     paragraph: 'testando',
-        // },
-        // {
-        //     image: carouselImage4,
-        //     header: 'testando',
-        //     paragraph: 'testando',
-        // },
     ];
 
     return (
-        <Carousel className="w-full h-screen bg-dark-100" autoplayDelay={9000} autoplay loop>
+        <Carousel
+            id="hero"
+            className="w-full h-screen bg-dark-100"
+            autoplayDelay={9000}
+            autoplay
+            loop
+        >
             {items.map((item) => (
                 <div className="relative h-full w-full">
                     <img
@@ -165,14 +182,16 @@ function Carroca() {
                                 <Button color="teal" className="">
                                     Entrar com suap
                                 </Button>
-                                <Button
-                                    variant="text"
-                                    color="white"
-                                    className="flex flex-row gap-2 items-center"
-                                >
-                                    Conhecer
-                                    <FiArrowRight className="text-lg" />
-                                </Button>
+                                <LinkScroll to={item.link} spy smooth offset={-90}>
+                                    <Button
+                                        variant="text"
+                                        color="white"
+                                        className="flex flex-row gap-2 items-center"
+                                    >
+                                        Conhecer
+                                        <FiArrowRight className="text-lg" />
+                                    </Button>
+                                </LinkScroll>
                             </div>
                         </div>
                     </div>
@@ -182,82 +201,114 @@ function Carroca() {
     );
 }
 
-function Hero() {
+function ProfessorArea() {
     return (
-        <div
-            id="hero"
-            className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto flex flex-col items-center justify-center min-h-screen mt-32 mb-24"
-        >
-            <Typography
-                variant="h2"
-                className="md:text-5xl text-center text-teal-700 mb-2 w-full md:w-4/5"
-            >
-                Simplifique o processo de criação e aplicação de provas
-            </Typography>
-            <Typography
-                variant="paragraph"
-                className="text-center text-dark-80 mb-8 w-full md:w-4/5"
-            >
-                Destaque-se como professor inovador, facilite o gerenciamento das suas atividades
-                avaliativas e eleve o desempenho dos seus alunos. Com o IFSolve, você tem em suas
-                mãos uma ferramenta poderosa e intuitiva, desenvolvida especialmente para atender às
-                suas necessidades acadêmicas
-            </Typography>
-            <div className="flex flex-row gap-4 mb-16">
-                <Button variant="outlined" color="blue-gray">
-                    Ler Mais
-                </Button>
-                <Link to="/login">
-                    <Button color="teal">Entrar</Button>
-                </Link>
+        <div id="professor" className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto my-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <img
+                    src={carouselImage3}
+                    alt=""
+                    className="w-full h-full object-cover rounded-lg"
+                />
+                <div className="flex flex-col items-start gap-2">
+                    <Typography variant="h2">Simplifique suas avaliações</Typography>
+                    <Typography variant="text">
+                        Maximize o seu tempo e melhore a experiência de avaliação dos seus alunos.
+                    </Typography>
+                    <Link to="/login" className="flex items-center gap-2 mb-12 text-teal-600">
+                        <Typography variant="h6">Entrar com SUAP</Typography>
+                        <FiArrowRight />
+                    </Link>
+                    <div className="flex flex-col items-start gap-2 mb-6">
+                        <div className="p-2 bg-teal-100 text-teal-800 text-xl rounded-lg">
+                            <FiPlusSquare />
+                        </div>
+                        <Typography variant="h5">Crie suas próprias questões</Typography>
+                        <Typography variant="text">
+                            Cadastre questões personalizadas alinhadas ao seu currículo, oferecendo
+                            controle total sobre suas avaliações.
+                        </Typography>
+                    </div>
+                    <div className="flex flex-col items-start gap-2 mb-6">
+                        <div className="p-2 bg-deep-purple-100 text-deep-purple-800 text-xl rounded-lg">
+                            <FiDatabase />
+                        </div>
+                        <Typography variant="h5">Acesso a banco de questões</Typography>
+                        <Typography variant="text">
+                            Explore um amplo banco de questões gratuito, classificado por disciplina
+                            e nível de dificuldade, para criar avaliações diversificadas
+                            rapidamente.
+                        </Typography>
+                    </div>
+                    <div className="flex flex-col items-start gap-2">
+                        <div className="p-2 bg-light-blue-100 text-light-blue-800 text-xl rounded-lg">
+                            <FiCheckSquare />
+                        </div>
+                        <Typography variant="h5">Fácil aplicação de avaliações</Typography>
+                        <Typography variant="text">
+                            Cadastre questões personalizadas alinhadas ao seu currículo, oferecendo
+                            controle total sobre suas avaliações.
+                        </Typography>
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
 
-function Feature() {
-    const features = [
-        {
-            icon: <FiClock />,
-            header: 'Criação e personalização de atividades em minutos',
-            body: 'Crie e personalize suas atividades avaliativas em poucos minutos. Escolha entre questões de múltipla escolha e respostas dissertativas. Com apenas alguns cliques, você estará pronto para envolver e desafiar seus alunos',
-        },
-        {
-            icon: <FiDatabase />,
-            header: 'Banco de questões completo e diversificado',
-            body: 'Com acesso a um banco de questões diversificado. O IFSolve oferece uma ampla variedade de questões previamente cadastradas e categorizadas, permitindo que você encontre facilmente o conteúdo que precisa',
-        },
-    ];
-
+function AlunoArea() {
     return (
-        <div id="features" className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto my-24">
-            <Typography variant="h3" className="mb-2 text-teal-700">
-                Aproveite ao máximo sua experiência com o IFSolve
-            </Typography>
-            <Typography variant="paragraph" className="mb-8 text-blue-gray-800">
-                Transforme a forma como você avalia e engaja seus alunos. Estamos aqui para apoiá-lo
-                em sua jornada educacional
-            </Typography>
-            <div className="rounded-lg border border-[12px] border-white shadow-lg mb-8">
-                <video className="h-full w-full " poster={poster} controls>
-                    <source src={promoVideo} type="video/mp4" />
-                    Seu navegador não suporta vídeos
-                </video>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
-                {features.map((item) => (
-                    <div className="flex flex-col items-start">
-                        <div className="text-xl text-teal-600 bg-dark-10 p-2 rounded-lg mb-4">
-                            {item.icon}
+        <div id="aluno" className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto my-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex flex-col items-start gap-2">
+                    <Typography variant="h2">Domine seu futuro acadêmico</Typography>
+                    <Typography variant="text">
+                        Desafie-se e supere seus limites com a nossa plataforma de estudos.
+                    </Typography>
+                    <Link to="/login" className="flex items-center gap-2 mb-12 text-teal-600">
+                        <Typography variant="h6">Entrar com SUAP</Typography>
+                        <FiArrowRight />
+                    </Link>
+
+                    <div className="flex flex-col items-start gap-2 mb-6">
+                        <div className="p-2 bg-teal-100 text-teal-800 text-xl rounded-lg">
+                            <FiAlignLeft />
                         </div>
-                        <Typography variant="h6" className="text-dark-100 mb-4">
-                            {item.header}
-                        </Typography>
-                        <Typography variant="small" className="text-dark-80">
-                            {item.body}
+                        <Typography variant="h5">Diversidade de questões</Typography>
+                        <Typography variant="text">
+                            Aprenda de forma prática e eficiente, explorando nossa vasta biblioteca
+                            de perguntas do nosso banco de questões.
                         </Typography>
                     </div>
-                ))}
+                    <div className="flex flex-col items-start gap-2 mb-6">
+                        <div className="p-2 bg-deep-purple-100 text-deep-purple-800 text-xl rounded-lg">
+                            <FiStar />
+                        </div>
+                        <Typography variant="h5">
+                            Avalie seu progresso, alcance o sucesso!
+                        </Typography>
+                        <Typography variant="text">
+                            Receba feedback do professor e identifique áreas de melhoria. Prepare-se
+                            para exames e provas com nossas quesõtes. Seu sucesso acadêmico começa
+                            aqui
+                        </Typography>
+                    </div>
+                    <div className="flex flex-col items-start gap-2">
+                        <div className="p-2 bg-light-blue-100 text-light-blue-800 text-xl rounded-lg">
+                            <FiSmartphone />
+                        </div>
+                        <Typography variant="h5">Estude em movimento</Typography>
+                        <Typography variant="text">
+                            Acesse nossa plataforma em qualquer dispositivo. Nossa plataforma
+                            responsiva se adapta ao seu estilo de vida agitado.
+                        </Typography>
+                    </div>
+                </div>
+                <img
+                    src={carouselImage4}
+                    alt=""
+                    className="w-full h-full object-cover rounded-lg place-self-start order-first md:order-last"
+                />
             </div>
         </div>
     );
@@ -275,7 +326,7 @@ function CTA() {
                 <Typography variant="h2" className="text-center w-full md:w-4/5 text-white">
                     Transforme a forma como você avalia seus alunos hoje mesmo!
                 </Typography>
-                <Typography className="text-center w-full md:w-4/5 mb-12 text-dark-20">
+                <Typography className="text-center w-full md:w-4/5 mb-12 text-dark-5">
                     Experimente o IFSolve gratuitamente e descubra como simplificar sua rotina
                     acadêmica. Não perca tempo! Clique aqui para começar.
                 </Typography>
@@ -324,23 +375,46 @@ function FAQ() {
 }
 
 function Footer() {
+    const navItems = [
+        {
+            icon: <SlGraduation />,
+            text: 'Sou professor',
+            link: 'professor',
+        },
+        {
+            icon: <FiUser />,
+            text: 'Sou aluno',
+            link: 'aluno',
+        },
+        {
+            icon: <FiHelpCircle />,
+            text: 'Perguntas frequentes',
+            link: 'faq',
+        },
+    ];
+
     return (
         <footer className="w-full border-t border-dark-10">
             <div className="w-11/12 md:w-10/12 xl:w-4/6 mx-auto">
                 <div className="flex flex-col justify-between items-center py-8 md:flex-row">
-                    <img src={logo} alt="Logo do IFSolve" className="h-4" />
+                    <LinkScroll to="hero" spy smooth offset={-90}>
+                        <img src={logo} alt="Logo do IFSolve" className="h-4 cursor-pointer" />
+                    </LinkScroll>
                     <div className="flex flex-col gap-6 md:flex-row">
-                        <MenuItem>
-                            <a href="#features" className="flex flex-row gap-2 items-center">
-                                <FiZap />
-                                Funcionalidades
-                            </a>
-                        </MenuItem>
-                        <MenuItem className="whitespace-nowrap">
-                            <a href="#faq" className="flex flex-row gap-2 items-center">
-                                <FiHelpCircle /> Perguntas frequentes
-                            </a>
-                        </MenuItem>
+                        {navItems.map((item) => (
+                            <MenuItem className="whitespace-nowrap">
+                                <LinkScroll
+                                    to={item.link}
+                                    spy
+                                    smooth
+                                    offset={-90}
+                                    className="flex flex-row gap-2 items-center"
+                                >
+                                    {item.icon}
+                                    {item.text}
+                                </LinkScroll>
+                            </MenuItem>
+                        ))}
                     </div>
                 </div>
                 <Typography className="text-center text-dark-60 font-normal py-8">
