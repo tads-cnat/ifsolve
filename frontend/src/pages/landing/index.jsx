@@ -179,9 +179,11 @@ function Hero() {
                                 {item.paragraph}
                             </Typography>
                             <div className="flex flex-row gap-2 mt-12">
-                                <Button color="teal" className="">
-                                    Entrar com suap
-                                </Button>
+                                <Link to="/login">
+                                    <Button color="teal" className="">
+                                        Entrar com suap
+                                    </Button>
+                                </Link>
                                 <LinkScroll to={item.link} spy smooth offset={-90}>
                                     <Button
                                         variant="text"
