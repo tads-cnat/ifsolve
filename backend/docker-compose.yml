@@ -2,9 +2,7 @@ version: "3"
 
 services:
   web:
-    working_dir: /code/
-    build: .
-    # image: diogoodiego/ifsolve-backend-django
+    image: diogoodiego/ifsolve-backend-django
     networks:
       - default
     ports:
@@ -13,26 +11,3 @@ services:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    depends_on:
-      postgresql:
-        condition: service_healthy
-
-  postgresql:
-    image: postgres
-    volumes:
-      - postgres_data:/data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=ifsolve
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5433:5432"
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "postgres" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
-  config:
