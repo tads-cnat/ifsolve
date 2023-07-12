@@ -6,4 +6,4 @@ services:
     ports:
       - "4173:4173"
     environment:
-      - VITE_API_URL=http://20.163.143.250:8000/
+      - VITE_API_URL=https://ifsolveservice.azurewebsites.net/
