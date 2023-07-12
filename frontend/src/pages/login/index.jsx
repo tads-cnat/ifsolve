@@ -63,7 +63,6 @@ export default function Login() {
             <div className="lg:col-span-5 xl:col-span-4 p-8 flex flex-col justify-center bg-white">
                 <div className="flex gap-8 mb-12 ">
                     <img src={IFSolvelogo} className="h-6" alt="" />
-                    <img src={IFRNLogo} className="h-6" alt="" />
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <InputText
@@ -101,8 +100,8 @@ export default function Login() {
                             color="teal"
                             className="flex justify-center items-center gap-4"
                         >
+                            Entrar com
                             <img src={LogoSuap} className="h-6" alt="Logo do suap" />
-                            Entrar com suap
                         </Button>
                     )}
                 </form>
