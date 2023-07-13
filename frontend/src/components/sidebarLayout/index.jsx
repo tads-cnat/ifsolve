@@ -8,7 +8,7 @@ import SidebarItemDefault from '../sidebarItem/default';
 
 export default function SidebarLayout({ children, className }) {
     return (
-        <div className="w-full bg-dark-5 flex flex-row overflow-hidden">
+        <div className="w-full h-screen bg-dark-5 flex flex-row overflow-hidden">
             <SidebarDefault>
                 <SidebarItemDefault
                     label="Avaliações"
@@ -31,7 +31,7 @@ export default function SidebarLayout({ children, className }) {
                 />
             </SidebarDefault>
 
-            <div className="w-full h-screen flex flex-col overflow-y-hidden box-content">
+            <div className="w-full min-h-screen flex flex-col overflow-y-hidden box-content">
                 <Navbar />
                 <div className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className}`}>
                     {children}
