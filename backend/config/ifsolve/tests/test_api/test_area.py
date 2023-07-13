@@ -55,6 +55,28 @@ class GetAreaTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data[0]['nome'], self.area.nome)
 
+class GetAreaByIdTest(APITestCase):
+    def setUp(self):
+        self.user_elaborador = User.objects.create_superuser('Teste', 'Teste@snow.com', 'Testepassword')
+        self.elaborador = Elaborador.objects.create(
+            user=self.user_elaborador,
+            verificado=True,
+            nome_completo='Test User',
+            data_nascimento=date.today()
+        )
+        self.token = Token.objects.create(user=self.user_elaborador)
+        self.client.force_authenticate(user=self.user_elaborador)
+        self.area = Area.objects.create(
+            nome="areaTeste",
+            codigo="12345",
+            descricao="Area criada para teste."
+        )
+
+    def test_get_area_by_id(self):
+        response = self.client.get(BASE_URL + f'/area/{self.area.id}/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]['nome'], self.area.nome)
+
 class UpdateAreaTest(APITestCase):
     def setUp(self):
         self.user_elaborador = User.objects.create_superuser('Teste', 'Teste@snow.com', 'Testepassword')
@@ -81,6 +103,31 @@ class UpdateAreaTest(APITestCase):
         response = self.client.put(BASE_URL + f'/area/{self.area.id}/', self.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['nome'], self.data["nome"])
+
+class UpdateFieldAreaTest(APITestCase):
+    def setUp(self):
+        self.user_elaborador = User.objects.create_superuser('Teste', 'Teste@snow.com', 'Testepassword')
+        self.elaborador = Elaborador.objects.create(
+            user=self.user_elaborador,
+            verificado=True,
+            nome_completo='Test User',
+            data_nascimento=date.today()
+        )
+        self.token = Token.objects.create(user=self.user_elaborador)
+        self.client.force_authenticate(user=self.user_elaborador)
+        self.area = Area.objects.create(
+            nome="areaTeste",
+            codigo="12345",
+            descricao="Area criada para teste."
+        )
+        self.data = {
+            "descricao": "campo de Area editado para teste."
+        }
+
+    def test_update_field_area(self):
+        response = self.client.patch(BASE_URL + f'/area/{self.area.id}/', self.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['descricao'], self.data["descricao"])
 
 class DeleteAreaTest(APITestCase):
     def setUp(self):
