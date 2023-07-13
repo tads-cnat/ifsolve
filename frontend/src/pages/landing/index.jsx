@@ -148,7 +148,7 @@ function Hero() {
         },
         {
             image: carouselImage2,
-            header: 'Resolva suas atitivades acadêmicas',
+            header: 'Resolva suas atividades acadêmicas',
             paragraph: 'Ajudamos você a estudar para atividades',
             link: 'aluno',
         },

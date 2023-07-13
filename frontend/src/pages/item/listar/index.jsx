@@ -60,7 +60,7 @@ export default function ItemListar() {
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}
-                placeholder="Pesquisar questões por título ou assunto"
+                placeholder="Pesquisar questões por título ou palavras-chave"
             />
 
             <div className="flex flex-row">
