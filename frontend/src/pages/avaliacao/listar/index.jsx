@@ -72,7 +72,7 @@ export default function AvaliacaoListar() {
             <SearchInput
                 get={searchTerm}
                 set={setSearchTerm}
-                placeholder="Pesquisar avaliações por título ou descrição"
+                placeholder="Pesquisar avaliações por título ou palavras-chave"
             />
             <div className="flex flex-row">
                 <select
