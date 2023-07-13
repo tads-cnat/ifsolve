@@ -1,14 +1,20 @@
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { FiHome, FiList, FiUser } from 'react-icons/fi';
+import { FiCheckSquare, FiFile, FiFileText, FiHome, FiList, FiUser } from 'react-icons/fi';
 import Navbar from '../navbar';
 import SidebarMobile from '../sidebar/mobile';
 import SidebarItemMobile from '../sidebarItem/mobile';
 import SidebarDefault from '../sidebar/default';
 import SidebarItemDefault from '../sidebarItem/default';
+import IFSolvelogo from '../../images/IFSolve-logo.svg';
+import { GlobalContext } from '../../providers/context';
 
 export default function SidebarLayout({ children, className }) {
+    const { getUser } = useContext(GlobalContext);
+
     return (
-        <div className="w-full h-screen bg-dark-5 flex flex-row overflow-hidden">
+        <div className="w-full min-h-screen bg-dark-5 flex flex-row overflow-hidden">
             <SidebarDefault>
                 <SidebarItemDefault
                     label="Avaliações"
@@ -31,21 +37,29 @@ export default function SidebarLayout({ children, className }) {
                 />
             </SidebarDefault>
 
-            <div className="w-full min-h-screen flex flex-col overflow-y-hidden box-content">
+            <div className="w-full flex flex-col overflow-y-hidden box-content">
                 <Navbar />
                 <div className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className}`}>
+                    <div className="flex md:hidden flex-row justify-between items-center mb-8">
+                        <img src={IFSolvelogo} alt="" className="h-6" />
+                        <Link to="/perfil">
+                            <div className="h-12 w-12 bg-teal-700 text-white font-bold flex justify-center items-center rounded-full">
+                                {Array.from(getUser.extra_data.nome_completo)[0]}
+                            </div>
+                        </Link>
+                    </div>
                     {children}
                 </div>
                 <SidebarMobile>
                     <SidebarItemMobile
                         label="Avaliações"
-                        icon={<FiHome />}
+                        icon={<FiFileText />}
                         itemKey="avaliacoes"
                         link="/avaliacao"
                     />
                     <SidebarItemMobile
                         label="Questões"
-                        icon={<FiList />}
+                        icon={<FiCheckSquare />}
                         itemKey="questoes"
                         link="/item"
                     />

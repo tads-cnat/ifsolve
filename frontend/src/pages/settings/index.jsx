@@ -20,7 +20,7 @@ export default function Settings() {
     }
 
     return (
-        <SidebarLayout>
+        <SidebarLayout className="flex flex-col gap-4">
             <div className="md:container py-5">
                 <h1 className="text-xl font-bold text-dark-100 mb-5">Configurações</h1>
 
