@@ -52,7 +52,7 @@ export default function AvaliacaoResponder(props) {
         e.preventDefault();
         AnswerAvaliacao(respostas).then((res) => {
             console.log(res);
-            navigate(`/avaliacao/${avaliacao.avaliacao.id}/aluno/respostas`);
+            navigate(`/avaliacao/${avaliacao.avaliacao.id}/respostas`);
         });
         // alert(JSON.stringify(respostas, null, 2));
     }
