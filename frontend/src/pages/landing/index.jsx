@@ -173,7 +173,7 @@ function Hero() {
                         <div className="w-11/12 md:w-10/12 xl:w-4/6 h-full mx-auto flex flex-col items-center justify-center text-white gap-4">
                             <Typography
                                 variant="h1"
-                                className="w-full text-center text-3xl md:text-4xl font-arvo"
+                                className="w-full text-center text-6xl md:text-7xl font-marck"
                             >
                                 {item.header}
                             </Typography>

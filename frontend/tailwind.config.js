@@ -7,7 +7,7 @@ module.exports = withMT({
     theme: {
         extend: {
             fontFamily: {
-                arvo: ['Arvo', 'ui-sans-serif'],
+                marck: ['Marck Script', 'ui-sans-serif'],
             },
             colors: {
                 transparent: 'transparent',
