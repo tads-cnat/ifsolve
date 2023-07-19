@@ -6,6 +6,9 @@ module.exports = withMT({
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                arvo: ['Arvo', 'ui-sans-serif'],
+            },
             colors: {
                 transparent: 'transparent',
                 white: '#FFFFFF',

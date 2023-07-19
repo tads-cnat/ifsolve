@@ -1,7 +1,8 @@
 import { useFormik } from 'formik';
+import { Button, Typography } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
-import { FiArrowLeft, FiInbox, FiPlus, FiSearch } from 'react-icons/fi';
+import { FiArrowLeft, FiInbox, FiPlus, FiSearch, FiTrash } from 'react-icons/fi';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
@@ -237,7 +238,7 @@ export default function CreateAvaliacao() {
                                 <FiInbox className="text-4xl" />
                                 <p>Desculpe, nenhuma questão foi encontrada.</p>
                                 <Link
-                                    to="/criar/item"
+                                    to="/elaborar/item/"
                                     className="flex flex-row items-center gap-2 bg-primary-100 px-4 py-2 rounded-lg text-sm"
                                 >
                                     <FiPlus /> Nova questão
@@ -251,10 +252,21 @@ export default function CreateAvaliacao() {
                     ? getItemAvaliacao.map((item) => (
                           <div
                               key={item.id}
-                              className="container flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-4"
+                              className="container flex flex-col bg-white mx-auto px-8 py-8 rounded-lg gap-2 justify-start items-start"
                               style={{ maxWidth: '720px' }}
                           >
-                              <h2>{item.titulo}</h2>
+                              <Typography variant="text">{item.assunto}</Typography>
+                              <Typography variant="h5">{item.titulo}</Typography>
+
+                              <Button
+                                  onClick={() => AddItemAvaliacao(item, item.id)}
+                                  variant="outlined"
+                                  color="red"
+                                  className="flex items-center gap-3 mt-4"
+                              >
+                                  <FiTrash />
+                                  Remover
+                              </Button>
                           </div>
                       ))
                     : null}
@@ -284,7 +296,6 @@ function CardItem({ item, onClick }) {
         <div
             to={`/item/${item.id}/responder`}
             className="bg-dark-5 px-4 py-2 rounded-lg"
-            onClick={onClick}
             role="presentation"
         >
             <small className="text-sm">{item.assunto}</small>
@@ -301,6 +312,15 @@ function CardItem({ item, onClick }) {
                         </span>
                     ))}
             </div>
+            <Button
+                onClick={onClick}
+                variant="outlined"
+                color="teal"
+                className="flex items-center gap-3 mt-4"
+            >
+                <FiPlus />
+                Adicionar
+            </Button>
         </div>
     );
 }

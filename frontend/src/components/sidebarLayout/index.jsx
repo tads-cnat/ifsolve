@@ -18,13 +18,13 @@ export default function SidebarLayout({ children, className }) {
             <SidebarDefault>
                 <SidebarItemDefault
                     label="Avaliações"
-                    icon={<FiHome />}
+                    icon={<FiFileText />}
                     itemKey="avaliacoes"
                     link="/avaliacao"
                 />
                 <SidebarItemDefault
                     label="Questões"
-                    icon={<FiList />}
+                    icon={<FiCheckSquare />}
                     itemKey="questoes"
                     link="/item"
                 />

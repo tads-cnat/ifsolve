@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { FiCheckSquare, FiAlignLeft } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@material-tailwind/react';
+import { FiCheckSquare, FiAlignLeft, FiEye } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../../providers/context';
 
 export default function CardItem({ data }) {
@@ -56,7 +57,14 @@ export default function CardItem({ data }) {
                         Minhas respostas
                     </button>
                 </div>
-            ) : null}
+            ) : (
+                <Link to={`/item/${id}/visualizar/`}>
+                    <Button variant="outlined" color="orange" className="flex items-center gap-3 ">
+                        <FiEye />
+                        Visualizar
+                    </Button>
+                </Link>
+            )}
         </div>
     );
 }

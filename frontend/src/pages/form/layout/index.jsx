@@ -1,5 +1,6 @@
 /* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
+import { Button } from '@material-tailwind/react';
 import { FiArrowRight, FiCheck, FiArrowLeft } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -43,11 +44,10 @@ export default function FormLayout() {
                             </span>
                         </li>
                     </ul>
-                    <Link
-                        to="/elaborar/avaliacao/"
-                        className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
-                    >
-                        Criar Avaliação
+                    <Link to="/elaborar/avaliacao/">
+                        <Button color="teal" className="w-full mt-4">
+                            Criar Avaliação
+                        </Button>
                     </Link>
                 </div>
 
@@ -65,20 +65,11 @@ export default function FormLayout() {
                                 Adicionar diferentes tipos de questões
                             </span>
                         </li>
-                        <li className="flex gap-2 items-center">
-                            <span className="p-1 bg-emerald-100 rounded-full">
-                                <FiCheck className="text-sm stroke-2 text-emerald-600" />
-                            </span>
-                            <span className="font-normal text-dark-60 ">
-                                Definir o tempo prazo para a realização da avaliação
-                            </span>
-                        </li>
                     </ul>
-                    <Link
-                        to="/elaborar/item/"
-                        className="flex justify-center w-full text-white font-semibold px-6 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 focus:outline focus:outline-4 focus:outline-emerald-700"
-                    >
-                        Criar Questão
+                    <Link to="/elaborar/item/">
+                        <Button color="teal" className="w-full mt-4">
+                            Criar Questão
+                        </Button>
                     </Link>
                 </div>
 

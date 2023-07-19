@@ -89,20 +89,31 @@ def create_admin_user():
 
 def create_elaborador():
     user = User(
-        username='elaborador',
-        email='elaborador@example.com'
+        username='marcelo',
+        email='marcelo@ifsolve.com'
     )
     user.set_password('elaborador')
     user.save()
     elaborador = Elaborador(
         user=user,
-        nome_completo='Elaborador da Silva',
+        nome_completo='Marcelo Romulo Fernandes',
         data_nascimento='2000-06-01',
         verificado=True
     )
     elaborador.save()
 
+    return elaborador
 
+def create_area(codigo, nome, descricao):
+    """ Creating area number st_number"""
+    logging.warning("Creating area")
+
+    area = Area(codigo=codigo, nome=nome, descricao=descricao)
+
+    area.save()
+
+    logging.warning("area created.")
+    return area
 
 def run_seed(self, mode):
     """ Seed database based on mode
@@ -120,4 +131,90 @@ def run_seed(self, mode):
     create_admin_user()
 
     logging.warning('Creating elaborador')
-    create_elaborador()
+    elaborador1 = create_elaborador()
+
+    logging.warning('Creating areas')
+    area1 = create_area('1.00.00.00-3','Ciências Exatas e da Terra','Ciências Exatas e da Terra')
+    create_area('1.01.00.00-8', 'Matemática','Matemática')
+
+    logging.warning('Creating itens')
+    item1 = Item()
+    item1.elaborador = elaborador1
+    item1.tipo = 'ME'
+    item1.visibilidade = 'PU'
+    item1.assunto = 'Álgebra Linear'
+    item1.titulo = 'Sistemas de Equações Lineares'
+    item1.enunciado = 'Qual é a solução do seguinte sistema de equações lineares? 2x + 3y = 7 e 4x - 2y = 2'
+    item1.alternativa_correta = 'b'
+    item1.data_publicacao = '2023-07-17T06:18:27.679Z'
+    item1.area = area1
+
+    item1_alternativa_a = Alternativa(texto='x = 2 e y = 1', justificativa='x = 2 e y = 1')
+    item1_alternativa_a.save()
+    item1.alternativa_a = item1_alternativa_a
+
+    item1_alternativa_b = Alternativa(texto='x = 1 e y = 2', justificativa='x = 1 e y = 2')
+    item1_alternativa_b.save()
+    item1.alternativa_b = item1_alternativa_b
+
+    item1_alternativa_c = Alternativa(texto='x = -1 e y = 2', justificativa='x = -1 e y = 2')
+    item1_alternativa_c.save()
+    item1.alternativa_c = item1_alternativa_c
+
+    item1_alternativa_d = Alternativa(texto='x = 3 e y = 1', justificativa='x = 3 e y = 1')
+    item1_alternativa_d.save()
+    item1.alternativa_d = item1_alternativa_d
+
+    item1_alternativa_e = Alternativa(texto='x = 1 e y = -2', justificativa='x = 1 e y = -2')
+    item1_alternativa_e.save()
+    item1.alternativa_e = item1_alternativa_e
+
+    item1.save()
+
+
+    item2 = Item()
+    item2.elaborador = elaborador1
+    item2.tipo = 'ME'
+    item2.visibilidade = 'PU'
+    item2.assunto = 'Trigonometria'
+    item2.titulo = 'Identidades Trigonométricas'
+    item2.enunciado = 'Qual é a identidade trigonométrica correta para o seno ao quadrado?'
+    item2.alternativa_correta = 'd'
+    item2.data_publicacao = '2023-07-17T06:18:27.679Z'
+    item2.area = area1
+
+    item2_alternativa_a = Alternativa(texto='cos^2θ = 1 - sen^2θ', justificativa='cos^2θ = 1 - sen^2θ')
+    item2_alternativa_a.save()
+    item2.alternativa_a = item2_alternativa_a
+
+    item2_alternativa_b = Alternativa(texto='secθ = 1/cosθ', justificativa='secθ = 1/cosθ')
+    item2_alternativa_b.save()
+    item2.alternativa_b = item2_alternativa_b
+
+    item2_alternativa_c = Alternativa(texto='tanθ = senθ/cosθ', justificativa='tanθ = senθ/cosθ')
+    item2_alternativa_c.save()
+    item2.alternativa_c = item2_alternativa_c
+
+    item2_alternativa_d = Alternativa(texto='1 - cos^2θ = sen^2θ', justificativa='1 - cos^2θ = sen^2θ')
+    item2_alternativa_d.save()
+    item2.alternativa_d = item2_alternativa_d
+
+    item2_alternativa_e = Alternativa(texto='cotθ = cosθ/senθ', justificativa='cotθ = cosθ/senθ')
+    item2_alternativa_e.save()
+    item2.alternativa_e = item2_alternativa_e
+
+    item2.save()
+
+
+    item3 = Item()
+    item3.elaborador = elaborador1
+    item3.tipo = 'DI'
+    item3.visibilidade = 'PU'
+    item3.assunto = 'Geometria'
+    item3.titulo = 'Áreas de Figuras Planas'
+    item3.enunciado = 'Qual é a área de um triângulo com base de 8 metros e altura de 5 metros?'
+    item3.expectativa_resposta = '20 metros quadrados'
+    item3.data_publicacao = '2023-07-17T06:18:27.679Z'
+    item3.area = area1
+
+    item3.save()
