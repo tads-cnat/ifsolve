@@ -39,7 +39,9 @@ export default function SidebarLayout({ children, className }) {
 
             <div className="w-full flex flex-col overflow-y-hidden box-content">
                 <Navbar />
-                <div className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className}`}>
+                <div
+                    className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className} mb-64 md:mb-0`}
+                >
                     <div className="flex md:hidden flex-row justify-between items-center mb-8">
                         <img src={IFSolvelogo} alt="" className="h-6" />
                         <Link to="/perfil">
