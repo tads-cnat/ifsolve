@@ -14,7 +14,7 @@ export default function SidebarLayout({ children, className }) {
     const { getUser } = useContext(GlobalContext);
 
     return (
-        <div className="w-full min-h-screen bg-dark-5 flex flex-row overflow-hidden">
+        <div className="w-full h-screen bg-dark-5 flex flex-row overflow-hidden">
             <SidebarDefault>
                 <SidebarItemDefault
                     label="Avaliações"
@@ -42,7 +42,7 @@ export default function SidebarLayout({ children, className }) {
                 <div
                     className={`flex h-full overflow-y-auto px-4 md:px-8 py-4 ${className} mb-64 md:mb-0`}
                 >
-                    <div className="flex md:hidden flex-row justify-between items-center mb-8">
+                    <div className="flex md:hidden flex-row justify-between items-center mb-8 overflow-y-auto">
                         <img src={IFSolvelogo} alt="" className="h-6" />
                         <Link to="/perfil">
                             <div className="h-12 w-12 bg-teal-700 text-white font-bold flex justify-center items-center rounded-full">
