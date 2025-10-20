@@ -102,7 +102,7 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 <br>
 
 #### O IFSolve não faz:
-• Compensa, financeiramente, o criador de um item; <br>
+• Compensa, financeiramente, o criador de uma questão; <br>
 • Competições em tempo real.
 <br>
 
@@ -110,10 +110,10 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 
 | Código              | Casos de uso        |  Prioridade alta    | Prioridade média    | Prioridade baixa    | Status    |
 | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: | :-----------------: |
-|         CP01        | Elaborar item       |           x         |                     |                     | Feito |
-|         CP02        | Visualizar item     |           x         |                     |                     | Feito |
-|         CP03        | Responder item      |           x         |                     |                     | Feito |
-|         CP04        | Visualizar respostas de um item |    x    |                     |                     | Feito |
+|         CP01        | Elaborar questão       |           x         |                     |                     | Feito |
+|         CP02        | Visualizar questão     |           x         |                     |                     | Feito |
+|         CP03        | Responder questão      |           x         |                     |                     | Feito |
+|         CP04        | Visualizar respostas de um questão |    x    |                     |                     | Feito |
 |         CP05        | Realizar login      |           x         |                     |                     | Feito |
 |         CP06        | Realizar logout     |           x         |                     |                     | Feito |
 |         CP07        | Elaborar avaliação    |                   |           x         |                     | Feito |
@@ -132,10 +132,10 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 |  F02                |  Realização do auto cadastro (elaborador) | Auto cadastro no sistema via e-mail e senha ou via Google, aplicando-se a elaboradores que passarão por uma análise de comprovação de sua qualificação. |
 |  F03                |  Inicialização da sessão | Autentica o usuário através da validação do e-mail e senha ou do login via Google, permitindo acesso ao sistema. |
 |  F04                |  Finalização da sessão | Desconecta o usuário do sistema, impedindo qualquer outra ação dentro da plataforma. |
-|  F05                |  Elaboração de item (Elaborador) | Um elaborador submete um item para o sistema. |
-|  F06                |  Exclusão de item (administrador) | Um administrador pode excluir um item do sistema que ainda não foi inserido em uma avaliação. |
-|  F07                |  Atualização de item (elaborador autor) | Os dados de um item podem ser alterados por seu elaborador autor. |
-|  F08                |  Listagem de item (elaborador autor) | Lista todos os itens submetidos por um determinado elaborador. |
+|  F05                |  Elaboração de questão (Elaborador) | Um elaborador submete uma questão para o sistema. |
+|  F06                |  Exclusão de questão (administrador) | Um administrador pode excluir uma questão do sistema que ainda não foi inserido em uma avaliação. |
+|  F07                |  Atualização de questão (elaborador autor) | Os dados de uma questão podem ser alterados por seu elaborador autor. |
+|  F08                |  Listagem de questão (elaborador autor) | Lista todos os itens submetidos por um determinado elaborador. |
 |  F09                |  Elaboração de avaliação (elaborador) | Um elaborador seleciona um conjunto de itens da plataforma e  uma nova avaliação no sistema, configurando seu nível de acesso inicial. |
 |  F10                |  Exclusão de avaliação (elaborador autor) | Um elaborador apaga de forma definitiva uma avaliação do sistema. |
 |  F11                |  Atualização de avaliação (elaborador autor) | Os dados de uma avaliação podem ser alterados por seu elaborador autor, desde que a avaliação não tenha sido aplicada. |
@@ -144,8 +144,8 @@ Uma plataforma, de cunho educativo, que visa atingir alunos e professores para a
 |  F14                |  Realização de avaliação | Um aluno inicia uma avaliação disponível (dentro do prazo) e que está vinculada a ele. <br> Avaliações do tipo simulado não possuem prazo. |
 |  F15                |  Listagem de resultado de uma avaliação (elaborador autor) | Lista todas as respostas de cada aluno em uma avaliação. |
 |  F16                |  Cadastro de resultado em uma avaliação (elaborador autor) | Um elaborador pode gerar um retorno (nota, mensagem etc.) sobre a avaliação de um usuário. |
-|  F17                |  Cadastro de resultado em um item (elaborador autor) | Um elaborador pode gerar um retorno para cada item de uma avaliação pertencente a um aluno. |
-|  F18                |  Listagem de resultado (aluno) | Um aluno pode verificar o(s) resultados(s) dado(s) por um elaborador em uma avaliação ou item específicos que esse discente realizou. |
+|  F17                |  Cadastro de resultado em um questão (elaborador autor) | Um elaborador pode gerar um retorno para cada questão de uma avaliação pertencente a um aluno. |
+|  F18                |  Listagem de resultado (aluno) | Um aluno pode verificar o(s) resultados(s) dado(s) por um elaborador em uma avaliação ou questão específicos que esse discente realizou. |
 
 ## 11. Requisitos não-funcionais
 
